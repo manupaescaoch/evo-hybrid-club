@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import { sanitizeFilenamePdf } from "../pdf-filename";
 import {
   NUTRICIONISTA,
   ORIENTACOES_GERAIS,

@@ -168,7 +168,7 @@ function DashboardPage() {
         pdf.addImage(imgData, "PNG", 0, position, imgW, imgH);
         heightLeft -= pageH;
       }
-      pdf.save(`dashboard-financeiro-${MES_LABELS[mes]}-${ano}.pdf`);
+      pdf.save(sanitizeFilenamePdf(`dashboard-financeiro-${MES_LABELS[mes]}-${ano}.pdf`));
     } catch (e) {
       console.error("Erro ao exportar PDF:", e);
       alert("Não foi possível gerar o PDF. Tente novamente.");

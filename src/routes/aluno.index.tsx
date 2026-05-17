@@ -113,10 +113,6 @@ function AlunoInicio() {
     setAguaOptimistic(null);
   }, [aguaMlServer]);
   const aguaMl = aguaOptimistic ?? aguaMlServer;
-  const atividadesHoje: Array<{ tipo: string; concluido: boolean }> =
-    (data as any)?.atividades_hoje ?? [];
-  const cardioDone = atividadesHoje.some((a) => a.tipo === "cardio" && a.concluido);
-  const treinoDone = atividadesHoje.some((a) => a.tipo === "treino" && a.concluido);
   const refeicoesFeitas = ((data as any)?.refeicoes_hoje ?? []).length as number;
   const refeicoesHojeIds: string[] = ((data as any)?.refeicoes_hoje ?? [])
     .map((r: any) => r?.refeicao_id)
@@ -136,12 +132,6 @@ function AlunoInicio() {
     fnRegistrarAgua({ data: { ml: realDelta } })
       .then(() => triggerAlunoDashboardRefetch())
       .catch(() => setAguaOptimistic(null));
-  };
-  const marcarAtividade = async (tipo: "cardio" | "treino", concluido: boolean) => {
-    if (!session?.id) return;
-    await fnToggleAtividade({ data: { tipo, concluido } });
-    if (concluido) showScore(tipo === "cardio" ? 15 : 20);
-    triggerAlunoDashboardRefetch();
   };
 
   useEffect(() => {

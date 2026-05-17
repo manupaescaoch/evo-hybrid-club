@@ -15,6 +15,10 @@ import {
   Clock,
   MapPin,
   HeartPulse,
+  Target,
+  Play,
+  BarChart3,
+  Footprints as Shoe,
 } from "lucide-react";
 import { useAlunoSession } from "@/lib/aluno-session";
 import { useAlunoDashboard, triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";

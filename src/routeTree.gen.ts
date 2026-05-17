@@ -13,6 +13,7 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as FeedbackQuinzenalRouteImport } from './routes/feedback-quinzenal'
 import { Route as FeedbackMensalRouteImport } from './routes/feedback-mensal'
+import { Route as EquipeLoginRouteImport } from './routes/equipe-login'
 import { Route as AnamneseRouteImport } from './routes/anamnese'
 import { Route as AlunoRouteImport } from './routes/aluno'
 import { Route as AppRouteImport } from './routes/_app'
@@ -89,6 +90,11 @@ const FeedbackQuinzenalRoute = FeedbackQuinzenalRouteImport.update({
 const FeedbackMensalRoute = FeedbackMensalRouteImport.update({
   id: '/feedback-mensal',
   path: '/feedback-mensal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquipeLoginRoute = EquipeLoginRouteImport.update({
+  id: '/equipe-login',
+  path: '/equipe-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnamneseRoute = AnamneseRouteImport.update({
@@ -397,6 +403,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aluno': typeof AlunoRouteWithChildren
   '/anamnese': typeof AnamneseRoute
+  '/equipe-login': typeof EquipeLoginRoute
   '/feedback-mensal': typeof FeedbackMensalRoute
   '/feedback-quinzenal': typeof FeedbackQuinzenalRoute
   '/login': typeof LoginRoute
@@ -458,6 +465,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/anamnese': typeof AnamneseRoute
+  '/equipe-login': typeof EquipeLoginRoute
   '/feedback-mensal': typeof FeedbackMensalRoute
   '/feedback-quinzenal': typeof FeedbackQuinzenalRoute
   '/login': typeof LoginRoute
@@ -519,6 +527,7 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/aluno': typeof AlunoRouteWithChildren
   '/anamnese': typeof AnamneseRoute
+  '/equipe-login': typeof EquipeLoginRoute
   '/feedback-mensal': typeof FeedbackMensalRoute
   '/feedback-quinzenal': typeof FeedbackQuinzenalRoute
   '/login': typeof LoginRoute
@@ -583,6 +592,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aluno'
     | '/anamnese'
+    | '/equipe-login'
     | '/feedback-mensal'
     | '/feedback-quinzenal'
     | '/login'
@@ -644,6 +654,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/anamnese'
+    | '/equipe-login'
     | '/feedback-mensal'
     | '/feedback-quinzenal'
     | '/login'
@@ -704,6 +715,7 @@ export interface FileRouteTypes {
     | '/_app'
     | '/aluno'
     | '/anamnese'
+    | '/equipe-login'
     | '/feedback-mensal'
     | '/feedback-quinzenal'
     | '/login'
@@ -768,6 +780,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   AlunoRoute: typeof AlunoRouteWithChildren
   AnamneseRoute: typeof AnamneseRoute
+  EquipeLoginRoute: typeof EquipeLoginRoute
   FeedbackMensalRoute: typeof FeedbackMensalRoute
   FeedbackQuinzenalRoute: typeof FeedbackQuinzenalRoute
   LoginRoute: typeof LoginRoute
@@ -812,6 +825,13 @@ declare module '@tanstack/react-router' {
       path: '/feedback-mensal'
       fullPath: '/feedback-mensal'
       preLoaderRoute: typeof FeedbackMensalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipe-login': {
+      id: '/equipe-login'
+      path: '/equipe-login'
+      fullPath: '/equipe-login'
+      preLoaderRoute: typeof EquipeLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/anamnese': {
@@ -1361,6 +1381,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   AlunoRoute: AlunoRouteWithChildren,
   AnamneseRoute: AnamneseRoute,
+  EquipeLoginRoute: EquipeLoginRoute,
   FeedbackMensalRoute: FeedbackMensalRoute,
   FeedbackQuinzenalRoute: FeedbackQuinzenalRoute,
   LoginRoute: LoginRoute,

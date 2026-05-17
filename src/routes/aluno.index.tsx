@@ -289,18 +289,6 @@ function AlunoInicio() {
               <span className="font-semibold">Z2–Z3</span>
             </span>
           </div>
-          <div className="mt-3 flex items-center justify-between text-[11px]">
-            <span className="text-black/55 font-medium">Progresso</span>
-            <span className="text-black font-extrabold tabular-nums">65%</span>
-          </div>
-          <div className="mt-1 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "65%" }}
-              transition={{ duration: 0.9, ease: "easeOut" }}
-              className="h-full rounded-full bg-black"
-            />
-          </div>
         </Link>
       </motion.section>
 

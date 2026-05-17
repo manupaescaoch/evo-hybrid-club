@@ -45,7 +45,7 @@ export function BibliotecaListLayout({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
         <div className="flex items-start gap-3 min-w-0">
-          <div className="hidden sm:grid w-11 h-11 place-items-center rounded-xl bg-rose-50 text-rose-600 shrink-0">
+          <div className="hidden sm:grid w-11 h-11 place-items-center rounded-xl bg-blue-50 text-blue-600 shrink-0">
             <Icon className="w-5 h-5" />
           </div>
           <div className="min-w-0">
@@ -74,7 +74,7 @@ export function BibliotecaListLayout({
 
       {/* Search + filters */}
       <div className="space-y-3">
-        <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-border bg-card focus-within:ring-2 focus-within:ring-rose-100 focus-within:border-rose-300 transition">
+        <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-border bg-card focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-300 transition">
           <Search className="w-4 h-4 text-muted-foreground" />
           <input
             type="text"
@@ -90,7 +90,7 @@ export function BibliotecaListLayout({
       {/* Body */}
       {isEmpty ? (
         <div className="flex flex-col items-center justify-center text-center py-16 px-6 rounded-2xl border border-dashed border-border bg-muted/20">
-          <div className="w-14 h-14 grid place-items-center rounded-2xl bg-rose-50 text-rose-500 mb-4">
+          <div className="w-14 h-14 grid place-items-center rounded-2xl bg-blue-50 text-blue-500 mb-4">
             <Icon className="w-6 h-6" />
           </div>
           <p className="text-sm text-foreground font-medium max-w-sm">{emptyHint}</p>

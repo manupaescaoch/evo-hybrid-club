@@ -86,7 +86,7 @@ export function TemplateModal({
                     </div>
                   </button>
                   {canEdit && (
-                    <button onClick={() => remover(t.id)} className="p-1.5 rounded hover:bg-rose-50 text-muted-foreground hover:text-rose-600 opacity-0 group-hover:opacity-100">
+                    <button onClick={() => remover(t.id)} className="p-1.5 rounded hover:bg-blue-50 text-muted-foreground hover:text-blue-600 opacity-0 group-hover:opacity-100">
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   )}
@@ -102,7 +102,7 @@ export function TemplateModal({
               value={novoNome}
               onChange={(e) => setNovoNome(e.target.value)}
               placeholder="Salvar plano atual como template…"
-              className="flex-1 px-2.5 py-1.5 rounded-lg border border-border bg-background text-sm outline-none focus:border-rose-300"
+              className="flex-1 px-2.5 py-1.5 rounded-lg border border-border bg-background text-sm outline-none focus:border-blue-300"
             />
             <button
               onClick={salvar}

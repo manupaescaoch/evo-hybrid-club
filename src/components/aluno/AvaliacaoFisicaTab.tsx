@@ -163,7 +163,7 @@ export function AvaliacaoFisicaTab({ alunoId }: { alunoId: string }) {
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <button
-                            className="inline-flex items-center gap-0.5 rounded-md p-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30"
+                            className="inline-flex items-center gap-0.5 rounded-md p-1.5 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/30"
                             aria-label="Ações"
                           >
                             <MenuIcon className="h-4 w-4" />
@@ -185,7 +185,7 @@ export function AvaliacaoFisicaTab({ alunoId }: { alunoId: string }) {
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
-                            className="text-rose-600 focus:text-rose-600"
+                            className="text-blue-600 focus:text-blue-600"
                             onClick={() => handleRemover(r.id)}
                           >
                             <Trash2 className="h-3.5 w-3.5 mr-2" /> Remover

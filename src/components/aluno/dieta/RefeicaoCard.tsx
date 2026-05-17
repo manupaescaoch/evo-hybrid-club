@@ -126,7 +126,7 @@ export function RefeicaoCard({
                 if (e.key === "Escape") { e.preventDefault(); cancelHeader(); }
               }}
               placeholder="Nome da refeição"
-              className="text-[14px] font-semibold tracking-tight text-slate-900 px-2 py-1 rounded-md border border-slate-200 bg-white outline-none focus:border-rose-300 focus:ring-2 focus:ring-rose-500/10"
+              className="text-[14px] font-semibold tracking-tight text-slate-900 px-2 py-1 rounded-md border border-slate-200 bg-white outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-500/10"
             />
             <input
               type="time"
@@ -136,7 +136,7 @@ export function RefeicaoCard({
                 if (e.key === "Enter") { e.preventDefault(); saveHeader(); }
                 if (e.key === "Escape") { e.preventDefault(); cancelHeader(); }
               }}
-              className="text-[12px] tabular-nums px-2 py-1 rounded-md border border-slate-200 bg-white outline-none focus:border-rose-300 focus:ring-2 focus:ring-rose-500/10"
+              className="text-[12px] tabular-nums px-2 py-1 rounded-md border border-slate-200 bg-white outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-500/10"
             />
             <button
               onClick={saveHeader}
@@ -216,7 +216,7 @@ export function RefeicaoCard({
               <button
                 onClick={() => setIaMenu((v) => !v)}
                 disabled={busyIA || isLivre}
-                className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] text-rose-600 hover:bg-rose-50 disabled:opacity-50 transition"
+                className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] text-blue-600 hover:bg-blue-50 disabled:opacity-50 transition"
               >
                 {busyIA ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
                 IA
@@ -266,7 +266,7 @@ export function RefeicaoCard({
                 disabled={!canEdit}
                 rows={Math.max(8, Math.min(24, conteudoLivre.split("\n").length + 2))}
                 placeholder={`Opção 1:\nCuscuz de milho cozido — 50g\nOvo de galinha cozido — 2 unidades (100g)\nTotal: 304 kcal | 23.9g P / 32.7g C / 8.6g G\n\nOpção 2:\n…`}
-                className="w-full text-[13px] leading-relaxed font-mono p-3 rounded-lg border border-slate-200 bg-white outline-none focus:border-rose-300 focus:ring-2 focus:ring-rose-500/10 transition resize-y"
+                className="w-full text-[13px] leading-relaxed font-mono p-3 rounded-lg border border-slate-200 bg-white outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-500/10 transition resize-y"
               />
               <div>
                 <label className="block text-[11px] uppercase tracking-wide text-slate-500 font-semibold mb-1">Observação</label>
@@ -277,7 +277,7 @@ export function RefeicaoCard({
                   disabled={!canEdit}
                   rows={2}
                   placeholder="Observações da refeição (opcional)…"
-                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white outline-none focus:border-rose-300 transition resize-y"
+                  className="w-full text-xs px-3 py-2 rounded-lg border border-slate-200 bg-white outline-none focus:border-blue-300 transition resize-y"
                 />
               </div>
             </div>
@@ -302,7 +302,7 @@ export function RefeicaoCard({
               <button
                 onClick={onCompletarIA}
                 disabled={busyIA}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-rose-600 hover:bg-rose-50 disabled:opacity-50"
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-blue-600 hover:bg-blue-50 disabled:opacity-50"
               >
                 <Sparkles className="w-3 h-3" /> Completar IA
               </button>
@@ -349,7 +349,7 @@ function MenuItem({ label, onClick, tone }: { label: string; onClick: () => void
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted/60 ${tone === "danger" ? "text-rose-600 hover:bg-rose-50" : ""}`}
+      className={`w-full text-left px-3 py-1.5 text-xs hover:bg-muted/60 ${tone === "danger" ? "text-blue-600 hover:bg-blue-50" : ""}`}
     >
       {label}
     </button>
@@ -416,7 +416,7 @@ function ItensDraggable({
             onDrop={(e) => canReorder && handleDrop(e, it.id)}
             className={`flex items-stretch gap-1 transition-all ${
               isDragging ? "opacity-40" : ""
-            } ${isOver ? "bg-rose-50/60 ring-1 ring-rose-200 rounded-lg" : ""}`}
+            } ${isOver ? "bg-blue-50/60 ring-1 ring-blue-200 rounded-lg" : ""}`}
           >
             {canReorder && (
               <div

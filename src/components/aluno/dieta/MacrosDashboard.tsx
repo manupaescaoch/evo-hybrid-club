@@ -25,7 +25,7 @@ export function MacrosDashboard({
 }
 
 const TONE: Record<string, { ring: string; bar: string; text: string }> = {
-  rose:    { ring: "ring-rose-100",    bar: "bg-primary",    text: "text-rose-600" },
+  rose:    { ring: "ring-blue-100",    bar: "bg-primary",    text: "text-blue-600" },
   emerald: { ring: "ring-emerald-100", bar: "bg-emerald-500", text: "text-emerald-600" },
   amber:   { ring: "ring-amber-100",   bar: "bg-amber-500",   text: "text-amber-600" },
   violet:  { ring: "ring-violet-100",  bar: "bg-violet-500",  text: "text-violet-600" },

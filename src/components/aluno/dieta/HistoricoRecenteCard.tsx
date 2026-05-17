@@ -59,7 +59,7 @@ export function HistoricoRecenteCard({ alunoId }: { alunoId: string }) {
           <Clock className="h-4 w-4 text-slate-400" />
           Histórico recente
         </div>
-        <button className="text-xs font-medium text-rose-600 hover:text-rose-700">Ver tudo</button>
+        <button className="text-xs font-medium text-blue-600 hover:text-blue-700">Ver tudo</button>
       </div>
       {eventos.length === 0 ? (
         <p className="text-xs text-muted-foreground py-4 text-center">Nenhum evento registrado</p>

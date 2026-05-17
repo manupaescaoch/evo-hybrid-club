@@ -80,7 +80,7 @@ export function FavoritosModal({
                     </div>
                     <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition shrink-0">
                       <button onClick={() => { setEditId(f.id); setEditName(f.nome); }} className="p-1.5 rounded hover:bg-muted text-muted-foreground"><Pencil className="w-3.5 h-3.5" /></button>
-                      <button onClick={() => handleDelete(f.id)} className="p-1.5 rounded hover:bg-rose-50 text-rose-600"><Trash2 className="w-3.5 h-3.5" /></button>
+                      <button onClick={() => handleDelete(f.id)} className="p-1.5 rounded hover:bg-blue-50 text-blue-600"><Trash2 className="w-3.5 h-3.5" /></button>
                     </div>
                     <button
                       onClick={() => { onPick(f); onClose(); }}

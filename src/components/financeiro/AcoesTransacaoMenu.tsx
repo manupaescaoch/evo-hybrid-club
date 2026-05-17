@@ -51,7 +51,7 @@ export function AcoesTransacaoMenu({ onEdit, onDelete, extraActions }: Props) {
           </button>
           <button
             type="button"
-            className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-red-50 text-left text-red-600"
+            className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-blue-50 text-left text-blue-600"
             onClick={() => { setOpen(false); setConfirm(true); }}
           >
             <Trash2 className="h-3.5 w-3.5" /> Excluir
@@ -71,7 +71,7 @@ export function AcoesTransacaoMenu({ onEdit, onDelete, extraActions }: Props) {
             <AlertDialogCancel disabled={deleting}>Cancelar</AlertDialogCancel>
             <AlertDialogAction
               disabled={deleting}
-              className="bg-red-600 hover:bg-red-700 text-white"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
               onClick={async (e) => {
                 e.preventDefault();
                 setDeleting(true);

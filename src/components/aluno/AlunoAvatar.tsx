@@ -20,7 +20,7 @@ export function AlunoAvatar({
   if (fotoUrl) {
     return (
       <div
-        className={`rounded-full overflow-hidden bg-rose-50 ring-1 ring-rose-100 shrink-0 ${className}`}
+        className={`rounded-full overflow-hidden bg-blue-50 ring-1 ring-blue-100 shrink-0 ${className}`}
       >
         <img src={fotoUrl} alt={nome} className="h-full w-full object-cover" />
       </div>
@@ -28,7 +28,7 @@ export function AlunoAvatar({
   }
   return (
     <div
-      className={`rounded-full bg-gradient-to-br from-rose-50 to-rose-100 ring-1 ring-rose-100 text-rose-700 font-semibold flex items-center justify-center shrink-0 ${className} ${textClassName}`}
+      className={`rounded-full bg-gradient-to-br from-blue-50 to-blue-100 ring-1 ring-blue-100 text-blue-700 font-semibold flex items-center justify-center shrink-0 ${className} ${textClassName}`}
     >
       {ini}
     </div>

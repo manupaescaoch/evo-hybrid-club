@@ -43,7 +43,7 @@ export function RefeicoesActionsBar({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition"
               title="Exportar plano em PDF"
             >
-              <FileDown className="w-3.5 h-3.5 text-rose-600" /> PDF
+              <FileDown className="w-3.5 h-3.5 text-blue-600" /> PDF
             </button>
           )}
           {canEdit && (<>
@@ -58,7 +58,7 @@ export function RefeicoesActionsBar({
               onClick={onAssistenteIA}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition"
             >
-              <Sparkles className="w-3.5 h-3.5 text-rose-600" /> Assistente
+              <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Assistente
             </button>
           )}
           <button
@@ -88,7 +88,7 @@ export function RefeicoesActionsBar({
                 {onApagarPlano && (
                   <button
                     onClick={() => { setOpenMenu(false); onApagarPlano(); }}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-sm text-rose-600 hover:bg-rose-50"
+                    className="w-full flex items-center gap-2 px-3 py-2 text-sm text-blue-600 hover:bg-blue-50"
                   >
                     <Trash2 className="w-4 h-4" /> Apagar plano
                   </button>

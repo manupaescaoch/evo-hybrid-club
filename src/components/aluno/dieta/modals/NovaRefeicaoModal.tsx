@@ -138,7 +138,7 @@ export function NovaRefeicaoModal({
             <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-4">
               <div>
                 <label className="text-xs font-medium text-slate-700">
-                  Horário <span className="text-rose-500">*</span>
+                  Horário <span className="text-blue-500">*</span>
                 </label>
                 <div className="mt-1.5">
                   <TimePicker value={horario} onChange={setHorario} />
@@ -146,14 +146,14 @@ export function NovaRefeicaoModal({
               </div>
               <div>
                 <label className="text-xs font-medium text-slate-700">
-                  Descrição <span className="text-rose-500">*</span>
+                  Descrição <span className="text-blue-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   placeholder="Digite ou selecione"
-                  className="mt-1.5 w-full px-3 py-2.5 rounded-lg border border-slate-200 bg-background text-sm focus:ring-2 focus:ring-rose-100 focus:border-rose-300 outline-none"
+                  className="mt-1.5 w-full px-3 py-2.5 rounded-lg border border-slate-200 bg-background text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-300 outline-none"
                 />
                 <p className="mt-1 text-[11px] text-muted-foreground">
                   É possível digitar a descrição da refeição, caso não ache na lista
@@ -164,7 +164,7 @@ export function NovaRefeicaoModal({
             {/* Alimentos: tabs (Lista de alimentos / Texto livre) */}
             <div>
               <label className="text-xs font-medium text-slate-700">
-                Alimentos <span className="text-rose-500">*</span>
+                Alimentos <span className="text-blue-500">*</span>
               </label>
 
               {/* Tabs */}
@@ -174,7 +174,7 @@ export function NovaRefeicaoModal({
                   onClick={() => setAba("estruturado")}
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition ${
                     aba === "estruturado"
-                      ? "bg-white text-rose-600 shadow-sm"
+                      ? "bg-white text-blue-600 shadow-sm"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
@@ -185,7 +185,7 @@ export function NovaRefeicaoModal({
                   onClick={() => setAba("texto_livre")}
                   className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition ${
                     aba === "texto_livre"
-                      ? "bg-white text-rose-600 shadow-sm"
+                      ? "bg-white text-blue-600 shadow-sm"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
@@ -202,7 +202,7 @@ export function NovaRefeicaoModal({
                         <button
                           type="button"
                           onClick={() => setOpenAddAlimento(true)}
-                          className="text-sm font-semibold text-rose-600 hover:text-rose-700 hover:underline transition"
+                          className="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline transition"
                         >
                           Adicionar alimento
                         </button>
@@ -227,7 +227,7 @@ export function NovaRefeicaoModal({
                               onClick={() =>
                                 setItensEstruturados((prev) => prev.filter((_, i) => i !== idx))
                               }
-                              className="p-1 rounded hover:bg-rose-50 text-muted-foreground hover:text-rose-600"
+                              className="p-1 rounded hover:bg-blue-50 text-muted-foreground hover:text-blue-600"
                               aria-label="Remover"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
@@ -258,7 +258,7 @@ export function NovaRefeicaoModal({
                       <button
                         type="button"
                         onClick={() => setOpenAddAlimento(true)}
-                        className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-sm text-slate-600 hover:bg-slate-50 hover:border-rose-300 hover:text-rose-600 transition"
+                        className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-sm text-slate-600 hover:bg-slate-50 hover:border-blue-300 hover:text-blue-600 transition"
                       >
                         <Plus className="w-3.5 h-3.5" /> Adicionar alimento
                       </button>
@@ -288,7 +288,7 @@ export function NovaRefeicaoModal({
                 onChange={(e) => setObs(e.target.value)}
                 placeholder="Notas opcionais para esta refeição…"
                 rows={3}
-                className="mt-1.5 w-full px-3 py-2.5 rounded-lg border border-slate-200 bg-background text-sm focus:ring-2 focus:ring-rose-100 focus:border-rose-300 outline-none resize-none"
+                className="mt-1.5 w-full px-3 py-2.5 rounded-lg border border-slate-200 bg-background text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-300 outline-none resize-none"
               />
               <p className="mt-1 text-[11px] text-muted-foreground">
                 As observações estarão disponíveis para o paciente no aplicativo do MPTEAM.
@@ -308,7 +308,7 @@ export function NovaRefeicaoModal({
               <button
                 onClick={() => handleSalvar(false)}
                 disabled={!podeSalvar}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-rose-600 text-rose-600 text-sm font-semibold hover:bg-rose-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-blue-600 text-blue-600 text-sm font-semibold hover:bg-blue-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {salvando ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
                 Salvar e Continuar

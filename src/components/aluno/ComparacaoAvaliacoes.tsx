@@ -350,7 +350,7 @@ function Diff({
   let cls = "text-muted-foreground";
   if (melhorMenor !== undefined) {
     const bom = melhorMenor ? d < 0 : d > 0;
-    cls = bom ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400";
+    cls = bom ? "text-emerald-600 dark:text-emerald-400" : "text-blue-600 dark:text-blue-400";
   }
   return <div className={`text-[10px] font-semibold ${cls}`}>{txt}</div>;
 }

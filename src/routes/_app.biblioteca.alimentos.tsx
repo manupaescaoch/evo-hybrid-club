@@ -17,7 +17,7 @@ const SOURCE_STYLES: Record<string, string> = {
   TBCA: "bg-sky-50 text-sky-700 border-sky-200",
   IBGE: "bg-amber-50 text-amber-700 border-amber-200",
   USDA: "bg-violet-50 text-violet-700 border-violet-200",
-  "Meus alimentos": "bg-rose-50 text-rose-700 border-rose-200",
+  "Meus alimentos": "bg-blue-50 text-blue-700 border-blue-200",
 };
 
 type DefaultPortion = { grams: number };

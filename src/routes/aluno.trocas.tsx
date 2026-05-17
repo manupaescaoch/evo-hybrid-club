@@ -64,7 +64,7 @@ function respostaToText(d: RespostaIA): string {
 function MacroPills({ item }: { item: SubItem }) {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
-      <span className="px-2 py-0.5 rounded-full bg-[#FEE2E2] text-[#B91C1C] text-[11px] font-bold">
+      <span className="px-2 py-0.5 rounded-full bg-[#E6ECFF] text-[#0029CC] text-[11px] font-bold">
         {fmt(item.ptn)}g P
       </span>
       <span className="px-2 py-0.5 rounded-full bg-[#FFEDD5] text-[#C2410C] text-[11px] font-bold">
@@ -366,7 +366,7 @@ function AlunoTrocas() {
               ) : respostaData ? (
                 <>
                   {/* Referência */}
-                  <div className="rounded-2xl p-3 bg-[#FEF2F2] ring-1 ring-[#FECACA]">
+                  <div className="rounded-2xl p-3 bg-[#F0F4FF] ring-1 ring-[#D6DEFF]">
                     <div className="text-[10px] font-extrabold tracking-[0.18em] text-black/45">REFERÊNCIA</div>
                     <div className="mt-1 text-[15px] font-bold text-black leading-snug">
                       {respostaData.referencia.descricao}

@@ -133,7 +133,7 @@ function KpiChip({
   const tones: Record<string, string> = {
     emerald: "text-emerald-700 bg-emerald-50 border-emerald-100",
     amber: "text-amber-700 bg-amber-50 border-amber-100",
-    rose: "text-rose-700 bg-rose-50 border-rose-100",
+    rose: "text-blue-700 bg-blue-50 border-blue-100",
     sky: "text-sky-700 bg-sky-50 border-sky-100",
     violet: "text-violet-700 bg-violet-50 border-violet-100",
     muted: "text-muted-foreground bg-muted border-border",
@@ -153,7 +153,7 @@ function ActionBtn({
   const tones: Record<string, string> = {
     emerald: "text-emerald-700 hover:bg-emerald-50 border-emerald-200",
     violet: "text-violet-700 hover:bg-violet-50 border-violet-200",
-    rose: "text-rose-700 hover:bg-rose-50 border-rose-200",
+    rose: "text-blue-700 hover:bg-blue-50 border-blue-200",
   };
   return (
     <button

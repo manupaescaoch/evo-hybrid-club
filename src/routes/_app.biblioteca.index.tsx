@@ -68,7 +68,7 @@ function BibliotecaIndex() {
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div className="flex items-start gap-3">
-        <div className="hidden sm:grid w-11 h-11 place-items-center rounded-xl bg-rose-50 text-rose-600 shrink-0">
+        <div className="hidden sm:grid w-11 h-11 place-items-center rounded-xl bg-blue-50 text-blue-600 shrink-0">
           <BookOpen className="w-5 h-5" />
         </div>
         <div>

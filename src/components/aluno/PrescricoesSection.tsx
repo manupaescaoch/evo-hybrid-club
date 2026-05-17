@@ -349,7 +349,7 @@ export function PrescricoesSection({ alunoId, aluno, canEdit }: { alunoId: strin
                     </button>
                     <button
                       onClick={() => excluir(p)}
-                      className="text-sm px-2.5 py-1.5 rounded-md border border-border hover:bg-muted text-rose-600"
+                      className="text-sm px-2.5 py-1.5 rounded-md border border-border hover:bg-muted text-blue-600"
                       title="Excluir prescrição"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -460,7 +460,7 @@ function ImportarModeloModal({
                     onClick={() => onSelect(m)}
                     className="w-full text-left px-3 py-3 rounded-lg hover:bg-muted/60 transition flex items-start gap-3"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 grid place-items-center shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 grid place-items-center shrink-0">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -506,7 +506,7 @@ function Block({ titulo, texto }: { titulo: string; texto?: string }) {
   const html = sanitizeRichHtml(normalizeRich(texto));
   return (
     <div>
-      <h3 className="text-xs font-bold text-rose-600 uppercase tracking-wide mb-1.5">{titulo}</h3>
+      <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide mb-1.5">{titulo}</h3>
       <div
         className="prose prose-sm max-w-none text-sm"
         dangerouslySetInnerHTML={{ __html: html }}
@@ -520,10 +520,10 @@ function Lista({ titulo, itens }: { titulo: string; itens?: string[] }) {
   if (!filtrados.length) return null;
   return (
     <div>
-      <h3 className="text-xs font-bold text-rose-600 uppercase tracking-wide mb-1.5">{titulo}</h3>
+      <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide mb-1.5">{titulo}</h3>
       <ul className="text-sm space-y-1">
         {filtrados.map((i, idx) => (
-          <li key={idx} className="flex gap-2"><span className="text-rose-500">•</span><span>{i}</span></li>
+          <li key={idx} className="flex gap-2"><span className="text-blue-500">•</span><span>{i}</span></li>
         ))}
       </ul>
     </div>
@@ -545,7 +545,7 @@ function ListaEdit({
         <button
           type="button"
           onClick={() => onChange([...itens, ""])}
-          className="text-xs inline-flex items-center gap-1 text-rose-600 hover:text-rose-700"
+          className="text-xs inline-flex items-center gap-1 text-blue-600 hover:text-blue-700"
         >
           <Plus className="h-3 w-3" /> Adicionar
         </button>

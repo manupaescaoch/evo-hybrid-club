@@ -10,12 +10,12 @@ type Item = { icon: any; label: string; status: string; level: StatusLevel };
 const LEVEL_DOT: Record<StatusLevel, string> = {
   ok: "bg-emerald-500",
   warn: "bg-amber-500",
-  bad: "bg-rose-500",
+  bad: "bg-blue-500",
 };
 const LEVEL_TXT: Record<StatusLevel, string> = {
   ok: "text-emerald-700",
   warn: "text-amber-700",
-  bad: "text-rose-700",
+  bad: "text-blue-700",
 };
 
 function diasAtras(iso: string | null): number | null {
@@ -99,7 +99,7 @@ export function SaudeAlunoCard({ alunoId, aluno }: { alunoId: string; aluno: Alu
   if (!itens) return null;
 
   const badgeCls =
-    overall === "bad" ? "bg-rose-100 text-rose-700"
+    overall === "bad" ? "bg-blue-100 text-blue-700"
     : overall === "warn" ? "bg-amber-100 text-amber-700"
     : "bg-emerald-100 text-emerald-700";
   const badgeLabel =
@@ -109,7 +109,7 @@ export function SaudeAlunoCard({ alunoId, aluno }: { alunoId: string; aluno: Alu
     <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
       <div className="px-3 py-2.5 flex items-center justify-between border-b border-border">
         <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
-          <Heart className="h-4 w-4 text-rose-500" /> Saúde do aluno
+          <Heart className="h-4 w-4 text-blue-500" /> Saúde do aluno
         </div>
         <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${badgeCls}`}>
           {badgeLabel}

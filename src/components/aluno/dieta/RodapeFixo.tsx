@@ -28,7 +28,7 @@ export function RodapeFixo({
       <div className="mx-auto max-w-[1400px] bg-white border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.04)] px-6 py-3 pb-safe-plus-3 pl-[max(1.5rem,var(--safe-left))] pr-[max(1.5rem,var(--safe-right))] flex items-center gap-6 text-sm">
         <div className="flex items-center gap-6 tabular-nums">
           <Stat label="KCAL" value={fmtMacro(t.kcal)} big />
-          <Stat label="PTN" value={fmtMacro(t.ptn) + "g"} c="text-rose-600" />
+          <Stat label="PTN" value={fmtMacro(t.ptn) + "g"} c="text-blue-600" />
           <Stat label="CHO" value={fmtMacro(t.cho) + "g"} c="text-violet-600" />
           <Stat label="LIP" value={fmtMacro(t.lip) + "g"} c="text-amber-600" />
         </div>

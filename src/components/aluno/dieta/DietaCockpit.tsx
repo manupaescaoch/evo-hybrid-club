@@ -757,7 +757,7 @@ export function DietaCockpit({
                   value={plano.status}
                   disabled={!canEdit}
                   onChange={(e) => patchPlano({ status: e.target.value })}
-                  className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-[12px] text-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-500/20"
+                  className="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-[12px] text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                 >
                   <option value="rascunho">Rascunho</option>
                   <option value="ativo">Ativo</option>

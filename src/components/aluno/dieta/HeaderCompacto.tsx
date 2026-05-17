@@ -82,7 +82,7 @@ export function HeaderCompacto({
                 <button onClick={onTemplate} className="md:hidden w-full text-left px-3 py-2 text-sm hover:bg-muted/60">Carregar template</button>
                 <button onClick={onManual} className="md:hidden w-full text-left px-3 py-2 text-sm hover:bg-muted/60">+ Refeição manual</button>
                 {onApagarPlano && (
-                  <button onClick={onApagarPlano} className="w-full text-left px-3 py-2 text-sm text-rose-600 hover:bg-rose-50">
+                  <button onClick={onApagarPlano} className="w-full text-left px-3 py-2 text-sm text-blue-600 hover:bg-blue-50">
                     Apagar plano
                   </button>
                 )}

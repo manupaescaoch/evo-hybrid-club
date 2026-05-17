@@ -68,7 +68,7 @@ export function LancarTransacaoModal({ onClose, onSaved }: Props) {
           {alunoSel ? (
             <div className="flex items-center justify-between p-2 rounded-lg bg-gray-50 border">
               <span className="text-sm font-medium">{alunoSel.nome}</span>
-              <button onClick={() => { setAlunoId(""); setBusca(""); }} className="text-xs text-red-600">trocar</button>
+              <button onClick={() => { setAlunoId(""); setBusca(""); }} className="text-xs text-blue-600">trocar</button>
             </div>
           ) : (
             <>

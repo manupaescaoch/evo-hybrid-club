@@ -100,7 +100,7 @@ function AlunoTreinoPage() {
   const [distancia, setDistancia] = useState("10");
   const [obs, setObs] = useState("");
   const [pse, setPse] = useState<number | null>(null);
-  const [salvo, setSalvo] = useState(false);
+  const [, setSalvo] = useState(false);
 
   const pseEscala = [
     { v: 1, emoji: "😌", label: "Muito leve" },

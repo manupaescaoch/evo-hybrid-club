@@ -564,50 +564,37 @@ function AguaCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.04 }}
-      className="rounded-2xl bg-white p-2.5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 min-h-[86px] flex flex-col"
+      className="rounded-2xl bg-white p-3 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-2"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
-          <div className="h-5 w-5 rounded-md flex items-center justify-center bg-[#0EA5E9]/10">
-            <Droplet className="h-3 w-3 text-[#0EA5E9]" fill="#0EA5E9" />
-          </div>
-          <span className="text-[11px] font-bold text-black">Água</span>
+          <Droplet className="h-4 w-4 text-[#0EA5E9]" fill="#0EA5E9" />
+          <span className="text-[11px] font-semibold text-black/60">Água</span>
         </div>
-        <div className="flex items-center gap-1">
-          <button
-            onClick={onSub}
-            className="h-7 w-7 rounded-full bg-black/5 text-black text-[16px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
-            aria-label="Remover 250ml"
-          >
-            −
-          </button>
-          <button
-            onClick={onAdd}
-            className="h-7 w-7 rounded-full bg-[#0EA5E9] text-white text-[16px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
-            aria-label="Adicionar 250ml"
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div className="mt-auto pt-2">
-        <div className="flex items-baseline justify-between">
-          <span className="text-[14px] font-extrabold leading-tight text-black tabular-nums">
+        <div className="mt-1.5 flex items-baseline gap-1">
+          <span className="text-[20px] font-extrabold leading-none text-black tabular-nums">
             {atualL.toFixed(1).replace(".", ",")}L
           </span>
-          <span className="text-[10px] font-semibold text-[#0EA5E9] tabular-nums">
-            {metaL ? `/ ${metaL.toFixed(1).replace(".", ",")}L` : "informe peso"}
+          <span className="text-[11px] text-black/40 tabular-nums">
+            {metaL ? `/ ${metaL.toFixed(1).replace(".", ",")}L` : ""}
           </span>
         </div>
-        <div className="text-[9px] text-black/40 mt-0.5">+250ml por toque</div>
-        <div className="mt-1.5 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${pct}%` }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="h-full rounded-full bg-[#0EA5E9]"
-          />
-        </div>
+      </div>
+      <div className="flex items-center gap-1 shrink-0">
+        <button
+          onClick={onSub}
+          className="h-8 w-8 rounded-full bg-black/5 text-black text-[18px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
+          aria-label="Remover 250ml"
+        >
+          −
+        </button>
+        <button
+          onClick={onAdd}
+          className="h-8 w-8 rounded-full bg-[#0033FF] text-white text-[18px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
+          aria-label="Adicionar 250ml"
+        >
+          +
+        </button>
       </div>
     </motion.div>
   );

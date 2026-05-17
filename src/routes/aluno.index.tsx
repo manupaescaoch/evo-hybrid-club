@@ -242,56 +242,6 @@ function AlunoInicio() {
         </Link>
       </motion.section>
 
-      {/* Treino de hoje */}
-      <motion.section
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.04 }}
-      >
-        <div className="flex items-center justify-between mb-2 px-1">
-          <h2 className="text-[11px] font-extrabold tracking-[0.2em] text-black">
-            TREINO DE HOJE
-          </h2>
-          <Link
-            to="/aluno/treino"
-            className="text-[11px] font-semibold text-[#0033FF] inline-flex items-center gap-0.5"
-          >
-            Ver tudo →
-          </Link>
-        </div>
-        <Link
-          to="/aluno/treino"
-          className="block rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 active:scale-[0.99] transition"
-        >
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-2.5 py-1">
-            <Footprints className="h-3 w-3 text-[#0033FF]" />
-            <span className="text-[10px] font-extrabold tracking-[0.14em] text-[#0033FF]">
-              AERÓBICO
-            </span>
-          </div>
-          <h3 className="mt-2.5 text-[18px] font-extrabold leading-tight text-black">
-            Rodagem Leve + Strides
-          </h3>
-          <p className="mt-0.5 text-[12px] text-black/55">
-            Foco em ritmo e técnica de passada
-          </p>
-          <div className="mt-2.5 flex items-center gap-4 text-[12px] text-black/70">
-            <span className="inline-flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5 text-black/50" />
-              <span className="font-semibold">50 min</span>
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <MapPin className="h-3.5 w-3.5 text-black/50" />
-              <span className="font-semibold">10 km</span>
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <HeartPulse className="h-3.5 w-3.5 text-black/50" />
-              <span className="font-semibold">Z2–Z3</span>
-            </span>
-          </div>
-        </Link>
-      </motion.section>
-
       {/* XP card */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
@@ -359,35 +309,114 @@ function AlunoInicio() {
         <ChevronRight className="h-3.5 w-3.5 text-[#0033FF] shrink-0" />
       </motion.section>
 
-      {/* Hoje */}
+      {/* Treino de hoje */}
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
+        <div className="flex items-center justify-between mb-2 px-1">
+          <h2 className="text-[11px] font-extrabold tracking-[0.2em] text-black">
+            TREINO DE HOJE
+          </h2>
+          <Link
+            to="/aluno/treino"
+            className="text-[11px] font-semibold text-[#0033FF] inline-flex items-center gap-0.5"
+          >
+            Ver tudo →
+          </Link>
+        </div>
+        <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-2.5 py-1">
+            <Footprints className="h-3 w-3 text-[#0033FF]" />
+            <span className="text-[10px] font-extrabold tracking-[0.14em] text-[#0033FF]">
+              AERÓBICO
+            </span>
+          </div>
+          <h3 className="mt-2.5 text-[18px] font-extrabold leading-tight text-black">
+            Rodagem Leve + Strides
+          </h3>
+          <p className="mt-0.5 text-[12px] text-black/55">
+            Foco em ritmo e técnica de passada
+          </p>
+          <div className="mt-2.5 flex items-center gap-4 text-[12px] text-black/70">
+            <span className="inline-flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5 text-black/50" />
+              <span className="font-semibold">50 min</span>
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <MapPin className="h-3.5 w-3.5 text-black/50" />
+              <span className="font-semibold">10 km</span>
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <HeartPulse className="h-3.5 w-3.5 text-black/50" />
+              <span className="font-semibold">Z2–Z3</span>
+            </span>
+          </div>
+          <Link
+            to="/aluno/treino"
+            className="mt-3 w-full inline-flex items-center justify-center gap-1.5 h-11 rounded-xl bg-[#0033FF] text-white text-[13px] font-extrabold tracking-tight active:scale-[0.99] transition shadow-[0_10px_24px_-12px_rgba(0,51,255,0.6)]"
+          >
+            Iniciar treino
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </motion.section>
+
+      {/* Check-in de hoje */}
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.12 }}
+        className="rounded-2xl bg-white p-2.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5"
+      >
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-[10px] font-extrabold tracking-[0.2em] text-black/50">
+            CHECK-IN DE HOJE
+          </div>
+          <span className="text-[11px] font-extrabold text-[#0033FF] tabular-nums">
+            {focosFeitos}/{focos.length}
+          </span>
+        </div>
+        <div className="flex items-center gap-1 mb-2">
+          {focos.map((f, i) => (
+            <div
+              key={i}
+              className={`h-1.5 flex-1 rounded-full ${f.done ? "bg-[#0033FF]" : "bg-black/8"}`}
+            />
+          ))}
+        </div>
+        <ul className="space-y-1.5">
+          {focos.map((f) => {
+            const Icon = f.icon;
+            return (
+              <li key={f.label} className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <Icon className="h-3.5 w-3.5" style={{ color: f.color }} />
+                  <span className="text-[12px] font-semibold text-black">{f.label}</span>
+                </div>
+                {f.done ? (
+                  <span className="h-4 w-4 rounded-full bg-[#0033FF] flex items-center justify-center">
+                    <Check className="h-2.5 w-2.5 text-white" strokeWidth={3.5} />
+                  </span>
+                ) : (
+                  <span className="h-4 w-4 rounded-full border-2 border-black/15" />
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </motion.section>
+
+      {/* Indicadores do corpo */}
       <section>
         <div className="flex items-center justify-between mb-2 px-1">
-          <h2 className="text-[11px] font-extrabold tracking-[0.2em] text-black">HOJE</h2>
+          <h2 className="text-[11px] font-extrabold tracking-[0.2em] text-black">INDICADORES DO CORPO</h2>
           <Link to="/aluno/perfil" className="text-[11px] font-semibold text-black/60 inline-flex items-center gap-0.5">
             Ver tudo <ChevronRight className="h-3.5 w-3.5 text-[#0033FF]" />
           </Link>
         </div>
         <div className="grid grid-cols-2 gap-2">
-          {/* Calorias (total real da dieta) */}
-          <MetricCard
-            label="Calorias"
-            icon={Flame}
-            color={RED}
-            bg="bg-[#0033FF]/10"
-            value={kcalLabel}
-            subtitle={kcalSubtitle}
-            ringPct={dietaPct}
-            fillIcon
-            index={0}
-          />
-          {/* Água */}
-          <AguaCard
-            atualL={aguaAtualL}
-            metaL={aguaMetaL}
-            pct={aguaPct}
-            onAdd={() => ajustarAgua(250)}
-            onSub={() => ajustarAgua(-250)}
-          />
           {/* Sono */}
           <MetricCard
             label="Sono"
@@ -397,7 +426,26 @@ function AlunoInicio() {
             value={sono ? `${sono}h` : "—"}
             subtitle={sono ? `/ ${sonoMeta}h` : "sem registro"}
             ringPct={sonoPct}
+            index={0}
+          />
+          {/* Energia */}
+          <MetricCard
+            label="Energia"
+            icon={Zap}
+            color="#F5B400"
+            bg="bg-[#F5B400]/10"
+            value={energia ?? "—"}
+            subtitle={energia ? "" : "registre hoje"}
+            check={!!energia}
             index={1}
+          />
+          {/* Água */}
+          <AguaCard
+            atualL={aguaAtualL}
+            metaL={aguaMetaL}
+            pct={aguaPct}
+            onAdd={() => ajustarAgua(250)}
+            onSub={() => ajustarAgua(-250)}
           />
           {/* Humor */}
           <MetricCard
@@ -410,31 +458,20 @@ function AlunoInicio() {
             check={!!humor}
             index={2}
           />
-          {/* Energia */}
+          {/* Calorias */}
           <MetricCard
-            label="Energia"
-            icon={Zap}
-            color="#F5B400"
-            bg="bg-[#F5B400]/10"
-            value={energia ?? "—"}
-            subtitle={energia ? "" : "registre hoje"}
-            check={!!energia}
-            index={3}
-          />
-          {/* Pace médio /km esta semana */}
-          <MetricCard
-            label="Pace médio"
-            icon={Clock}
+            label="Calorias"
+            icon={Flame}
             color={RED}
             bg="bg-[#0033FF]/10"
-            value="5:12 /km"
-            subtitle="esta semana"
-            ringPct={72}
-            index={4}
+            value={kcalLabel}
+            subtitle={kcalSubtitle}
+            ringPct={dietaPct}
+            fillIcon
+            index={3}
           />
         </div>
       </section>
-
 
       <AnimatePresence>
         {scoreToast !== null && (
@@ -448,60 +485,6 @@ function AlunoInicio() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Foco de hoje */}
-      <motion.section
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.12 }}
-        className="rounded-2xl bg-white p-2.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5"
-      >
-        <div className="flex gap-4">
-          <div className="flex-1 min-w-0">
-            <div className="text-[10px] font-extrabold tracking-[0.2em] text-black/50">
-              FOCO DE HOJE
-            </div>
-            <div className="mt-1.5 flex items-baseline gap-1.5">
-              <span className="text-[26px] leading-none font-extrabold text-black tabular-nums">
-                {focosFeitos}/{focos.length}
-              </span>
-            </div>
-            <div className="text-[11px] text-black/55">concluídas</div>
-            <div className="mt-2 flex items-center gap-1">
-              {focos.map((f, i) => (
-                <div
-                  key={i}
-                  className={`h-1.5 flex-1 rounded-full ${f.done ? "bg-[#0033FF]" : "bg-black/8"}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="w-px bg-black/10" />
-
-          <ul className="flex-1 space-y-1.5">
-            {focos.map((f) => {
-              const Icon = f.icon;
-              return (
-                <li key={f.label} className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    <Icon className="h-3.5 w-3.5" style={{ color: f.color }} />
-                    <span className="text-[12px] font-semibold text-black">{f.label}</span>
-                  </div>
-                  {f.done ? (
-                    <span className="h-4 w-4 rounded-full bg-[#0033FF] flex items-center justify-center">
-                      <Check className="h-2.5 w-2.5 text-white" strokeWidth={3.5} />
-                    </span>
-                  ) : (
-                    <span className="h-4 w-4 rounded-full border-2 border-black/15" />
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </motion.section>
-
       {loading && !data && (
         <p className="text-center text-[11px] text-black/35 font-medium pt-2">
           Carregando seus dados…

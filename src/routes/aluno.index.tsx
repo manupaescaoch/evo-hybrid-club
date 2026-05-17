@@ -396,7 +396,7 @@ function AlunoInicio() {
             TREINO DE HOJE
           </h2>
           <Link
-            to="/aluno/perfil"
+            to="/aluno/treino"
             className="text-[11px] font-semibold text-[#0033FF] inline-flex items-center gap-0.5"
           >
             Ver tudo →

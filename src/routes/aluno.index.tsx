@@ -485,7 +485,7 @@ function AlunoInicio() {
           </motion.div>
         )}
       </AnimatePresence>
-
+      {loading && !data && (
         <p className="text-center text-[11px] text-black/35 font-medium pt-2">
           Carregando seus dados…
         </p>

@@ -84,7 +84,7 @@ function AlunoTreinoPage() {
   ];
 
   const concluidos = blocos.filter((b) => b.done).length;
-  const finalizado = concluidos === blocos.length;
+  void concluidos;
 
   const toggle = (id: string) => {
     setBlocos((prev) =>

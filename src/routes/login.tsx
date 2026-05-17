@@ -28,11 +28,47 @@ function LoginPage() {
   const [busy, setBusy] = useState(false);
   const [googleBusy, setGoogleBusy] = useState(false);
   const loginAlunoFn = useServerFn(loginAlunoPorEmail);
+  const resolveFn = useServerFn(resolveRedirectAposLogin);
+
+  const redirecionarPorPerfil = async () => {
+    try {
+      const r = await resolveFn({});
+      if (r.kind === "equipe") {
+        nav({ to: "/visao-geral" });
+        return true;
+      }
+      if (r.kind === "aluno") {
+        setAlunoSession({
+          id: r.aluno.id,
+          nome: r.aluno.nome,
+          email: r.aluno.email,
+          whatsapp: r.aluno.whatsapp,
+          avatarUrl: (r.aluno as any).foto_url ?? null,
+          deveTrocarSenha: r.deve_trocar_senha,
+        });
+        nav({ to: r.deve_trocar_senha ? "/aluno/trocar-senha" : "/aluno" });
+        return true;
+      }
+    } catch {
+      /* ignora */
+    }
+    return false;
+  };
 
   useEffect(() => {
-    if (!loading && session) nav({ to: "/visao-geral" });
-    else if (!loading && getAlunoSession()) nav({ to: "/aluno" });
-  }, [loading, session, nav]);
+    if (loading) return;
+    if (session) {
+      void redirecionarPorPerfil().then((ok) => {
+        if (!ok) {
+          setErr("Sua conta Google não está vinculada a nenhum perfil. Fale com a equipe.");
+          void supabase.auth.signOut();
+        }
+      });
+      return;
+    }
+    if (getAlunoSession()) nav({ to: "/aluno" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, session]);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,8 +77,10 @@ function LoginPage() {
 
     const equipe = await signIn(email.trim(), password);
     if (!equipe.error) {
+      // Resolve perfil (equipe ou aluno vinculado por e-mail)
+      const ok = await redirecionarPorPerfil();
       setBusy(false);
-      nav({ to: "/visao-geral" });
+      if (!ok) nav({ to: "/visao-geral" });
       return;
     }
 
@@ -81,7 +119,7 @@ function LoginPage() {
       setErr("Falha ao entrar com Google");
       return;
     }
-    nav({ to: "/visao-geral" });
+    // Sessão criada — o useEffect cuidará do redirecionamento por perfil
   };
 
   return (

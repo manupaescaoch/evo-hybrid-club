@@ -73,32 +73,32 @@
   --card-foreground: oklch(0.18 0.01 260);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.01 260);
-  --primary: oklch(0.628 0.258 27);          /* #0033FF — logo red */
+  --primary: oklch(0.50 0.30 264);          /* #0033FF — logo red */
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.97 0.005 260);
   --secondary-foreground: oklch(0.18 0.01 260);
   --muted: oklch(0.96 0.005 260);
   --muted-foreground: oklch(0.5 0.01 260);
-  --accent: oklch(0.95 0.02 27);             /* soft red tint */
-  --accent-foreground: oklch(0.4 0.2 27);
-  --destructive: oklch(0.628 0.258 27);
+  --accent: oklch(0.95 0.03 264);             /* soft red tint */
+  --accent-foreground: oklch(0.4 0.25 264);
+  --destructive: oklch(0.50 0.30 264);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.92 0.005 260);
   --input: oklch(0.92 0.005 260);
-  --ring: oklch(0.628 0.258 27);
-  --chart-1: oklch(0.628 0.258 27);          /* red */
+  --ring: oklch(0.50 0.30 264);
+  --chart-1: oklch(0.50 0.30 264);          /* red */
   --chart-2: oklch(0.18 0.01 260);           /* near-black */
-  --chart-3: oklch(0.75 0.18 27);            /* light red */
-  --chart-4: oklch(0.45 0.2 27);             /* deep red */
+  --chart-3: oklch(0.75 0.22 264);            /* light red */
+  --chart-4: oklch(0.45 0.25 264);             /* deep red */
   --chart-5: oklch(0.55 0.01 260);           /* gray */
   --sidebar: oklch(0.985 0.003 260);         /* very light */
   --sidebar-foreground: oklch(0.25 0.01 260);
-  --sidebar-primary: oklch(0.628 0.258 27);
+  --sidebar-primary: oklch(0.50 0.30 264);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.95 0.02 27);     /* soft red hover */
-  --sidebar-accent-foreground: oklch(0.4 0.2 27);
+  --sidebar-accent: oklch(0.95 0.03 264);     /* soft red hover */
+  --sidebar-accent-foreground: oklch(0.4 0.25 264);
   --sidebar-border: oklch(0.92 0.005 260);
-  --sidebar-ring: oklch(0.628 0.258 27);
+  --sidebar-ring: oklch(0.50 0.30 264);
 
   /* Modality tag tokens */
   --tag-mpteam: #0033FF;       /* Vermelho MP */
@@ -106,8 +106,8 @@
   --tag-presencial: #2563EB;   /* Azul royal */
 
   /* Critical alert tokens — pastel red */
-  --alert-bg: oklch(0.97 0.03 27);
-  --alert-border: oklch(0.88 0.08 27);
+  --alert-bg: oklch(0.97 0.04 264);
+  --alert-border: oklch(0.88 0.10 264);
 }
 
 html, body { background: var(--background); color: var(--foreground); }

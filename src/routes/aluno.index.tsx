@@ -15,7 +15,6 @@ import {
   Clock,
   MapPin,
   HeartPulse,
-  Target,
   Play,
   BarChart3,
   Footprints as Shoe,

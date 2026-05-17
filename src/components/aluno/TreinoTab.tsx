@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Plus,
   Trash2,
@@ -10,7 +10,11 @@ import {
   MessageSquare,
   Save,
   Dumbbell,
+  Loader2,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/lib/auth";
+import { toast } from "sonner";
 
 type BlocoTipo = "aquecimento" | "rodagem" | "intervalado" | "strides" | "desaquecimento";
 
@@ -48,7 +52,19 @@ const novoBloco = (tipo: BlocoTipo, nome: string): Bloco => ({
   recuperacao: "",
 });
 
-export function TreinoTab({ nomeAluno }: { alunoId: string; nomeAluno: string; whatsapp?: string | null }) {
+export function TreinoTab({
+  alunoId,
+  nomeAluno,
+}: {
+  alunoId: string;
+  nomeAluno: string;
+  whatsapp?: string | null;
+}) {
+  const { crmUser, canEdit } = useAuth();
+  const [treinoId, setTreinoId] = useState<string | null>(null);
+  const [carregando, setCarregando] = useState(true);
+  const [salvando, setSalvando] = useState(false);
+
   const [nome, setNome] = useState(`Treino de ${nomeAluno}`);
   const [objetivo, setObjetivo] = useState("");
   const [duracao, setDuracao] = useState("50");
@@ -63,16 +79,141 @@ export function TreinoTab({ nomeAluno }: { alunoId: string; nomeAluno: string; w
     novoBloco("strides", "Strides"),
   ]);
 
+  useEffect(() => {
+    let cancel = false;
+    (async () => {
+      setCarregando(true);
+      const { data: plano } = await supabase
+        .from("treinos_planos")
+        .select("*")
+        .eq("aluno_id", alunoId)
+        .order("atualizado_em", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (cancel) return;
+
+      if (plano) {
+        setTreinoId(plano.id);
+        setNome(plano.nome ?? `Treino de ${nomeAluno}`);
+        setObjetivo(plano.objetivo ?? "");
+        setDuracao(plano.duracao_min != null ? String(plano.duracao_min) : "");
+        setDistancia(plano.distancia_km != null ? String(plano.distancia_km) : "");
+        setPaceAlvo(plano.pace_alvo ?? "");
+        setZonaFc(plano.zona_fc ?? "Z2");
+        setObservacao(plano.observacao ?? "");
+
+        const { data: bks } = await supabase
+          .from("treinos_blocos")
+          .select("*")
+          .eq("treino_id", plano.id)
+          .order("ordem", { ascending: true });
+
+        if (!cancel && bks && bks.length > 0) {
+          setBlocos(
+            bks.map((b) => ({
+              id: b.id,
+              tipo: (b.tipo as BlocoTipo) ?? "rodagem",
+              nome: b.nome ?? "",
+              descricao: b.descricao ?? "",
+              duracao: b.duracao ?? "",
+              pace: b.pace ?? "",
+              zona: b.zona ?? "Z2",
+              series: b.series ?? "",
+              distanciaSerie: b.distancia_serie ?? "",
+              recuperacao: b.recuperacao ?? "",
+            })),
+          );
+        }
+      }
+      setCarregando(false);
+    })();
+    return () => {
+      cancel = true;
+    };
+  }, [alunoId, nomeAluno]);
+
   function updateBloco(id: string, patch: Partial<Bloco>) {
     setBlocos((prev) => prev.map((b) => (b.id === id ? { ...b, ...patch } : b)));
   }
-
   function removerBloco(id: string) {
     setBlocos((prev) => prev.filter((b) => b.id !== id));
   }
-
   function adicionarBloco() {
     setBlocos((prev) => [...prev, novoBloco("rodagem", "Novo bloco")]);
+  }
+
+  async function salvar() {
+    if (!canEdit) {
+      toast.error("Você não tem permissão para editar.");
+      return;
+    }
+    setSalvando(true);
+    try {
+      const payload = {
+        aluno_id: alunoId,
+        nome: nome.trim() || `Treino de ${nomeAluno}`,
+        objetivo: objetivo.trim() || null,
+        duracao_min: duracao ? Number(duracao) : null,
+        distancia_km: distancia ? Number(distancia) : null,
+        pace_alvo: paceAlvo.trim() || null,
+        zona_fc: zonaFc || null,
+        observacao: observacao.trim() || null,
+        criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+      };
+
+      let id = treinoId;
+      if (id) {
+        const { error } = await supabase.from("treinos_planos").update(payload).eq("id", id);
+        if (error) throw error;
+      } else {
+        const { data, error } = await supabase
+          .from("treinos_planos")
+          .insert(payload)
+          .select("id")
+          .single();
+        if (error) throw error;
+        id = data.id;
+        setTreinoId(id);
+      }
+
+      // Replace blocos: delete + insert (mantém simples e consistente)
+      const { error: delErr } = await supabase.from("treinos_blocos").delete().eq("treino_id", id);
+      if (delErr) throw delErr;
+
+      if (blocos.length > 0) {
+        const rows = blocos.map((b, i) => ({
+          treino_id: id,
+          ordem: i,
+          tipo: b.tipo,
+          nome: b.nome,
+          descricao: b.descricao || null,
+          duracao: b.duracao || null,
+          pace: b.pace || null,
+          zona: b.zona || null,
+          series: b.series || null,
+          distancia_serie: b.distanciaSerie || null,
+          recuperacao: b.recuperacao || null,
+        }));
+        const { error: insErr } = await supabase.from("treinos_blocos").insert(rows);
+        if (insErr) throw insErr;
+      }
+
+      toast.success("Treino salvo!");
+    } catch (e: any) {
+      console.error(e);
+      toast.error(e?.message || "Falha ao salvar treino");
+    } finally {
+      setSalvando(false);
+    }
+  }
+
+  if (carregando) {
+    return (
+      <div className="flex items-center justify-center py-16 text-muted-foreground">
+        <Loader2 className="h-5 w-5 animate-spin mr-2" /> Carregando treino...
+      </div>
+    );
   }
 
   return (
@@ -81,7 +222,9 @@ export function TreinoTab({ nomeAluno }: { alunoId: string; nomeAluno: string; w
       <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
           <Dumbbell className="h-4 w-4 text-primary" />
-          <h2 className="text-base font-semibold">Criar treino</h2>
+          <h2 className="text-base font-semibold">
+            {treinoId ? "Editar treino" : "Criar treino"}
+          </h2>
         </div>
 
         <div className="space-y-4">
@@ -169,10 +312,20 @@ export function TreinoTab({ nomeAluno }: { alunoId: string; nomeAluno: string; w
       <div className="flex justify-end">
         <button
           type="button"
-          className="inline-flex items-center gap-2 rounded-lg bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold hover:bg-primary/90 active:scale-[0.98] transition"
+          onClick={salvar}
+          disabled={salvando || !canEdit}
+          className="inline-flex items-center gap-2 rounded-lg bg-primary text-primary-foreground px-5 py-2.5 text-sm font-semibold hover:bg-primary/90 active:scale-[0.98] transition disabled:opacity-60"
         >
-          <Save className="h-4 w-4" />
-          Salvar treino
+          {salvando ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" /> Salvando...
+            </>
+          ) : (
+            <>
+              <Save className="h-4 w-4" />
+              Salvar treino
+            </>
+          )}
         </button>
       </div>
     </div>
@@ -194,7 +347,6 @@ function BlocoCard({
 
   return (
     <section className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
-      {/* Header */}
       <header className="flex items-center gap-3 px-4 py-3 border-b border-border bg-muted/30">
         <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
           <Icon className="h-4 w-4 text-primary" />
@@ -232,7 +384,6 @@ function BlocoCard({
         </button>
       </header>
 
-      {/* Body */}
       <div className="p-4 space-y-3">
         <FieldLabel label="Descrição">
           <TextArea

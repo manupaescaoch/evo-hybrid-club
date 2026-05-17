@@ -517,5 +517,5 @@ export async function exportarPdfPrescricao(
   const doc = await gerarPdfPrescricao(presc, aluno);
   const data = presc.data ?? new Date().toISOString().slice(0, 10);
   const nome = slugify(aluno.nome ?? "aluno");
-  doc.save(`prescricao-${nome}-${data}.pdf`);
+  doc.save(sanitizeFilenamePdf(`prescricao-${nome}-${data}.pdf`));
 }

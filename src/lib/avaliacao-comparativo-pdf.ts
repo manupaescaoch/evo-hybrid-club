@@ -1,5 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { sanitizeFilenamePdf } from "./pdf-filename";
 import { NUTRICIONISTA } from "./dieta-pdf/modelo";
 import { registrarFonteRoboto } from "./dieta-pdf/fontes";
 import logoMP from "@/assets/logo-mp.png";
@@ -488,6 +489,6 @@ export async function exportarComparativoPdf({ aluno, colunas, print }: Args): P
     const blobUrl = doc.output("bloburl");
     window.open(blobUrl as unknown as string, "_blank");
   } else {
-    doc.save(`comparativo-antropometrico-${slug}-${dMin}-a-${dMax}.pdf`);
+    doc.save(sanitizeFilenamePdf(`comparativo-antropometrico-${slug}-${dMin}-a-${dMax}.pdf`));
   }
 }

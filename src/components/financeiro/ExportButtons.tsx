@@ -2,6 +2,7 @@ import { FileText, FileSpreadsheet } from "lucide-react";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { sanitizeFilenamePdf } from "@/lib/pdf-filename";
 
 interface ExportButtonsProps {
   filename: string;
@@ -22,7 +23,7 @@ export function ExportButtons({ filename, title, columns, rows }: ExportButtonsP
       styles: { fontSize: 9 },
       headStyles: { fillColor: [17, 17, 17] },
     });
-    doc.save(`${filename}.pdf`);
+    doc.save(sanitizeFilenamePdf(`${filename}.pdf`));
   }
 
   function exportXLSX() {

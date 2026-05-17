@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import { sanitizeFilenamePdf } from "../pdf-filename";
 import {
   NUTRICIONISTA,
   ORIENTACOES_GERAIS,
@@ -794,7 +795,7 @@ export function gerarPdfDieta(plano: PlanoCompleto, aluno: Aluno, prescricao?: P
 export function exportarPdfDieta(plano: PlanoCompleto, aluno: Aluno, prescricao?: Prescricao): void {
   const doc = gerarPdfDieta(plano, aluno, prescricao);
   const slug = (aluno.nome ?? "aluno").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  const filename = `dieta-${slug}-${new Date().toISOString().slice(0, 10)}.pdf`;
+  const filename = sanitizeFilenamePdf(`dieta-${slug}-${new Date().toISOString().slice(0, 10)}.pdf`);
   // Em ambientes sem window (SSR/teste) cai no fallback de baixar direto.
   if (typeof window === "undefined") {
     doc.save(filename);

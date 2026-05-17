@@ -331,27 +331,24 @@ function AlunoInicio() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.12 }}
-        className="rounded-2xl bg-white p-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-3"
+        className="rounded-2xl bg-white px-3 py-2 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-2.5"
       >
-        <div className="h-11 w-11 rounded-full bg-[#0033FF]/10 flex items-center justify-center shrink-0">
-          <Check className="h-5 w-5 text-[#0033FF]" strokeWidth={3} />
+        <div className="h-8 w-8 rounded-full bg-[#0033FF]/10 flex items-center justify-center shrink-0">
+          <Check className="h-4 w-4 text-[#0033FF]" strokeWidth={3} />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[10px] font-extrabold tracking-[0.18em] text-black">
+          <div className="text-[9px] font-extrabold tracking-[0.18em] text-black/70">
             CHECK-IN DE HOJE
           </div>
-          <div className="mt-0.5 text-[17px] font-extrabold leading-tight text-[#0033FF] tabular-nums">
+          <div className="text-[13px] font-extrabold leading-tight text-[#0033FF] tabular-nums">
             {focosFeitos} de {focos.length} concluídos
           </div>
-          <p className="text-[11px] text-black/50 mt-0.5">
-            {focosFeitos >= focos.length ? "Tudo certo por hoje." : "Falta pouco para fechar o dia."}
-          </p>
         </div>
         <Link
           to="/aluno/perfil"
-          className="shrink-0 inline-flex items-center justify-center h-10 px-3 rounded-xl border-2 border-[#0033FF] text-[#0033FF] text-[12px] font-extrabold tracking-tight active:scale-95 transition"
+          className="shrink-0 inline-flex items-center justify-center h-8 px-2.5 rounded-lg border border-[#0033FF] text-[#0033FF] text-[11px] font-extrabold tracking-tight active:scale-95 transition"
         >
-          Finalizar check-in
+          Finalizar
         </Link>
       </motion.section>
 
@@ -526,27 +523,25 @@ function MetricCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.04 * index }}
-      className="rounded-2xl bg-white p-2.5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 min-h-[86px] flex flex-col"
+      className="rounded-2xl bg-white p-3 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-2"
     >
-      <div className="flex items-center gap-1.5">
-        <div className={`h-5 w-5 rounded-md flex items-center justify-center ${bg}`}>
-          <Icon className="h-3 w-3" style={{ color }} fill={fillIcon ? color : "none"} />
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1.5">
+          <Icon className="h-4 w-4" style={{ color }} fill={fillIcon ? color : "none"} strokeWidth={2.5} />
+          <span className="text-[11px] font-semibold text-black/60">{label}</span>
         </div>
-        <span className="text-[11px] font-bold text-black">{label}</span>
-      </div>
-      <div className="mt-auto flex items-end justify-between gap-1 pt-2">
-        <div className="min-w-0">
-          <div className="text-[14px] font-extrabold leading-tight text-black truncate">{value}</div>
-          {subtitle && <div className="text-[10px] text-black/40 mt-0.5">{subtitle}</div>}
+        <div className="mt-1.5 flex items-baseline gap-1">
+          <span className="text-[20px] font-extrabold leading-none text-black tabular-nums truncate">{value}</span>
+          {subtitle && <span className="text-[11px] text-black/40 truncate">{subtitle}</span>}
         </div>
-        {check ? (
-          <div className="h-7 w-7 rounded-full border-2 border-[#22C55E]/30 bg-[#22C55E]/10 flex items-center justify-center shrink-0">
-            <Check className="h-3.5 w-3.5 text-[#22C55E]" strokeWidth={3} />
-          </div>
-        ) : (
-          <Ring pct={ringPct ?? 0} color={color} />
-        )}
       </div>
+      {check ? (
+        <div className="h-8 w-8 rounded-full border-2 border-[#22C55E]/40 flex items-center justify-center shrink-0">
+          <Check className="h-4 w-4 text-[#22C55E]" strokeWidth={3} />
+        </div>
+      ) : (
+        <Ring pct={ringPct ?? 0} color={color} />
+      )}
     </motion.div>
   );
 }
@@ -569,50 +564,37 @@ function AguaCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.04 }}
-      className="rounded-2xl bg-white p-2.5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 min-h-[86px] flex flex-col"
+      className="rounded-2xl bg-white p-3 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-2"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
-          <div className="h-5 w-5 rounded-md flex items-center justify-center bg-[#0EA5E9]/10">
-            <Droplet className="h-3 w-3 text-[#0EA5E9]" fill="#0EA5E9" />
-          </div>
-          <span className="text-[11px] font-bold text-black">Água</span>
+          <Droplet className="h-4 w-4 text-[#0EA5E9]" fill="#0EA5E9" />
+          <span className="text-[11px] font-semibold text-black/60">Água</span>
         </div>
-        <div className="flex items-center gap-1">
-          <button
-            onClick={onSub}
-            className="h-7 w-7 rounded-full bg-black/5 text-black text-[16px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
-            aria-label="Remover 250ml"
-          >
-            −
-          </button>
-          <button
-            onClick={onAdd}
-            className="h-7 w-7 rounded-full bg-[#0EA5E9] text-white text-[16px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
-            aria-label="Adicionar 250ml"
-          >
-            +
-          </button>
-        </div>
-      </div>
-      <div className="mt-auto pt-2">
-        <div className="flex items-baseline justify-between">
-          <span className="text-[14px] font-extrabold leading-tight text-black tabular-nums">
+        <div className="mt-1.5 flex items-baseline gap-1">
+          <span className="text-[20px] font-extrabold leading-none text-black tabular-nums">
             {atualL.toFixed(1).replace(".", ",")}L
           </span>
-          <span className="text-[10px] font-semibold text-[#0EA5E9] tabular-nums">
-            {metaL ? `/ ${metaL.toFixed(1).replace(".", ",")}L` : "informe peso"}
+          <span className="text-[11px] text-black/40 tabular-nums">
+            {metaL ? `/ ${metaL.toFixed(1).replace(".", ",")}L` : ""}
           </span>
         </div>
-        <div className="text-[9px] text-black/40 mt-0.5">+250ml por toque</div>
-        <div className="mt-1.5 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${pct}%` }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="h-full rounded-full bg-[#0EA5E9]"
-          />
-        </div>
+      </div>
+      <div className="flex items-center gap-1 shrink-0">
+        <button
+          onClick={onSub}
+          className="h-8 w-8 rounded-full bg-black/5 text-black text-[18px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
+          aria-label="Remover 250ml"
+        >
+          −
+        </button>
+        <button
+          onClick={onAdd}
+          className="h-8 w-8 rounded-full bg-[#0033FF] text-white text-[18px] leading-none font-bold active:scale-90 transition-transform flex items-center justify-center"
+          aria-label="Adicionar 250ml"
+        >
+          +
+        </button>
       </div>
     </motion.div>
   );

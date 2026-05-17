@@ -23,7 +23,7 @@ export function ExportButtons({ filename, title, columns, rows }: ExportButtonsP
       styles: { fontSize: 9 },
       headStyles: { fillColor: [17, 17, 17] },
     });
-    doc.save(`${filename}.pdf`);
+    doc.save(sanitizeFilenamePdf(`${filename}.pdf`));
   }
 
   function exportXLSX() {

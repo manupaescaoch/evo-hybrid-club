@@ -122,7 +122,7 @@ export function PreviaPdfModal() {
             type="button"
             onClick={baixar}
             disabled={loading || totalPages === 0}
-            className="inline-flex h-8 items-center gap-1.5 rounded-md bg-red-600 px-3 text-xs font-medium hover:bg-red-500 disabled:opacity-50"
+            className="inline-flex h-8 items-center gap-1.5 rounded-md bg-blue-600 px-3 text-xs font-medium hover:bg-blue-500 disabled:opacity-50"
           >
             <Download className="h-3.5 w-3.5" /> Baixar PDF
           </button>
@@ -160,7 +160,7 @@ export function PreviaPdfModal() {
                     type="button"
                     onClick={() => setPageIdx(i)}
                     className={`h-16 overflow-hidden rounded border-2 transition ${
-                      i === pageIdx ? "border-red-500" : "border-white/20 hover:border-white/50"
+                      i === pageIdx ? "border-blue-500" : "border-white/20 hover:border-white/50"
                     }`}
                     aria-label={`Ir para página ${i + 1}`}
                   >

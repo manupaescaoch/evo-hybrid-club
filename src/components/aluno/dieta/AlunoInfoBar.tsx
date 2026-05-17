@@ -74,7 +74,7 @@ export function AlunoInfoBar({
   return (
     <div className="rounded-2xl bg-white border border-slate-200/70 shadow-sm px-6 py-5">
       <div className="flex items-start gap-5">
-        <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-700 grid place-items-center font-semibold text-base shrink-0 ring-1 ring-rose-100">
+        <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-700 grid place-items-center font-semibold text-base shrink-0 ring-1 ring-blue-100">
           {iniciais || <User className="w-5 h-5" />}
         </div>
 
@@ -120,7 +120,7 @@ export function AlunoInfoBar({
               onClick={onGerarIA}
               className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition"
             >
-              <Sparkles className="w-3.5 h-3.5 text-rose-600" /> Gerar com IA
+              <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Gerar com IA
             </button>
           )}
           {canEdit && onSalvarDieta && (

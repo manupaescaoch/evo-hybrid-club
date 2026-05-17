@@ -11,7 +11,7 @@ type Alerta = {
 };
 
 const TONES: Record<string, string> = {
-  rose: "bg-rose-50 text-rose-600",
+  rose: "bg-blue-50 text-blue-600",
   violet: "bg-violet-50 text-violet-600",
   emerald: "bg-emerald-50 text-emerald-600",
   amber: "bg-amber-50 text-amber-600",
@@ -87,7 +87,7 @@ export function AlertasInteligentes({ alunoId }: { alunoId: string }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-3 flex items-center gap-3 flex-wrap">
       <div className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 px-2">
-        <Bell className="h-3.5 w-3.5 text-rose-500" />
+        <Bell className="h-3.5 w-3.5 text-blue-500" />
         Alertas inteligentes
       </div>
       <div className="flex-1 flex items-center gap-2 flex-wrap">
@@ -103,7 +103,7 @@ export function AlertasInteligentes({ alunoId }: { alunoId: string }) {
           </div>
         ))}
       </div>
-      <button className="inline-flex items-center gap-1 text-xs font-medium text-rose-600 hover:text-rose-700 px-2">
+      <button className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 px-2">
         Ver todos alertas <ChevronRight className="h-3 w-3" />
       </button>
     </div>

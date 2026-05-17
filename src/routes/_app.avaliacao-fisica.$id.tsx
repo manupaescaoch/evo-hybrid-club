@@ -42,13 +42,13 @@ function AvaliacaoDetalhePage() {
         <Link to="/visao-geral" className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
           <ArrowLeft className="h-4 w-4" /> Visão geral
         </Link>
-        <ChevronRight className="h-4 w-4 text-rose-500" />
+        <ChevronRight className="h-4 w-4 text-blue-500" />
         <Link to="/alunos" className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
           <Home className="h-4 w-4" /> Lista de alunos
         </Link>
         {alunoNome && (
           <>
-            <ChevronRight className="h-4 w-4 text-rose-500" />
+            <ChevronRight className="h-4 w-4 text-blue-500" />
             <Link
               to="/alunos/$id"
               params={{ id: full.assessment.student_id }}
@@ -58,7 +58,7 @@ function AvaliacaoDetalhePage() {
             </Link>
           </>
         )}
-        <ChevronRight className="h-4 w-4 text-rose-500" />
+        <ChevronRight className="h-4 w-4 text-blue-500" />
         <span className="font-semibold text-foreground">Avaliação Física</span>
       </div>
       <AvaliacaoView full={full} onChanged={() => setTick((t) => t + 1)} />

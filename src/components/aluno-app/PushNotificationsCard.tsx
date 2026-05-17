@@ -191,7 +191,7 @@ export function PushNotificationsCard() {
           )}
 
           {estado === "negado" && (
-            <div className="mt-3 text-[11px] text-rose-600 bg-rose-50 rounded-lg px-2 py-1.5 leading-snug">
+            <div className="mt-3 text-[11px] text-blue-600 bg-blue-50 rounded-lg px-2 py-1.5 leading-snug">
               Você bloqueou notificações para este site. Libere nas configurações
               do navegador para reativar.
             </div>

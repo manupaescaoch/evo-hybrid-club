@@ -49,7 +49,7 @@ export function EditarAlimentoActionsModal({
             onClick={() => {
               if (window.confirm("Remover este alimento da refeição?")) onDelete();
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-rose-200 text-sm text-rose-600 hover:bg-rose-50 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-blue-200 text-sm text-blue-600 hover:bg-blue-50 transition"
           >
             <Trash2 className="w-3.5 h-3.5" /> Excluir
           </button>

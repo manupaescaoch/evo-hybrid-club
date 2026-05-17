@@ -266,7 +266,7 @@ function AlunosPage() {
                       {isAdmin ? (
                         <button
                           onClick={() => { setMenuOpenId(null); setConfirmDelete(a); }}
-                          className="w-full text-left px-3 py-2 text-sm text-rose-600 hover:bg-muted flex items-center gap-2"
+                          className="w-full text-left px-3 py-2 text-sm text-blue-600 hover:bg-muted flex items-center gap-2"
                         >
                           <Trash2 className="h-4 w-4" /> Excluir aluno
                         </button>
@@ -306,7 +306,7 @@ function AlunosPage() {
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50" onClick={() => !deleting && setConfirmDelete(null)}>
           <div className="w-full max-w-md rounded-lg bg-card border border-border p-6" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-lg font-semibold flex items-center gap-2">
-              <Trash2 className="h-5 w-5 text-rose-600" /> Excluir aluno
+              <Trash2 className="h-5 w-5 text-blue-600" /> Excluir aluno
             </h2>
             <p className="mt-3 text-sm text-muted-foreground">
               Tem certeza que deseja excluir <strong className="text-foreground">{confirmDelete.nome}</strong>? Esta ação não pode ser desfeita e removerá todos os dados relacionados.
@@ -322,7 +322,7 @@ function AlunosPage() {
               <button
                 disabled={deleting}
                 onClick={() => excluirAluno(confirmDelete)}
-                className="rounded-md bg-rose-600 text-white px-3 py-2 text-sm font-semibold hover:bg-rose-700 disabled:opacity-50"
+                className="rounded-md bg-blue-600 text-white px-3 py-2 text-sm font-semibold hover:bg-blue-700 disabled:opacity-50"
               >
                 {deleting ? "Excluindo..." : "Excluir"}
               </button>
@@ -423,7 +423,7 @@ export function AddAlunoModal({ onClose, onSaved }: { onClose: () => void; onSav
               <button
                 type="button"
                 onClick={() => setPlanoMode((m) => m === "catalogo" ? "personalizado" : "catalogo")}
-                className="text-[11px] text-rose-600 hover:underline"
+                className="text-[11px] text-blue-600 hover:underline"
               >
                 {planoMode === "catalogo" ? "Usar plano personalizado" : "Escolher do catálogo"}
               </button>

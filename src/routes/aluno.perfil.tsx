@@ -465,7 +465,7 @@ function AlunoPerfil() {
               <span className="text-[12px] text-zinc-500 mb-1">/ {scoreMeta.toLocaleString("pt-BR")}</span>
             </div>
             <div className="mt-2 h-1.5 w-full rounded-full bg-zinc-200 overflow-hidden">
-              <div className="h-full rounded-full bg-gradient-to-r from-[#0033FF] to-[#ff5e5c]" style={{ width: `${scorePerc}%` }} />
+              <div className="h-full rounded-full bg-gradient-to-r from-[#0033FF] to-[#3355FF]" style={{ width: `${scorePerc}%` }} />
             </div>
             <div className="mt-2 flex items-center justify-between text-[11px]">
               <span className="font-bold text-[#0033FF]">+{scoreHoje} hoje</span>

@@ -39,12 +39,12 @@ export function TimePicker({ value, onChange, className, minuteStep = 5 }: TimeP
         (className ?? "")
       }
     >
-      <Clock className="h-5 w-5 text-rose-500 shrink-0" />
+      <Clock className="h-5 w-5 text-blue-500 shrink-0" />
       <div className="relative flex items-center gap-1">
         {/* Faixa central destacando o item selecionado */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-8 rounded-lg bg-rose-50/70 ring-1 ring-rose-100"
+          className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 h-8 rounded-lg bg-blue-50/70 ring-1 ring-blue-100"
         />
         {/* Fades de topo e base */}
         <div
@@ -113,7 +113,7 @@ function ScrollColumn({
           className={
             "snap-center flex items-center justify-center w-full text-2xl font-semibold tabular-nums leading-none transition-all duration-150 " +
             (n === value
-              ? "text-rose-600 scale-105"
+              ? "text-blue-600 scale-105"
               : "text-slate-300 hover:text-slate-500")
           }
           style={{ height: ITEM_H }}

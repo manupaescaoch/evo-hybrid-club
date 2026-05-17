@@ -278,12 +278,12 @@ function AlunoProfile() {
           <ArrowLeft className="h-4 w-4" />
           Visão geral
         </Link>
-        <ChevronRight className="h-4 w-4 text-rose-500" />
+        <ChevronRight className="h-4 w-4 text-blue-500" />
         <Link to="/alunos" className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5">
           <Home className="h-4 w-4" />
           Lista de alunos
         </Link>
-        <ChevronRight className="h-4 w-4 text-rose-500" />
+        <ChevronRight className="h-4 w-4 text-blue-500" />
         <button
           onClick={() => setActive("perfil")}
           className={active === "perfil"
@@ -294,7 +294,7 @@ function AlunoProfile() {
         </button>
         {active !== "perfil" && (
           <>
-            <ChevronRight className="h-4 w-4 text-rose-500" />
+            <ChevronRight className="h-4 w-4 text-blue-500" />
             <span className="font-semibold text-foreground">
               {SECTIONS.find((s) => s.key === active)?.label}
             </span>
@@ -342,7 +342,7 @@ function AlunoProfile() {
             onClick={dietaActions.onGerarIA}
             className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] text-foreground bg-card border border-border hover:bg-muted transition"
           >
-            <Sparkles className="w-3.5 h-3.5 text-rose-600" /> Gerar com IA
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Gerar com IA
           </button>
         )}
         {active === "dieta" && dietaActions?.onSalvarDieta && (
@@ -379,7 +379,7 @@ function AlunoProfile() {
                       window.dispatchEvent(new CustomEvent("aluno-add-action", { detail: { tipo: "dieta" } }));
                     }, 50);
                   }}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-rose-50 hover:text-rose-600 transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors text-left"
                 >
                   <UtensilsCrossed className="h-4 w-4" />
                   Dieta
@@ -392,7 +392,7 @@ function AlunoProfile() {
                       window.dispatchEvent(new CustomEvent("aluno-add-action", { detail: { tipo: "prescricao" } }));
                     }, 50);
                   }}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-rose-50 hover:text-rose-600 transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors text-left"
                 >
                   <FileText className="h-4 w-4" />
                   Prescrições
@@ -734,7 +734,7 @@ function PerfilHeaderRico({
             {canEdit && (
               <button
                 onClick={onEditar}
-                className="text-[11px] font-medium text-rose-600 hover:text-rose-700 inline-flex items-center gap-1"
+                className="text-[11px] font-medium text-blue-600 hover:text-blue-700 inline-flex items-center gap-1"
               >
                 <Pencil className="h-3 w-3" /> Editar
               </button>
@@ -771,7 +771,7 @@ function QuickActionPill({
     emerald: "bg-emerald-50 text-emerald-600",
     violet: "bg-violet-50 text-violet-600",
     sky: "bg-sky-50 text-sky-600",
-    rose: "bg-rose-50 text-rose-600",
+    rose: "bg-blue-50 text-blue-600",
     amber: "bg-amber-50 text-amber-600",
   };
   return (
@@ -944,7 +944,7 @@ function Section({
   iconTone?: "rose" | "amber" | "emerald" | "sky" | "violet";
 }) {
   const tones: Record<string, string> = {
-    rose: "bg-rose-50 text-rose-600",
+    rose: "bg-blue-50 text-blue-600",
     amber: "bg-amber-50 text-amber-600",
     emerald: "bg-emerald-50 text-emerald-600",
     sky: "bg-sky-50 text-sky-600",
@@ -1405,7 +1405,7 @@ function FinanceiroSection({
               <button
                 type="button"
                 onClick={() => setPlanoMode((m) => (m === "catalogo" ? "personalizado" : "catalogo"))}
-                className="text-[11px] text-rose-600 hover:underline"
+                className="text-[11px] text-blue-600 hover:underline"
               >
                 {planoMode === "catalogo" ? "Usar plano personalizado" : "Escolher do catálogo"}
               </button>
@@ -1627,7 +1627,7 @@ function JobPill({ tipo, executado, agendado_para, executado_em }: { tipo: strin
 function statusComunicacaoBadge(status: string) {
   const s = (status || "").toLowerCase();
   if (s === "enviado") return "bg-emerald-100 text-emerald-700 border-emerald-200";
-  if (s === "falha" || s === "erro") return "bg-red-100 text-red-700 border-red-200";
+  if (s === "falha" || s === "erro") return "bg-blue-100 text-blue-700 border-blue-200";
   if (s === "pendente") return "bg-amber-100 text-amber-800 border-amber-200";
   return "bg-muted text-muted-foreground border-border";
 }
@@ -1877,7 +1877,7 @@ function MobileAlunoTopBar({
                 onClick={() => onChangeTab(s.key)}
                 className={`shrink-0 inline-flex flex-col items-center gap-1 px-3 pt-2 pb-2.5 -mb-px border-b-2 transition-colors ${
                   isActive
-                    ? "border-rose-500 text-rose-600"
+                    ? "border-blue-500 text-blue-600"
                     : "border-transparent text-muted-foreground"
                 }`}
               >
@@ -1892,7 +1892,7 @@ function MobileAlunoTopBar({
                 <button
                   className={`shrink-0 inline-flex flex-col items-center gap-1 px-3 pt-2 pb-2.5 -mb-px border-b-2 transition-colors ${
                     otherTabs.some((t) => t.key === active)
-                      ? "border-rose-500 text-rose-600"
+                      ? "border-blue-500 text-blue-600"
                       : "border-transparent text-muted-foreground"
                   }`}
                 >
@@ -2122,7 +2122,7 @@ function MobilePerfilExtras({
           </button>
           <button
             onClick={onAjustarDieta}
-            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-rose-50 text-rose-700 text-[13px] font-medium"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-blue-50 text-blue-700 text-[13px] font-medium"
           >
             <Pencil className="h-4 w-4" /> Atualizar
           </button>
@@ -2139,7 +2139,7 @@ function MobileQuickAction({
     emerald: "bg-emerald-50 text-emerald-600",
     violet: "bg-violet-50 text-violet-600",
     sky: "bg-sky-50 text-sky-600",
-    rose: "bg-rose-50 text-rose-600",
+    rose: "bg-blue-50 text-blue-600",
   };
   return (
     <button

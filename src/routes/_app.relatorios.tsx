@@ -54,7 +54,7 @@ function StatusBadge({ value }: { value: string }) {
   const map: Record<string, { label: string; className: string }> = {
     enviado: { label: "Enviada", className: "bg-emerald-100 text-emerald-700 border-emerald-200" },
     sucesso: { label: "Enviada", className: "bg-emerald-100 text-emerald-700 border-emerald-200" },
-    erro: { label: "Falhou", className: "bg-red-100 text-red-700 border-red-200" },
+    erro: { label: "Falhou", className: "bg-blue-100 text-blue-700 border-blue-200" },
     pendente: { label: "Pendente", className: "bg-amber-100 text-amber-700 border-amber-200" },
   };
   const v = map[value] || { label: value || "—", className: "bg-muted text-muted-foreground" };
@@ -66,7 +66,7 @@ function RenewalBadge({ value }: { value: string }) {
     em_dia: { label: "Em dia", className: "bg-emerald-100 text-emerald-700 border-emerald-200" },
     proximo_vencimento: { label: "Próx. vencimento", className: "bg-amber-100 text-amber-700 border-amber-200" },
     vence_hoje: { label: "Vence hoje", className: "bg-amber-200 text-amber-900 border-amber-300" },
-    vencido: { label: "Vencido", className: "bg-red-100 text-red-700 border-red-200" },
+    vencido: { label: "Vencido", className: "bg-blue-100 text-blue-700 border-blue-200" },
     renovado: { label: "Renovado", className: "bg-blue-100 text-blue-700 border-blue-200" },
     cancelado: { label: "Cancelado", className: "bg-muted text-muted-foreground" },
     indefinido: { label: "—", className: "bg-muted text-muted-foreground" },
@@ -79,8 +79,8 @@ function SeverityBadge({ value }: { value: string }) {
   const map: Record<string, string> = {
     info: "bg-blue-100 text-blue-700 border-blue-200",
     warning: "bg-amber-100 text-amber-700 border-amber-200",
-    error: "bg-red-100 text-red-700 border-red-200",
-    critical: "bg-red-200 text-red-900 border-red-300",
+    error: "bg-blue-100 text-blue-700 border-blue-200",
+    critical: "bg-blue-200 text-blue-900 border-blue-300",
   };
   return <Badge variant="outline" className={map[value] || "bg-muted text-muted-foreground"}>{value}</Badge>;
 }
@@ -90,10 +90,10 @@ function UrlStatusBadge({ value }: { value: string }) {
     ativa: "bg-emerald-100 text-emerald-700 border-emerald-200",
     expirada: "bg-amber-100 text-amber-700 border-amber-200",
     sem_assinatura: "bg-amber-100 text-amber-700 border-amber-200",
-    rejeitada: "bg-red-100 text-red-700 border-red-200",
-    erro_403: "bg-red-100 text-red-700 border-red-200",
-    erro_404: "bg-red-100 text-red-700 border-red-200",
-    invalida: "bg-red-100 text-red-700 border-red-200",
+    rejeitada: "bg-blue-100 text-blue-700 border-blue-200",
+    erro_403: "bg-blue-100 text-blue-700 border-blue-200",
+    erro_404: "bg-blue-100 text-blue-700 border-blue-200",
+    invalida: "bg-blue-100 text-blue-700 border-blue-200",
     pendente: "bg-muted text-muted-foreground",
   };
   return <Badge variant="outline" className={map[value] || "bg-muted text-muted-foreground"}>{value}</Badge>;
@@ -502,7 +502,7 @@ function TabFeedbacks({ fromIso, toIso, search, onChanged }: { fromIso: string; 
                       {r.situacao === "respondido" && <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200">Respondido</Badge>}
                       {r.situacao === "pendente" && <Badge variant="outline" className="bg-amber-100 text-amber-700 border-amber-200">Pendente</Badge>}
                       {r.situacao === "expirado" && <Badge variant="outline" className="bg-zinc-200 text-zinc-700 border-zinc-300">Expirado</Badge>}
-                      {r.situacao === "erro_foto" && <Badge variant="outline" className="bg-red-100 text-red-700 border-red-200">Erro fotos ({r.erros_foto})</Badge>}
+                      {r.situacao === "erro_foto" && <Badge variant="outline" className="bg-blue-100 text-blue-700 border-blue-200">Erro fotos ({r.erros_foto})</Badge>}
                     </TableCell>
                     <TableCell>
                       <Badge variant="outline" className={r.confirmado_equipe ? "bg-emerald-100 text-emerald-700 border-emerald-200" : "bg-amber-100 text-amber-700 border-amber-200"}>

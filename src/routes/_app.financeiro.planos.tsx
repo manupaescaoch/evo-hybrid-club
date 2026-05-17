@@ -161,7 +161,7 @@ export function PlanosPage() {
                                 </button>
                                 <button
                                   onClick={() => void excluir(p)}
-                                  className="p-1.5 hover:bg-red-50 rounded text-red-600"
+                                  className="p-1.5 hover:bg-blue-50 rounded text-blue-600"
                                   title="Excluir"
                                 >
                                   <Trash2 className="h-4 w-4" />

@@ -114,7 +114,7 @@ export function ItemAlimentoRow({
           </button>
           <button
             onClick={() => { if (window.confirm("Remover este alimento da refeição?")) onDelete(); }}
-            className="p-1.5 rounded hover:bg-rose-50 text-muted-foreground hover:text-rose-600"
+            className="p-1.5 rounded hover:bg-blue-50 text-muted-foreground hover:text-blue-600"
           >
             <Trash2 className="w-3.5 h-3.5" />
           </button>

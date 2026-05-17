@@ -33,7 +33,7 @@ export const Route = createFileRoute("/_app/financeiro/resumo")({
 
 type TabKey = "pagamentos" | "transacoes" | "planos" | "config";
 type TopTabKey = "clientes" | "vendas" | "financeiro";
-const PIE_COLORS = ["#111111", "#DC2626", "#2563EB"];
+const PIE_COLORS = ["#111111", "#0033FF", "#2563EB"];
 
 function ResumoPage() {
   const { isAdmin } = useAuth();
@@ -336,7 +336,7 @@ function ResumoPage() {
                 <Tooltip formatter={(v: number) => fmtBRL(v)} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
                 <Bar dataKey="recebido" fill="#16A34A" name="Recebido" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="pendente" fill="#DC2626" name="Pendente" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="pendente" fill="#0033FF" name="Pendente" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
@@ -438,7 +438,7 @@ interface BigKpiProps {
 const BIG_ACCENT: Record<BigKpiProps["accent"], { fg: string; soft: string; ring: string }> = {
   green:  { fg: "#16A34A", soft: "#DCFCE7", ring: "rgba(22,163,74,0.18)" },
   blue:   { fg: "#2563EB", soft: "#DBEAFE", ring: "rgba(37,99,235,0.18)" },
-  red:    { fg: "#DC2626", soft: "#FEE2E2", ring: "rgba(220,38,38,0.22)" },
+  red:    { fg: "#0033FF", soft: "#E6ECFF", ring: "rgba(220,38,38,0.22)" },
   indigo: { fg: "#4F46E5", soft: "#E0E7FF", ring: "rgba(79,70,229,0.18)" },
 };
 

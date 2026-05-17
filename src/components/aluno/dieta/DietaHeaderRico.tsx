@@ -142,7 +142,7 @@ function QuickAction({
     emerald: "bg-emerald-50 text-emerald-600",
     violet: "bg-violet-50 text-violet-600",
     sky: "bg-sky-50 text-sky-600",
-    rose: "bg-rose-50 text-rose-600",
+    rose: "bg-blue-50 text-blue-600",
   };
   return (
     <button

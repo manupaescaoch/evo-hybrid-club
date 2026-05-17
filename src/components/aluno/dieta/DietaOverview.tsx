@@ -410,7 +410,7 @@ function MenuItem({
   icon: Icon, label, onClick, tone,
 }: { icon: any; label: string; onClick: () => void; tone?: "danger" | "warn" }) {
   const cls = tone === "danger"
-    ? "text-rose-600 hover:bg-rose-50"
+    ? "text-blue-600 hover:bg-blue-50"
     : tone === "warn"
     ? "text-amber-700 hover:bg-amber-50"
     : "text-slate-700 hover:bg-slate-50";

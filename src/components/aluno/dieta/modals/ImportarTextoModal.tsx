@@ -46,7 +46,7 @@ export function ImportarTextoModal({
               value={texto}
               onChange={(e) => setTexto(e.target.value)}
               placeholder={`Ex.:\n\nCafé da manhã - 7h\n2 ovos mexidos\n1 fatia de pão\n200ml café\n\nAlmoço - 12h\n150g frango\n100g arroz\n80g feijão\n…`}
-              className="w-full min-h-[280px] text-sm p-3 rounded-lg border border-border bg-muted/20 outline-none focus:bg-background focus:border-rose-300 font-mono"
+              className="w-full min-h-[280px] text-sm p-3 rounded-lg border border-border bg-muted/20 outline-none focus:bg-background focus:border-blue-300 font-mono"
             />
             <button
               onClick={() => onAnalisar(texto)}
@@ -75,7 +75,7 @@ export function ImportarTextoModal({
                           <span className="text-sm font-semibold">{r.nome}</span>
                           {r.horario && <span className="text-[11px] text-muted-foreground">{r.horario}</span>}
                           {opcoes.length > 0 && (
-                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-medium">
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-medium">
                               {opcoes.length + 1} opções
                             </span>
                           )}

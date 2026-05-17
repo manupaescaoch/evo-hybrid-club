@@ -22,17 +22,17 @@ export function SeletorModoPlano({
         <button
           disabled={!canEdit}
           onClick={() => onEscolher("calculado")}
-          className="group text-left rounded-2xl border border-slate-200 bg-white p-6 hover:border-rose-300 hover:shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group text-left rounded-2xl border border-slate-200 bg-white p-6 hover:border-blue-300 hover:shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-50 to-rose-100 grid place-items-center mb-4 group-hover:scale-105 transition">
-            <Calculator className="w-6 h-6 text-rose-600" />
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 grid place-items-center mb-4 group-hover:scale-105 transition">
+            <Calculator className="w-6 h-6 text-blue-600" />
           </div>
           <div className="text-[15px] font-semibold text-slate-900 mb-1">Alimentos calculados</div>
           <p className="text-[13px] text-slate-500 leading-relaxed">
             Itens estruturados com cálculo automático de kcal, PTN, CHO e LIP a partir do banco de alimentos.
             Ideal para precisão e ajustes finos.
           </p>
-          <div className="mt-4 text-[11px] text-rose-600 font-medium">
+          <div className="mt-4 text-[11px] text-blue-600 font-medium">
             Recomendado · Gerar IA, importar e templates
           </div>
         </button>

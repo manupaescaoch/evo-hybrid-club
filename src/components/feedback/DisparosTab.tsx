@@ -413,7 +413,7 @@ export function DisparosTab() {
                     <td className="py-2 px-3 text-center text-xs">{j.tentativas}</td>
                     <td className="py-2 px-3">
                       {j.erro ? (
-                        <span className="text-xs text-red-600 dark:text-red-400 line-clamp-2 max-w-[260px]" title={j.erro}>{j.erro}</span>
+                        <span className="text-xs text-blue-600 dark:text-blue-400 line-clamp-2 max-w-[260px]" title={j.erro}>{j.erro}</span>
                       ) : <span className="text-xs text-muted-foreground">—</span>}
                     </td>
                     <td className="py-2 px-3 text-right">
@@ -456,7 +456,7 @@ function KpiCard({
 }: { label: string; value: number; accent?: "green" | "red" | "amber" | "orange"; icon?: React.ReactNode; active?: boolean; onClick?: () => void }) {
   const cls =
     accent === "green" ? "text-green-700 dark:text-green-300 bg-green-500/10 border-green-500/30"
-    : accent === "red" ? "text-red-700 dark:text-red-300 bg-red-500/10 border-red-500/30"
+    : accent === "red" ? "text-blue-700 dark:text-blue-300 bg-blue-500/10 border-blue-500/30"
     : accent === "orange" ? "text-orange-700 dark:text-orange-300 bg-orange-500/10 border-orange-500/30"
     : accent === "amber" ? "text-amber-700 dark:text-amber-300 bg-amber-500/10 border-amber-500/30"
     : "bg-card border-border";
@@ -482,7 +482,7 @@ function StatusBadge({ status }: { status: Exclude<StatusKey, "todos"> }) {
     return <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-green-500/15 text-green-700 dark:text-green-300 font-medium"><CheckCircle2 className="h-3 w-3" />Executado</span>;
   }
   if (status === "erro") {
-    return <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-red-500/15 text-red-700 dark:text-red-300 font-medium"><AlertTriangle className="h-3 w-3" />Erro</span>;
+    return <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-700 dark:text-blue-300 font-medium"><AlertTriangle className="h-3 w-3" />Erro</span>;
   }
   if (status === "atrasado") {
     return <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-orange-500/15 text-orange-700 dark:text-orange-300 font-medium"><AlarmClock className="h-3 w-3" />Atrasado</span>;

@@ -780,7 +780,7 @@ function EnviarResumoGrupoModal({ onClose }: { onClose: () => void }) {
         </div>
         <div className="p-4 space-y-4 overflow-y-auto">
           {loading && <div className="text-sm text-muted-foreground flex items-center gap-2"><Loader2 className="h-4 w-4 animate-spin" /> Carregando…</div>}
-          {error && <div className="text-sm text-rose-600 bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900 rounded p-3">{error}</div>}
+          {error && <div className="text-sm text-blue-600 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded p-3">{error}</div>}
           {!loading && !error && (
             <>
               <div>
@@ -1031,7 +1031,7 @@ function AdminEntregaMenu({
             <button
               type="button"
               onClick={() => void excluir()}
-              className="w-full text-left px-3 py-2 text-sm text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 inline-flex items-center gap-2"
+              className="w-full text-left px-3 py-2 text-sm text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 inline-flex items-center gap-2"
             >
               <Trash2 className="h-4 w-4" />
               Excluir do dia

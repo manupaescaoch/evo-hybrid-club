@@ -173,7 +173,7 @@ function RespostasPage() {
                   <p className="text-xs text-amber-800/80 dark:text-amber-300/80 mt-0.5">
                     Esta resposta foi salva, mas o cadastro do aluno falhou no envio. Você pode vincular ou criar o aluno agora.
                   </p>
-                  {vincErro && <p className="text-xs text-red-600 mt-2">{vincErro}</p>}
+                  {vincErro && <p className="text-xs text-blue-600 mt-2">{vincErro}</p>}
                   <button
                     onClick={vincularOuCriar}
                     disabled={vinculando || (!nomeOrfao && !telOrfao)}

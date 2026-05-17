@@ -281,7 +281,7 @@ function AlunoHeroCard({
                   <span
                     className={`text-[10.5px] font-semibold px-1.5 py-0.5 rounded-md ${
                       dr < 0
-                        ? "bg-rose-50 text-rose-600"
+                        ? "bg-blue-50 text-blue-600"
                         : dr < 7
                         ? "bg-amber-50 text-amber-700"
                         : "bg-emerald-50 text-emerald-700"
@@ -304,7 +304,7 @@ function AlunoHeroCard({
       <div className="mt-4 flex items-center gap-2 flex-wrap">
         <button
           onClick={onWhatsApp}
-          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-[13px] font-semibold shadow-[0_8px_22px_-8px_rgba(244,63,94,0.55)] transition active:scale-[0.98]"
+          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-[13px] font-semibold shadow-[0_8px_22px_-8px_rgba(244,63,94,0.55)] transition active:scale-[0.98]"
         >
           <MessageCircle className="h-4 w-4" /> WhatsApp
         </button>
@@ -346,7 +346,7 @@ function VisaoGeralCard({ kpis }: { kpis: any }) {
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-7 gap-3">
         <KpiBig
           highlight
-          icon={<Flame className="h-4 w-4 text-rose-500" />}
+          icon={<Flame className="h-4 w-4 text-blue-500" />}
           label="Score atual"
           value={fmtScore(kpis.scoreSemana)}
           sub={kpis.scoreHoje > 0 ? `+${kpis.scoreHoje} hoje` : "—"}
@@ -360,7 +360,7 @@ function VisaoGeralCard({ kpis }: { kpis: any }) {
         <KpiRing label="Aderência" value={kpis.aderencia7} sub={kpis.labelTone(kpis.aderencia7)} />
         <KpiRing label="Treino" value={kpis.treinoPct} sub={kpis.labelTone(kpis.treinoPct)} icon={<Dumbbell className="h-3.5 w-3.5 text-zinc-500" />} />
         <KpiRing label="Dieta" value={kpis.dietaPct} sub={kpis.labelTone(kpis.dietaPct)} icon={<UtensilsCrossed className="h-3.5 w-3.5 text-emerald-600" />} />
-        <KpiRing label="Cardio" value={kpis.cardioPct} sub={kpis.labelTone(kpis.cardioPct)} icon={<Heart className="h-3.5 w-3.5 text-rose-500" />} />
+        <KpiRing label="Cardio" value={kpis.cardioPct} sub={kpis.labelTone(kpis.cardioPct)} icon={<Heart className="h-3.5 w-3.5 text-blue-500" />} />
         <KpiRisk risco={kpis.riscoAbandono} />
       </div>
     </Card>
@@ -375,7 +375,7 @@ function InsightsIACard() {
     <Card className="p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span className="h-7 w-7 rounded-lg bg-gradient-to-br from-violet-100 to-rose-100 flex items-center justify-center">
+          <span className="h-7 w-7 rounded-lg bg-gradient-to-br from-violet-100 to-blue-100 flex items-center justify-center">
             <Sparkles className="h-3.5 w-3.5 text-violet-600" />
           </span>
           <h3 className="text-[14px] font-bold tracking-tight text-zinc-900 uppercase">Insights da IA</h3>
@@ -391,9 +391,9 @@ function InsightsIACard() {
         {items.map((it, i) => {
           const Icon = it.icon;
           const TrendIcon = it.trend === "down" ? TrendingDown : TrendingUp;
-          const trendColor = it.trend === "down" ? "text-rose-500" : "text-emerald-500";
+          const trendColor = it.trend === "down" ? "text-blue-500" : "text-emerald-500";
           const dotBg =
-            it.tone === "rose" ? "bg-rose-50 text-rose-500"
+            it.tone === "rose" ? "bg-blue-50 text-blue-500"
             : it.tone === "amber" ? "bg-amber-50 text-amber-600"
             : "bg-emerald-50 text-emerald-600";
           return (
@@ -481,7 +481,7 @@ function TimelineCard() {
     <Card className="p-5">
       <div className="flex items-center justify-between">
         <CardTitle title="Timeline" />
-        <button className="text-[11.5px] font-semibold text-rose-600 hover:text-rose-700">Ver tudo</button>
+        <button className="text-[11.5px] font-semibold text-blue-600 hover:text-blue-700">Ver tudo</button>
       </div>
       {events.length === 0 && (
         <div className="mt-4 px-3 py-6 text-center text-[12px] text-zinc-400">
@@ -494,7 +494,7 @@ function TimelineCard() {
           const tone = e.tone === "emerald" ? "bg-emerald-50 text-emerald-600"
             : e.tone === "violet" ? "bg-violet-50 text-violet-600"
             : e.tone === "amber" ? "bg-amber-50 text-amber-600"
-            : "bg-rose-50 text-rose-500";
+            : "bg-blue-50 text-blue-500";
           return (
             <li key={i} className="flex items-start gap-3">
               <span className={`h-8 w-8 rounded-full ${tone} flex items-center justify-center shrink-0`}>
@@ -521,7 +521,7 @@ function AlertasCard() {
     <Card className="p-5">
       <div className="flex items-center justify-between">
         <CardTitle title="Alertas" />
-        <button className="text-[11.5px] font-semibold text-rose-600 hover:text-rose-700">Ver todos</button>
+        <button className="text-[11.5px] font-semibold text-blue-600 hover:text-blue-700">Ver todos</button>
       </div>
       {items.length === 0 && (
         <div className="mt-4 px-3 py-6 text-center text-[12px] text-zinc-400">
@@ -531,7 +531,7 @@ function AlertasCard() {
       <ul className="mt-4 space-y-2.5">
         {items.map((it, i) => {
           const Icon = it.icon;
-          const tone = it.tone === "rose" ? "bg-rose-50 text-rose-500"
+          const tone = it.tone === "rose" ? "bg-blue-50 text-blue-500"
             : it.tone === "amber" ? "bg-amber-50 text-amber-600"
             : "bg-emerald-50 text-emerald-600";
           const btnTone = it.tone === "emerald"
@@ -570,7 +570,7 @@ function CheckinsCard({ checkins }: { checkins: any[] }) {
     <Card className="p-5">
       <div className="flex items-center justify-between">
         <CardTitle title="Últimos check-ins" />
-        <button className="text-[11.5px] font-semibold text-rose-600 hover:text-rose-700">Ver todos</button>
+        <button className="text-[11.5px] font-semibold text-blue-600 hover:text-blue-700">Ver todos</button>
       </div>
       <div className="mt-3 -mx-2">
         <div className="grid grid-cols-[1.05fr_0.85fr_0.95fr_1fr_0.6fr] gap-2 px-2 py-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
@@ -623,7 +623,7 @@ function SaudeFaixa({ kpis }: { kpis: any }) {
             : it.tone === "amber" ? "bg-amber-50 text-amber-600"
             : it.tone === "emerald" ? "bg-emerald-50 text-emerald-600"
             : it.tone === "sky" ? "bg-sky-50 text-sky-600"
-            : "bg-rose-50 text-rose-500";
+            : "bg-blue-50 text-blue-500";
           return (
             <div key={i} className="flex items-center gap-2.5">
               <span className={`h-9 w-9 rounded-xl ${tone} flex items-center justify-center shrink-0`}>
@@ -674,7 +674,7 @@ function CardTitle({ title }: { title: string }) {
 }
 
 function Pill({ children, tone = "zinc" }: { children: React.ReactNode; tone?: "zinc" | "rose" | "emerald" }) {
-  const cls = tone === "rose" ? "bg-rose-50 text-rose-600 ring-rose-100"
+  const cls = tone === "rose" ? "bg-blue-50 text-blue-600 ring-blue-100"
     : tone === "emerald" ? "bg-emerald-50 text-emerald-700 ring-emerald-100"
     : "bg-zinc-100 text-zinc-700 ring-zinc-200";
   return <span className={`inline-flex items-center gap-1.5 text-[10.5px] font-semibold px-2 py-0.5 rounded-md ring-1 ${cls}`}>{children}</span>;
@@ -707,8 +707,8 @@ function ActionIcon({
 
 function KpiBig({ icon, label, value, sub, highlight }: { icon: React.ReactNode; label: string; value: string; sub: string; highlight?: boolean }) {
   return (
-    <div className={`rounded-xl p-3 ring-1 ${highlight ? "ring-rose-100 bg-gradient-to-b from-rose-50/70 to-white" : "ring-zinc-100 bg-gradient-to-b from-white to-zinc-50/40"}`}>
-      <div className={`flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider ${highlight ? "text-rose-600" : "text-zinc-500"}`}>
+    <div className={`rounded-xl p-3 ring-1 ${highlight ? "ring-blue-100 bg-gradient-to-b from-blue-50/70 to-white" : "ring-zinc-100 bg-gradient-to-b from-white to-zinc-50/40"}`}>
+      <div className={`flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider ${highlight ? "text-blue-600" : "text-zinc-500"}`}>
         {icon}{label}
       </div>
       <div className={`mt-1 ${highlight ? "text-[26px]" : "text-[22px]"} font-bold text-zinc-900 tabular-nums leading-none`}>{value}</div>
@@ -742,7 +742,7 @@ function KpiRisk({ risco }: { risco: { label: string; tone: "emerald" | "amber" 
     ? { bg: "bg-emerald-50 text-emerald-600", text: "text-emerald-600" }
     : risco.tone === "amber"
     ? { bg: "bg-amber-50 text-amber-600", text: "text-amber-600" }
-    : { bg: "bg-rose-50 text-rose-500", text: "text-rose-500" };
+    : { bg: "bg-blue-50 text-blue-500", text: "text-blue-500" };
   return (
     <div className="rounded-xl p-3 ring-1 ring-zinc-100 bg-white flex flex-col items-center text-center justify-center">
       <div className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">Risco abandono</div>

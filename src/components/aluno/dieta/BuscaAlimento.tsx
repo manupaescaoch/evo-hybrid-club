@@ -316,7 +316,7 @@ export function BuscaAlimento({
                       {Math.round(s.kcal)} kcal · P {s.ptn} · C {s.cho} · G {s.lip}
                     </div>
                   </div>
-                  <button onClick={() => removeSub(idx)} className="p-1 rounded hover:bg-rose-50 text-muted-foreground hover:text-rose-600">
+                  <button onClick={() => removeSub(idx)} className="p-1 rounded hover:bg-blue-50 text-muted-foreground hover:text-blue-600">
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -358,7 +358,7 @@ export function BuscaAlimento({
           ) : (
             <button
               onClick={() => setAddingSub(true)}
-              className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-sm text-slate-600 hover:bg-slate-50 hover:border-rose-300 hover:text-rose-600 transition"
+              className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-dashed border-slate-300 text-sm text-slate-600 hover:bg-slate-50 hover:border-blue-300 hover:text-blue-600 transition"
             >
               <Plus className="w-3.5 h-3.5" /> Adicionar substituto
             </button>
@@ -459,7 +459,7 @@ const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(function Search
 ) {
   return (
     <div className="relative" ref={ref}>
-      <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus-within:ring-2 focus-within:ring-rose-100 focus-within:border-rose-300 transition shadow-sm">
+      <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-slate-200 bg-white focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-300 transition shadow-sm">
         <Search className="w-4 h-4 text-slate-400" />
         <input
           value={q}
@@ -495,10 +495,10 @@ const SearchInput = forwardRef<HTMLDivElement, SearchInputProps>(function Search
               <button
                 key={f.id}
                 onClick={() => onPick(f)}
-                className="w-full text-left px-4 py-2.5 text-sm hover:bg-rose-50/60 focus:bg-rose-50/60 outline-none flex items-center justify-between gap-3 group transition"
+                className="w-full text-left px-4 py-2.5 text-sm hover:bg-blue-50/60 focus:bg-blue-50/60 outline-none flex items-center justify-between gap-3 group transition"
               >
                 <span className="flex items-baseline gap-1.5 min-w-0 flex-1">
-                  <span className="truncate text-slate-800 group-hover:text-rose-700 font-medium">{f.name}</span>
+                  <span className="truncate text-slate-800 group-hover:text-blue-700 font-medium">{f.name}</span>
                   {f.source && (
                     <span className="shrink-0 text-xs text-slate-400 font-normal">
                       ({f.source})
@@ -602,10 +602,10 @@ function SelectionEditor({
                 <button
                   key={fp.id}
                   onClick={() => setPickedFruit(fp)}
-                  className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm text-left hover:bg-muted/60 ${active ? "bg-rose-50" : ""}`}
+                  className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-sm text-left hover:bg-muted/60 ${active ? "bg-blue-50" : ""}`}
                 >
                   <span className="flex items-center gap-2">
-                    {active && <Check className="w-3.5 h-3.5 text-rose-600" />}
+                    {active && <Check className="w-3.5 h-3.5 text-blue-600" />}
                     <span className="tabular-nums">{fp.grams} g</span>
                     <span>{fp.food_name}</span>
                   </span>

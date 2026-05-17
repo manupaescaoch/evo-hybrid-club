@@ -25,8 +25,8 @@ export function EmptyState({
         </>
       ) : (
         <>
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-50 to-rose-100 flex items-center justify-center mb-5 shadow-sm">
-            <Sparkles className="w-7 h-7 text-rose-600" />
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center mb-5 shadow-sm">
+            <Sparkles className="w-7 h-7 text-blue-600" />
           </div>
           <h3 className="text-2xl font-semibold tracking-tight mb-2">Comece com IA em 30s</h3>
           <p className="text-muted-foreground text-sm max-w-md mb-7">

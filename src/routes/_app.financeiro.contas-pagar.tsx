@@ -23,7 +23,7 @@ type FiltroStatus = "todas" | "pendentes" | "vencidas" | "pagas";
 
 const STATUS_COLORS: Record<StatusConta, { bg: string; fg: string; label: string }> = {
   pago:       { bg: "#10B98120", fg: "#10B981", label: "Pago" },
-  vencida:    { bg: "#EF444420", fg: "#EF4444", label: "Vencida" },
+  vencida:    { bg: "#3355FF20", fg: "#3355FF", label: "Vencida" },
   vence_hoje: { bg: "#F59E0B20", fg: "#F59E0B", label: "Vence hoje" },
   a_vencer:   { bg: "#6B728020", fg: "#6B7280", label: "A vencer" },
 };
@@ -188,11 +188,11 @@ export function ContasPagarPage() {
           qtd={kpis.aPagar.qtd}
         />
         <KpiCard
-          icon={<AlertTriangle className="h-5 w-5" style={{ color: "#EF4444" }} />}
+          icon={<AlertTriangle className="h-5 w-5" style={{ color: "#3355FF" }} />}
           label="Vencidas"
           valor={kpis.vencidas.valor}
           qtd={kpis.vencidas.qtd}
-          accent="#EF4444"
+          accent="#3355FF"
         />
         <KpiCard
           icon={<CalendarClock className="h-5 w-5" style={{ color: "#F59E0B" }} />}

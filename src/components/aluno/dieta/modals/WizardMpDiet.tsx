@@ -50,8 +50,8 @@ export function WizardMpDiet({
     <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 px-safe">
       <div className="bg-background w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden">
         <div className="flex items-center gap-3 px-5 py-3 border-b border-border">
-          <div className="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-rose-600" />
+          <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+            <Sparkles className="w-4 h-4 text-blue-600" />
           </div>
           <div className="flex-1">
             <div className="text-sm font-semibold">MP DIET</div>
@@ -90,10 +90,10 @@ export function WizardMpDiet({
                     key={opt.v}
                     onClick={() => set("objetivo", opt.v as WizardInput["objetivo"])}
                     className={`p-3 rounded-xl border text-left transition ${
-                      data.objetivo === opt.v ? "border-rose-500 bg-rose-50/60 ring-2 ring-rose-100" : "border-border hover:border-rose-300"
+                      data.objetivo === opt.v ? "border-blue-500 bg-blue-50/60 ring-2 ring-blue-100" : "border-border hover:border-blue-300"
                     }`}
                   >
-                    <Target className="w-4 h-4 mb-1.5 text-rose-600" />
+                    <Target className="w-4 h-4 mb-1.5 text-blue-600" />
                     <div className="font-medium text-sm">{opt.l}</div>
                     <div className="text-[11px] text-muted-foreground mt-0.5">{opt.d}</div>
                   </button>

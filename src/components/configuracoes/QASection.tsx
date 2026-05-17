@@ -121,7 +121,7 @@ export function QASection() {
                 <button
                   key={a.id}
                   onClick={() => setSelectedId(a.id)}
-                  className={`w-full text-left px-3 py-2.5 border-b border-border/60 hover:bg-muted/40 transition-colors ${selectedId === a.id ? "bg-rose-50/60" : ""}`}
+                  className={`w-full text-left px-3 py-2.5 border-b border-border/60 hover:bg-muted/40 transition-colors ${selectedId === a.id ? "bg-blue-50/60" : ""}`}
                 >
                   <div className="text-sm font-medium truncate">{a.nome}</div>
                   <div className="text-[11px] text-muted-foreground flex items-center justify-between mt-0.5">
@@ -275,7 +275,7 @@ function DetalheAluno({ aluno, estado, loading, onRefresh }: { aluno: Aluno | nu
                     ver respostas <ExternalLink className="h-3 w-3" />
                   </a>
                 ) : (
-                  <a href={`/formularios/${f.token}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[11px] text-rose-600 hover:underline">
+                  <a href={`/formularios/${f.token}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[11px] text-blue-600 hover:underline">
                     abrir formulário <ExternalLink className="h-3 w-3" />
                   </a>
                 )}
@@ -295,7 +295,7 @@ function DetalheAluno({ aluno, estado, loading, onRefresh }: { aluno: Aluno | nu
           <ul className="max-h-80 overflow-y-auto">
             {estado.logs.map((l) => (
               <li key={l.id} className="flex items-start gap-3 px-5 py-2.5 border-b border-border/60 last:border-b-0">
-                {l.status_envio === "enviado" ? <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5" /> : <AlertCircle className="h-4 w-4 text-rose-500 mt-0.5" />}
+                {l.status_envio === "enviado" ? <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5" /> : <AlertCircle className="h-4 w-4 text-blue-500 mt-0.5" />}
                 <div className="flex-1 min-w-0">
                   <div className="text-xs text-muted-foreground">
                     {fmtDateTime(l.enviado_em)} · <span className="font-medium text-foreground">{l.tipo_job ?? "—"}</span>

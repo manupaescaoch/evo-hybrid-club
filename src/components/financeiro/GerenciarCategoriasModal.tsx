@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CORES = [
-  "#6B7280", "#EF4444", "#10B981", "#3B82F6",
+  "#6B7280", "#3355FF", "#10B981", "#3B82F6",
   "#F59E0B", "#8B5CF6", "#EC4899", "#06B6D4",
 ];
 
@@ -137,7 +137,7 @@ export function GerenciarCategoriasModal({ onClose, onChanged }: Props) {
                         <span className="truncate">{c.nome}</span>
                       </span>
                       <button onClick={() => handleDelete(c.id)}
-                        className="p-1.5 rounded hover:bg-red-50 text-red-600">
+                        className="p-1.5 rounded hover:bg-blue-50 text-blue-600">
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>
                     </li>

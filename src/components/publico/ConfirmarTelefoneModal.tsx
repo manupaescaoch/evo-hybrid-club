@@ -34,7 +34,7 @@ export function ConfirmarTelefoneModal({ open, telefone, enviando, onConfirmar, 
         <div className="flex items-center justify-center mb-5">
           <div
             className="w-14 h-14 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: "#fee2e2" }}
+            style={{ backgroundColor: "#E6ECFF" }}
           >
             <Phone className="w-7 h-7" style={{ color: RED }} />
           </div>

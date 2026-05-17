@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Macros } from "@/lib/dieta";
 
 const COLORS = {
-  ptn: "#E11D48",
+  ptn: "#0033FF",
   cho: "#7C3AED",
   lip: "#F59E0B",
   empty: "#F1F5F9",
@@ -102,7 +102,7 @@ export function ResumoNutrientesCard({
                   value={local.kcal || ""}
                   onChange={(e) => updateLocal({ kcal: Number(e.target.value) || 0 })}
                   placeholder="0"
-                  className="pointer-events-auto w-24 text-center text-3xl font-bold text-slate-900 tabular-nums leading-tight mt-1 bg-transparent border-b-2 border-slate-200 focus:border-rose-500 outline-none"
+                  className="pointer-events-auto w-24 text-center text-3xl font-bold text-slate-900 tabular-nums leading-tight mt-1 bg-transparent border-b-2 border-slate-200 focus:border-blue-500 outline-none"
                 />
               ) : (
                 <div className="text-3xl font-bold text-slate-900 tabular-nums leading-tight mt-1">
@@ -185,7 +185,7 @@ function Row({ label, color, gkg, total, pct, editavel, value, onChange }: {
             value={value || ""}
             onChange={(e) => onChange(Number(e.target.value) || 0)}
             placeholder="0"
-            className="w-16 text-right bg-transparent border-b border-slate-200 focus:border-rose-500 outline-none tabular-nums"
+            className="w-16 text-right bg-transparent border-b border-slate-200 focus:border-blue-500 outline-none tabular-nums"
           />
         ) : (
           total

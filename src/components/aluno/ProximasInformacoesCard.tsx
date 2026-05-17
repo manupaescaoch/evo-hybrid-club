@@ -195,7 +195,7 @@ export function ProximasInformacoesCard({ alunoId, aluno }: Props) {
     <div className="rounded-xl border border-border bg-card shadow-sm overflow-hidden">
       <div className="px-3 py-2.5 flex items-center justify-between border-b border-border">
         <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
-          <Sparkles className="h-4 w-4 text-rose-500" /> Próximas informações
+          <Sparkles className="h-4 w-4 text-blue-500" /> Próximas informações
         </div>
       </div>
       <ul className="divide-y divide-border">

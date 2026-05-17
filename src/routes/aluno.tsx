@@ -80,7 +80,7 @@ function AlunoLayout() {
   // Em desktop: renderiza num frame estilo mockup pra deixar claro que é mobile-only
   if (isDesktop) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-100 via-white to-rose-50 flex items-center justify-center p-8">
+      <div className="min-h-screen bg-gradient-to-br from-zinc-100 via-white to-blue-50 flex items-center justify-center p-8">
         <div className="flex items-center gap-10 max-w-5xl w-full">
           {/* Aviso lateral */}
           <div className="hidden lg:flex flex-col flex-1 max-w-sm">

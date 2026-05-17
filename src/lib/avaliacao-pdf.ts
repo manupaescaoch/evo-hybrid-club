@@ -175,7 +175,7 @@ export function exportarAvaliacaoPdf({ full, aluno, anterior }: Args) {
   doc.text(`MPTEAM • Avaliação Física • ${new Date().toLocaleDateString("pt-BR")}`, 196, pageH - 10, { align: "right" });
 
   const slug = aluno.nome.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
-  doc.save(`avaliacao-fisica-${slug}-${assessment.assessment_date}.pdf`);
+  doc.save(sanitizeFilenamePdf(`avaliacao-fisica-${slug}-${assessment.assessment_date}.pdf`));
 }
 
 function compRow(label: string, a: number | null, b: number | null): (string | number)[] {

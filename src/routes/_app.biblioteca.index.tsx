@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   BookOpen, UtensilsCrossed, Apple, ChefHat,
-  FileText, Pill, Leaf,
+  FileText, Pill, Leaf, Dumbbell,
 } from "lucide-react";
 import { BibliotecaCard } from "@/components/biblioteca/BibliotecaCard";
 

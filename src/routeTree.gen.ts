@@ -21,6 +21,7 @@ import { Route as AlunoIndexRouteImport } from './routes/aluno.index'
 import { Route as FormulariosTokenRouteImport } from './routes/formularios.$token'
 import { Route as AlunoTrocasRouteImport } from './routes/aluno.trocas'
 import { Route as AlunoTrocarSenhaRouteImport } from './routes/aluno.trocar-senha'
+import { Route as AlunoTreinoRouteImport } from './routes/aluno.treino'
 import { Route as AlunoRankingRouteImport } from './routes/aluno.ranking'
 import { Route as AlunoPerfilRouteImport } from './routes/aluno.perfil'
 import { Route as AlunoLoginRouteImport } from './routes/aluno.login'
@@ -128,6 +129,11 @@ const AlunoTrocasRoute = AlunoTrocasRouteImport.update({
 const AlunoTrocarSenhaRoute = AlunoTrocarSenhaRouteImport.update({
   id: '/trocar-senha',
   path: '/trocar-senha',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoTreinoRoute = AlunoTreinoRouteImport.update({
+  id: '/treino',
+  path: '/treino',
   getParentRoute: () => AlunoRoute,
 } as any)
 const AlunoRankingRoute = AlunoRankingRouteImport.update({
@@ -414,6 +420,7 @@ export interface FileRoutesByFullPath {
   '/aluno/login': typeof AlunoLoginRoute
   '/aluno/perfil': typeof AlunoPerfilRoute
   '/aluno/ranking': typeof AlunoRankingRoute
+  '/aluno/treino': typeof AlunoTreinoRoute
   '/aluno/trocar-senha': typeof AlunoTrocarSenhaRoute
   '/aluno/trocas': typeof AlunoTrocasRoute
   '/formularios/$token': typeof FormulariosTokenRoute
@@ -472,6 +479,7 @@ export interface FileRoutesByTo {
   '/aluno/login': typeof AlunoLoginRoute
   '/aluno/perfil': typeof AlunoPerfilRoute
   '/aluno/ranking': typeof AlunoRankingRoute
+  '/aluno/treino': typeof AlunoTreinoRoute
   '/aluno/trocar-senha': typeof AlunoTrocarSenhaRoute
   '/aluno/trocas': typeof AlunoTrocasRoute
   '/formularios/$token': typeof FormulariosTokenRoute
@@ -536,6 +544,7 @@ export interface FileRoutesById {
   '/aluno/login': typeof AlunoLoginRoute
   '/aluno/perfil': typeof AlunoPerfilRoute
   '/aluno/ranking': typeof AlunoRankingRoute
+  '/aluno/treino': typeof AlunoTreinoRoute
   '/aluno/trocar-senha': typeof AlunoTrocarSenhaRoute
   '/aluno/trocas': typeof AlunoTrocasRoute
   '/formularios/$token': typeof FormulariosTokenRoute
@@ -600,6 +609,7 @@ export interface FileRouteTypes {
     | '/aluno/login'
     | '/aluno/perfil'
     | '/aluno/ranking'
+    | '/aluno/treino'
     | '/aluno/trocar-senha'
     | '/aluno/trocas'
     | '/formularios/$token'
@@ -658,6 +668,7 @@ export interface FileRouteTypes {
     | '/aluno/login'
     | '/aluno/perfil'
     | '/aluno/ranking'
+    | '/aluno/treino'
     | '/aluno/trocar-senha'
     | '/aluno/trocas'
     | '/formularios/$token'
@@ -721,6 +732,7 @@ export interface FileRouteTypes {
     | '/aluno/login'
     | '/aluno/perfil'
     | '/aluno/ranking'
+    | '/aluno/treino'
     | '/aluno/trocar-senha'
     | '/aluno/trocas'
     | '/formularios/$token'
@@ -868,6 +880,13 @@ declare module '@tanstack/react-router' {
       path: '/trocar-senha'
       fullPath: '/aluno/trocar-senha'
       preLoaderRoute: typeof AlunoTrocarSenhaRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/treino': {
+      id: '/aluno/treino'
+      path: '/treino'
+      fullPath: '/aluno/treino'
+      preLoaderRoute: typeof AlunoTreinoRouteImport
       parentRoute: typeof AlunoRoute
     }
     '/aluno/ranking': {
@@ -1337,6 +1356,7 @@ interface AlunoRouteChildren {
   AlunoLoginRoute: typeof AlunoLoginRoute
   AlunoPerfilRoute: typeof AlunoPerfilRoute
   AlunoRankingRoute: typeof AlunoRankingRoute
+  AlunoTreinoRoute: typeof AlunoTreinoRoute
   AlunoTrocarSenhaRoute: typeof AlunoTrocarSenhaRoute
   AlunoTrocasRoute: typeof AlunoTrocasRoute
   AlunoIndexRoute: typeof AlunoIndexRoute
@@ -1349,6 +1369,7 @@ const AlunoRouteChildren: AlunoRouteChildren = {
   AlunoLoginRoute: AlunoLoginRoute,
   AlunoPerfilRoute: AlunoPerfilRoute,
   AlunoRankingRoute: AlunoRankingRoute,
+  AlunoTreinoRoute: AlunoTreinoRoute,
   AlunoTrocarSenhaRoute: AlunoTrocarSenhaRoute,
   AlunoTrocasRoute: AlunoTrocasRoute,
   AlunoIndexRoute: AlunoIndexRoute,

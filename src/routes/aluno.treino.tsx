@@ -10,7 +10,10 @@ import {
   Download,
   Check,
   Play,
+  X,
 } from "lucide-react";
+import { AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/aluno/treino")({
   head: () => ({

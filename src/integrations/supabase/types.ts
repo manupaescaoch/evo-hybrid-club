@@ -2454,6 +2454,107 @@ export type Database = {
           },
         ]
       }
+      treinos_blocos: {
+        Row: {
+          criado_em: string
+          descricao: string | null
+          distancia_serie: string | null
+          duracao: string | null
+          id: string
+          nome: string
+          ordem: number
+          pace: string | null
+          recuperacao: string | null
+          series: string | null
+          tipo: string
+          treino_id: string
+          zona: string | null
+        }
+        Insert: {
+          criado_em?: string
+          descricao?: string | null
+          distancia_serie?: string | null
+          duracao?: string | null
+          id?: string
+          nome?: string
+          ordem?: number
+          pace?: string | null
+          recuperacao?: string | null
+          series?: string | null
+          tipo?: string
+          treino_id: string
+          zona?: string | null
+        }
+        Update: {
+          criado_em?: string
+          descricao?: string | null
+          distancia_serie?: string | null
+          duracao?: string | null
+          id?: string
+          nome?: string
+          ordem?: number
+          pace?: string | null
+          recuperacao?: string | null
+          series?: string | null
+          tipo?: string
+          treino_id?: string
+          zona?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "treinos_blocos_treino_id_fkey"
+            columns: ["treino_id"]
+            isOneToOne: false
+            referencedRelation: "treinos_planos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      treinos_planos: {
+        Row: {
+          aluno_id: string
+          atualizado_em: string
+          criado_em: string
+          criado_por: string | null
+          distancia_km: number | null
+          duracao_min: number | null
+          id: string
+          nome: string
+          objetivo: string | null
+          observacao: string | null
+          pace_alvo: string | null
+          zona_fc: string | null
+        }
+        Insert: {
+          aluno_id: string
+          atualizado_em?: string
+          criado_em?: string
+          criado_por?: string | null
+          distancia_km?: number | null
+          duracao_min?: number | null
+          id?: string
+          nome?: string
+          objetivo?: string | null
+          observacao?: string | null
+          pace_alvo?: string | null
+          zona_fc?: string | null
+        }
+        Update: {
+          aluno_id?: string
+          atualizado_em?: string
+          criado_em?: string
+          criado_por?: string | null
+          distancia_km?: number | null
+          duracao_min?: number | null
+          id?: string
+          nome?: string
+          objetivo?: string | null
+          observacao?: string | null
+          pace_alvo?: string | null
+          zona_fc?: string | null
+        }
+        Relationships: []
+      }
       usuarios_crm: {
         Row: {
           ativo: boolean

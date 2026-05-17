@@ -7,18 +7,20 @@ import {
   Droplet,
   Moon,
   Smile,
-  Heart,
   ChevronRight,
   Check,
   Bell,
   Utensils,
-  Dumbbell,
+  Footprints,
+  Clock,
+  MapPin,
+  HeartPulse,
 } from "lucide-react";
 import { useAlunoSession } from "@/lib/aluno-session";
 import { useAlunoDashboard, triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";
 import { useServerFn } from "@tanstack/react-start";
 import { getDietaAluno } from "@/server/aluno-dieta.functions";
-import { registrarAgua, toggleAtividade } from "@/server/aluno-kpis.functions";
+import { registrarAgua } from "@/server/aluno-kpis.functions";
 import { SCORE_DIARIO, SCORE_META_SEMANAL, somarScoreJanela } from "@/lib/aluno-score";
 
 export const Route = createFileRoute("/aluno/")({
@@ -97,7 +99,7 @@ function AlunoInicio() {
   const { data, loading } = useAlunoDashboard();
   const fetchDieta = useServerFn(getDietaAluno);
   const fnRegistrarAgua = useServerFn(registrarAgua);
-  const fnToggleAtividade = useServerFn(toggleAtividade);
+  
 
   const [refeicoesTotal, setRefeicoesTotal] = useState<number>(0);
   const [metaKcal, setMetaKcal] = useState<number | null>(null);
@@ -111,10 +113,6 @@ function AlunoInicio() {
     setAguaOptimistic(null);
   }, [aguaMlServer]);
   const aguaMl = aguaOptimistic ?? aguaMlServer;
-  const atividadesHoje: Array<{ tipo: string; concluido: boolean }> =
-    (data as any)?.atividades_hoje ?? [];
-  const cardioDone = atividadesHoje.some((a) => a.tipo === "cardio" && a.concluido);
-  const treinoDone = atividadesHoje.some((a) => a.tipo === "treino" && a.concluido);
   const refeicoesFeitas = ((data as any)?.refeicoes_hoje ?? []).length as number;
   const refeicoesHojeIds: string[] = ((data as any)?.refeicoes_hoje ?? [])
     .map((r: any) => r?.refeicao_id)
@@ -134,12 +132,6 @@ function AlunoInicio() {
     fnRegistrarAgua({ data: { ml: realDelta } })
       .then(() => triggerAlunoDashboardRefetch())
       .catch(() => setAguaOptimistic(null));
-  };
-  const marcarAtividade = async (tipo: "cardio" | "treino", concluido: boolean) => {
-    if (!session?.id) return;
-    await fnToggleAtividade({ data: { tipo, concluido } });
-    if (concluido) showScore(tipo === "cardio" ? 15 : 20);
-    triggerAlunoDashboardRefetch();
   };
 
   useEffect(() => {
@@ -414,35 +406,67 @@ function AlunoInicio() {
               </div>
             </div>
           </motion.div>
-          {/* Cardio */}
-          <ActionCard
-            label="Cardio"
-            icon={Heart}
-            color={RED}
-            bg="bg-[#0033FF]/10"
-            valueLabel="Registre seu cardio"
-            buttonLabel="Marcar cardio"
-            done={cardioDone}
-            onDone={() => marcarAtividade("cardio", !cardioDone)}
-            doneLabel="Cardio concluído"
-            index={6}
-          />
-          {/* Treino */}
-          <ActionCard
-            label="Treino"
-            icon={Dumbbell}
-            color="#7B5BFF"
-            bg="bg-[#7B5BFF]/10"
-            valueLabel="Sessão do dia"
-            buttonLabel="Treino concluído"
-            done={treinoDone}
-            onDone={() => marcarAtividade("treino", !treinoDone)}
-            doneLabel="Treino concluído"
-            index={7}
-            glow
-          />
         </div>
       </section>
+
+      {/* Treino de hoje */}
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
+        <div className="flex items-center justify-between mb-2 px-1">
+          <h2 className="text-[11px] font-extrabold tracking-[0.2em] text-black">
+            TREINO DE HOJE
+          </h2>
+          <Link
+            to="/aluno/perfil"
+            className="text-[11px] font-semibold text-[#0033FF] inline-flex items-center gap-0.5"
+          >
+            Ver tudo →
+          </Link>
+        </div>
+        <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-2.5 py-1">
+            <Footprints className="h-3 w-3 text-[#0033FF]" />
+            <span className="text-[10px] font-extrabold tracking-[0.14em] text-[#0033FF]">
+              AERÓBICO
+            </span>
+          </div>
+          <h3 className="mt-2.5 text-[18px] font-extrabold leading-tight text-black">
+            Rodagem Leve + Strides
+          </h3>
+          <p className="mt-0.5 text-[12px] text-black/55">
+            Foco em ritmo e técnica de passada
+          </p>
+          <div className="mt-2.5 flex items-center gap-4 text-[12px] text-black/70">
+            <span className="inline-flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5 text-black/50" />
+              <span className="font-semibold">50 min</span>
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <MapPin className="h-3.5 w-3.5 text-black/50" />
+              <span className="font-semibold">10 km</span>
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <HeartPulse className="h-3.5 w-3.5 text-black/50" />
+              <span className="font-semibold">Z2–Z3</span>
+            </span>
+          </div>
+          <div className="mt-3 flex items-center justify-between text-[11px]">
+            <span className="text-black/55 font-medium">Progresso</span>
+            <span className="text-black font-extrabold tabular-nums">65%</span>
+          </div>
+          <div className="mt-1 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "65%" }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
+              className="h-full rounded-full bg-black"
+            />
+          </div>
+        </div>
+      </motion.section>
 
       <AnimatePresence>
         {scoreToast !== null && (

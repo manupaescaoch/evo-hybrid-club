@@ -215,7 +215,7 @@ function AlunosPage() {
                   params={{ id: a.id }}
                   className="flex items-center gap-2.5 sm:gap-4 flex-1 min-w-0"
                 >
-                  <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-[hsl(0_84%_60%/0.12)] text-primary flex items-center justify-center text-xs sm:text-sm font-semibold shrink-0">
+                  <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs sm:text-sm font-semibold shrink-0">
                     {initials}
                   </div>
                   <div className="flex-1 min-w-0">

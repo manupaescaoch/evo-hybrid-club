@@ -39,6 +39,16 @@ const PLANO_ALIMENTAR = [
   },
 ];
 
+const TREINOS = [
+  {
+    to: "/biblioteca/treinos",
+    title: "Treinos",
+    description: "Modelos de sessões de treino salvos para reutilizar nos planos dos alunos.",
+    icon: Dumbbell,
+    tone: "sky" as const,
+  },
+];
+
 const PRESCRICAO = [
   {
     to: "/biblioteca/prescricoes",

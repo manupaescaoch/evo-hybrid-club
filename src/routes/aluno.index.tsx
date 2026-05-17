@@ -15,7 +15,6 @@ import {
   Clock,
   MapPin,
   HeartPulse,
-  Target,
   Play,
   BarChart3,
   Footprints as Shoe,
@@ -245,19 +244,73 @@ function AlunoInicio() {
       </motion.section>
 
       {/* Resumo do dia: Score / Sequência / Meta do dia */}
+      {/* CARD 1 — Score de hoje (destaque máximo) */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.05 }}
-        className="rounded-2xl bg-white px-3 py-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 grid grid-cols-3"
+        className="rounded-[28px] bg-white p-5 border border-[#EAEAEA] shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)]"
       >
-        <ResumoCol icon={Zap} label="Score" value={`${xpHoje} pts`} />
-        <div className="border-l border-black/5">
-          <ResumoCol icon={Flame} label="Sequência" value={`${sequencia} ${sequencia === 1 ? "dia" : "dias"}`} />
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="h-10 w-10 rounded-2xl bg-[#0033FF]/10 flex items-center justify-center shrink-0">
+              <Zap className="h-5 w-5 text-[#0033FF]" fill="#0033FF" />
+            </div>
+            <span className="text-[12px] font-extrabold tracking-[0.2em] text-[#111111]">
+              SCORE DE HOJE
+            </span>
+          </div>
+          <div className="text-[15px] font-extrabold text-[#0033FF] tabular-nums shrink-0">
+            {xpSemana} <span className="font-bold text-[13px]">na semana</span>
+          </div>
         </div>
-        <div className="border-l border-black/5">
-          <ResumoCol icon={Target} label="Meta do dia" value={`${focosFeitos}/${focos.length}`} />
+
+        <div className="mt-4 h-3 w-full rounded-full bg-[#0033FF]/10 overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: `${pct}%` }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="h-full rounded-full bg-[#0033FF]"
+          />
         </div>
+
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <span className="text-[15px] font-extrabold text-[#0033FF] tabular-nums">
+            {xpHoje} / {xpMetaDia} pts
+          </span>
+          <span className="text-[13px] font-medium text-black/55 text-right">
+            {xpFalta > 0 ? `Faltam ${xpFalta} pts hoje` : "Meta de hoje batida"}
+          </span>
+        </div>
+      </motion.section>
+
+      {/* CARD 2 — Sequência / Streak */}
+      <motion.section
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.08 }}
+        className="rounded-[28px] bg-white p-5 border border-[#EAEAEA] shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] flex items-center gap-4"
+      >
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="h-12 w-12 rounded-full bg-[#0033FF]/10 flex items-center justify-center">
+            <Flame className="h-6 w-6 text-[#0033FF]" fill="#0033FF" />
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-[34px] font-black leading-none text-[#0033FF] tabular-nums">
+              {sequencia}
+            </span>
+            <span className="text-[10px] font-extrabold tracking-[0.18em] leading-tight text-[#111111]">
+              DIAS<br />SEGUIDOS
+            </span>
+          </div>
+        </div>
+        <div className="h-10 w-px bg-black/10" />
+        <p className="flex-1 text-[14px] leading-snug text-[#444444] font-medium">
+          {sequencia === 0
+            ? "Faça seu check-in de hoje pra começar a contagem."
+            : "Tu sobe aqui fazendo o básico todo dia."}
+        </p>
+        <ChevronRight className="h-5 w-5 text-[#0033FF] shrink-0" strokeWidth={2.5} />
       </motion.section>
 
       {/* Treino de hoje */}
@@ -469,28 +522,6 @@ function AlunoInicio() {
           Carregando seus dados…
         </p>
       )}
-    </div>
-  );
-}
-
-function ResumoCol({
-  icon: Icon,
-  label,
-  value,
-}: {
-  icon: typeof Zap;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="px-2.5 flex flex-col">
-      <div className="flex items-center gap-1.5">
-        <Icon className="h-4 w-4 text-[#0033FF]" strokeWidth={2.5} />
-        <span className="text-[11px] font-semibold text-black/60">{label}</span>
-      </div>
-      <div className="mt-1 text-[18px] font-extrabold leading-none text-[#0033FF] tabular-nums">
-        {value}
-      </div>
     </div>
   );
 }

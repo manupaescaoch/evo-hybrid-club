@@ -523,27 +523,25 @@ function MetricCard({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.04 * index }}
-      className="rounded-2xl bg-white p-2.5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 min-h-[86px] flex flex-col"
+      className="rounded-2xl bg-white p-3 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-2"
     >
-      <div className="flex items-center gap-1.5">
-        <div className={`h-5 w-5 rounded-md flex items-center justify-center ${bg}`}>
-          <Icon className="h-3 w-3" style={{ color }} fill={fillIcon ? color : "none"} />
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-1.5">
+          <Icon className="h-4 w-4" style={{ color }} fill={fillIcon ? color : "none"} strokeWidth={2.5} />
+          <span className="text-[11px] font-semibold text-black/60">{label}</span>
         </div>
-        <span className="text-[11px] font-bold text-black">{label}</span>
-      </div>
-      <div className="mt-auto flex items-end justify-between gap-1 pt-2">
-        <div className="min-w-0">
-          <div className="text-[14px] font-extrabold leading-tight text-black truncate">{value}</div>
-          {subtitle && <div className="text-[10px] text-black/40 mt-0.5">{subtitle}</div>}
+        <div className="mt-1.5 flex items-baseline gap-1">
+          <span className="text-[20px] font-extrabold leading-none text-black tabular-nums truncate">{value}</span>
+          {subtitle && <span className="text-[11px] text-black/40 truncate">{subtitle}</span>}
         </div>
-        {check ? (
-          <div className="h-7 w-7 rounded-full border-2 border-[#22C55E]/30 bg-[#22C55E]/10 flex items-center justify-center shrink-0">
-            <Check className="h-3.5 w-3.5 text-[#22C55E]" strokeWidth={3} />
-          </div>
-        ) : (
-          <Ring pct={ringPct ?? 0} color={color} />
-        )}
       </div>
+      {check ? (
+        <div className="h-8 w-8 rounded-full border-2 border-[#22C55E]/40 flex items-center justify-center shrink-0">
+          <Check className="h-4 w-4 text-[#22C55E]" strokeWidth={3} />
+        </div>
+      ) : (
+        <Ring pct={ringPct ?? 0} color={color} />
+      )}
     </motion.div>
   );
 }

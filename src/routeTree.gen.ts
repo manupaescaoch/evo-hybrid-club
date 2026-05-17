@@ -53,6 +53,7 @@ import { Route as AppFinanceiroCadastrosRouteImport } from './routes/_app.financ
 import { Route as AppConfiguracoesUsuariosRouteImport } from './routes/_app.configuracoes.usuarios'
 import { Route as AppConfiguracoesConexoesRouteImport } from './routes/_app.configuracoes.conexoes'
 import { Route as AppConfiguracoesAutomacoesRouteImport } from './routes/_app.configuracoes.automacoes'
+import { Route as AppBibliotecaTreinosRouteImport } from './routes/_app.biblioteca.treinos'
 import { Route as AppBibliotecaSuplementosRouteImport } from './routes/_app.biblioteca.suplementos'
 import { Route as AppBibliotecaReceitasRouteImport } from './routes/_app.biblioteca.receitas'
 import { Route as AppBibliotecaPrescricoesRouteImport } from './routes/_app.biblioteca.prescricoes'
@@ -296,6 +297,11 @@ const AppConfiguracoesAutomacoesRoute =
     path: '/automacoes',
     getParentRoute: () => AppConfiguracoesRoute,
   } as any)
+const AppBibliotecaTreinosRoute = AppBibliotecaTreinosRouteImport.update({
+  id: '/treinos',
+  path: '/treinos',
+  getParentRoute: () => AppBibliotecaRoute,
+} as any)
 const AppBibliotecaSuplementosRoute =
   AppBibliotecaSuplementosRouteImport.update({
     id: '/suplementos',
@@ -434,6 +440,7 @@ export interface FileRoutesByFullPath {
   '/biblioteca/prescricoes': typeof AppBibliotecaPrescricoesRoute
   '/biblioteca/receitas': typeof AppBibliotecaReceitasRoute
   '/biblioteca/suplementos': typeof AppBibliotecaSuplementosRoute
+  '/biblioteca/treinos': typeof AppBibliotecaTreinosRoute
   '/configuracoes/automacoes': typeof AppConfiguracoesAutomacoesRoute
   '/configuracoes/conexoes': typeof AppConfiguracoesConexoesRoute
   '/configuracoes/usuarios': typeof AppConfiguracoesUsuariosRoute
@@ -493,6 +500,7 @@ export interface FileRoutesByTo {
   '/biblioteca/prescricoes': typeof AppBibliotecaPrescricoesRoute
   '/biblioteca/receitas': typeof AppBibliotecaReceitasRoute
   '/biblioteca/suplementos': typeof AppBibliotecaSuplementosRoute
+  '/biblioteca/treinos': typeof AppBibliotecaTreinosRoute
   '/configuracoes/automacoes': typeof AppConfiguracoesAutomacoesRoute
   '/configuracoes/conexoes': typeof AppConfiguracoesConexoesRoute
   '/configuracoes/usuarios': typeof AppConfiguracoesUsuariosRoute
@@ -558,6 +566,7 @@ export interface FileRoutesById {
   '/_app/biblioteca/prescricoes': typeof AppBibliotecaPrescricoesRoute
   '/_app/biblioteca/receitas': typeof AppBibliotecaReceitasRoute
   '/_app/biblioteca/suplementos': typeof AppBibliotecaSuplementosRoute
+  '/_app/biblioteca/treinos': typeof AppBibliotecaTreinosRoute
   '/_app/configuracoes/automacoes': typeof AppConfiguracoesAutomacoesRoute
   '/_app/configuracoes/conexoes': typeof AppConfiguracoesConexoesRoute
   '/_app/configuracoes/usuarios': typeof AppConfiguracoesUsuariosRoute
@@ -623,6 +632,7 @@ export interface FileRouteTypes {
     | '/biblioteca/prescricoes'
     | '/biblioteca/receitas'
     | '/biblioteca/suplementos'
+    | '/biblioteca/treinos'
     | '/configuracoes/automacoes'
     | '/configuracoes/conexoes'
     | '/configuracoes/usuarios'
@@ -682,6 +692,7 @@ export interface FileRouteTypes {
     | '/biblioteca/prescricoes'
     | '/biblioteca/receitas'
     | '/biblioteca/suplementos'
+    | '/biblioteca/treinos'
     | '/configuracoes/automacoes'
     | '/configuracoes/conexoes'
     | '/configuracoes/usuarios'
@@ -746,6 +757,7 @@ export interface FileRouteTypes {
     | '/_app/biblioteca/prescricoes'
     | '/_app/biblioteca/receitas'
     | '/_app/biblioteca/suplementos'
+    | '/_app/biblioteca/treinos'
     | '/_app/configuracoes/automacoes'
     | '/_app/configuracoes/conexoes'
     | '/_app/configuracoes/usuarios'
@@ -1106,6 +1118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppConfiguracoesAutomacoesRouteImport
       parentRoute: typeof AppConfiguracoesRoute
     }
+    '/_app/biblioteca/treinos': {
+      id: '/_app/biblioteca/treinos'
+      path: '/treinos'
+      fullPath: '/biblioteca/treinos'
+      preLoaderRoute: typeof AppBibliotecaTreinosRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
     '/_app/biblioteca/suplementos': {
       id: '/_app/biblioteca/suplementos'
       path: '/suplementos'
@@ -1242,6 +1261,7 @@ interface AppBibliotecaRouteChildren {
   AppBibliotecaPrescricoesRoute: typeof AppBibliotecaPrescricoesRoute
   AppBibliotecaReceitasRoute: typeof AppBibliotecaReceitasRoute
   AppBibliotecaSuplementosRoute: typeof AppBibliotecaSuplementosRoute
+  AppBibliotecaTreinosRoute: typeof AppBibliotecaTreinosRoute
   AppBibliotecaIndexRoute: typeof AppBibliotecaIndexRoute
 }
 
@@ -1252,6 +1272,7 @@ const AppBibliotecaRouteChildren: AppBibliotecaRouteChildren = {
   AppBibliotecaPrescricoesRoute: AppBibliotecaPrescricoesRoute,
   AppBibliotecaReceitasRoute: AppBibliotecaReceitasRoute,
   AppBibliotecaSuplementosRoute: AppBibliotecaSuplementosRoute,
+  AppBibliotecaTreinosRoute: AppBibliotecaTreinosRoute,
   AppBibliotecaIndexRoute: AppBibliotecaIndexRoute,
 }
 

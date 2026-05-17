@@ -90,7 +90,7 @@ function BibliotecaTreinosPage() {
     }
   };
 
-  const salvar = async (m: Modelo) => {
+  const salvar = async (m: Modelo): Promise<void> => {
     if (!m.nome.trim()) {
       toast.error("Informe o nome do treino");
       return;

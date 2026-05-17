@@ -885,6 +885,292 @@ export type Database = {
           },
         ]
       }
+      corrida_microciclos: {
+        Row: {
+          aluno_id: string
+          atualizado_em: string
+          criado_em: string
+          criado_por: string | null
+          data_inicio: string
+          id: string
+          intensidade_alvo_pct: number | null
+          numero_semana: number | null
+          objetivo: string | null
+          observacao: string | null
+          status: string
+          tipo_semana: string
+          volume_alvo_km: number | null
+        }
+        Insert: {
+          aluno_id: string
+          atualizado_em?: string
+          criado_em?: string
+          criado_por?: string | null
+          data_inicio: string
+          id?: string
+          intensidade_alvo_pct?: number | null
+          numero_semana?: number | null
+          objetivo?: string | null
+          observacao?: string | null
+          status?: string
+          tipo_semana?: string
+          volume_alvo_km?: number | null
+        }
+        Update: {
+          aluno_id?: string
+          atualizado_em?: string
+          criado_em?: string
+          criado_por?: string | null
+          data_inicio?: string
+          id?: string
+          intensidade_alvo_pct?: number | null
+          numero_semana?: number | null
+          objetivo?: string | null
+          observacao?: string | null
+          status?: string
+          tipo_semana?: string
+          volume_alvo_km?: number | null
+        }
+        Relationships: []
+      }
+      corrida_modelos_sessao: {
+        Row: {
+          atualizado_em: string
+          blocos: Json
+          criado_em: string
+          criado_por: string | null
+          descricao: string | null
+          distancia_km: number | null
+          duracao_min: number | null
+          id: string
+          nome: string
+          objetivo: string | null
+          pace_alvo: string | null
+          publico: boolean
+          tags: string[]
+          tipo: string
+          zona_fc: string | null
+        }
+        Insert: {
+          atualizado_em?: string
+          blocos?: Json
+          criado_em?: string
+          criado_por?: string | null
+          descricao?: string | null
+          distancia_km?: number | null
+          duracao_min?: number | null
+          id?: string
+          nome: string
+          objetivo?: string | null
+          pace_alvo?: string | null
+          publico?: boolean
+          tags?: string[]
+          tipo: string
+          zona_fc?: string | null
+        }
+        Update: {
+          atualizado_em?: string
+          blocos?: Json
+          criado_em?: string
+          criado_por?: string | null
+          descricao?: string | null
+          distancia_km?: number | null
+          duracao_min?: number | null
+          id?: string
+          nome?: string
+          objetivo?: string | null
+          pace_alvo?: string | null
+          publico?: boolean
+          tags?: string[]
+          tipo?: string
+          zona_fc?: string | null
+        }
+        Relationships: []
+      }
+      corrida_perfil: {
+        Row: {
+          aluno_id: string
+          atualizado_em: string
+          criado_em: string
+          experiencia_anos: number | null
+          fc_max: number | null
+          fc_repouso: number | null
+          historico_lesoes: string | null
+          id: string
+          nivel: string | null
+          observacao: string | null
+          pace_limiar_seg: number | null
+          vdot: number | null
+          volume_semanal_km: number | null
+        }
+        Insert: {
+          aluno_id: string
+          atualizado_em?: string
+          criado_em?: string
+          experiencia_anos?: number | null
+          fc_max?: number | null
+          fc_repouso?: number | null
+          historico_lesoes?: string | null
+          id?: string
+          nivel?: string | null
+          observacao?: string | null
+          pace_limiar_seg?: number | null
+          vdot?: number | null
+          volume_semanal_km?: number | null
+        }
+        Update: {
+          aluno_id?: string
+          atualizado_em?: string
+          criado_em?: string
+          experiencia_anos?: number | null
+          fc_max?: number | null
+          fc_repouso?: number | null
+          historico_lesoes?: string | null
+          id?: string
+          nivel?: string | null
+          observacao?: string | null
+          pace_limiar_seg?: number | null
+          vdot?: number | null
+          volume_semanal_km?: number | null
+        }
+        Relationships: []
+      }
+      corrida_sessao_blocos: {
+        Row: {
+          criado_em: string
+          descricao: string | null
+          distancia_serie: string | null
+          duracao_min: string | null
+          id: string
+          nome: string
+          ordem: number
+          pace: string | null
+          recuperacao: string | null
+          series: string | null
+          sessao_id: string
+          tipo: string
+          zona: string | null
+        }
+        Insert: {
+          criado_em?: string
+          descricao?: string | null
+          distancia_serie?: string | null
+          duracao_min?: string | null
+          id?: string
+          nome: string
+          ordem?: number
+          pace?: string | null
+          recuperacao?: string | null
+          series?: string | null
+          sessao_id: string
+          tipo: string
+          zona?: string | null
+        }
+        Update: {
+          criado_em?: string
+          descricao?: string | null
+          distancia_serie?: string | null
+          duracao_min?: string | null
+          id?: string
+          nome?: string
+          ordem?: number
+          pace?: string | null
+          recuperacao?: string | null
+          series?: string | null
+          sessao_id?: string
+          tipo?: string
+          zona?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corrida_sessao_blocos_sessao_id_fkey"
+            columns: ["sessao_id"]
+            isOneToOne: false
+            referencedRelation: "corrida_sessoes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      corrida_sessoes: {
+        Row: {
+          aluno_id: string
+          atualizado_em: string
+          criado_em: string
+          data: string
+          distancia_km: number | null
+          duracao_min: number | null
+          executada: boolean
+          executado_distancia_km: number | null
+          executado_em: string | null
+          executado_observacao: string | null
+          executado_pse: number | null
+          executado_tempo_min: number | null
+          id: string
+          microciclo_id: string
+          nome: string
+          objetivo: string | null
+          observacao: string | null
+          ordem_no_dia: number
+          pace_alvo: string | null
+          tipo: string
+          zona_fc: string | null
+        }
+        Insert: {
+          aluno_id: string
+          atualizado_em?: string
+          criado_em?: string
+          data: string
+          distancia_km?: number | null
+          duracao_min?: number | null
+          executada?: boolean
+          executado_distancia_km?: number | null
+          executado_em?: string | null
+          executado_observacao?: string | null
+          executado_pse?: number | null
+          executado_tempo_min?: number | null
+          id?: string
+          microciclo_id: string
+          nome: string
+          objetivo?: string | null
+          observacao?: string | null
+          ordem_no_dia?: number
+          pace_alvo?: string | null
+          tipo: string
+          zona_fc?: string | null
+        }
+        Update: {
+          aluno_id?: string
+          atualizado_em?: string
+          criado_em?: string
+          data?: string
+          distancia_km?: number | null
+          duracao_min?: number | null
+          executada?: boolean
+          executado_distancia_km?: number | null
+          executado_em?: string | null
+          executado_observacao?: string | null
+          executado_pse?: number | null
+          executado_tempo_min?: number | null
+          id?: string
+          microciclo_id?: string
+          nome?: string
+          objetivo?: string | null
+          observacao?: string | null
+          ordem_no_dia?: number
+          pace_alvo?: string | null
+          tipo?: string
+          zona_fc?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corrida_sessoes_microciclo_id_fkey"
+            columns: ["microciclo_id"]
+            isOneToOne: false
+            referencedRelation: "corrida_microciclos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       daily_checkins: {
         Row: {
           alimentacao_fim_semana: string | null

@@ -11,6 +11,8 @@ import {
   Check,
   Play,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
@@ -148,6 +150,9 @@ function AlunoTreinoPage() {
         </p>
         <div className="w-9" />
       </div>
+
+      {/* Semana */}
+      <SemanaSelector />
 
       {/* Section header */}
       <div className="flex items-center justify-between px-1">
@@ -464,6 +469,99 @@ function AlunoTreinoPage() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function SemanaSelector() {
+  const hoje = new Date();
+  const dow = hoje.getDay(); // 0=dom
+  const diffToMon = dow === 0 ? -6 : 1 - dow;
+  const monday = new Date(hoje);
+  monday.setDate(hoje.getDate() + diffToMon);
+
+  const dias = ["SEG", "TER", "QUA", "QUI", "SEX", "SÁB", "DOM"];
+  // mock: dias com treino agendado (índices da semana)
+  const comTreino = new Set([1, 3, 5]); // ter, qui, sab
+  const hojeIdx = (dow + 6) % 7; // mon=0
+
+  // Semana ISO simplificada
+  const onejan = new Date(monday.getFullYear(), 0, 1);
+  const semanaNum = Math.ceil(
+    ((monday.getTime() - onejan.getTime()) / 86400000 + onejan.getDay() + 1) / 7,
+  );
+
+  return (
+    <section className="rounded-2xl bg-white p-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
+      <div className="flex items-center justify-between">
+        <button
+          type="button"
+          aria-label="Semana anterior"
+          className="h-8 w-8 rounded-lg bg-black/5 flex items-center justify-center active:scale-95 transition"
+        >
+          <ChevronLeft className="h-4 w-4 text-black/70" />
+        </button>
+        <div className="text-center">
+          <p className="text-[9px] font-extrabold tracking-[0.18em] text-black/40">
+            SEMANA ATUAL
+          </p>
+          <p className="text-[15px] font-extrabold text-black leading-tight">
+            Semana {semanaNum}
+          </p>
+        </div>
+        <button
+          type="button"
+          aria-label="Próxima semana"
+          className="h-8 w-8 rounded-lg bg-black/5 flex items-center justify-center active:scale-95 transition"
+        >
+          <ChevronRight className="h-4 w-4 text-black/70" />
+        </button>
+      </div>
+
+      <div className="mt-3 grid grid-cols-7 gap-1.5">
+        {dias.map((d, i) => {
+          const data = new Date(monday);
+          data.setDate(monday.getDate() + i);
+          const isHoje = i === hojeIdx;
+          const tem = comTreino.has(i);
+          return (
+            <button
+              key={d}
+              type="button"
+              className="flex flex-col items-center gap-1 group"
+            >
+              <span
+                className={`text-[9px] font-extrabold tracking-[0.12em] ${
+                  isHoje ? "text-black" : "text-black/40"
+                }`}
+              >
+                {d}
+              </span>
+              <span
+                className={`h-8 w-8 rounded-full flex items-center justify-center text-[13px] font-extrabold transition ${
+                  isHoje
+                    ? "bg-black text-white"
+                    : tem
+                      ? "ring-1.5 ring-[#0033FF] text-[#0033FF] bg-white"
+                      : "bg-black/5 text-black/50"
+                }`}
+                style={tem && !isHoje ? { boxShadow: "inset 0 0 0 1.5px #0033FF" } : undefined}
+              >
+                {data.getDate()}
+              </span>
+              <span
+                className={`h-1 w-1 rounded-full ${
+                  isHoje
+                    ? "bg-[#FACC15]"
+                    : tem
+                      ? "bg-[#0033FF]"
+                      : "bg-transparent"
+                }`}
+              />
+            </button>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 

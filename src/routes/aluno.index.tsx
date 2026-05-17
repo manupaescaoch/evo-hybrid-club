@@ -331,27 +331,24 @@ function AlunoInicio() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.12 }}
-        className="rounded-2xl bg-white p-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-3"
+        className="rounded-2xl bg-white px-3 py-2 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-2.5"
       >
-        <div className="h-11 w-11 rounded-full bg-[#0033FF]/10 flex items-center justify-center shrink-0">
-          <Check className="h-5 w-5 text-[#0033FF]" strokeWidth={3} />
+        <div className="h-8 w-8 rounded-full bg-[#0033FF]/10 flex items-center justify-center shrink-0">
+          <Check className="h-4 w-4 text-[#0033FF]" strokeWidth={3} />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[10px] font-extrabold tracking-[0.18em] text-black">
+          <div className="text-[9px] font-extrabold tracking-[0.18em] text-black/70">
             CHECK-IN DE HOJE
           </div>
-          <div className="mt-0.5 text-[17px] font-extrabold leading-tight text-[#0033FF] tabular-nums">
+          <div className="text-[13px] font-extrabold leading-tight text-[#0033FF] tabular-nums">
             {focosFeitos} de {focos.length} concluídos
           </div>
-          <p className="text-[11px] text-black/50 mt-0.5">
-            {focosFeitos >= focos.length ? "Tudo certo por hoje." : "Falta pouco para fechar o dia."}
-          </p>
         </div>
         <Link
           to="/aluno/perfil"
-          className="shrink-0 inline-flex items-center justify-center h-10 px-3 rounded-xl border-2 border-[#0033FF] text-[#0033FF] text-[12px] font-extrabold tracking-tight active:scale-95 transition"
+          className="shrink-0 inline-flex items-center justify-center h-8 px-2.5 rounded-lg border border-[#0033FF] text-[#0033FF] text-[11px] font-extrabold tracking-tight active:scale-95 transition"
         >
-          Finalizar check-in
+          Finalizar
         </Link>
       </motion.section>
 

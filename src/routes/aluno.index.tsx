@@ -371,41 +371,17 @@ function AlunoInicio() {
             check={!!energia}
             index={3}
           />
-          {/* Dieta */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.16 }}
-            className="rounded-2xl bg-white p-2.5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] ring-1 ring-black/5 min-h-[86px] flex flex-col"
-          >
-            <div className="flex items-center gap-1.5">
-              <div className="h-5 w-5 rounded-md bg-[#22C55E]/10 flex items-center justify-center">
-                <Utensils className="h-3 w-3 text-[#22C55E]" />
-              </div>
-              <span className="text-[11px] font-bold text-black">Dieta</span>
-            </div>
-            <div className="mt-auto pt-2">
-              <div className="flex items-baseline justify-between">
-                <span className="text-[13px] font-extrabold text-black tabular-nums">
-                  {refeicoesTotal > 0 ? `${refeicoesFeitas}/${refeicoesTotal}` : "—"}
-                </span>
-                <span className="text-[10px] font-semibold text-[#22C55E] tabular-nums">
-                  {refeicoesTotal > 0 ? `${dietaPct}%` : ""}
-                </span>
-              </div>
-              <div className="text-[9px] text-black/40 mt-0.5">
-                {refeicoesTotal > 0 ? "refeições" : "sem plano ativo"}
-              </div>
-              <div className="mt-1.5 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${dietaPct}%` }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="h-full rounded-full bg-[#22C55E]"
-                />
-              </div>
-            </div>
-          </motion.div>
+          {/* Pace médio /km esta semana */}
+          <MetricCard
+            label="Pace médio"
+            icon={Clock}
+            color={RED}
+            bg="bg-[#0033FF]/10"
+            value="5:12 /km"
+            subtitle="esta semana"
+            ringPct={72}
+            index={4}
+          />
         </div>
       </section>
 

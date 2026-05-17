@@ -71,7 +71,7 @@ function formatNum(n: number) {
 
 function TrendIcon({ trend }: { trend: "up" | "down" | "flat" }) {
   if (trend === "up") return <ArrowUp className="h-3.5 w-3.5 text-emerald-500" strokeWidth={2.8} />;
-  if (trend === "down") return <ArrowDown className="h-3.5 w-3.5 text-[#F70906]" strokeWidth={2.8} />;
+  if (trend === "down") return <ArrowDown className="h-3.5 w-3.5 text-[#0033FF]" strokeWidth={2.8} />;
   return <Minus className="h-3.5 w-3.5 text-black/30" strokeWidth={2.8} />;
 }
 
@@ -169,7 +169,7 @@ function AlunoRanking() {
               {active && (
                 <motion.div
                   layoutId="rankingTab"
-                  className="absolute inset-0 rounded-xl bg-[#F70906] shadow-[0_4px_14px_-4px_rgba(247,9,6,0.45)]"
+                  className="absolute inset-0 rounded-xl bg-[#0033FF] shadow-[0_4px_14px_-4px_rgba(0,51,255,0.45)]"
                   transition={{ type: "spring", stiffness: 380, damping: 32 }}
                 />
               )}
@@ -196,7 +196,7 @@ function AlunoRanking() {
           {/* Card principal aluno */}
           <div className="rounded-3xl bg-white ring-1 ring-black/5 shadow-[0_4px_18px_-8px_rgba(0,0,0,0.08)] p-4 space-y-3">
             <div className="flex items-stretch gap-3">
-              <div className="h-20 w-20 shrink-0 rounded-2xl bg-[#F70906] flex flex-col items-center justify-center text-white shadow-[0_8px_20px_-8px_rgba(247,9,6,0.6)]">
+              <div className="h-20 w-20 shrink-0 rounded-2xl bg-[#0033FF] flex flex-col items-center justify-center text-white shadow-[0_8px_20px_-8px_rgba(0,51,255,0.6)]">
                 <Trophy className="h-4 w-4" strokeWidth={2.4} />
                 <div className="text-[20px] font-extrabold leading-none mt-1 tabular-nums">
                   {meuPosicao ? `#${meuPosicao}` : "—"}
@@ -205,14 +205,14 @@ function AlunoRanking() {
               </div>
               <div className="flex-1 grid grid-cols-3 gap-2">
                 <div>
-                  <TrendingUp className="h-3.5 w-3.5 text-[#F70906]" strokeWidth={2.4} />
+                  <TrendingUp className="h-3.5 w-3.5 text-[#0033FF]" strokeWidth={2.4} />
                   <div className="text-[15px] font-extrabold text-black mt-1 leading-none tabular-nums">
                     {formatNum(meuScore)}
                   </div>
                   <div className="text-[9.5px] text-black/45 font-semibold mt-1">Score</div>
                 </div>
                 <div>
-                  <Flame className="h-3.5 w-3.5 text-[#F70906]" strokeWidth={2.4} />
+                  <Flame className="h-3.5 w-3.5 text-[#0033FF]" strokeWidth={2.4} />
                   <div className="text-[15px] font-extrabold text-black mt-1 leading-none tabular-nums">
                     {sequencia}
                   </div>
@@ -231,13 +231,13 @@ function AlunoRanking() {
                   initial={{ width: 0 }}
                   animate={{ width: `${meuProgresso}%` }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="h-full rounded-full bg-[#F70906]"
+                  className="h-full rounded-full bg-[#0033FF]"
                 />
               </div>
               <div className="text-center text-[11px] font-semibold">
                 {proxLiga ? (
                   <>
-                    <span className="text-[#F70906] tabular-nums">{formatNum(meuFalta)} Score</span>{" "}
+                    <span className="text-[#0033FF] tabular-nums">{formatNum(meuFalta)} Score</span>{" "}
                     <span className="text-black/50">para {proxLiga}</span>
                   </>
                 ) : (
@@ -303,7 +303,7 @@ function AlunoRanking() {
                       <div className={`mt-2 font-bold text-black truncate max-w-full ${isFirst ? "text-[14px]" : "text-[12.5px]"}`}>
                         {p.nome.split(" ")[0]}
                       </div>
-                      <div className={`font-extrabold text-[#F70906] mt-0.5 tabular-nums ${isFirst ? "text-[12.5px]" : "text-[11.5px]"}`}>
+                      <div className={`font-extrabold text-[#0033FF] mt-0.5 tabular-nums ${isFirst ? "text-[12.5px]" : "text-[11.5px]"}`}>
                         {formatNum(p.score)} Score
                       </div>
                       <div
@@ -325,7 +325,7 @@ function AlunoRanking() {
                       return (
                         <div
                           key={u.aluno_id}
-                          className={`flex items-center gap-3 px-4 py-2.5 ${isMe ? "bg-[#F70906]/5" : ""}`}
+                          className={`flex items-center gap-3 px-4 py-2.5 ${isMe ? "bg-[#0033FF]/5" : ""}`}
                         >
                           <span className="text-[13px] font-extrabold text-black/40 w-6 text-center tabular-nums">
                             #{pos}
@@ -354,7 +354,7 @@ function AlunoRanking() {
                   {restante.length > 5 && (
                     <button
                       onClick={() => setExpandido((v) => !v)}
-                      className="w-full py-3 flex items-center justify-center gap-1.5 text-[12.5px] font-bold text-[#F70906] border-t border-black/5 active:bg-black/[0.02] transition"
+                      className="w-full py-3 flex items-center justify-center gap-1.5 text-[12.5px] font-bold text-[#0033FF] border-t border-black/5 active:bg-black/[0.02] transition"
                     >
                       {expandido ? "Ver menos" : "Ver mais"}
                       <ChevronDown className={`h-4 w-4 transition-transform ${expandido ? "rotate-180" : ""}`} strokeWidth={2.4} />
@@ -375,11 +375,11 @@ function AlunoRanking() {
             const Icon = g.icon;
             return (
               <div key={g.label} className="flex items-center gap-3">
-                <div className="h-7 w-7 shrink-0 rounded-lg bg-[#F70906]/8 flex items-center justify-center">
-                  <Icon className="h-3.5 w-3.5 text-[#F70906]" strokeWidth={2.4} />
+                <div className="h-7 w-7 shrink-0 rounded-lg bg-[#0033FF]/8 flex items-center justify-center">
+                  <Icon className="h-3.5 w-3.5 text-[#0033FF]" strokeWidth={2.4} />
                 </div>
                 <span className="flex-1 text-[12.5px] font-semibold text-black truncate">{g.label}</span>
-                <span className="text-[12px] font-extrabold text-[#F70906] tabular-nums">{g.score}</span>
+                <span className="text-[12px] font-extrabold text-[#0033FF] tabular-nums">{g.score}</span>
                 <ChevronRight className="h-3.5 w-3.5 text-black/25" />
               </div>
             );
@@ -397,7 +397,7 @@ function AlunoRanking() {
               <div
                 key={l.nome}
                 className={`flex items-center gap-3 rounded-2xl p-2 ${
-                  active ? "bg-[#F70906]/6 ring-1 ring-[#F70906]/15" : ""
+                  active ? "bg-[#0033FF]/6 ring-1 ring-[#0033FF]/15" : ""
                 }`}
               >
                 <div
@@ -407,14 +407,14 @@ function AlunoRanking() {
                   <Shield className="h-4 w-4" style={{ color: l.color }} fill={l.color} strokeWidth={1.5} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className={`text-[12.5px] font-bold ${active ? "text-[#F70906]" : "text-black"}`}>
+                  <div className={`text-[12.5px] font-bold ${active ? "text-[#0033FF]" : "text-black"}`}>
                     {l.nome}
                   </div>
                   <div className="text-[11px] text-black/45 font-medium mt-0.5">{l.faixa}</div>
                 </div>
                 <div
                   className={`h-4 w-4 rounded-full border-2 ${
-                    active ? "border-[#F70906] bg-[#F70906]" : "border-black/15 bg-white"
+                    active ? "border-[#0033FF] bg-[#0033FF]" : "border-black/15 bg-white"
                   }`}
                 />
               </div>
@@ -426,7 +426,7 @@ function AlunoRanking() {
       <div className="px-2 pt-1 text-center">
         <p className="text-[12.5px] text-black/55 font-medium leading-relaxed">
           Quem sobe no ranking não é o mais motivado.<br />
-          É o mais <span className="text-[#F70906] font-bold">consistente</span>.
+          É o mais <span className="text-[#0033FF] font-bold">consistente</span>.
         </p>
       </div>
     </div>

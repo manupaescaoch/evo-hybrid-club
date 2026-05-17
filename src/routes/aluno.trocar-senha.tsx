@@ -29,7 +29,7 @@ function TrocarSenhaPage() {
   if (!hydrated || !session) {
     return (
       <div className="min-h-[100dvh] bg-[#FAFAFA] flex items-center justify-center">
-        <div className="h-10 w-10 rounded-full border-2 border-[#F70906]/20 border-t-[#F70906] animate-spin" />
+        <div className="h-10 w-10 rounded-full border-2 border-[#0033FF]/20 border-t-[#0033FF] animate-spin" />
       </div>
     );
   }
@@ -82,8 +82,8 @@ function TrocarSenhaPage() {
         className="w-full max-w-sm mx-auto"
       >
         <div className="flex flex-col items-center mb-6">
-          <div className="h-14 w-14 rounded-2xl bg-[#F70906]/10 border border-[#F70906]/30 flex items-center justify-center">
-            <ShieldCheck className="h-6 w-6 text-[#F70906]" />
+          <div className="h-14 w-14 rounded-2xl bg-[#0033FF]/10 border border-[#0033FF]/30 flex items-center justify-center">
+            <ShieldCheck className="h-6 w-6 text-[#0033FF]" />
           </div>
           <h1 className="mt-4 text-2xl font-bold tracking-tight">Crie sua nova senha</h1>
           <p className="text-sm text-black/60 mt-1 text-center">
@@ -118,8 +118,8 @@ function TrocarSenhaPage() {
                   aria-invalid={!!errors[f.key]}
                   className={`w-full h-12 rounded-xl bg-black/[0.03] border pl-11 pr-12 text-sm focus:outline-none focus:ring-2 transition ${
                     errors[f.key]
-                      ? "border-[#F70906]/60 ring-2 ring-[#F70906]/20"
-                      : "border-black/10 focus:border-[#F70906]/60 focus:ring-[#F70906]/20"
+                      ? "border-[#0033FF]/60 ring-2 ring-[#0033FF]/20"
+                      : "border-black/10 focus:border-[#0033FF]/60 focus:ring-[#0033FF]/20"
                   }`}
                 />
                 <button
@@ -132,7 +132,7 @@ function TrocarSenhaPage() {
                 </button>
               </div>
               {errors[f.key] && (
-                <p className="mt-1.5 text-[11px] text-[#F70906] flex items-center gap-1">
+                <p className="mt-1.5 text-[11px] text-[#0033FF] flex items-center gap-1">
                   <AlertCircle className="h-3 w-3" />
                   {errors[f.key]}
                 </p>
@@ -141,7 +141,7 @@ function TrocarSenhaPage() {
           ))}
 
           {errors.form && (
-            <div className="text-xs text-[#F70906] bg-[#F70906]/10 border border-[#F70906]/30 rounded-lg px-3 py-2">
+            <div className="text-xs text-[#0033FF] bg-[#0033FF]/10 border border-[#0033FF]/30 rounded-lg px-3 py-2">
               {errors.form}
             </div>
           )}
@@ -149,7 +149,7 @@ function TrocarSenhaPage() {
           <button
             type="submit"
             disabled={busy}
-            className="group w-full h-12 mt-2 rounded-xl bg-[#F70906] text-white font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#F70906]/90 disabled:opacity-50 transition"
+            className="group w-full h-12 mt-2 rounded-xl bg-[#0033FF] text-white font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#0033FF]/90 disabled:opacity-50 transition"
           >
             {busy ? "Salvando..." : "Salvar nova senha"}
             {!busy && (

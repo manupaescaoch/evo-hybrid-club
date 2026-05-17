@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   BookOpen, UtensilsCrossed, Apple, ChefHat,
-  FileText, Pill, Leaf,
+  FileText, Pill, Leaf, Dumbbell,
 } from "lucide-react";
 import { BibliotecaCard } from "@/components/biblioteca/BibliotecaCard";
 
@@ -36,6 +36,16 @@ const PLANO_ALIMENTAR = [
     description: "Receitas salvas para incluir nos planos alimentares dos alunos.",
     icon: ChefHat,
     tone: "amber" as const,
+  },
+];
+
+const TREINOS = [
+  {
+    to: "/biblioteca/treinos",
+    title: "Treinos",
+    description: "Modelos de sessões de treino salvos para reutilizar nos planos dos alunos.",
+    icon: Dumbbell,
+    tone: "sky" as const,
   },
 ];
 
@@ -84,6 +94,16 @@ function BibliotecaIndex() {
         <SectionHeader label="Plano Alimentar" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {PLANO_ALIMENTAR.map((c) => (
+            <BibliotecaCard key={c.to} {...c} />
+          ))}
+        </div>
+      </section>
+
+      {/* Treinos */}
+      <section className="space-y-3">
+        <SectionHeader label="Treinos" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {TREINOS.map((c) => (
             <BibliotecaCard key={c.to} {...c} />
           ))}
         </div>

@@ -1,5 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { sanitizeFilenamePdf } from "./pdf-filename";
 import {
   type AssessmentFull, type PhysicalAssessment,
   PROTOCOLO_LABEL, fmt,

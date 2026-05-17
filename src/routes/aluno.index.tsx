@@ -99,7 +99,7 @@ function AlunoInicio() {
   const { data, loading } = useAlunoDashboard();
   const fetchDieta = useServerFn(getDietaAluno);
   const fnRegistrarAgua = useServerFn(registrarAgua);
-  const fnToggleAtividade = useServerFn(toggleAtividade);
+  
 
   const [refeicoesTotal, setRefeicoesTotal] = useState<number>(0);
   const [metaKcal, setMetaKcal] = useState<number | null>(null);

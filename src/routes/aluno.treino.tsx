@@ -92,6 +92,46 @@ function AlunoTreinoPage() {
     );
   };
 
+  // Finalizar treino modal
+  const [modalOpen, setModalOpen] = useState(false);
+  const [step, setStep] = useState<1 | 2>(1);
+  const [tempoMin, setTempoMin] = useState("50");
+  const [tempoSec, setTempoSec] = useState("00");
+  const [distancia, setDistancia] = useState("10");
+  const [obs, setObs] = useState("");
+  const [pse, setPse] = useState<number | null>(null);
+  const [salvo, setSalvo] = useState(false);
+
+  const pseEscala = [
+    { v: 1, emoji: "😌", label: "Muito leve" },
+    { v: 2, emoji: "🙂", label: "Leve" },
+    { v: 3, emoji: "😀", label: "Confortável" },
+    { v: 4, emoji: "😅", label: "Moderado" },
+    { v: 5, emoji: "😬", label: "Um pouco difícil" },
+    { v: 6, emoji: "😮‍💨", label: "Difícil" },
+    { v: 7, emoji: "😣", label: "Muito difícil" },
+    { v: 8, emoji: "🥵", label: "Bem pesado" },
+    { v: 9, emoji: "😵", label: "Extremo" },
+    { v: 10, emoji: "🥶", label: "Máximo" },
+  ];
+
+  const abrirFinalizar = () => {
+    setStep(1);
+    setModalOpen(true);
+  };
+
+  const salvarTempo = () => {
+    setSalvo(true);
+    setStep(2);
+  };
+
+  const salvarPse = () => {
+    toast.success("Treino registrado com sucesso!");
+    setModalOpen(false);
+    setSalvo(false);
+    setPse(null);
+  };
+
   return (
     <div className="px-4 pt-2 pb-6 space-y-3">
       {/* Top bar */}

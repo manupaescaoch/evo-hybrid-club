@@ -149,6 +149,9 @@ function AlunoTreinoPage() {
         <div className="w-9" />
       </div>
 
+      {/* Semana */}
+      <SemanaSelector />
+
       {/* Section header */}
       <div className="flex items-center justify-between px-1">
         <h1 className="text-[11px] font-extrabold tracking-[0.2em] text-black">

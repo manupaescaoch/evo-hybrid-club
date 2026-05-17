@@ -302,6 +302,7 @@ function AlunoInicio() {
             />
           </div>
         </Link>
+      </motion.section>
 
       {/* XP card */}
       <motion.section

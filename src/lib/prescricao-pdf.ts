@@ -1,4 +1,5 @@
 import jsPDF from "jspdf";
+import { sanitizeFilenamePdf } from "./pdf-filename";
 import QRCode from "qrcode";
 import { NUTRICIONISTA } from "./dieta-pdf/modelo";
 import type { PrescricaoCompleta } from "./prescricao";

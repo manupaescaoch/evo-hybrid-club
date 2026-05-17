@@ -476,6 +476,28 @@ function AlunoInicio() {
   );
 }
 
+function ResumoCol({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: typeof Zap;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="px-2.5 flex flex-col">
+      <div className="flex items-center gap-1.5">
+        <Icon className="h-4 w-4 text-[#0033FF]" strokeWidth={2.5} />
+        <span className="text-[11px] font-semibold text-black/60">{label}</span>
+      </div>
+      <div className="mt-1 text-[18px] font-extrabold leading-none text-[#0033FF] tabular-nums">
+        {value}
+      </div>
+    </div>
+  );
+}
+
 function MetricCard({
   label,
   icon: Icon,

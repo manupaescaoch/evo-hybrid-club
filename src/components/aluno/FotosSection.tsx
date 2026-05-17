@@ -983,7 +983,8 @@ function CompararFotosModal({
         format: [canvas.width, canvas.height],
       });
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-      pdf.save(`comparacao-${fmtData(antes?.data ?? null)}-${fmtData(depois?.data ?? null)}.pdf`);
+      const { sanitizeFilenamePdf } = await import("@/lib/pdf-filename");
+      pdf.save(sanitizeFilenamePdf(`comparacao-${fmtData(antes?.data ?? null)}-${fmtData(depois?.data ?? null)}.pdf`));
       toast.success("PDF exportado");
     } catch (e) {
       console.error(e);

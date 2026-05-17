@@ -1,153 +1,92 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { useEffect } from "react";
 import { useAuth } from "@/lib/auth";
-import { setAlunoSession, getAlunoSession } from "@/lib/aluno-session";
-import { useServerFn } from "@tanstack/react-start";
-import { loginAlunoPorEmail } from "@/server/aluno-auth.functions";
+import { getAlunoSession } from "@/lib/aluno-session";
 import mpTeamLogo from "@/assets/mp-team-logo.png";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Entrar — MPTEAM" },
-      { name: "description", content: "Acesse sua conta MPTEAM. Login único para equipe e alunos da consultoria fitness e nutricional." },
+      { title: "Bem-vindo — IRON CLUB RUN" },
+      { name: "description", content: "IRON CLUB RUN — Todo treino começa antes do primeiro passo." },
     ],
   }),
-  component: LoginPage,
+  component: WelcomePage,
 });
 
-function LoginPage() {
-  const { signIn, session, loading } = useAuth();
+function WelcomePage() {
+  const { session, loading } = useAuth();
   const nav = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPwd, setShowPwd] = useState(false);
-  const [err, setErr] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-  const loginAlunoFn = useServerFn(loginAlunoPorEmail);
 
   useEffect(() => {
     if (!loading && session) nav({ to: "/visao-geral" });
     else if (!loading && getAlunoSession()) nav({ to: "/aluno" });
   }, [loading, session, nav]);
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErr(null);
-    setBusy(true);
-
-    const equipe = await signIn(email.trim(), password);
-    if (!equipe.error) {
-      setBusy(false);
-      nav({ to: "/visao-geral" });
-      return;
-    }
-
-    try {
-      const res = await loginAlunoFn({ data: { identificador: email.trim(), senha: password } });
-      if (res.ok) {
-        setAlunoSession({
-          id: res.aluno.id,
-          nome: res.aluno.nome,
-          email: res.aluno.email,
-          whatsapp: res.aluno.whatsapp,
-          avatarUrl: (res.aluno as any).foto_url ?? null,
-          deveTrocarSenha: res.deve_trocar_senha,
-        });
-        setBusy(false);
-        nav({ to: res.deve_trocar_senha ? "/aluno/trocar-senha" : "/aluno" });
-        return;
-      }
-    } catch {
-      /* ignora */
-    }
-
-    setBusy(false);
-    setErr("Credenciais inválidas");
-  };
-
   return (
-    <div className="min-h-screen bg-[#FAFAFA] flex flex-col items-center px-6 pt-16 pb-10">
-      <div className="w-full max-w-sm flex flex-col items-center">
-        {/* Logo */}
-        <img
-          src={mpTeamLogo}
-          alt="MPTEAM"
-          className="h-40 w-40 object-contain select-none"
-          draggable={false}
-        />
+    <div className="min-h-screen bg-[#F5F6FA] flex flex-col items-center justify-between px-6 pt-16 pb-12 relative overflow-hidden">
+      {/* Decorative diagonal stripes — top-right */}
+      <DiagonalStripes className="absolute -top-10 -right-10 w-[70%] opacity-60 rotate-[8deg]" />
+      {/* Decorative diagonal stripes — bottom-left */}
+      <DiagonalStripes className="absolute -bottom-16 -left-10 w-[75%] opacity-50 -rotate-[8deg]" />
 
-        {/* Título */}
-        <h1 className="mt-6 text-[42px] leading-none font-extrabold tracking-tight text-black">
-          Bem-vindo
+      <div className="flex-1 w-full max-w-sm flex flex-col items-center justify-center relative z-10">
+        {/* Logo block */}
+        <div
+          className="h-[140px] w-[140px] rounded-[32px] bg-[#0033FF] flex items-center justify-center shadow-[0_30px_60px_-20px_rgba(0,51,255,0.55)]"
+        >
+          <img
+            src={mpTeamLogo}
+            alt="IRON CLUB RUN"
+            className="h-[110px] w-[110px] object-contain select-none"
+            draggable={false}
+          />
+        </div>
+
+        {/* Brand title */}
+        <h1 className="mt-7 text-[34px] leading-none font-black tracking-tight text-center">
+          <span className="text-black">Bem-vindo ao </span>
+          <span className="text-[#0033FF]">IRON</span>
+          <span className="text-black"> CLUB RUN</span>
         </h1>
-        <p className="mt-3 text-[15px] text-black/55 text-center">
-          Seu <span className="text-[#0033FF] font-semibold">shape</span> entrega o que sua rotina esconde.
+        <p className="mt-3 text-[15px] text-black/55 text-center max-w-[280px]">
+          Todo treino começa antes do primeiro passo.
         </p>
+      </div>
 
-        {/* Formulário */}
-        <form onSubmit={onSubmit} className="w-full mt-10 space-y-4">
-          <div className="relative">
-            <Mail className="h-5 w-5 text-[#0033FF] absolute left-5 top-1/2 -translate-y-1/2" strokeWidth={2.2} />
-            <input
-              type="text"
-              inputMode="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="username"
-              placeholder="E-mail ou WhatsApp"
-              className="w-full h-[60px] rounded-2xl bg-white border-0 pl-14 pr-5 text-[16px] placeholder:text-black/40 text-black shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-[#0033FF]/30 transition"
-            />
-          </div>
-
-          <div className="relative">
-            <Lock className="h-5 w-5 text-[#0033FF] absolute left-5 top-1/2 -translate-y-1/2" strokeWidth={2.2} />
-            <input
-              type={showPwd ? "text" : "password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={4}
-              autoComplete="current-password"
-              placeholder="Senha"
-              className="w-full h-[60px] rounded-2xl bg-white border-0 pl-14 pr-14 text-[16px] placeholder:text-black/40 text-black shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-[#0033FF]/30 transition"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPwd((s) => !s)}
-              className="absolute right-5 top-1/2 -translate-y-1/2 text-black/40 hover:text-black/70 transition"
-              aria-label={showPwd ? "Ocultar senha" : "Mostrar senha"}
-            >
-              {showPwd ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-            </button>
-          </div>
-
-          <div className="flex justify-end pt-1">
-            <Link
-              to="/aluno/esqueci-senha"
-              className="text-[14px] font-semibold text-[#0033FF] hover:underline"
-            >
-              Esqueci minha senha
-            </Link>
-          </div>
-
-          {err && (
-            <div className="text-[13px] text-[#0033FF] bg-[#0033FF]/5 border border-[#0033FF]/20 rounded-xl px-4 py-3">
-              {err}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={busy}
-            className="w-full h-[60px] mt-2 rounded-2xl bg-[#0033FF] text-white text-[17px] font-bold shadow-[0_18px_40px_-12px_rgba(0,51,255,0.55)] hover:bg-[#0033FF]/95 active:scale-[0.99] disabled:opacity-50 transition-all"
-          >
-            {busy ? "Entrando..." : "Entrar"}
-          </button>
-        </form>
+      {/* Action buttons */}
+      <div className="w-full max-w-sm flex flex-col gap-3 relative z-10">
+        <Link
+          to="/aluno/login"
+          className="w-full h-[60px] rounded-2xl bg-[#0033FF] text-white text-[17px] font-bold flex items-center justify-center shadow-[0_18px_40px_-12px_rgba(0,51,255,0.55)] hover:bg-[#0033FF]/95 active:scale-[0.99] transition-all"
+        >
+          Sou aluno
+        </Link>
+        <Link
+          to="/equipe-login"
+          className="w-full h-[60px] rounded-2xl bg-[#1A1B23] text-white text-[17px] font-bold flex items-center justify-center hover:bg-[#1A1B23]/95 active:scale-[0.99] transition-all"
+        >
+          Sou profissional Iron
+        </Link>
       </div>
     </div>
+  );
+}
+
+function DiagonalStripes({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 400 400"
+      className={className}
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs>
+        <pattern id="stripes" patternUnits="userSpaceOnUse" width="22" height="22" patternTransform="rotate(-45)">
+          <line x1="0" y1="0" x2="0" y2="22" stroke="#0033FF" strokeOpacity="0.18" strokeWidth="2" />
+        </pattern>
+      </defs>
+      <polygon points="0,0 400,0 400,400" fill="url(#stripes)" />
+    </svg>
   );
 }

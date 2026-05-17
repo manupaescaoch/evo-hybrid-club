@@ -437,3 +437,59 @@ export const atualizarFotoAluno = createServerFn({ method: "POST" })
     await session.update({ ...(session.data ?? {}), foto_url: url });
     return { ok: true as const, foto_url: url };
   });
+/** Resolve para qual área redirecionar após login Supabase (email/Google). */
+export const resolveRedirectAposLogin = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const userId = context.userId;
+    const email = (context.claims as any)?.email as string | undefined;
+
+    // 1) Usuário do CRM (equipe/admin)
+    const { data: crm } = await supabaseAdmin
+      .from("usuarios_crm")
+      .select("id, ativo")
+      .eq("id", userId)
+      .maybeSingle();
+    if (crm && crm.ativo !== false) {
+      return { kind: "equipe" as const };
+    }
+
+    // 2) Aluno por e-mail
+    if (email) {
+      const { data: aluno } = await supabaseAdmin
+        .from("alunos")
+        .select("id, nome, email, whatsapp, foto_url")
+        .ilike("email", email)
+        .maybeSingle();
+      if (aluno) {
+        const { data: acesso } = await supabaseAdmin
+          .from("alunos_acesso")
+          .select("deve_trocar_senha")
+          .eq("aluno_id", aluno.id)
+          .maybeSingle();
+        await setAlunoCookie(
+          {
+            id: aluno.id,
+            nome: aluno.nome,
+            email: aluno.email ?? null,
+            whatsapp: aluno.whatsapp ?? null,
+            foto_url: (aluno as any).foto_url ?? null,
+          },
+          false,
+        );
+        return {
+          kind: "aluno" as const,
+          aluno: {
+            id: aluno.id,
+            nome: aluno.nome,
+            email: aluno.email,
+            whatsapp: aluno.whatsapp,
+            foto_url: (aluno as any).foto_url ?? null,
+          },
+          deve_trocar_senha: !!acesso?.deve_trocar_senha,
+        };
+      }
+    }
+
+    return { kind: "none" as const };
+  });

@@ -15,6 +15,10 @@ import {
   Clock,
   MapPin,
   HeartPulse,
+  Target,
+  Play,
+  BarChart3,
+  Footprints as Shoe,
 } from "lucide-react";
 import { useAlunoSession } from "@/lib/aluno-session";
 import { useAlunoDashboard, triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";
@@ -215,7 +219,8 @@ function AlunoInicio() {
   const focosFeitos = focos.filter((f) => f.done).length;
 
   return (
-    <div className="px-4 pt-1.5 pb-2 space-y-2">
+    <div className="px-4 pt-3 pb-2 space-y-3">
+      {/* Saudação */}
       <motion.section
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -223,90 +228,36 @@ function AlunoInicio() {
         className="flex items-start justify-between gap-3"
       >
         <div>
-          <h1 className="text-[19px] leading-tight font-extrabold tracking-tight">
-            Olá, {primeiroNome} <span>👋</span>
+          <h1 className="text-[28px] leading-[1.05] font-black tracking-tight text-black">
+            Olá, <span className="uppercase">{primeiroNome}</span>
           </h1>
-          <p className="mt-0.5 text-[11px] text-black/50">Foco. Disciplina. Evolução.</p>
+          <p className="mt-1 text-[13px] text-black/55">Corrida, constância e evolução.</p>
         </div>
         <Link to="/aluno/perfil" className="relative shrink-0" aria-label="Perfil">
-          <div className="h-9 w-9 rounded-full bg-[#0033FF]/10 overflow-hidden ring-1 ring-black/5 flex items-center justify-center">
+          <div className="h-11 w-11 rounded-full bg-[#0033FF]/10 overflow-hidden ring-1 ring-black/5 flex items-center justify-center">
             {session?.avatarUrl ? (
               <img src={session.avatarUrl} alt="" className="h-full w-full object-cover" />
             ) : (
-              <span className="text-[13px] font-extrabold text-[#0033FF]">{inicial}</span>
+              <span className="text-[15px] font-extrabold text-[#0033FF]">{inicial}</span>
             )}
           </div>
-          <span className="absolute -top-0.5 -right-0.5 h-3 w-3 rounded-full bg-[#0033FF] ring-2 ring-[#FAFAFA] flex items-center justify-center">
-            <Bell className="h-2 w-2 text-white" strokeWidth={3} />
-          </span>
         </Link>
       </motion.section>
 
-      {/* XP card */}
+      {/* Resumo do dia: Score / Sequência / Meta do dia */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.05 }}
-        className="rounded-2xl bg-white p-2.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5"
+        className="rounded-2xl bg-white px-3 py-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 grid grid-cols-3"
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-lg bg-[#0033FF]/10 flex items-center justify-center">
-              <Zap className="h-3.5 w-3.5 text-[#0033FF]" fill={RED} />
-            </div>
-            <div className="text-[10px] font-extrabold tracking-[0.18em] text-black">
-              SCORE DE HOJE
-            </div>
-          </div>
-          <div className="text-[#0033FF] font-extrabold text-sm tabular-nums">
-            {xpSemana} na semana
-          </div>
+        <ResumoCol icon={Zap} label="Score" value={`${xpHoje} pts`} />
+        <div className="border-l border-black/5">
+          <ResumoCol icon={Flame} label="Sequência" value={`${sequencia} ${sequencia === 1 ? "dia" : "dias"}`} />
         </div>
-
-        <div className="mt-2 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${pct}%` }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="h-full rounded-full bg-[#0033FF]"
-          />
+        <div className="border-l border-black/5">
+          <ResumoCol icon={Target} label="Meta do dia" value={`${focosFeitos}/${focos.length}`} />
         </div>
-
-        <div className="mt-1.5 flex items-center justify-between text-[10px]">
-          <span className="text-[#0033FF] font-semibold tabular-nums">
-            {xpHoje} / {xpMetaDia} pts
-          </span>
-          <span className="text-black/45">
-            {xpFalta > 0 ? `Faltam ${xpFalta} pts hoje` : "Meta de hoje batida"}
-          </span>
-        </div>
-      </motion.section>
-
-      {/* Sequência */}
-      <motion.section
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.08 }}
-        className="rounded-2xl bg-white p-2 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-2.5"
-      >
-        <div className="h-9 w-9 rounded-full bg-[#0033FF]/10 flex items-center justify-center shrink-0">
-          <Flame className="h-5 w-5 text-[#0033FF]" fill={RED} />
-        </div>
-        <div className="flex items-baseline gap-1.5 shrink-0">
-          <span className="text-2xl font-extrabold leading-none text-[#0033FF] tabular-nums">
-            {sequencia}
-          </span>
-          <span className="text-[9px] font-extrabold tracking-widest leading-tight text-black">
-            DIAS<br />SEGUIDOS
-          </span>
-        </div>
-        <div className="h-7 w-px bg-black/10 mx-0.5" />
-        <p className="text-[10.5px] text-black/70 leading-snug flex-1">
-          {sequencia === 0
-            ? "Faça seu check-in de hoje pra começar a contagem."
-            : "Tu sobe aqui fazendo o básico todo dia."}
-        </p>
-        <ChevronRight className="h-3.5 w-3.5 text-[#0033FF] shrink-0" />
       </motion.section>
 
       {/* Treino de hoje */}
@@ -321,103 +272,95 @@ function AlunoInicio() {
           </h2>
           <Link
             to="/aluno/treino"
-            className="text-[11px] font-semibold text-[#0033FF] inline-flex items-center gap-0.5"
+            className="text-[12px] font-semibold text-[#0033FF] inline-flex items-center gap-0.5"
           >
-            Ver tudo →
+            Ver tudo <ChevronRight className="h-3.5 w-3.5" />
           </Link>
         </div>
         <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-2.5 py-1">
-            <Footprints className="h-3 w-3 text-[#0033FF]" />
-            <span className="text-[10px] font-extrabold tracking-[0.14em] text-[#0033FF]">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-3 py-1">
+            <Footprints className="h-3.5 w-3.5 text-[#0033FF]" />
+            <span className="text-[11px] font-extrabold tracking-[0.16em] text-[#0033FF]">
               AERÓBICO
             </span>
           </div>
-          <h3 className="mt-2.5 text-[18px] font-extrabold leading-tight text-black">
+          <h3 className="mt-3 text-[22px] font-black leading-tight tracking-tight text-black">
             Rodagem Leve + Strides
           </h3>
-          <p className="mt-0.5 text-[12px] text-black/55">
-            Foco em ritmo e técnica de passada
+          <p className="mt-1 text-[13px] text-black/55">
+            Ritmo controlado, passada limpa e constância.
           </p>
-          <div className="mt-2.5 flex items-center gap-4 text-[12px] text-black/70">
-            <span className="inline-flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5 text-black/50" />
+          <div className="mt-3 flex items-center gap-5 text-[13px] text-black/70">
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-4 w-4 text-black/55" />
               <span className="font-semibold">50 min</span>
             </span>
-            <span className="inline-flex items-center gap-1">
-              <MapPin className="h-3.5 w-3.5 text-black/50" />
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="h-4 w-4 text-black/55" />
               <span className="font-semibold">10 km</span>
             </span>
-            <span className="inline-flex items-center gap-1">
-              <HeartPulse className="h-3.5 w-3.5 text-black/50" />
+            <span className="inline-flex items-center gap-1.5">
+              <HeartPulse className="h-4 w-4 text-black/55" />
               <span className="font-semibold">Z2–Z3</span>
             </span>
           </div>
+          <div className="mt-4 flex items-center justify-between text-[12px]">
+            <span className="text-black/55 font-medium">Progresso</span>
+            <span className="text-black font-extrabold tabular-nums">65%</span>
+          </div>
+          <div className="mt-1 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "65%" }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
+              className="h-full rounded-full bg-[#0033FF]"
+            />
+          </div>
           <Link
             to="/aluno/treino"
-            className="mt-3 w-full inline-flex items-center justify-center gap-1.5 h-11 rounded-xl bg-[#0033FF] text-white text-[13px] font-extrabold tracking-tight active:scale-[0.99] transition shadow-[0_10px_24px_-12px_rgba(0,51,255,0.6)]"
+            className="mt-4 w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl bg-[#0033FF] text-white text-[15px] font-extrabold tracking-tight active:scale-[0.99] transition shadow-[0_12px_28px_-12px_rgba(0,51,255,0.55)]"
           >
+            <Play className="h-4 w-4" fill="#fff" />
             Iniciar treino
-            <ChevronRight className="h-4 w-4" />
           </Link>
         </div>
       </motion.section>
 
-      {/* Check-in de hoje */}
+      {/* Check-in de hoje (compacto) */}
       <motion.section
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.12 }}
-        className="rounded-2xl bg-white p-2.5 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5"
+        className="rounded-2xl bg-white p-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 flex items-center gap-3"
       >
-        <div className="flex items-center justify-between mb-2">
-          <div className="text-[10px] font-extrabold tracking-[0.2em] text-black/50">
+        <div className="h-11 w-11 rounded-full bg-[#0033FF]/10 flex items-center justify-center shrink-0">
+          <Check className="h-5 w-5 text-[#0033FF]" strokeWidth={3} />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] font-extrabold tracking-[0.18em] text-black">
             CHECK-IN DE HOJE
           </div>
-          <span className="text-[11px] font-extrabold text-[#0033FF] tabular-nums">
-            {focosFeitos}/{focos.length}
-          </span>
+          <div className="mt-0.5 text-[17px] font-extrabold leading-tight text-[#0033FF] tabular-nums">
+            {focosFeitos} de {focos.length} concluídos
+          </div>
+          <p className="text-[11px] text-black/50 mt-0.5">
+            {focosFeitos >= focos.length ? "Tudo certo por hoje." : "Falta pouco para fechar o dia."}
+          </p>
         </div>
-        <div className="flex items-center gap-1 mb-2">
-          {focos.map((f, i) => (
-            <div
-              key={i}
-              className={`h-1.5 flex-1 rounded-full ${f.done ? "bg-[#0033FF]" : "bg-black/8"}`}
-            />
-          ))}
-        </div>
-        <ul className="space-y-1.5">
-          {focos.map((f) => {
-            const Icon = f.icon;
-            return (
-              <li key={f.label} className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <Icon className="h-3.5 w-3.5" style={{ color: f.color }} />
-                  <span className="text-[12px] font-semibold text-black">{f.label}</span>
-                </div>
-                {f.done ? (
-                  <span className="h-4 w-4 rounded-full bg-[#0033FF] flex items-center justify-center">
-                    <Check className="h-2.5 w-2.5 text-white" strokeWidth={3.5} />
-                  </span>
-                ) : (
-                  <span className="h-4 w-4 rounded-full border-2 border-black/15" />
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        <Link
+          to="/aluno/perfil"
+          className="shrink-0 inline-flex items-center justify-center h-10 px-3 rounded-xl border-2 border-[#0033FF] text-[#0033FF] text-[12px] font-extrabold tracking-tight active:scale-95 transition"
+        >
+          Finalizar check-in
+        </Link>
       </motion.section>
 
       {/* Indicadores do corpo */}
       <section>
         <div className="flex items-center justify-between mb-2 px-1">
-          <h2 className="text-[11px] font-extrabold tracking-[0.2em] text-black">INDICADORES DO CORPO</h2>
-          <Link to="/aluno/perfil" className="text-[11px] font-semibold text-black/60 inline-flex items-center gap-0.5">
-            Ver tudo <ChevronRight className="h-3.5 w-3.5 text-[#0033FF]" />
-          </Link>
+          <h2 className="text-[12px] font-extrabold tracking-[0.22em] text-black">HOJE</h2>
         </div>
-        <div className="grid grid-cols-2 gap-2">
-          {/* Sono */}
+        <div className="grid grid-cols-2 gap-2.5">
           <MetricCard
             label="Sono"
             icon={Moon}
@@ -428,7 +371,6 @@ function AlunoInicio() {
             ringPct={sonoPct}
             index={0}
           />
-          {/* Energia */}
           <MetricCard
             label="Energia"
             icon={Zap}
@@ -437,9 +379,9 @@ function AlunoInicio() {
             value={energia ?? "—"}
             subtitle={energia ? "" : "registre hoje"}
             check={!!energia}
+            fillIcon
             index={1}
           />
-          {/* Água */}
           <AguaCard
             atualL={aguaAtualL}
             metaL={aguaMetaL}
@@ -447,7 +389,6 @@ function AlunoInicio() {
             onAdd={() => ajustarAgua(250)}
             onSub={() => ajustarAgua(-250)}
           />
-          {/* Humor */}
           <MetricCard
             label="Humor"
             icon={Smile}
@@ -458,7 +399,6 @@ function AlunoInicio() {
             check={!!humor}
             index={2}
           />
-          {/* Calorias */}
           <MetricCard
             label="Calorias"
             icon={Flame}
@@ -470,7 +410,49 @@ function AlunoInicio() {
             fillIcon
             index={3}
           />
+          <MetricCard
+            label="Pace médio"
+            icon={Clock}
+            color={RED}
+            bg="bg-[#0033FF]/10"
+            value="5:12/km"
+            subtitle="esta semana"
+            ringPct={72}
+            index={4}
+          />
         </div>
+      </section>
+
+      {/* Performance da semana */}
+      <section>
+        <div className="flex items-center justify-between mb-2 px-1">
+          <h2 className="text-[12px] font-extrabold tracking-[0.22em] text-black">
+            PERFORMANCE DA SEMANA
+          </h2>
+        </div>
+        <Link
+          to="/aluno/perfil"
+          className="block rounded-2xl bg-white p-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 active:scale-[0.99] transition"
+        >
+          <div className="flex items-stretch">
+            <div className="flex items-center gap-2.5 flex-1 min-w-0">
+              <BarChart3 className="h-7 w-7 text-[#0033FF]" strokeWidth={2.5} />
+              <div className="min-w-0">
+                <div className="text-[18px] font-extrabold leading-none text-black tabular-nums">24 km</div>
+                <div className="text-[11px] text-black/55 mt-1">Distância total</div>
+              </div>
+            </div>
+            <div className="w-px bg-black/10 mx-2" />
+            <div className="flex items-center gap-2.5 flex-1 min-w-0">
+              <Shoe className="h-7 w-7 text-[#0033FF]" strokeWidth={2.5} />
+              <div className="min-w-0">
+                <div className="text-[18px] font-extrabold leading-none text-black tabular-nums">3 treinos</div>
+                <div className="text-[11px] text-black/55 mt-1">Treinos concluídos</div>
+              </div>
+            </div>
+            <ChevronRight className="h-5 w-5 text-black/30 self-center ml-1 shrink-0" />
+          </div>
+        </Link>
       </section>
 
       <AnimatePresence>
@@ -490,6 +472,28 @@ function AlunoInicio() {
           Carregando seus dados…
         </p>
       )}
+    </div>
+  );
+}
+
+function ResumoCol({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: typeof Zap;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="px-2.5 flex flex-col">
+      <div className="flex items-center gap-1.5">
+        <Icon className="h-4 w-4 text-[#0033FF]" strokeWidth={2.5} />
+        <span className="text-[11px] font-semibold text-black/60">{label}</span>
+      </div>
+      <div className="mt-1 text-[18px] font-extrabold leading-none text-[#0033FF] tabular-nums">
+        {value}
+      </div>
     </div>
   );
 }

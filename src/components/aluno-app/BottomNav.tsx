@@ -1,10 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, UtensilsCrossed, Repeat2, Users, Trophy } from "lucide-react";
+import { Home, UtensilsCrossed, Repeat2, Users, Trophy, Dumbbell } from "lucide-react";
 import { motion } from "framer-motion";
 
 type Item = { to: string; label: string; icon: typeof Home; exact?: boolean };
 const items: Item[] = [
   { to: "/aluno", label: "Início", icon: Home, exact: true },
+  { to: "/aluno/treino", label: "Treino", icon: Dumbbell },
   { to: "/aluno/dieta", label: "Dieta", icon: UtensilsCrossed },
   { to: "/aluno/trocas", label: "Trocas", icon: Repeat2 },
   { to: "/aluno/comunidade", label: "Comunidade", icon: Users },

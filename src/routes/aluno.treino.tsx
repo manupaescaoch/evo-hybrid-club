@@ -11,6 +11,8 @@ import {
   Check,
   Play,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import { toast } from "sonner";

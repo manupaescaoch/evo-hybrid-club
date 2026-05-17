@@ -1,5 +1,5 @@
 import { FileText, FileSpreadsheet } from "lucide-react";
-import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { sanitizeFilenamePdf } from "@/lib/pdf-filename";
@@ -9,6 +9,28 @@ interface ExportButtonsProps {
   title: string;
   columns: string[];
   rows: (string | number)[][];
+}
+
+/** Sanitiza nome de planilha (regras Excel: <=31 chars, sem : \ / ? * [ ]). */
+function sanitizeSheetName(name: string): string {
+  const s = (name || "Planilha").replace(/[:\\/?*[\]]/g, "").trim();
+  return (s || "Planilha").slice(0, 31);
+}
+
+/** Sanitiza filename para XLSX (mesmas regras do PDF, com extensão .xlsx). */
+function sanitizeFilenameXlsx(name: string, fallback = "planilha.xlsx"): string {
+  let s = (name ?? "").toString();
+  s = s.replace(/<[^>]*>/g, "");
+  s = s.replace(/[\\/]+/g, "-").replace(/\.{2,}/g, "-");
+  // eslint-disable-next-line no-control-regex
+  s = s.replace(/[\u0000-\u001F\u007F"'`<>|?*:]/g, "");
+  s = s.trim().replace(/\s+/g, "-");
+  s = s.replace(/[^\w.\-\u00C0-\u017F]/g, "");
+  s = s.replace(/^\.+|\.+$/g, "");
+  if (s.length > 120) s = s.slice(0, 120);
+  if (!s) return fallback;
+  if (!s.toLowerCase().endsWith(".xlsx")) s = `${s}.xlsx`;
+  return s;
 }
 
 export function ExportButtons({ filename, title, columns, rows }: ExportButtonsProps) {
@@ -26,11 +48,28 @@ export function ExportButtons({ filename, title, columns, rows }: ExportButtonsP
     doc.save(sanitizeFilenamePdf(`${filename}.pdf`));
   }
 
-  function exportXLSX() {
-    const ws = XLSX.utils.aoa_to_sheet([columns, ...rows]);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, title.slice(0, 30));
-    XLSX.writeFile(wb, `${filename}.xlsx`);
+  async function exportXLSX() {
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet(sanitizeSheetName(title));
+    ws.addRow(columns);
+    for (const r of rows) {
+      // Força strings para evitar interpretação de fórmulas/datas
+      ws.addRow(r.map((c) => (c == null ? "" : String(c))));
+    }
+    // Negrito no header
+    ws.getRow(1).font = { bold: true };
+    const buffer = await wb.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = sanitizeFilenameXlsx(`${filename}.xlsx`);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   }
 
   return (

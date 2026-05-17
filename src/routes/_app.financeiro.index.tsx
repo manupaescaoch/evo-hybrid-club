@@ -19,6 +19,7 @@ import {
 import { useRef } from "react";
 import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
+import { sanitizeFilenamePdf } from "@/lib/pdf-filename";
 
 export const Route = createFileRoute("/_app/financeiro/")({
   component: DashboardPage,

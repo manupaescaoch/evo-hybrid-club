@@ -108,11 +108,17 @@ function BibliotecaTreinosPage() {
     };
     if (m.id) {
       const { error } = await supabase.from("corrida_modelos_sessao").update(payload).eq("id", m.id);
-      if (error) return toast.error("Erro ao salvar");
+      if (error) {
+        toast.error("Erro ao salvar");
+        return;
+      }
       toast.success("Treino atualizado");
     } else {
       const { error } = await supabase.from("corrida_modelos_sessao").insert({ ...payload, blocos: [] });
-      if (error) return toast.error("Erro ao criar");
+      if (error) {
+        toast.error("Erro ao criar");
+        return;
+      }
       toast.success("Treino criado");
     }
     setOpen(false);

@@ -1,5 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { sanitizeFilenamePdf } from "./pdf-filename";
 import { NUTRICIONISTA } from "./dieta-pdf/modelo";
 import { registrarFonteRoboto } from "./dieta-pdf/fontes";
 import logoMP from "@/assets/logo-mp.png";

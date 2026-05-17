@@ -204,7 +204,7 @@ function AlunosPage() {
           const dr = diasRestantes(a.data_expiracao);
           const isVencido = dr !== null && dr < 0;
           const statusPill = isVencido
-            ? { label: "Vencido", cls: "bg-[hsl(0_84%_60%/0.10)] text-primary border-[hsl(0_84%_60%/0.25)]" }
+            ? { label: "Vencido", cls: "bg-primary/10 text-primary border-primary/25" }
             : { label: "Ativo", cls: "bg-[hsl(142_76%_45%/0.12)] text-[hsl(142_76%_30%)] border-[hsl(142_76%_45%/0.25)]" };
           const initials = (a.nome.trim().split(/\s+/).map(p => p[0]).slice(0, 2).join("") || "?").toUpperCase();
           return (
@@ -215,7 +215,7 @@ function AlunosPage() {
                   params={{ id: a.id }}
                   className="flex items-center gap-2.5 sm:gap-4 flex-1 min-w-0"
                 >
-                  <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-[hsl(0_84%_60%/0.12)] text-primary flex items-center justify-center text-xs sm:text-sm font-semibold shrink-0">
+                  <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs sm:text-sm font-semibold shrink-0">
                     {initials}
                   </div>
                   <div className="flex-1 min-w-0">

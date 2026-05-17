@@ -402,7 +402,10 @@ function AlunoInicio() {
             Ver tudo →
           </Link>
         </div>
-        <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
+        <Link
+          to="/aluno/treino"
+          className="block rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 active:scale-[0.99] transition"
+        >
           <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-2.5 py-1">
             <Footprints className="h-3 w-3 text-[#0033FF]" />
             <span className="text-[10px] font-extrabold tracking-[0.14em] text-[#0033FF]">
@@ -441,7 +444,7 @@ function AlunoInicio() {
               className="h-full rounded-full bg-black"
             />
           </div>
-        </div>
+        </Link>
       </motion.section>
 
       <AnimatePresence>

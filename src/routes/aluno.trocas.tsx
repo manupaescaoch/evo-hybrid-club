@@ -92,7 +92,7 @@ function SubCard({ item, destaqueKcal }: { item: SubItem; destaqueKcal?: boolean
         </div>
       )}
       <div className="flex items-start gap-2">
-        <ArrowRight className={`h-4 w-4 mt-0.5 shrink-0 ${ts ? "text-[#16A34A]" : "text-[#F70906]"}`} strokeWidth={2.6} />
+        <ArrowRight className={`h-4 w-4 mt-0.5 shrink-0 ${ts ? "text-[#16A34A]" : "text-[#0033FF]"}`} strokeWidth={2.6} />
         <div className="flex-1 min-w-0">
           <div className="text-[14px] font-semibold text-black leading-snug">{item.descricao}</div>
           <div className="mt-1.5 flex items-center gap-2 flex-wrap">
@@ -244,10 +244,10 @@ function AlunoTrocas() {
       </div>
 
       {/* Search card */}
-      <div className="rounded-3xl bg-white border-2 border-[#F70906]/15 shadow-[0_4px_20px_rgba(247,9,6,0.06)] p-3 space-y-2.5">
+      <div className="rounded-3xl bg-white border-2 border-[#0033FF]/15 shadow-[0_4px_20px_rgba(0,51,255,0.06)] p-3 space-y-2.5">
         <div className="flex items-start gap-2.5">
-          <div className="h-9 w-9 shrink-0 rounded-xl bg-[#F70906]/10 flex items-center justify-center">
-            <Sparkles className="h-4 w-4 text-[#F70906]" strokeWidth={2.4} />
+          <div className="h-9 w-9 shrink-0 rounded-xl bg-[#0033FF]/10 flex items-center justify-center">
+            <Sparkles className="h-4 w-4 text-[#0033FF]" strokeWidth={2.4} />
           </div>
           <textarea
             value={pedido}
@@ -271,7 +271,7 @@ function AlunoTrocas() {
           />
           <button
             onClick={escolherFoto}
-            className="h-9 w-9 shrink-0 rounded-xl flex items-center justify-center text-black/40 hover:text-[#F70906] active:scale-95"
+            className="h-9 w-9 shrink-0 rounded-xl flex items-center justify-center text-black/40 hover:text-[#0033FF] active:scale-95"
             title="Anexar foto do prato"
           >
             <Paperclip className="h-4 w-4" />
@@ -291,7 +291,7 @@ function AlunoTrocas() {
         <button
           onClick={() => gerar()}
           disabled={loading}
-          className="w-full h-12 rounded-2xl bg-[#F70906] text-white font-bold text-[14px] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(247,9,6,0.3)] active:scale-[0.98] transition disabled:opacity-60"
+          className="w-full h-12 rounded-2xl bg-[#0033FF] text-white font-bold text-[14px] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,51,255,0.3)] active:scale-[0.98] transition disabled:opacity-60"
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" strokeWidth={2.6} />}
           {loading ? "Gerando..." : "Gerar substituições"}
@@ -315,8 +315,8 @@ function AlunoTrocas() {
                 }}
                 className="flex items-center gap-2.5 p-2.5 rounded-2xl bg-white border border-black/5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] active:scale-[0.98] transition text-left"
               >
-                <div className="h-9 w-9 shrink-0 rounded-xl bg-[#F70906]/8 flex items-center justify-center">
-                  <Icon className="h-4 w-4 text-[#F70906]" strokeWidth={2.2} />
+                <div className="h-9 w-9 shrink-0 rounded-xl bg-[#0033FF]/8 flex items-center justify-center">
+                  <Icon className="h-4 w-4 text-[#0033FF]" strokeWidth={2.2} />
                 </div>
                 <span className="text-[12px] font-semibold text-black leading-tight">
                   {s.label}
@@ -339,7 +339,7 @@ function AlunoTrocas() {
                 onClick={() => setFiltro(f)}
                 className={`h-9 px-4 rounded-full text-[13px] font-semibold transition active:scale-95 ${
                   active
-                    ? "bg-[#F70906] text-white shadow-[0_4px_12px_rgba(247,9,6,0.25)]"
+                    ? "bg-[#0033FF] text-white shadow-[0_4px_12px_rgba(0,51,255,0.25)]"
                     : "bg-white text-black border border-black/10"
                 }`}
               >
@@ -360,7 +360,7 @@ function AlunoTrocas() {
             <div className="p-3 space-y-3">
               {loading ? (
                 <div className="flex items-center gap-2 text-black/50 text-[13px] p-2">
-                  <Loader2 className="h-4 w-4 animate-spin text-[#F70906]" />
+                  <Loader2 className="h-4 w-4 animate-spin text-[#0033FF]" />
                   Buscando equivalências nas tabelas TACO, TBCA e USDA...
                 </div>
               ) : respostaData ? (
@@ -372,7 +372,7 @@ function AlunoTrocas() {
                       {respostaData.referencia.descricao}
                     </div>
                     <div className="mt-1.5 flex items-baseline gap-1">
-                      <span className="text-[26px] font-extrabold text-[#F70906] tabular-nums leading-none">
+                      <span className="text-[26px] font-extrabold text-[#0033FF] tabular-nums leading-none">
                         {fmt(respostaData.referencia.kcal)}
                       </span>
                       <span className="text-[12px] text-black/45 font-medium">kcal</span>
@@ -437,14 +437,14 @@ function AlunoTrocas() {
                 }}
                 className="shrink-0 min-w-[200px] flex items-center gap-2.5 p-2.5 rounded-2xl bg-white border border-black/5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] active:scale-[0.98] transition text-left"
               >
-                <div className="h-9 w-9 shrink-0 rounded-xl bg-[#F70906]/8 flex items-center justify-center">
-                  <Sparkles className="h-4 w-4 text-[#F70906]" strokeWidth={2.2} />
+                <div className="h-9 w-9 shrink-0 rounded-xl bg-[#0033FF]/8 flex items-center justify-center">
+                  <Sparkles className="h-4 w-4 text-[#0033FF]" strokeWidth={2.2} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-[12px] font-bold text-black truncate">{h.pedido}</div>
                   <div className="text-[10px] text-black/45 font-medium mt-0.5">{h.quando}</div>
                 </div>
-                <ChevronRight className="h-3.5 w-3.5 text-[#F70906] shrink-0" strokeWidth={2.4} />
+                <ChevronRight className="h-3.5 w-3.5 text-[#0033FF] shrink-0" strokeWidth={2.4} />
               </button>
             ))}
           </div>
@@ -452,9 +452,9 @@ function AlunoTrocas() {
       )}
 
       {/* IA card */}
-      <div className="rounded-3xl bg-[#F70906]/6 border border-[#F70906]/12 p-4 flex items-start gap-3">
-        <div className="h-11 w-11 shrink-0 rounded-2xl bg-[#F70906]/12 flex items-center justify-center">
-          <Sparkles className="h-5 w-5 text-[#F70906]" strokeWidth={2.4} />
+      <div className="rounded-3xl bg-[#0033FF]/6 border border-[#0033FF]/12 p-4 flex items-start gap-3">
+        <div className="h-11 w-11 shrink-0 rounded-2xl bg-[#0033FF]/12 flex items-center justify-center">
+          <Sparkles className="h-5 w-5 text-[#0033FF]" strokeWidth={2.4} />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-[14px] font-bold text-black leading-snug">

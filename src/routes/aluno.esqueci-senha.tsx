@@ -49,8 +49,8 @@ function EsqueciSenhaPage() {
             className="h-24 w-24 object-contain select-none"
             draggable={false}
           />
-          <div className="mt-4 h-12 w-12 rounded-2xl bg-[#F70906]/10 flex items-center justify-center">
-            <KeyRound className="h-6 w-6 text-[#F70906]" />
+          <div className="mt-4 h-12 w-12 rounded-2xl bg-[#0033FF]/10 flex items-center justify-center">
+            <KeyRound className="h-6 w-6 text-[#0033FF]" />
           </div>
           <h1 className="mt-4 text-[28px] leading-none font-extrabold tracking-tight text-black">
             Recuperar senha
@@ -77,7 +77,7 @@ function EsqueciSenhaPage() {
             </p>
             <button
               onClick={() => nav({ to: "/login" })}
-              className="mt-5 w-full h-12 rounded-xl bg-[#F70906] text-white font-bold text-[14px] hover:bg-[#F70906]/90 transition"
+              className="mt-5 w-full h-12 rounded-xl bg-[#0033FF] text-white font-bold text-[14px] hover:bg-[#0033FF]/90 transition"
             >
               Ir para o login
             </button>
@@ -92,12 +92,12 @@ function EsqueciSenhaPage() {
               onChange={(e) => setIdentificador(e.target.value)}
               required
               placeholder="E-mail ou WhatsApp"
-              className="w-full h-[60px] rounded-2xl bg-white border-0 px-5 text-[16px] placeholder:text-black/40 text-black shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-[#F70906]/30 transition"
+              className="w-full h-[60px] rounded-2xl bg-white border-0 px-5 text-[16px] placeholder:text-black/40 text-black shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-[#0033FF]/30 transition"
             />
             <button
               type="submit"
               disabled={busy}
-              className="w-full h-[60px] rounded-2xl bg-[#F70906] text-white text-[17px] font-bold flex items-center justify-center gap-2 shadow-[0_18px_40px_-12px_rgba(247,9,6,0.55)] hover:bg-[#F70906]/95 active:scale-[0.99] disabled:opacity-50 transition-all"
+              className="w-full h-[60px] rounded-2xl bg-[#0033FF] text-white text-[17px] font-bold flex items-center justify-center gap-2 shadow-[0_18px_40px_-12px_rgba(0,51,255,0.55)] hover:bg-[#0033FF]/95 active:scale-[0.99] disabled:opacity-50 transition-all"
             >
               {busy ? (
                 "Enviando..."
@@ -114,7 +114,7 @@ function EsqueciSenhaPage() {
               ou{" "}
               <Link
                 to="/login"
-                className="font-semibold text-[#F70906] hover:underline"
+                className="font-semibold text-[#0033FF] hover:underline"
               >
                 fale com a equipe
               </Link>

@@ -72,7 +72,7 @@ function PostCard({
         {isMine && (
           <button
             onClick={() => onDelete(post)}
-            className="ml-1 p-1.5 rounded-lg text-black/40 hover:text-[#F70906] active:scale-95"
+            className="ml-1 p-1.5 rounded-lg text-black/40 hover:text-[#0033FF] active:scale-95"
             aria-label="Apagar"
           >
             <Trash2 className="h-4 w-4" />
@@ -95,9 +95,9 @@ function PostCard({
         >
           <Heart
             className={`h-7 w-7 ${
-              post.liked_by_me ? "text-[#F70906]" : "text-black"
+              post.liked_by_me ? "text-[#0033FF]" : "text-black"
             }`}
-            fill={post.liked_by_me ? "#F70906" : "none"}
+            fill={post.liked_by_me ? "#0033FF" : "none"}
             strokeWidth={post.liked_by_me ? 0 : 2}
           />
         </button>
@@ -260,8 +260,8 @@ function AlunoComunidade() {
             onClick={abrirSeletor}
             className="w-full flex items-center gap-3 active:scale-[0.99] transition"
           >
-            <div className="h-12 w-12 rounded-2xl bg-[#F70906]/10 flex items-center justify-center shrink-0">
-              <ImagePlus className="h-5 w-5 text-[#F70906]" strokeWidth={2.4} />
+            <div className="h-12 w-12 rounded-2xl bg-[#0033FF]/10 flex items-center justify-center shrink-0">
+              <ImagePlus className="h-5 w-5 text-[#0033FF]" strokeWidth={2.4} />
             </div>
             <div className="text-left">
               <div className="text-[14px] font-bold text-black">Compartilhar uma foto</div>
@@ -296,7 +296,7 @@ function AlunoComunidade() {
             <button
               onClick={publicar}
               disabled={criando}
-              className="w-full h-12 rounded-2xl bg-[#F70906] text-white font-bold text-[14px] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(247,9,6,0.3)] active:scale-[0.98] disabled:opacity-60"
+              className="w-full h-12 rounded-2xl bg-[#0033FF] text-white font-bold text-[14px] flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(0,51,255,0.3)] active:scale-[0.98] disabled:opacity-60"
             >
               {criando && <Loader2 className="h-4 w-4 animate-spin" />}
               {criando ? "Publicando..." : "Publicar"}
@@ -315,12 +315,12 @@ function AlunoComunidade() {
       {/* Feed */}
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-6 w-6 animate-spin text-[#F70906]" />
+          <Loader2 className="h-6 w-6 animate-spin text-[#0033FF]" />
         </div>
       ) : posts.length === 0 ? (
         <div className="rounded-3xl bg-white border border-black/5 p-8 text-center">
-          <div className="h-14 w-14 rounded-2xl bg-[#F70906]/10 mx-auto flex items-center justify-center">
-            <ImagePlus className="h-6 w-6 text-[#F70906]" strokeWidth={2.2} />
+          <div className="h-14 w-14 rounded-2xl bg-[#0033FF]/10 mx-auto flex items-center justify-center">
+            <ImagePlus className="h-6 w-6 text-[#0033FF]" strokeWidth={2.2} />
           </div>
           <div className="mt-3 text-[15px] font-bold text-black">Sem publicações ainda</div>
           <div className="text-[12px] text-black/50 font-medium mt-1">

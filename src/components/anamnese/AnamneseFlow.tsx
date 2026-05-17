@@ -466,7 +466,7 @@ function Logo({ big = false }: { big?: boolean }) {
 }
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider" style={{ backgroundColor: "#fee2e2", color: RED }}>
+    <span className="inline-block px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider" style={{ backgroundColor: "#E6ECFF", color: RED }}>
       {children}
     </span>
   );

@@ -846,7 +846,7 @@ function CompararFotosModal({
       ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
       ctx.restore();
     } catch {
-      ctx.fillStyle = "#dc2626";
+      ctx.fillStyle = "#0033FF";
       ctx.fillRect(logoX, logoY, logoSize, logoSize);
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 32px system-ui, -apple-system, sans-serif";

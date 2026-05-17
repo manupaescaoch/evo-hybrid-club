@@ -210,7 +210,7 @@ function ColorPicker({
                 className="h-5 w-5 rounded border border-border"
                 style={{
                   background: c === "transparent"
-                    ? "linear-gradient(135deg, transparent 45%, #ef4444 45%, #ef4444 55%, transparent 55%)"
+                    ? "linear-gradient(135deg, transparent 45%, #3355FF 45%, #3355FF 55%, transparent 55%)"
                     : c,
                 }}
                 title={c}

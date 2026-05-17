@@ -489,6 +489,6 @@ export async function exportarComparativoPdf({ aluno, colunas, print }: Args): P
     const blobUrl = doc.output("bloburl");
     window.open(blobUrl as unknown as string, "_blank");
   } else {
-    doc.save(`comparativo-antropometrico-${slug}-${dMin}-a-${dMax}.pdf`);
+    doc.save(sanitizeFilenamePdf(`comparativo-antropometrico-${slug}-${dMin}-a-${dMax}.pdf`));
   }
 }

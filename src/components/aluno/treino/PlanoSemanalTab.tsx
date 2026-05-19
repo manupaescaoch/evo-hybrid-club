@@ -931,6 +931,14 @@ function SessaoEditor({
               placeholder="5:30/km"
               className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
             />
+            {(() => {
+              const kmh = paceToKmh(sessao.pace_alvo);
+              return kmh ? (
+                <span className="text-[10px] text-muted-foreground mt-1">
+                  Esteira: {kmh.toFixed(1).replace(".", ",")} km/h
+                </span>
+              ) : null;
+            })()}
           </Field>
           <Field label="Zona FC">
             <select

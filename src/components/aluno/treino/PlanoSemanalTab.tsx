@@ -326,24 +326,26 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
       if (params.escopo !== "semana") {
         const { data, error } = await supabase
           .from("corrida_macrociclos")
-          .insert({
-            aluno_id: alunoId,
-            nome:
-              params.provaNome ??
-              (params.escopo === "mesociclo" ? "Mesociclo" : "Macrociclo"),
-            data_inicio: semanas[0].data_inicio,
-            data_fim: toISODate(addDays(new Date(semanas[semanas.length - 1].data_inicio + "T00:00"), 6)),
-            semanas_total: semanas.length,
-            modelo_periodizacao: params.modelo,
-            volume_base_km: params.volumeBaseKm,
-            volume_pico_km: params.volumePicoKm,
-            prova_nome: params.provaNome ?? null,
-            prova_data: params.provaData ?? null,
-            prova_distancia_km: params.provaDistanciaKm ?? null,
-            params_geracao: params as unknown as Record<string, unknown>,
-            status: "rascunho",
-            criado_por: crmUser?.nome ?? crmUser?.email ?? null,
-          })
+          .insert([
+            {
+              aluno_id: alunoId,
+              nome:
+                params.provaNome ??
+                (params.escopo === "mesociclo" ? "Mesociclo" : "Macrociclo"),
+              data_inicio: semanas[0].data_inicio,
+              data_fim: toISODate(addDays(new Date(semanas[semanas.length - 1].data_inicio + "T00:00"), 6)),
+              semanas_total: semanas.length,
+              modelo_periodizacao: params.modelo,
+              volume_base_km: params.volumeBaseKm,
+              volume_pico_km: params.volumePicoKm,
+              prova_nome: params.provaNome ?? null,
+              prova_data: params.provaData ?? null,
+              prova_distancia_km: params.provaDistanciaKm ?? null,
+              params_geracao: params as unknown as Record<string, unknown>,
+              status: "rascunho",
+              criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+            },
+          ])
           .select("id")
           .single();
         if (error) throw error;

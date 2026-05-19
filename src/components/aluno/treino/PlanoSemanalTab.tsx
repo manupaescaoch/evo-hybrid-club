@@ -12,6 +12,8 @@ import {
   CalendarDays,
   Library,
   X,
+  Sparkles,
+  GripVertical,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -22,6 +24,17 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  useDraggable,
+  useDroppable,
+  type DragEndEvent,
+} from "@dnd-kit/core";
 import {
   TIPOS_SESSAO,
   TIPOS_BLOCO,
@@ -37,9 +50,12 @@ import {
   addDays,
   numeroSemanaIso,
   descreverZona,
+  paceToKmh,
   type PerfilCorrida,
 } from "@/lib/corrida-zonas";
 import { BibliotecaSessoesTab, type ModeloSessao } from "./BibliotecaSessoesTab";
+import { WizardGerarPlano } from "./WizardGerarPlano";
+import type { ParamsGeracao, SemanaGerada } from "@/lib/corrida-gerador";
 
 type Sessao = {
   id: string;

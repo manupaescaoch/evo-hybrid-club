@@ -688,79 +688,35 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
         </div>
       </section>
 
-      {/* Grid 7 dias */}
+      {/* Grid 7 dias com drag-and-drop */}
       <section className="rounded-xl border border-border bg-card p-3 shadow-sm">
-        <div className="grid grid-cols-7 gap-2">
-          {Array.from({ length: 7 }).map((_, i) => {
-            const data = addDays(new Date(micro.data_inicio + "T00:00"), i);
-            const iso = toISODate(data);
-            const doDia = sessoes.filter((s) => s.data === iso);
-            const isHoje = iso === toISODate(new Date());
-            return (
-              <div
-                key={iso}
-                className={`rounded-lg border ${isHoje ? "border-primary/60 ring-1 ring-primary/30" : "border-border"} bg-background min-h-[140px] flex flex-col`}
-              >
-                <header className="px-2 py-1.5 border-b border-border bg-muted/30">
-                  <p className="text-[9px] font-extrabold tracking-[0.12em] text-muted-foreground text-center">
-                    {DIAS_SEMANA[i]}
-                  </p>
-                  <p
-                    className={`text-center text-sm font-extrabold ${isHoje ? "text-primary" : "text-foreground"}`}
-                  >
-                    {data.getDate()}
-                  </p>
-                </header>
-                <div className="flex-1 p-1 space-y-1">
-                  {doDia.length === 0 && (
-                    <button
-                      type="button"
-                      onClick={() => adicionarSessao(iso)}
-                      className="w-full h-full min-h-[60px] rounded-md border border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition flex items-center justify-center text-muted-foreground hover:text-primary"
-                      aria-label="Adicionar sessão"
-                    >
-                      <Plus className="h-4 w-4" />
-                    </button>
-                  )}
-                  {doDia.map((s) => {
-                    const meta = tipoSessaoMeta(s.tipo);
-                    const Icon = meta.Icon;
-                    return (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => setSessaoAberta(s)}
-                        className="w-full text-left rounded-md p-1.5 hover:ring-1 hover:ring-primary/40 transition"
-                        style={{ backgroundColor: `${meta.cor}14`, borderLeft: `3px solid ${meta.cor}` }}
-                      >
-                        <div className="flex items-center gap-1">
-                          <Icon className="h-3 w-3 shrink-0" style={{ color: meta.cor }} />
-                          <span className="text-[10px] font-bold truncate" style={{ color: meta.cor }}>
-                            {meta.curto}
-                          </span>
-                        </div>
-                        <p className="text-[10px] font-semibold leading-tight mt-0.5 line-clamp-2">{s.nome}</p>
-                        <p className="text-[9px] text-muted-foreground mt-0.5">
-                          {s.duracao_min ? `${s.duracao_min}min` : ""}
-                          {s.distancia_km ? ` · ${s.distancia_km}km` : ""}
-                        </p>
-                      </button>
-                    );
-                  })}
-                  {doDia.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={() => adicionarSessao(iso)}
-                      className="w-full rounded-md py-1 text-[10px] text-muted-foreground hover:text-primary hover:bg-primary/5 inline-flex items-center justify-center gap-1"
-                    >
-                      <Plus className="h-3 w-3" /> +
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <div className="grid grid-cols-7 gap-2">
+            {Array.from({ length: 7 }).map((_, i) => {
+              const data = addDays(new Date(micro.data_inicio + "T00:00"), i);
+              const iso = toISODate(data);
+              const doDia = sessoes.filter((s) => s.data === iso);
+              const isHoje = iso === toISODate(new Date());
+              return (
+                <DiaColuna
+                  key={iso}
+                  iso={iso}
+                  diaNome={DIAS_SEMANA[i]}
+                  diaNum={data.getDate()}
+                  isHoje={isHoje}
+                  sessoes={doDia}
+                  onAdd={() => adicionarSessao(iso)}
+                  onAbrir={(s) => setSessaoAberta(s)}
+                  onDuplicar={duplicarSessao}
+                  onRemover={removerSessao}
+                />
+              );
+            })}
+          </div>
+        </DndContext>
+        <p className="mt-2 text-[10px] text-muted-foreground text-center">
+          💡 Arraste sessões entre os dias para reorganizar
+        </p>
       </section>
 
       {/* Observação geral */}

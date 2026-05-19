@@ -1060,6 +1060,12 @@ function BlocoEditor({
             placeholder="5:30"
             className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
           />
+          {(() => {
+            const kmh = paceToKmh(bloco.pace);
+            return kmh ? (
+              <span className="text-[9px] text-muted-foreground">{kmh.toFixed(1).replace(".", ",")} km/h</span>
+            ) : null;
+          })()}
         </Mini>
         <Mini label="Zona">
           <select

@@ -180,7 +180,7 @@ export function PerfilCorridaTab({ alunoId, onChange }: { alunoId: string; onCha
             {(["Z1", "Z2", "Z3", "Z4", "Z5"] as const).map((z) => (
               <li key={z} className="flex items-center justify-between text-sm rounded-md bg-muted/30 px-3 py-2">
                 <span className="font-semibold">{z}</span>
-                <span className="text-muted-foreground text-xs">{descreverZona(perfilParcial, z)}</span>
+                <span className="text-muted-foreground text-xs">{descreverZonaComEsteira(perfilParcial, z)}</span>
               </li>
             ))}
           </ul>

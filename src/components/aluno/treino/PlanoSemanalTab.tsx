@@ -1138,3 +1138,144 @@ function Alerta({ icon: Icon, cor, texto }: { icon: typeof AlertTriangle; cor: s
     </div>
   );
 }
+
+// ===== DnD: coluna de dia + card draggable =====
+function DiaColuna({
+  iso,
+  diaNome,
+  diaNum,
+  isHoje,
+  sessoes,
+  onAdd,
+  onAbrir,
+  onDuplicar,
+  onRemover,
+}: {
+  iso: string;
+  diaNome: string;
+  diaNum: number;
+  isHoje: boolean;
+  sessoes: Sessao[];
+  onAdd: () => void;
+  onAbrir: (s: Sessao) => void;
+  onDuplicar: (id: string) => void;
+  onRemover: (id: string) => void;
+}) {
+  const { isOver, setNodeRef } = useDroppable({ id: iso });
+  return (
+    <div
+      ref={setNodeRef}
+      className={`rounded-lg border ${
+        isOver ? "border-primary bg-primary/5 ring-2 ring-primary/40" : isHoje ? "border-primary/60 ring-1 ring-primary/30" : "border-border"
+      } bg-background min-h-[140px] flex flex-col transition`}
+    >
+      <header className="px-2 py-1.5 border-b border-border bg-muted/30">
+        <p className="text-[9px] font-extrabold tracking-[0.12em] text-muted-foreground text-center">{diaNome}</p>
+        <p className={`text-center text-sm font-extrabold ${isHoje ? "text-primary" : "text-foreground"}`}>{diaNum}</p>
+      </header>
+      <div className="flex-1 p-1 space-y-1">
+        {sessoes.length === 0 && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="w-full h-full min-h-[60px] rounded-md border border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition flex items-center justify-center text-muted-foreground hover:text-primary"
+            aria-label="Adicionar sessão"
+          >
+            <Plus className="h-4 w-4" />
+          </button>
+        )}
+        {sessoes.map((s) => (
+          <SessaoCard key={s.id} sessao={s} onAbrir={() => onAbrir(s)} onDuplicar={() => onDuplicar(s.id)} onRemover={() => onRemover(s.id)} />
+        ))}
+        {sessoes.length > 0 && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="w-full rounded-md py-1 text-[10px] text-muted-foreground hover:text-primary hover:bg-primary/5 inline-flex items-center justify-center gap-1"
+          >
+            <Plus className="h-3 w-3" /> +
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SessaoCard({
+  sessao,
+  onAbrir,
+  onDuplicar,
+  onRemover,
+}: {
+  sessao: Sessao;
+  onAbrir: () => void;
+  onDuplicar: () => void;
+  onRemover: () => void;
+}) {
+  const meta = tipoSessaoMeta(sessao.tipo);
+  const Icon = meta.Icon;
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: sessao.id });
+  const kmh = paceToKmh(sessao.pace_alvo);
+  const style: React.CSSProperties = {
+    backgroundColor: `${meta.cor}14`,
+    borderLeft: `3px solid ${meta.cor}`,
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 50 : undefined,
+  };
+  return (
+    <div ref={setNodeRef} style={style} className="rounded-md p-1.5 group relative hover:ring-1 hover:ring-primary/40 transition">
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          {...attributes}
+          {...listeners}
+          className="cursor-grab active:cursor-grabbing text-muted-foreground/60 hover:text-foreground -ml-1"
+          aria-label="Arrastar"
+        >
+          <GripVertical className="h-3 w-3" />
+        </button>
+        <Icon className="h-3 w-3 shrink-0" style={{ color: meta.cor }} />
+        <span className="text-[10px] font-bold truncate flex-1" style={{ color: meta.cor }}>
+          {meta.curto}
+        </span>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDuplicar();
+          }}
+          className="opacity-0 group-hover:opacity-100 text-[8px] text-muted-foreground hover:text-primary px-1"
+          aria-label="Duplicar"
+        >
+          ⎘
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemover();
+          }}
+          className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive"
+          aria-label="Remover"
+        >
+          <X className="h-3 w-3" />
+        </button>
+      </div>
+      <button type="button" onClick={onAbrir} className="w-full text-left">
+        <p className="text-[10px] font-semibold leading-tight mt-0.5 line-clamp-2">{sessao.nome}</p>
+        <p className="text-[9px] text-muted-foreground mt-0.5">
+          {sessao.duracao_min ? `${sessao.duracao_min}min` : ""}
+          {sessao.distancia_km ? ` · ${sessao.distancia_km}km` : ""}
+        </p>
+        {sessao.pace_alvo && (
+          <p className="text-[9px] font-semibold mt-0.5" style={{ color: meta.cor }}>
+            {sessao.pace_alvo.replace("/km", "")}/km
+            {kmh ? ` · ${kmh.toFixed(1).replace(".", ",")} km/h` : ""}
+          </p>
+        )}
+      </button>
+    </div>
+  );
+}
+

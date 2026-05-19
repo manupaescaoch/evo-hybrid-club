@@ -61,10 +61,45 @@ export function parsePace(str: string): number | null {
   return Number(m[1]) * 60 + Number(m[2]);
 }
 
+// ===== Conversão pace ↔ esteira =====
+// 5:30/km → 10,9 km/h. Aceita "5:30", "5:30/km" ou range "5:30-5:50".
+export function paceToKmh(paceStr: string | null | undefined): number | null {
+  if (!paceStr) return null;
+  const clean = paceStr.split("/")[0].split("-")[0].trim();
+  const seg = parsePace(clean);
+  if (!seg || seg <= 0) return null;
+  return 3600 / seg;
+}
+
+export function formatKmh(kmh: number | null): string {
+  if (kmh == null || !isFinite(kmh) || kmh <= 0) return "—";
+  return `${kmh.toFixed(1).replace(".", ",")} km/h`;
+}
+
+export function paceRangeToKmhRange(min: string, max: string): { lento: number; rapido: number } | null {
+  const rapido = paceToKmh(min);
+  const lento = paceToKmh(max);
+  if (rapido == null || lento == null) return null;
+  return { lento, rapido };
+}
+
 export function descreverZona(perfil: PerfilCorrida, zona: Zona): string {
   const partes: string[] = [zona];
   const pace = calcularPaceZona(perfil, zona);
   if (pace) partes.push(`${pace.min}–${pace.max}/km`);
+  const fc = calcularFcZona(perfil, zona);
+  if (fc) partes.push(`${fc.min}–${fc.max}bpm`);
+  return partes.join(" · ");
+}
+
+export function descreverZonaComEsteira(perfil: PerfilCorrida, zona: Zona): string {
+  const partes: string[] = [zona];
+  const pace = calcularPaceZona(perfil, zona);
+  if (pace) {
+    partes.push(`${pace.min}–${pace.max}/km`);
+    const r = paceRangeToKmhRange(pace.min, pace.max);
+    if (r) partes.push(`${r.lento.toFixed(1).replace(".", ",")}–${r.rapido.toFixed(1).replace(".", ",")} km/h`);
+  }
   const fc = calcularFcZona(perfil, zona);
   if (fc) partes.push(`${fc.min}–${fc.max}bpm`);
   return partes.join(" · ");

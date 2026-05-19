@@ -153,6 +153,9 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
 
   const [sessaoAberta, setSessaoAberta] = useState<Sessao | null>(null);
   const [bibliotecaAberta, setBibliotecaAberta] = useState(false);
+  const [wizardAberto, setWizardAberto] = useState(false);
+
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }), useSensor(KeyboardSensor));
 
   const carregar = useCallback(async () => {
     setLoading(true);

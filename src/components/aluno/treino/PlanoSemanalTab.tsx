@@ -368,19 +368,21 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
 
         const { data: novoMicro, error: errMicro } = await supabase
           .from("corrida_microciclos")
-          .insert({
-            aluno_id: alunoId,
-            data_inicio: sem.data_inicio,
-            numero_semana: sem.numero_semana,
-            tipo_semana: sem.tipo_semana,
-            volume_alvo_km: sem.volume_alvo_km,
-            objetivo: sem.objetivo || null,
-            status: "rascunho",
-            macrociclo_id: macroId,
-            ordem_no_macro: sem.ordem_no_macro,
-            params_geracao: params as unknown as Record<string, unknown>,
-            criado_por: crmUser?.nome ?? crmUser?.email ?? null,
-          })
+          .insert([
+            {
+              aluno_id: alunoId,
+              data_inicio: sem.data_inicio,
+              numero_semana: sem.numero_semana,
+              tipo_semana: sem.tipo_semana,
+              volume_alvo_km: sem.volume_alvo_km,
+              objetivo: sem.objetivo || null,
+              status: "rascunho",
+              macrociclo_id: macroId,
+              ordem_no_macro: sem.ordem_no_macro,
+              params_geracao: JSON.parse(JSON.stringify(params)),
+              criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+            },
+          ])
           .select("id")
           .single();
         if (errMicro) throw errMicro;

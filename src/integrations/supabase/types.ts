@@ -885,6 +885,66 @@ export type Database = {
           },
         ]
       }
+      corrida_macrociclos: {
+        Row: {
+          aluno_id: string
+          atualizado_em: string
+          criado_em: string
+          criado_por: string | null
+          data_fim: string
+          data_inicio: string
+          id: string
+          modelo_periodizacao: string
+          nome: string
+          params_geracao: Json | null
+          prova_data: string | null
+          prova_distancia_km: number | null
+          prova_nome: string | null
+          semanas_total: number
+          status: string
+          volume_base_km: number | null
+          volume_pico_km: number | null
+        }
+        Insert: {
+          aluno_id: string
+          atualizado_em?: string
+          criado_em?: string
+          criado_por?: string | null
+          data_fim: string
+          data_inicio: string
+          id?: string
+          modelo_periodizacao?: string
+          nome: string
+          params_geracao?: Json | null
+          prova_data?: string | null
+          prova_distancia_km?: number | null
+          prova_nome?: string | null
+          semanas_total: number
+          status?: string
+          volume_base_km?: number | null
+          volume_pico_km?: number | null
+        }
+        Update: {
+          aluno_id?: string
+          atualizado_em?: string
+          criado_em?: string
+          criado_por?: string | null
+          data_fim?: string
+          data_inicio?: string
+          id?: string
+          modelo_periodizacao?: string
+          nome?: string
+          params_geracao?: Json | null
+          prova_data?: string | null
+          prova_distancia_km?: number | null
+          prova_nome?: string | null
+          semanas_total?: number
+          status?: string
+          volume_base_km?: number | null
+          volume_pico_km?: number | null
+        }
+        Relationships: []
+      }
       corrida_microciclos: {
         Row: {
           aluno_id: string
@@ -894,9 +954,12 @@ export type Database = {
           data_inicio: string
           id: string
           intensidade_alvo_pct: number | null
+          macrociclo_id: string | null
           numero_semana: number | null
           objetivo: string | null
           observacao: string | null
+          ordem_no_macro: number | null
+          params_geracao: Json | null
           status: string
           tipo_semana: string
           volume_alvo_km: number | null
@@ -909,9 +972,12 @@ export type Database = {
           data_inicio: string
           id?: string
           intensidade_alvo_pct?: number | null
+          macrociclo_id?: string | null
           numero_semana?: number | null
           objetivo?: string | null
           observacao?: string | null
+          ordem_no_macro?: number | null
+          params_geracao?: Json | null
           status?: string
           tipo_semana?: string
           volume_alvo_km?: number | null
@@ -924,9 +990,12 @@ export type Database = {
           data_inicio?: string
           id?: string
           intensidade_alvo_pct?: number | null
+          macrociclo_id?: string | null
           numero_semana?: number | null
           objetivo?: string | null
           observacao?: string | null
+          ordem_no_macro?: number | null
+          params_geracao?: Json | null
           status?: string
           tipo_semana?: string
           volume_alvo_km?: number | null
@@ -997,6 +1066,7 @@ export type Database = {
           fc_repouso: number | null
           historico_lesoes: string | null
           id: string
+          inclinacao_esteira_pct: number
           nivel: string | null
           observacao: string | null
           pace_limiar_seg: number | null
@@ -1012,6 +1082,7 @@ export type Database = {
           fc_repouso?: number | null
           historico_lesoes?: string | null
           id?: string
+          inclinacao_esteira_pct?: number
           nivel?: string | null
           observacao?: string | null
           pace_limiar_seg?: number | null
@@ -1027,6 +1098,7 @@ export type Database = {
           fc_repouso?: number | null
           historico_lesoes?: string | null
           id?: string
+          inclinacao_esteira_pct?: number
           nivel?: string | null
           observacao?: string | null
           pace_limiar_seg?: number | null

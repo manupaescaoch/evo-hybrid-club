@@ -12,6 +12,8 @@ import {
   CalendarDays,
   Library,
   X,
+  Sparkles,
+  GripVertical,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -22,6 +24,17 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  useDraggable,
+  useDroppable,
+  type DragEndEvent,
+} from "@dnd-kit/core";
 import {
   TIPOS_SESSAO,
   TIPOS_BLOCO,
@@ -37,9 +50,12 @@ import {
   addDays,
   numeroSemanaIso,
   descreverZona,
+  paceToKmh,
   type PerfilCorrida,
 } from "@/lib/corrida-zonas";
 import { BibliotecaSessoesTab, type ModeloSessao } from "./BibliotecaSessoesTab";
+import { WizardGerarPlano } from "./WizardGerarPlano";
+import type { ParamsGeracao, SemanaGerada } from "@/lib/corrida-gerador";
 
 type Sessao = {
   id: string;
@@ -137,6 +153,9 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
 
   const [sessaoAberta, setSessaoAberta] = useState<Sessao | null>(null);
   const [bibliotecaAberta, setBibliotecaAberta] = useState(false);
+  const [wizardAberto, setWizardAberto] = useState(false);
+
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }), useSensor(KeyboardSensor));
 
   const carregar = useCallback(async () => {
     setLoading(true);
@@ -261,6 +280,149 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
     setSessoes((prev) => prev.filter((s) => s.id !== id));
     if (sessaoAberta?.id === id) setSessaoAberta(null);
   }
+
+  function duplicarSessao(id: string) {
+    const s = sessoes.find((x) => x.id === id);
+    if (!s) return;
+    const clone: Sessao = {
+      ...s,
+      id: `tmp_${Math.random().toString(36).slice(2, 9)}`,
+      ordem_no_dia: sessoes.filter((x) => x.data === s.data).length,
+      blocos: s.blocos.map((b) => ({ ...b, id: `tmp_${Math.random().toString(36).slice(2, 9)}` })),
+    };
+    setSessoes((prev) => [...prev, clone]);
+  }
+
+  function moverSessao(id: string, novaDataIso: string) {
+    setSessoes((prev) =>
+      prev.map((s) => {
+        if (s.id !== id) return s;
+        if (s.data === novaDataIso) return s;
+        return { ...s, data: novaDataIso, ordem_no_dia: prev.filter((x) => x.data === novaDataIso && x.id !== id).length };
+      }),
+    );
+  }
+
+  function handleDragEnd(e: DragEndEvent) {
+    const sessaoId = e.active.id as string;
+    const novaData = e.over?.id as string | undefined;
+    if (!novaData) return;
+    moverSessao(sessaoId, novaData);
+  }
+
+  async function gerarPlanoHandler(params: ParamsGeracao, semanas: SemanaGerada[]) {
+    if (!canEdit) {
+      toast.error("Sem permissão para editar");
+      return;
+    }
+    if (semanas.length === 0) {
+      toast.error("Nada para gerar");
+      return;
+    }
+    setSaving(true);
+    try {
+      // Cria macrociclo se escopo > semana
+      let macroId: string | null = null;
+      if (params.escopo !== "semana") {
+        const { data, error } = await supabase
+          .from("corrida_macrociclos")
+          .insert([
+            {
+              aluno_id: alunoId,
+              nome:
+                params.provaNome ??
+                (params.escopo === "mesociclo" ? "Mesociclo" : "Macrociclo"),
+              data_inicio: semanas[0].data_inicio,
+              data_fim: toISODate(addDays(new Date(semanas[semanas.length - 1].data_inicio + "T00:00"), 6)),
+              semanas_total: semanas.length,
+              modelo_periodizacao: params.modelo,
+              volume_base_km: params.volumeBaseKm,
+              volume_pico_km: params.volumePicoKm,
+              prova_nome: params.provaNome ?? null,
+              prova_data: params.provaData ?? null,
+              prova_distancia_km: params.provaDistanciaKm ?? null,
+              params_geracao: JSON.parse(JSON.stringify(params)),
+              status: "rascunho",
+              criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+            },
+          ])
+          .select("id")
+          .single();
+        if (error) throw error;
+        macroId = data.id;
+      }
+
+      // Para cada semana: upsert microciclo + replace sessões
+      for (const sem of semanas) {
+        // Apaga microciclo existente na mesma data
+        const { data: existente } = await supabase
+          .from("corrida_microciclos")
+          .select("id")
+          .eq("aluno_id", alunoId)
+          .eq("data_inicio", sem.data_inicio)
+          .maybeSingle();
+        if (existente) {
+          await supabase.from("corrida_sessoes").delete().eq("microciclo_id", existente.id);
+          await supabase.from("corrida_microciclos").delete().eq("id", existente.id);
+        }
+
+        const { data: novoMicro, error: errMicro } = await supabase
+          .from("corrida_microciclos")
+          .insert([
+            {
+              aluno_id: alunoId,
+              data_inicio: sem.data_inicio,
+              numero_semana: sem.numero_semana,
+              tipo_semana: sem.tipo_semana,
+              volume_alvo_km: sem.volume_alvo_km,
+              objetivo: sem.objetivo || null,
+              status: "rascunho",
+              macrociclo_id: macroId,
+              ordem_no_macro: sem.ordem_no_macro,
+              params_geracao: JSON.parse(JSON.stringify(params)),
+              criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+            },
+          ])
+          .select("id")
+          .single();
+        if (errMicro) throw errMicro;
+
+        if (sem.sessoes.length > 0) {
+          const { error: errSess } = await supabase.from("corrida_sessoes").insert(
+            sem.sessoes.map((s, i) => ({
+              microciclo_id: novoMicro.id,
+              aluno_id: alunoId,
+              data: s.data,
+              ordem_no_dia: i,
+              tipo: s.tipo,
+              nome: s.nome,
+              duracao_min: s.duracao_min,
+              distancia_km: s.distancia_km,
+              pace_alvo: s.pace_alvo,
+              zona_fc: s.zona_fc,
+              objetivo: s.objetivo,
+            })),
+          );
+          if (errSess) throw errSess;
+        }
+      }
+
+      toast.success(
+        params.escopo === "semana"
+          ? "Semana gerada!"
+          : `${semanas.length} semanas geradas!`,
+      );
+
+      // Navega para a primeira semana gerada
+      setSemanaRef(inicioDaSemana(new Date(semanas[0].data_inicio + "T00:00")));
+    } catch (e) {
+      console.error(e);
+      toast.error(e instanceof Error ? e.message : "Erro ao gerar plano");
+    } finally {
+      setSaving(false);
+    }
+  }
+
 
   function aplicarModelo(modelo: ModeloSessao, dataIso?: string) {
     const targetData = dataIso ?? sessaoAberta?.data ?? toISODate(semanaRef);
@@ -526,79 +688,35 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
         </div>
       </section>
 
-      {/* Grid 7 dias */}
+      {/* Grid 7 dias com drag-and-drop */}
       <section className="rounded-xl border border-border bg-card p-3 shadow-sm">
-        <div className="grid grid-cols-7 gap-2">
-          {Array.from({ length: 7 }).map((_, i) => {
-            const data = addDays(new Date(micro.data_inicio + "T00:00"), i);
-            const iso = toISODate(data);
-            const doDia = sessoes.filter((s) => s.data === iso);
-            const isHoje = iso === toISODate(new Date());
-            return (
-              <div
-                key={iso}
-                className={`rounded-lg border ${isHoje ? "border-primary/60 ring-1 ring-primary/30" : "border-border"} bg-background min-h-[140px] flex flex-col`}
-              >
-                <header className="px-2 py-1.5 border-b border-border bg-muted/30">
-                  <p className="text-[9px] font-extrabold tracking-[0.12em] text-muted-foreground text-center">
-                    {DIAS_SEMANA[i]}
-                  </p>
-                  <p
-                    className={`text-center text-sm font-extrabold ${isHoje ? "text-primary" : "text-foreground"}`}
-                  >
-                    {data.getDate()}
-                  </p>
-                </header>
-                <div className="flex-1 p-1 space-y-1">
-                  {doDia.length === 0 && (
-                    <button
-                      type="button"
-                      onClick={() => adicionarSessao(iso)}
-                      className="w-full h-full min-h-[60px] rounded-md border border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition flex items-center justify-center text-muted-foreground hover:text-primary"
-                      aria-label="Adicionar sessão"
-                    >
-                      <Plus className="h-4 w-4" />
-                    </button>
-                  )}
-                  {doDia.map((s) => {
-                    const meta = tipoSessaoMeta(s.tipo);
-                    const Icon = meta.Icon;
-                    return (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => setSessaoAberta(s)}
-                        className="w-full text-left rounded-md p-1.5 hover:ring-1 hover:ring-primary/40 transition"
-                        style={{ backgroundColor: `${meta.cor}14`, borderLeft: `3px solid ${meta.cor}` }}
-                      >
-                        <div className="flex items-center gap-1">
-                          <Icon className="h-3 w-3 shrink-0" style={{ color: meta.cor }} />
-                          <span className="text-[10px] font-bold truncate" style={{ color: meta.cor }}>
-                            {meta.curto}
-                          </span>
-                        </div>
-                        <p className="text-[10px] font-semibold leading-tight mt-0.5 line-clamp-2">{s.nome}</p>
-                        <p className="text-[9px] text-muted-foreground mt-0.5">
-                          {s.duracao_min ? `${s.duracao_min}min` : ""}
-                          {s.distancia_km ? ` · ${s.distancia_km}km` : ""}
-                        </p>
-                      </button>
-                    );
-                  })}
-                  {doDia.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={() => adicionarSessao(iso)}
-                      className="w-full rounded-md py-1 text-[10px] text-muted-foreground hover:text-primary hover:bg-primary/5 inline-flex items-center justify-center gap-1"
-                    >
-                      <Plus className="h-3 w-3" /> +
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <div className="grid grid-cols-7 gap-2">
+            {Array.from({ length: 7 }).map((_, i) => {
+              const data = addDays(new Date(micro.data_inicio + "T00:00"), i);
+              const iso = toISODate(data);
+              const doDia = sessoes.filter((s) => s.data === iso);
+              const isHoje = iso === toISODate(new Date());
+              return (
+                <DiaColuna
+                  key={iso}
+                  iso={iso}
+                  diaNome={DIAS_SEMANA[i]}
+                  diaNum={data.getDate()}
+                  isHoje={isHoje}
+                  sessoes={doDia}
+                  onAdd={() => adicionarSessao(iso)}
+                  onAbrir={(s) => setSessaoAberta(s)}
+                  onDuplicar={duplicarSessao}
+                  onRemover={removerSessao}
+                />
+              );
+            })}
+          </div>
+        </DndContext>
+        <p className="mt-2 text-[10px] text-muted-foreground text-center">
+          💡 Arraste sessões entre os dias para reorganizar
+        </p>
       </section>
 
       {/* Observação geral */}
@@ -618,6 +736,15 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
 
       {/* Ações */}
       <div className="flex flex-wrap justify-end gap-2">
+        <button
+          type="button"
+          onClick={() => setWizardAberto(true)}
+          disabled={!canEdit}
+          className="inline-flex items-center gap-2 rounded-lg bg-foreground text-background px-4 py-2.5 text-sm font-semibold hover:opacity-90 disabled:opacity-60"
+        >
+          <Sparkles className="h-4 w-4" />
+          Gerar plano
+        </button>
         <button
           type="button"
           onClick={() => setBibliotecaAberta(true)}
@@ -643,6 +770,15 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
           Salvar semana
         </button>
       </div>
+
+      {/* Wizard de geração */}
+      <WizardGerarPlano
+        aberto={wizardAberto}
+        onClose={() => setWizardAberto(false)}
+        semanaInicio={micro.data_inicio}
+        perfil={perfil}
+        onGerar={gerarPlanoHandler}
+      />
 
       {/* Sheet de edição de sessão */}
       <Sheet open={!!sessaoAberta} onOpenChange={(o) => !o && setSessaoAberta(null)}>
@@ -795,6 +931,14 @@ function SessaoEditor({
               placeholder="5:30/km"
               className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
             />
+            {(() => {
+              const kmh = paceToKmh(sessao.pace_alvo);
+              return kmh ? (
+                <span className="text-[10px] text-muted-foreground mt-1">
+                  Esteira: {kmh.toFixed(1).replace(".", ",")} km/h
+                </span>
+              ) : null;
+            })()}
           </Field>
           <Field label="Zona FC">
             <select
@@ -916,6 +1060,12 @@ function BlocoEditor({
             placeholder="5:30"
             className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
           />
+          {(() => {
+            const kmh = paceToKmh(bloco.pace);
+            return kmh ? (
+              <span className="text-[9px] text-muted-foreground">{kmh.toFixed(1).replace(".", ",")} km/h</span>
+            ) : null;
+          })()}
         </Mini>
         <Mini label="Zona">
           <select
@@ -1002,3 +1152,144 @@ function Alerta({ icon: Icon, cor, texto }: { icon: typeof AlertTriangle; cor: s
     </div>
   );
 }
+
+// ===== DnD: coluna de dia + card draggable =====
+function DiaColuna({
+  iso,
+  diaNome,
+  diaNum,
+  isHoje,
+  sessoes,
+  onAdd,
+  onAbrir,
+  onDuplicar,
+  onRemover,
+}: {
+  iso: string;
+  diaNome: string;
+  diaNum: number;
+  isHoje: boolean;
+  sessoes: Sessao[];
+  onAdd: () => void;
+  onAbrir: (s: Sessao) => void;
+  onDuplicar: (id: string) => void;
+  onRemover: (id: string) => void;
+}) {
+  const { isOver, setNodeRef } = useDroppable({ id: iso });
+  return (
+    <div
+      ref={setNodeRef}
+      className={`rounded-lg border ${
+        isOver ? "border-primary bg-primary/5 ring-2 ring-primary/40" : isHoje ? "border-primary/60 ring-1 ring-primary/30" : "border-border"
+      } bg-background min-h-[140px] flex flex-col transition`}
+    >
+      <header className="px-2 py-1.5 border-b border-border bg-muted/30">
+        <p className="text-[9px] font-extrabold tracking-[0.12em] text-muted-foreground text-center">{diaNome}</p>
+        <p className={`text-center text-sm font-extrabold ${isHoje ? "text-primary" : "text-foreground"}`}>{diaNum}</p>
+      </header>
+      <div className="flex-1 p-1 space-y-1">
+        {sessoes.length === 0 && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="w-full h-full min-h-[60px] rounded-md border border-dashed border-border hover:border-primary/40 hover:bg-primary/5 transition flex items-center justify-center text-muted-foreground hover:text-primary"
+            aria-label="Adicionar sessão"
+          >
+            <Plus className="h-4 w-4" />
+          </button>
+        )}
+        {sessoes.map((s) => (
+          <SessaoCard key={s.id} sessao={s} onAbrir={() => onAbrir(s)} onDuplicar={() => onDuplicar(s.id)} onRemover={() => onRemover(s.id)} />
+        ))}
+        {sessoes.length > 0 && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="w-full rounded-md py-1 text-[10px] text-muted-foreground hover:text-primary hover:bg-primary/5 inline-flex items-center justify-center gap-1"
+          >
+            <Plus className="h-3 w-3" /> +
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function SessaoCard({
+  sessao,
+  onAbrir,
+  onDuplicar,
+  onRemover,
+}: {
+  sessao: Sessao;
+  onAbrir: () => void;
+  onDuplicar: () => void;
+  onRemover: () => void;
+}) {
+  const meta = tipoSessaoMeta(sessao.tipo);
+  const Icon = meta.Icon;
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: sessao.id });
+  const kmh = paceToKmh(sessao.pace_alvo);
+  const style: React.CSSProperties = {
+    backgroundColor: `${meta.cor}14`,
+    borderLeft: `3px solid ${meta.cor}`,
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 50 : undefined,
+  };
+  return (
+    <div ref={setNodeRef} style={style} className="rounded-md p-1.5 group relative hover:ring-1 hover:ring-primary/40 transition">
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          {...attributes}
+          {...listeners}
+          className="cursor-grab active:cursor-grabbing text-muted-foreground/60 hover:text-foreground -ml-1"
+          aria-label="Arrastar"
+        >
+          <GripVertical className="h-3 w-3" />
+        </button>
+        <Icon className="h-3 w-3 shrink-0" style={{ color: meta.cor }} />
+        <span className="text-[10px] font-bold truncate flex-1" style={{ color: meta.cor }}>
+          {meta.curto}
+        </span>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDuplicar();
+          }}
+          className="opacity-0 group-hover:opacity-100 text-[8px] text-muted-foreground hover:text-primary px-1"
+          aria-label="Duplicar"
+        >
+          ⎘
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemover();
+          }}
+          className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive"
+          aria-label="Remover"
+        >
+          <X className="h-3 w-3" />
+        </button>
+      </div>
+      <button type="button" onClick={onAbrir} className="w-full text-left">
+        <p className="text-[10px] font-semibold leading-tight mt-0.5 line-clamp-2">{sessao.nome}</p>
+        <p className="text-[9px] text-muted-foreground mt-0.5">
+          {sessao.duracao_min ? `${sessao.duracao_min}min` : ""}
+          {sessao.distancia_km ? ` · ${sessao.distancia_km}km` : ""}
+        </p>
+        {sessao.pace_alvo && (
+          <p className="text-[9px] font-semibold mt-0.5" style={{ color: meta.cor }}>
+            {sessao.pace_alvo.replace("/km", "")}/km
+            {kmh ? ` · ${kmh.toFixed(1).replace(".", ",")} km/h` : ""}
+          </p>
+        )}
+      </button>
+    </div>
+  );
+}
+

@@ -281,6 +281,145 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
     if (sessaoAberta?.id === id) setSessaoAberta(null);
   }
 
+  function duplicarSessao(id: string) {
+    const s = sessoes.find((x) => x.id === id);
+    if (!s) return;
+    const clone: Sessao = {
+      ...s,
+      id: `tmp_${Math.random().toString(36).slice(2, 9)}`,
+      ordem_no_dia: sessoes.filter((x) => x.data === s.data).length,
+      blocos: s.blocos.map((b) => ({ ...b, id: `tmp_${Math.random().toString(36).slice(2, 9)}` })),
+    };
+    setSessoes((prev) => [...prev, clone]);
+  }
+
+  function moverSessao(id: string, novaDataIso: string) {
+    setSessoes((prev) =>
+      prev.map((s) => {
+        if (s.id !== id) return s;
+        if (s.data === novaDataIso) return s;
+        return { ...s, data: novaDataIso, ordem_no_dia: prev.filter((x) => x.data === novaDataIso && x.id !== id).length };
+      }),
+    );
+  }
+
+  function handleDragEnd(e: DragEndEvent) {
+    const sessaoId = e.active.id as string;
+    const novaData = e.over?.id as string | undefined;
+    if (!novaData) return;
+    moverSessao(sessaoId, novaData);
+  }
+
+  async function gerarPlanoHandler(params: ParamsGeracao, semanas: SemanaGerada[]) {
+    if (!canEdit) {
+      toast.error("Sem permissão para editar");
+      return;
+    }
+    if (semanas.length === 0) {
+      toast.error("Nada para gerar");
+      return;
+    }
+    setSaving(true);
+    try {
+      // Cria macrociclo se escopo > semana
+      let macroId: string | null = null;
+      if (params.escopo !== "semana") {
+        const { data, error } = await supabase
+          .from("corrida_macrociclos")
+          .insert({
+            aluno_id: alunoId,
+            nome:
+              params.provaNome ??
+              (params.escopo === "mesociclo" ? "Mesociclo" : "Macrociclo"),
+            data_inicio: semanas[0].data_inicio,
+            data_fim: toISODate(addDays(new Date(semanas[semanas.length - 1].data_inicio + "T00:00"), 6)),
+            semanas_total: semanas.length,
+            modelo_periodizacao: params.modelo,
+            volume_base_km: params.volumeBaseKm,
+            volume_pico_km: params.volumePicoKm,
+            prova_nome: params.provaNome ?? null,
+            prova_data: params.provaData ?? null,
+            prova_distancia_km: params.provaDistanciaKm ?? null,
+            params_geracao: params as unknown as Record<string, unknown>,
+            status: "rascunho",
+            criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+          })
+          .select("id")
+          .single();
+        if (error) throw error;
+        macroId = data.id;
+      }
+
+      // Para cada semana: upsert microciclo + replace sessões
+      for (const sem of semanas) {
+        // Apaga microciclo existente na mesma data
+        const { data: existente } = await supabase
+          .from("corrida_microciclos")
+          .select("id")
+          .eq("aluno_id", alunoId)
+          .eq("data_inicio", sem.data_inicio)
+          .maybeSingle();
+        if (existente) {
+          await supabase.from("corrida_sessoes").delete().eq("microciclo_id", existente.id);
+          await supabase.from("corrida_microciclos").delete().eq("id", existente.id);
+        }
+
+        const { data: novoMicro, error: errMicro } = await supabase
+          .from("corrida_microciclos")
+          .insert({
+            aluno_id: alunoId,
+            data_inicio: sem.data_inicio,
+            numero_semana: sem.numero_semana,
+            tipo_semana: sem.tipo_semana,
+            volume_alvo_km: sem.volume_alvo_km,
+            objetivo: sem.objetivo || null,
+            status: "rascunho",
+            macrociclo_id: macroId,
+            ordem_no_macro: sem.ordem_no_macro,
+            params_geracao: params as unknown as Record<string, unknown>,
+            criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+          })
+          .select("id")
+          .single();
+        if (errMicro) throw errMicro;
+
+        if (sem.sessoes.length > 0) {
+          const { error: errSess } = await supabase.from("corrida_sessoes").insert(
+            sem.sessoes.map((s, i) => ({
+              microciclo_id: novoMicro.id,
+              aluno_id: alunoId,
+              data: s.data,
+              ordem_no_dia: i,
+              tipo: s.tipo,
+              nome: s.nome,
+              duracao_min: s.duracao_min,
+              distancia_km: s.distancia_km,
+              pace_alvo: s.pace_alvo,
+              zona_fc: s.zona_fc,
+              objetivo: s.objetivo,
+            })),
+          );
+          if (errSess) throw errSess;
+        }
+      }
+
+      toast.success(
+        params.escopo === "semana"
+          ? "Semana gerada!"
+          : `${semanas.length} semanas geradas!`,
+      );
+
+      // Navega para a primeira semana gerada
+      setSemanaRef(inicioDaSemana(new Date(semanas[0].data_inicio + "T00:00")));
+    } catch (e) {
+      console.error(e);
+      toast.error(e instanceof Error ? e.message : "Erro ao gerar plano");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+
   function aplicarModelo(modelo: ModeloSessao, dataIso?: string) {
     const targetData = dataIso ?? sessaoAberta?.data ?? toISODate(semanaRef);
     const blocos: Bloco[] = (modelo.blocos ?? []).map((b, i) => ({

@@ -3,7 +3,7 @@ import { Loader2, Save, Heart, Activity, Gauge } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
-import { parsePace, formatPace, descreverZona, type PerfilCorrida } from "@/lib/corrida-zonas";
+import { parsePace, formatPace, descreverZonaComEsteira, type PerfilCorrida } from "@/lib/corrida-zonas";
 
 export function PerfilCorridaTab({ alunoId, onChange }: { alunoId: string; onChange?: (p: PerfilCorrida) => void }) {
   const { canEdit } = useAuth();

@@ -341,7 +341,7 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
               prova_nome: params.provaNome ?? null,
               prova_data: params.provaData ?? null,
               prova_distancia_km: params.provaDistanciaKm ?? null,
-              params_geracao: params as unknown as Record<string, unknown>,
+              params_geracao: JSON.parse(JSON.stringify(params)),
               status: "rascunho",
               criado_por: crmUser?.nome ?? crmUser?.email ?? null,
             },

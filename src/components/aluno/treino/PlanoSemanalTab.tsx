@@ -738,6 +738,15 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
       <div className="flex flex-wrap justify-end gap-2">
         <button
           type="button"
+          onClick={() => setWizardAberto(true)}
+          disabled={!canEdit}
+          className="inline-flex items-center gap-2 rounded-lg bg-foreground text-background px-4 py-2.5 text-sm font-semibold hover:opacity-90 disabled:opacity-60"
+        >
+          <Sparkles className="h-4 w-4" />
+          Gerar plano
+        </button>
+        <button
+          type="button"
           onClick={() => setBibliotecaAberta(true)}
           className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm font-semibold hover:bg-muted"
         >
@@ -761,6 +770,15 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
           Salvar semana
         </button>
       </div>
+
+      {/* Wizard de geração */}
+      <WizardGerarPlano
+        aberto={wizardAberto}
+        onClose={() => setWizardAberto(false)}
+        semanaInicio={micro.data_inicio}
+        perfil={perfil}
+        onGerar={gerarPlanoHandler}
+      />
 
       {/* Sheet de edição de sessão */}
       <Sheet open={!!sessaoAberta} onOpenChange={(o) => !o && setSessaoAberta(null)}>

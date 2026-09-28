@@ -37,7 +37,7 @@ export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
   .inputValidator((d) =>
     z.object({ inicio: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), fim: z.string().regex(/^\d{4}-\d{2}-\d{2}$/) }).parse(d),
   )
-  .handler(async ({ data, context }): Promise<{ sessoes: AlunoTreinoSessao[] }> => {
+  .handler(async ({ data }): Promise<{ sessoes: AlunoTreinoSessao[] }> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const sb = supabaseAdmin as any;
 

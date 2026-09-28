@@ -1,5 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-import { logarFalhaPublicaServer } from "@/server/log-publico.functions";
+import { logarFalhaPublicaServer } from "@/backend/log-publico.functions";
 import {
   apenasDigitos,
   normalizarTelefoneBR,

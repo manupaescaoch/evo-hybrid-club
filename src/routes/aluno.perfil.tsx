@@ -49,7 +49,7 @@ import { FotosEvolucaoCard } from "@/components/aluno-app/FotosEvolucaoCard";
 import { PushNotificationsCard } from "@/components/aluno-app/PushNotificationsCard";
 import { useServerFn } from "@tanstack/react-start";
 import { atualizarFotoAluno } from "@/lib/aluno-auth.functions";
-import { atualizarUsername } from "@/server/comunidade.functions";
+import { atualizarUsername } from "@/backend/comunidade.functions";
 import { AtSign, Check } from "lucide-react";
 import { toast } from "sonner";
 import { SCORE_META_SEMANAL, somarScoreJanela } from "@/lib/aluno-score";

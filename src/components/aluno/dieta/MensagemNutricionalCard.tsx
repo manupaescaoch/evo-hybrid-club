@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
-import { gerarMensagemNutricao } from "@/server/dieta.functions";
+import { gerarMensagemNutricao } from "@/backend/dieta.functions";
 import { useAuth } from "@/lib/auth";
 import { fmtDateTime } from "@/lib/crm";
 import { Copy, Loader2, Sparkles, X, MessageCircle } from "lucide-react";

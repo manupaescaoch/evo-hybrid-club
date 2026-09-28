@@ -3,7 +3,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import {
   enviarDocumentoZapi,
   enviarTextoZapiDireto,
-} from "@/server/zapi-send.server";
+} from "@/backend/zapi-send.server";
 
 const PDF_URL = "https://ironclubrun.lovable.app/pdfs/seja-bem-vindo-mpteam.pdf";
 const PDF_FILENAME = "Seja Bem-Vindo - EVO HYBRID CLUB.pdf";

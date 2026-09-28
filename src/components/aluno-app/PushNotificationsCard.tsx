@@ -5,7 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import {
   salvarPushSubscription,
   removerPushSubscription,
-} from "@/server/aluno-push.functions";
+} from "@/backend/aluno-push.functions";
 import { VAPID_PUBLIC_KEY, urlBase64ToUint8Array } from "@/lib/push-vapid";
 
 type Estado = "carregando" | "nao-suportado" | "preview" | "negado" | "ativo" | "inativo";

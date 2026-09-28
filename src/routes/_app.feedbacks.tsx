@@ -4,8 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { gerarRespostaFeedback } from "@/server/feedback.functions";
-import { gerarMensagemPontoContato } from "@/server/pontos-contato.functions";
+import { gerarRespostaFeedback } from "@/backend/feedback.functions";
+import { gerarMensagemPontoContato } from "@/backend/pontos-contato.functions";
 import { calcularPrimeiroFeedbackMensal } from "@/lib/feedback-agendamento";
 import {
   FileText, Send, Eye, Pencil, Trash2, Plus, Calendar,

@@ -1,3 +1,3 @@
 # Architecture rules
 
-- Keep client-imported `createServerFn` modules outside `src/server/`; that directory is blocked from client import graphs.
+- Keep server functions and their server-only helpers under `src/backend/`; unlike `src/server/`, this path supports TanStack server-function imports from the client graph.

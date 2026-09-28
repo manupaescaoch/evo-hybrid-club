@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { gerarLembretesFeedbackPendentes } from "@/server/feedback-lembretes.functions";
+import { gerarLembretesFeedbackPendentes } from "@/backend/feedback-lembretes.functions";
 
 /**
  * Cron diário: gera jobs feedback_link_lembrete para formulários enviados há

@@ -6,8 +6,8 @@ import {
   listFeedbacksSemResposta,
   agendarLembreteFeedback,
   type FeedbackPendente,
-} from "@/server/feedback-lembretes.functions";
-import { dispararJobsAgora } from "@/server/motor.functions";
+} from "@/backend/feedback-lembretes.functions";
+import { dispararJobsAgora } from "@/backend/motor.functions";
 import { toast } from "sonner";
 
 const TIPO_LABEL: Record<string, string> = {

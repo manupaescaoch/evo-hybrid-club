@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { uploadAnamneseAsset } from "@/lib/anamnese-upload";
 import { useSignedAnamneseUrls } from "@/lib/use-signed-anamnese-urls";
 import { useServerFn } from "@tanstack/react-start";
-import { gerarCheckShapeMensal } from "@/server/check-shape.functions";
+import { gerarCheckShapeMensal } from "@/backend/check-shape.functions";
 
 interface Props {
   alunoId: string;

@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { HistoricoTab } from "@/components/caixa-saida/HistoricoTab";
 import { AtrasadosTab } from "@/components/caixa-saida/AtrasadosTab";
 import { LogsTab } from "@/components/caixa-saida/LogsTab";
-import { getCaixaSaidaKpis } from "@/server/caixa-saida.functions";
+import { getCaixaSaidaKpis } from "@/backend/caixa-saida.functions";
 import { Inbox, CalendarClock, AlertTriangle, CheckCircle2, XCircle, Send, FileClock } from "lucide-react";
 
 export const Route = createFileRoute("/_app/caixa-saida")({

@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import {
   lerFormularioPorToken,
   submeterFormularioPublico,
-} from "@/server/formulario-publico-flow.functions";
+} from "@/backend/formulario-publico-flow.functions";
 import { AnamneseFlow } from "@/components/anamnese/AnamneseFlow";
 import { FeedbackQuinzenalFlow } from "@/components/feedback/FeedbackQuinzenalFlow";
 import { FeedbackMensalFlow } from "@/components/feedback/FeedbackMensalFlow";

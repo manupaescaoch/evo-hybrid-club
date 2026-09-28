@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { runMotorAutomacoes } from "@/server/motor.functions";
+import { runMotorAutomacoes } from "@/backend/motor.functions";
 
 /**
  * Endpoint chamado por pg_cron / scheduler externo para rodar o motor

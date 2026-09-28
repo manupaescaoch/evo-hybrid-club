@@ -5,7 +5,7 @@ import {
   getWorkflowConfig, saveWorkflowConfig,
   getPromptsIA, savePromptIA, testarPromptIA,
   getResumoDisparos, getHistoricoDisparos, reenviarJob,
-} from "@/server/workflow.functions";
+} from "@/backend/workflow.functions";
 import {
   Power, Clock, MessageSquare, Sparkles, History,
   Loader2, Save, RefreshCw, Send, AlertCircle, CheckCircle2, X, Play,

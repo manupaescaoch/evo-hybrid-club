@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { signAnamneseUrls } from "@/server/anamnese-uploads.functions";
+import { signAnamneseUrls } from "@/backend/anamnese-uploads.functions";
 
 // Cache em memória, por sessão. Evita re-assinar a mesma URL várias vezes.
 const cache = new Map<string, string | null>();

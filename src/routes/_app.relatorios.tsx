@@ -18,10 +18,10 @@ import { exportToCsv } from "@/lib/csv-export";
 import {
   getIndicadores, listMensagens, listHistoricoStatus, listRenovacoes,
   listFeedbacks, marcarFeedbackAnalisado, marcarRenovado,
-} from "@/server/relatorios.functions";
-import { listSystemLogs, marcarLogResolvido, contarAlertasSign } from "@/server/system-logs.functions";
-import { listPhotoAudit, reassinarUrl, marcarFotoResolvida, varrerFotosFormularios } from "@/server/photo-audit.functions";
-import { listarConfirmacoes, type ConfirmacaoRow } from "@/server/entregas.functions";
+} from "@/backend/relatorios.functions";
+import { listSystemLogs, marcarLogResolvido, contarAlertasSign } from "@/backend/system-logs.functions";
+import { listPhotoAudit, reassinarUrl, marcarFotoResolvida, varrerFotosFormularios } from "@/backend/photo-audit.functions";
+import { listarConfirmacoes, type ConfirmacaoRow } from "@/backend/entregas.functions";
 import { useAuth } from "@/lib/auth";
 import { useNavigate } from "@tanstack/react-router";
 

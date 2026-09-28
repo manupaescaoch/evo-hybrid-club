@@ -22,7 +22,7 @@ import {
 import { useAlunoSession } from "@/lib/aluno-session";
 import { ProfileAvatar } from "@/components/aluno-app/ProfileAvatar";
 import { useServerFn } from "@tanstack/react-start";
-import { getRanking, type RankingResposta, type RankingItem } from "@/server/ranking.functions";
+import { getRanking, type RankingResposta, type RankingItem } from "@/backend/ranking.functions";
 
 export const Route = createFileRoute("/aluno/ranking")({
   component: AlunoRanking,

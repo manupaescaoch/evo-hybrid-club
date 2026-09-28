@@ -7,7 +7,7 @@ import { triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";
 import {
   getCheckinHoje,
   salvarCheckinDiario,
-} from "@/server/checkin-diario.functions";
+} from "@/backend/checkin-diario.functions";
 
 const STORAGE_KEY = "mpteam:checkin-diario";
 const RED = "#0033FF";

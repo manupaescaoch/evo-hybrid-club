@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { listarHistoricoEntregasAluno, type EntregaHistorico } from "@/server/entregas.functions";
+import { listarHistoricoEntregasAluno, type EntregaHistorico } from "@/backend/entregas.functions";
 import { Check } from "lucide-react";
 
 function fmtDateTime(s: string | null | undefined) {

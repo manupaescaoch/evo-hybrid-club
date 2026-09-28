@@ -28,7 +28,7 @@ import { HistoricoEntregasSection } from "@/components/aluno/HistoricoEntregasSe
 import { Sparkles, Loader2 } from "lucide-react";
 import { RespostasLegivel } from "@/components/aluno/RespostasLegivel";
 import { useServerFn } from "@tanstack/react-start";
-import { gerarRespostaFormulario } from "@/server/feedback.functions";
+import { gerarRespostaFormulario } from "@/backend/feedback.functions";
 import { AlertasInteligentes } from "@/components/aluno/dieta/AlertasInteligentes";
 import { HistoricoRecenteCard } from "@/components/aluno/dieta/HistoricoRecenteCard";
 import { SaudeAlunoCard } from "@/components/aluno/SaudeAlunoCard";

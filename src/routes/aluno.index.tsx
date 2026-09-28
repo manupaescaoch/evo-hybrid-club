@@ -22,8 +22,8 @@ import {
 import { useAlunoSession } from "@/lib/aluno-session";
 import { useAlunoDashboard, triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";
 import { useServerFn } from "@tanstack/react-start";
-import { getDietaAluno } from "@/server/aluno-dieta.functions";
-import { registrarAgua } from "@/server/aluno-kpis.functions";
+import { getDietaAluno } from "@/backend/aluno-dieta.functions";
+import { registrarAgua } from "@/backend/aluno-kpis.functions";
 import { SCORE_DIARIO, SCORE_META_SEMANAL, somarScoreJanela } from "@/lib/aluno-score";
 
 export const Route = createFileRoute("/aluno/")({

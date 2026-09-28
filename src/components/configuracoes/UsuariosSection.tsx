@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth, type Perfil } from "@/lib/auth";
 import { useServerFn } from "@tanstack/react-start";
-import { criarUsuarioCRM, editarUsuarioCRM, excluirUsuarioCRM } from "@/server/usuarios.functions";
+import { criarUsuarioCRM, editarUsuarioCRM, excluirUsuarioCRM } from "@/backend/usuarios.functions";
 import { toast } from "sonner";
 import { Loader2, Pencil, Save, X, UserPlus, Trash2, KeyRound, User, ExternalLink } from "lucide-react";
 

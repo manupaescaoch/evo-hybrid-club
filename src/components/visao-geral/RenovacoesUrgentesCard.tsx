@@ -7,7 +7,7 @@ import {
   enviarCobrancaRenovacao,
   marcarRenovacaoResolvida,
   type RenovacaoUrgente,
-} from "@/server/renovacoes.functions";
+} from "@/backend/renovacoes.functions";
 import { toast } from "sonner";
 
 const MOD_LABEL: Record<string, string> = {

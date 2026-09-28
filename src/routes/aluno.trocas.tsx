@@ -112,7 +112,7 @@ function SubCard({ item, destaqueKcal }: { item: SubItem; destaqueKcal?: boolean
 import { useRef, useState } from "react";
 import { useAlunoSession } from "@/lib/aluno-session";
 import { useServerFn } from "@tanstack/react-start";
-import { gerarTrocasIA } from "@/server/trocas-ia.functions";
+import { gerarTrocasIA } from "@/backend/trocas-ia.functions";
 import { toast } from "sonner";
 import { ProfileAvatar } from "@/components/aluno-app/ProfileAvatar";
 

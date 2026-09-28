@@ -661,7 +661,7 @@ function TreinoHojeCard() {
     const d = new Date();
     const hoje = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
     fetchSemana({ data: { inicio: hoje, fim: hoje } })
-      .then((r) => setSessoes(r.sessoes.filter((s) => s.tipo !== "descanso")))
+      .then((r) => setSessoes((Array.isArray(r?.sessoes) ? r.sessoes : []).filter((s) => s.tipo !== "descanso")))
       .catch(() => setSessoes([]));
   }, [fetchSemana]);
 

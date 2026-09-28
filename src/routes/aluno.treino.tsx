@@ -423,7 +423,7 @@ function SessaoCard({ s, feitos, toggle }: { s: AlunoTreinoSessao; feitos: Set<s
         {s.observacao && <p className="mt-2 text-[11px] text-black/55">{s.observacao}</p>}
       </motion.section>
       <ul className="space-y-2">
-        {s.blocos.map((b, i) => {
+        {(s.blocos ?? []).map((b, i) => {
           const done = feitos.has(b.id);
           return (
             <motion.li

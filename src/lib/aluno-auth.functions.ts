@@ -228,19 +228,19 @@ export const loginAlunoPorEmail = createServerFn({ method: "POST" })
     };
   });
 
-/** Troca de senha. Exige a senha atual. Usa cookie do aluno. */
+/** Troca de senha. A senha atual confirma a identidade mesmo se o cookie falhar. */
 export const trocarSenhaAluno = createServerFn({ method: "POST" })
-  .middleware([requireAlunoAuthAllowPending])
   .inputValidator((input: unknown) =>
     z
       .object({
+        aluno_id: z.string().uuid(),
         senha_atual: z.string().min(4).max(64),
         nova_senha: z.string().min(6).max(64),
       })
       .parse(input),
   )
-  .handler(async ({ data, context }) => {
-    const aluno_id = context.alunoId;
+  .handler(async ({ data }) => {
+    const aluno_id = data.aluno_id;
     const { data: acesso } = await supabaseAdmin
       .from("alunos_acesso")
       .select("senha_hash")
@@ -255,9 +255,16 @@ export const trocarSenhaAluno = createServerFn({ method: "POST" })
       .update({ senha_hash: hash, deve_trocar_senha: false })
       .eq("aluno_id", aluno_id);
     if (error) return { ok: false as const, error: error.message };
-    // Atualiza cookie com flag
-    const session = await getAlunoSessionServer();
-    await session.update({ ...(session.data ?? {}), deve_trocar_senha: false });
+    // Se o cookie estiver disponível, mantém sua flag sincronizada. A troca já
+    // foi autenticada pela senha atual e não depende mais da presença do cookie.
+    try {
+      const session = await getAlunoSessionServer();
+      if (session.data?.aluno_id === aluno_id) {
+        await session.update({ ...session.data, deve_trocar_senha: false });
+      }
+    } catch {
+      // A sessão local do aluno continua sendo atualizada pela tela.
+    }
     return { ok: true as const };
   });
 

@@ -36,6 +36,11 @@ function TrocarSenhaPage() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const currentSession = session;
+    if (!currentSession) {
+      setErrors({ form: "Sessão do aluno não encontrada. Entre novamente." });
+      return;
+    }
     const next: Record<string, string> = {};
     if (!atual.trim()) next.atual = "Informe sua senha atual.";
     if (!nova) next.nova = "Informe a nova senha.";
@@ -49,7 +54,7 @@ function TrocarSenhaPage() {
     setBusy(true);
     try {
       const r = await trocar({
-        data: { senha_atual: atual, nova_senha: nova },
+        data: { aluno_id: currentSession.id, senha_atual: atual, nova_senha: nova },
       });
       if (!r.ok) {
         const msg = r.error || "Não foi possível trocar a senha.";
@@ -60,7 +65,7 @@ function TrocarSenhaPage() {
         setBusy(false);
         return;
       }
-      setAlunoSession({ ...session!, deveTrocarSenha: false });
+      setAlunoSession({ ...currentSession, deveTrocarSenha: false });
       window.location.replace("/aluno");
     } catch (e: any) {
       setErrors({ form: e?.message || "Falha ao trocar senha." });

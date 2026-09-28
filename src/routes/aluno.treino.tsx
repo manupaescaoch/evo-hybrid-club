@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { getSemanaTreinoAluno, type AlunoTreinoSessao, type AlunoTreinoBloco } from "@/backend/aluno-treino.functions";
 import { paceToKmh } from "@/lib/corrida-zonas";
@@ -68,11 +67,21 @@ function AlunoTreinoPage() {
   fim.setDate(semana.getDate() + 6);
 
   const fetchSemana = useServerFn(getSemanaTreinoAluno);
-  const { data, isLoading } = useQuery({
-    queryKey: ["aluno-treino-semana", ymd(semana)],
-    queryFn: () => fetchSemana({ data: { inicio: ymd(semana), fim: ymd(fim) } }),
-  });
-  const sessoes = data?.sessoes ?? [];
+  const [sessoes, setSessoes] = useState<AlunoTreinoSessao[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const inicioStr = ymd(semana);
+  const fimStr = ymd(fim);
+  useEffect(() => {
+    let vivo = true;
+    setIsLoading(true);
+    fetchSemana({ data: { inicio: inicioStr, fim: fimStr } })
+      .then((r) => vivo && setSessoes(r.sessoes))
+      .catch(() => vivo && setSessoes([]))
+      .finally(() => vivo && setIsLoading(false));
+    return () => {
+      vivo = false;
+    };
+  }, [inicioStr, fimStr, fetchSemana]);
   const diasComTreino = useMemo(
     () => new Set(sessoes.filter((s) => s.tipo !== "descanso").map((s) => s.data)),
     [sessoes],

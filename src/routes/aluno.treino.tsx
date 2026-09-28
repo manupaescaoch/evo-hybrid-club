@@ -75,7 +75,7 @@ function AlunoTreinoPage() {
     let vivo = true;
     setIsLoading(true);
     fetchSemana({ data: { inicio: inicioStr, fim: fimStr } })
-      .then((r) => vivo && setSessoes(r.sessoes))
+      .then((r) => vivo && setSessoes(Array.isArray(r?.sessoes) ? r.sessoes : []))
       .catch(() => vivo && setSessoes([]))
       .finally(() => vivo && setIsLoading(false));
     return () => {

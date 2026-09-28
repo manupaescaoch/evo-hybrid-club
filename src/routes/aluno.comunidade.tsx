@@ -9,7 +9,7 @@ import {
   togglarLike,
   apagarPost,
   type FeedPost,
-} from "@/server/comunidade.functions";
+} from "@/backend/comunidade.functions";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/aluno/comunidade")({

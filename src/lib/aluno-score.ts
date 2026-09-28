@@ -1,7 +1,7 @@
 /** Constantes de pontuação do aluno — fonte única de verdade. */
 
 /** Pontos atribuídos por check-in diário. Deve casar com `SCORE_DIARIO`
- *  em src/server/checkin-diario.functions.ts. */
+ *  em src/backend/checkin-diario.functions.ts. */
 export const SCORE_DIARIO = 5;
 
 /** Janela usada nas telas (dashboard e perfil) para somar pontos. */

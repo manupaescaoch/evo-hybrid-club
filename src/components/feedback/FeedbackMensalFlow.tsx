@@ -4,10 +4,10 @@ import { ArrowLeft, ArrowRight, Camera, Check, Loader2, Send, Star, X } from "lu
 import mpLogo from "@/assets/evo-hybrid-club-logo.png.asset.json";
 import exemploFotos from "@/assets/exemplo-fotos-evolucao.png";
 import { useServerFn } from "@tanstack/react-start";
-import { gerarRespostaFormulario } from "@/server/feedback.functions";
-import { notifyFeedbackResponded } from "@/server/notificacoes-feedbacks.functions";
-import { criarAlunoPublico } from "@/server/aluno-publico.functions";
-import { submeterFormularioPublico } from "@/server/formulario-publico-flow.functions";
+import { gerarRespostaFormulario } from "@/backend/feedback.functions";
+import { notifyFeedbackResponded } from "@/backend/notificacoes-feedbacks.functions";
+import { criarAlunoPublico } from "@/backend/aluno-publico.functions";
+import { submeterFormularioPublico } from "@/backend/formulario-publico-flow.functions";
 import { PhoneDdiInput, splitPhone } from "@/components/publico/PhoneDdiInput";
 import { ConfirmarTelefoneModal } from "@/components/publico/ConfirmarTelefoneModal";
 import { uploadAnamneseAsset } from "@/lib/anamnese-upload";

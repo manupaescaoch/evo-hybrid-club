@@ -6,17 +6,17 @@ import {
   
   requireAlunoAuth,
   requireAlunoAuthAllowPending,
-} from "@/server/aluno-middleware";
-import { getAlunoSessionServer } from "@/server/aluno-session.server";
+} from "@/backend/aluno-middleware";
+import { getAlunoSessionServer } from "@/backend/aluno-session.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { decodeAndValidateImage } from "@/server/image-validation.server";
+import { decodeAndValidateImage } from "@/backend/image-validation.server";
 import {
   digits,
   senhaInicialFromWhatsapp,
   setAlunoCookie,
   loadDashboard,
-} from "@/server/aluno-auth-helpers.server";
-import { enviarWhatsAppTeste } from "@/server/zapi-send.server";
+} from "@/backend/aluno-auth-helpers.server";
+import { enviarWhatsAppTeste } from "@/backend/zapi-send.server";
 
 /** Cria/redefine o acesso do aluno (apenas equipe/admin do CRM). */
 export const criarAcessoAluno = createServerFn({ method: "POST" })

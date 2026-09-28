@@ -1,4 +1,4 @@
-import { uploadAnamneseFile } from "@/server/anamnese-uploads.functions";
+import { uploadAnamneseFile } from "@/backend/anamnese-uploads.functions";
 
 function fileToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {

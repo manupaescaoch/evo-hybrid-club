@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import {
   gerarPlanoIA,
   completarRefeicaoIA, gerarAlternativaIA, substituirMantendoMacros,
-} from "@/server/dieta.functions";
+} from "@/backend/dieta.functions";
 import { parseTextoDieta } from "@/lib/dieta-importar-texto";
 import type { Aluno } from "@/lib/crm";
 import {

@@ -14,11 +14,11 @@ const AddAlunoModal = lazy(() =>
   import("./_app.alunos.index").then((m) => ({ default: m.AddAlunoModal })),
 );
 import { useServerFn } from "@tanstack/react-start";
-import { gerarMensagemPontoContato, enviarPontoContatoZapi } from "@/server/pontos-contato.functions";
-import { registrarDesfazerEntrega } from "@/server/entregas.functions";
-import { gerarRespostaFormulario } from "@/server/feedback.functions";
-import { listZapiGroups, type ZapiGroup } from "@/server/zapi.functions";
-import { previewResumoDia, enviarResumoDiaGrupo } from "@/server/resumo-grupo.functions";
+import { gerarMensagemPontoContato, enviarPontoContatoZapi } from "@/backend/pontos-contato.functions";
+import { registrarDesfazerEntrega } from "@/backend/entregas.functions";
+import { gerarRespostaFormulario } from "@/backend/feedback.functions";
+import { listZapiGroups, type ZapiGroup } from "@/backend/zapi.functions";
+import { previewResumoDia, enviarResumoDiaGrupo } from "@/backend/resumo-grupo.functions";
 import { toast } from "sonner";
 import { useSignedAnamneseUrls } from "@/lib/use-signed-anamnese-urls";
 import { RenovacoesUrgentesCard } from "@/components/visao-geral/RenovacoesUrgentesCard";

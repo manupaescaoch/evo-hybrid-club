@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   lerConfig, calcularAmanhaBRT, horaAtualBRT,
   montarLinhasParaData, formatarMensagem, enviarZapi, logResumo,
-} from "@/server/notificacoes-diarias.server";
+} from "@/backend/notificacoes-diarias.server";
 
 function json(status: number, body: unknown) {
   return new Response(JSON.stringify(body), {

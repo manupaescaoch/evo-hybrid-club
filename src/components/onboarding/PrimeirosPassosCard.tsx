@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { useServerFn } from "@tanstack/react-start";
-import { getZapiStatus } from "@/server/zapi.functions";
+import { getZapiStatus } from "@/backend/zapi.functions";
 import {
   Sparkles, Check, ChevronRight, X, Plug, Users, Wallet,
   ClipboardList, Rocket, Loader2,

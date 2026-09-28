@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { STATUS_LABEL, fmtDate, type Aluno } from "@/lib/crm";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useServerFn } from "@tanstack/react-start";
-import { previewMensagemJob } from "@/server/motor-preview.functions";
+import { previewMensagemJob } from "@/backend/motor-preview.functions";
 
 type Props = { alunoId: string; aluno: Aluno };
 

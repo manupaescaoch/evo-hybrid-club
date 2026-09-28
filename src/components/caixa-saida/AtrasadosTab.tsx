@@ -9,9 +9,9 @@ import {
   descartarJobsAtrasados,
   reagendarJobsHorarioComercial,
   setMotorAtivo,
-} from "@/server/jobs-atrasados.functions";
-import { runMotorAutomacoes } from "@/server/motor.functions";
-import { getErrosRecentesPorTipo, type ErroPorTipo } from "@/server/caixa-saida.functions";
+} from "@/backend/jobs-atrasados.functions";
+import { runMotorAutomacoes } from "@/backend/motor.functions";
+import { getErrosRecentesPorTipo, type ErroPorTipo } from "@/backend/caixa-saida.functions";
 import { Loader2, RefreshCw, AlertTriangle, Power, PowerOff, Trash2, Clock, Play } from "lucide-react";
 
 type Resumo = Awaited<ReturnType<typeof getJobsAtrasadosResumo>>;

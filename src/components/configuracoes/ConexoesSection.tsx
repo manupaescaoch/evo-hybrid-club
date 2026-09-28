@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { getZapiStatus, testZapiConnection, listZapiGroups, type ZapiGroup } from "@/server/zapi.functions";
-import { getOpenAIStatus, testOpenAIConnection } from "@/server/openai.functions";
-import { getFormUrls, saveFormUrls } from "@/server/forms.functions";
+import { getZapiStatus, testZapiConnection, listZapiGroups, type ZapiGroup } from "@/backend/zapi.functions";
+import { getOpenAIStatus, testOpenAIConnection } from "@/backend/openai.functions";
+import { getFormUrls, saveFormUrls } from "@/backend/forms.functions";
 import {
   getResumoDiarioConfig, saveResumoDiarioConfig,
   testarEnvioResumoDiario, previewResumoDiario,
-} from "@/server/notificacoes-diarias.functions";
+} from "@/backend/notificacoes-diarias.functions";
 import {
   getRespostasFeedbacksConfig, saveRespostasFeedbacksConfig,
   testarEnvioRespostasFeedbacks, previewRespostasFeedbacks, enviarRespostasFeedbacks24h,
-} from "@/server/notificacoes-feedbacks.functions";
+} from "@/backend/notificacoes-feedbacks.functions";
 import { toast } from "sonner";
 import {
   Plug, ShieldAlert, CheckCircle2, XCircle, Loader2, RefreshCw,

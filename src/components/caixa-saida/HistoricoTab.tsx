@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
-import { dispararJobsAgora } from "@/server/motor.functions";
+import { dispararJobsAgora } from "@/backend/motor.functions";
 import {
   Radio, RefreshCw, Loader2, CheckCircle2, AlertTriangle, Clock, Filter, ExternalLink, Send, AlarmClock, Trash2,
 } from "lucide-react";

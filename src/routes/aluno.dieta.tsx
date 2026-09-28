@@ -28,8 +28,8 @@ import {
   type AlunoDietaPlano,
   type AlunoDietaRefeicao,
   type AlunoDietaItem,
-} from "@/server/aluno-dieta.functions";
-import { toggleRefeicao } from "@/server/aluno-kpis.functions";
+} from "@/backend/aluno-dieta.functions";
+import { toggleRefeicao } from "@/backend/aluno-kpis.functions";
 import { useAlunoDashboard } from "@/lib/aluno-dashboard-store";
 import { toast } from "sonner";
 

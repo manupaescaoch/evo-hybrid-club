@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { processarJobsRespostaFeedback } from "@/server/notificacoes-formularios.functions";
+import { processarJobsRespostaFeedback } from "@/backend/notificacoes-formularios.functions";
 
 function checkAuth(request: Request): Response | null {
   const auth = request.headers.get("authorization") || "";

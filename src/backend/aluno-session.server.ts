@@ -25,7 +25,7 @@ export function alunoSessionConfig() {
     name: "mpteam_aluno_sess",
     cookie: {
       httpOnly: true,
-      sameSite: "lax" as const,
+      sameSite: "none" as const,
       secure: true,
       path: "/",
     },

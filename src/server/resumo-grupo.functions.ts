@@ -4,7 +4,7 @@ import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { z } from "zod";
 
 const MODAL_LABEL: Record<string, string> = {
-  mpteam: "MPTEAM",
+  mpteam: "EVO HYBRID CLUB",
   mp_elite: "MP Elite",
   mp_presencial: "MP Presencial",
 };

@@ -688,7 +688,7 @@ function AlunoPerfil() {
               onClick: () => {
                 const primeiro = (session?.nome ?? aluno?.nome ?? "")
                   .split(" ")[0] || "Aluno";
-                const msg = `Olá, equipe MPTEAM! Sou ${primeiro} e preciso de ajuda no app.`;
+                const msg = `Olá, equipe EVO HYBRID CLUB! Sou ${primeiro} e preciso de ajuda no app.`;
                 window.open(whatsappSuporteUrl(msg), "_blank", "noopener");
               },
             },

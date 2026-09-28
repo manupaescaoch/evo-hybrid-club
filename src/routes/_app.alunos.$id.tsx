@@ -908,7 +908,7 @@ function EditarPerfilModal({
           <Field label="Modalidade">
             <select value={form.modalidade} disabled={!isAdmin} onChange={(e) => setForm({ ...form, modalidade: e.target.value as Modalidade })} className="input">
               <option value="">—</option>
-              <option value="mpteam">MPTEAM</option>
+              <option value="mpteam">EVO HYBRID CLUB</option>
               <option value="mp_elite">MP Elite</option>
               <option value="mp_presencial">MP Presencial</option>
             </select>

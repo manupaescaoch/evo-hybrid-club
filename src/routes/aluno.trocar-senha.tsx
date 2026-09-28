@@ -7,7 +7,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { trocarSenhaAluno } from "@/lib/aluno-auth.functions";
 
 export const Route = createFileRoute("/aluno/trocar-senha")({
-  head: () => ({ meta: [{ title: "Trocar senha — MPTEAM" }] }),
+  head: () => ({ meta: [{ title: "Trocar senha — EVO HYBRID CLUB" }] }),
   component: TrocarSenhaPage,
 });
 

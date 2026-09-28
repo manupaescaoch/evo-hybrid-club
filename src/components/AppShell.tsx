@@ -5,7 +5,7 @@ import {
   LogOut, DollarSign, Settings, ChevronDown, Menu, MoreHorizontal, BookOpen, MessageSquare, Inbox,
 } from "lucide-react";
 import { type ReactNode, useState, useEffect } from "react";
-import mpLogo from "@/assets/mp-logo.png";
+import mpLogo from "@/assets/evo-hybrid-club-logo.png.asset.json";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface NavItem {
@@ -177,9 +177,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       <aside className="hidden md:flex w-[220px] flex-col border-r border-border bg-sidebar">
         <div className="px-5 py-7 border-b border-border">
           <Link to="/visao-geral" className="flex items-center gap-2.5">
-            <img src={mpLogo} alt="MP Team" className="h-8 w-8 rounded" />
+            <img src={mpLogo.url} alt="EVO HYBRID CLUB" className="h-8 w-8 rounded" />
             <div>
-              <div className="text-[15px] font-black tracking-tight text-foreground leading-none">MPTEAM</div>
+              <div className="text-[13px] font-black text-foreground leading-tight">EVO HYBRID CLUB</div>
               <div className="text-[9px] font-medium text-muted-foreground tracking-[0.3em] mt-1">CRM</div>
             </div>
           </Link>
@@ -217,9 +217,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <SheetContent side="left" className="w-[270px] p-0 flex flex-col">
                   <div className="px-5 py-5 border-b border-border">
                     <Link to="/visao-geral" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
-                      <img src={mpLogo} alt="MP Team" className="h-8 w-8 rounded" />
+                      <img src={mpLogo.url} alt="EVO HYBRID CLUB" className="h-8 w-8 rounded" />
                       <div>
-                        <div className="text-[15px] font-black tracking-tight text-foreground leading-none">MPTEAM</div>
+                        <div className="text-[13px] font-black text-foreground leading-tight">EVO HYBRID CLUB</div>
                         <div className="text-[9px] font-medium text-muted-foreground tracking-[0.3em] mt-1">CRM</div>
                       </div>
                     </Link>
@@ -242,8 +242,8 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </SheetContent>
               </Sheet>
               <Link to="/visao-geral" className="flex items-center gap-2">
-                <img src={mpLogo} alt="MP Team" className="h-7 w-7 rounded" />
-                <span className="text-base font-black text-foreground">MPTEAM</span>
+                <img src={mpLogo.url} alt="EVO HYBRID CLUB" className="h-7 w-7 rounded" />
+                <span className="text-sm font-black text-foreground">EVO HYBRID CLUB</span>
               </Link>
             </div>
             <button
@@ -388,7 +388,7 @@ function MoreLink({ to, icon: Icon, label, indent }: { to: string; icon: typeof 
 
 export function ModalidadeTag({ m }: { m: Database_Modalidade }) {
   const labels: Record<string, string> = {
-    mpteam: "MPTEAM", mp_elite: "MP Elite", mp_presencial: "MP Presencial",
+    mpteam: "EVO HYBRID CLUB", mp_elite: "MP Elite", mp_presencial: "MP Presencial",
   };
   if (!m) return <span className="text-muted-foreground text-xs">—</span>;
   const colors: Record<string, string> = {

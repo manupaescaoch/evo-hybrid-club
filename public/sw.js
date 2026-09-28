@@ -1,4 +1,4 @@
-/* MPTEAM service worker — push notifications */
+/* EVO HYBRID CLUB service worker — push notifications */
 self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
@@ -12,13 +12,13 @@ self.addEventListener("push", (event) => {
   try {
     data = event.data ? event.data.json() : {};
   } catch (_e) {
-    data = { title: "MPTEAM", body: event.data ? event.data.text() : "" };
+    data = { title: "EVO HYBRID CLUB", body: event.data ? event.data.text() : "" };
   }
-  const title = data.title || "MPTEAM";
+  const title = data.title || "EVO HYBRID CLUB";
   const options = {
     body: data.body || "",
-    icon: data.icon || "/mp-logo.png",
-    badge: data.badge || "/mp-logo.png",
+    icon: data.icon || "/evo-hybrid-club.png",
+    badge: data.badge || "/evo-hybrid-club.png",
     tag: data.tag || "mpteam-default",
     data: { url: data.url || "/aluno" },
   };

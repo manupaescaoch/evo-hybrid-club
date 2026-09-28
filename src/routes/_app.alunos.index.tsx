@@ -18,8 +18,8 @@ import { readCache, writeCache } from "@/lib/swr-cache";
 export const Route = createFileRoute("/_app/alunos/")({
   head: () => ({
     meta: [
-      { title: "Alunos — MPTEAM" },
-      { name: "description", content: "Gerencie a base de alunos da consultoria MPTEAM: cadastro, modalidade, anamnese e acompanhamento." },
+      { title: "Alunos — EVO HYBRID CLUB" },
+      { name: "description", content: "Gerencie a base de alunos da consultoria EVO HYBRID CLUB: cadastro, modalidade, anamnese e acompanhamento." },
     ],
   }),
   component: AlunosPage,
@@ -170,7 +170,7 @@ function AlunosPage() {
         <div className="flex md:flex-wrap gap-2 overflow-x-auto -mx-3 px-3 sm:mx-0 sm:px-0 no-scrollbar">
           {([
             { k: "mod", v: filterMod, set: (v: string) => { setFilterMod(v as typeof filterMod); setPage(0); }, opts: [
-              ["all","Todas modalidades"],["mpteam","MPTEAM"],["mp_elite","MP Elite"],["mp_presencial","MP Presencial"],
+              ["all","Todas modalidades"],["mpteam","EVO HYBRID CLUB"],["mp_elite","MP Elite"],["mp_presencial","MP Presencial"],
             ] as [string,string][] },
             { k: "status", v: filterStatus, set: (v: string) => { setFilterStatus(v as typeof filterStatus); setPage(0); }, opts: [
               ["all","Todos status"],["ativo","Ativo"],["vencido","Vencido"],["vence_7d","Vence em 7d"],
@@ -440,7 +440,7 @@ export function AddAlunoModal({ onClose, onSaved }: { onClose: () => void; onSav
                   {(["mpteam", "mp_elite", "mp_presencial"] as Modalidade[]).map((m) => {
                     const lista = planos.filter((p) => p.modalidade === m);
                     if (!lista.length) return null;
-                    const label = m === "mpteam" ? "MPTEAM" : m === "mp_elite" ? "MP Elite" : "MP Presencial";
+                    const label = m === "mpteam" ? "EVO HYBRID CLUB" : m === "mp_elite" ? "MP Elite" : "MP Presencial";
                     return (
                       <optgroup key={m} label={label}>
                         {lista.map((p) => (
@@ -490,7 +490,7 @@ export function AddAlunoModal({ onClose, onSaved }: { onClose: () => void; onSav
               <div className="grid grid-cols-2 gap-3">
                 <Field label="Modalidade *">
                   <select value={form.modalidade} onChange={(e) => setForm({...form, modalidade: e.target.value as Modalidade})} className="input">
-                    <option value="mpteam">MPTEAM</option>
+                    <option value="mpteam">EVO HYBRID CLUB</option>
                     <option value="mp_elite">MP Elite</option>
                     <option value="mp_presencial">MP Presencial</option>
                   </select>

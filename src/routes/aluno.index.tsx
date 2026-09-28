@@ -29,8 +29,8 @@ import { SCORE_DIARIO, SCORE_META_SEMANAL, somarScoreJanela } from "@/lib/aluno-
 export const Route = createFileRoute("/aluno/")({
   head: () => ({
     meta: [
-      { title: "Início — App do Aluno | MPTEAM" },
-      { name: "description", content: "Sua página inicial no MPTEAM: score do dia, check-in diário, dieta, treinos e evolução em um só lugar." },
+      { title: "Início — App do Aluno | EVO HYBRID CLUB" },
+      { name: "description", content: "Sua página inicial no EVO HYBRID CLUB: score do dia, check-in diário, dieta, treinos e evolução em um só lugar." },
     ],
   }),
   component: AlunoInicio,

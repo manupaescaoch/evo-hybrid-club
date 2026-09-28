@@ -4,8 +4,8 @@ import { PublicFormularioPublico } from "@/components/publico/PublicFormularioPu
 export const Route = createFileRoute("/anamnese")({
   head: () => ({
     meta: [
-      { title: "Anamnese Inicial | MPTEAM" },
-      { name: "description", content: "Preencha sua anamnese inicial para a consultoria MPTEAM." },
+      { title: "Anamnese Inicial | EVO HYBRID CLUB" },
+      { name: "description", content: "Preencha sua anamnese inicial para a consultoria EVO HYBRID CLUB." },
     ],
   }),
   component: AnamnesePublicaPage,

@@ -827,7 +827,7 @@ function CompararFotosModal({
     const logoY = padding;
     // tenta carregar a logo MP; se falhar, desenha um placeholder vermelho com "M"
     try {
-      const logo = await loadImage("/mp-logo.png");
+      const logo = await loadImage("/evo-hybrid-club.png");
       // arredondamento simulado por clip
       const r = 10;
       ctx.save();
@@ -1032,7 +1032,7 @@ function CompararFotosModal({
         {/* Header */}
         <div className="flex items-start justify-between px-6 pt-6 pb-4">
           <div className="flex items-start gap-3">
-            <img src="/mp-logo.png" alt="MP" className="h-10 w-10 rounded-md" />
+            <img src="/evo-hybrid-club.png" alt="MP" className="h-10 w-10 rounded-md" />
             <div>
               <h3 className="text-xl font-semibold leading-tight">Comparar fotos de evolução</h3>
               <p className="text-sm text-muted-foreground mt-0.5">

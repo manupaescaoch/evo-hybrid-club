@@ -291,7 +291,7 @@ export function NovaRefeicaoModal({
                 className="mt-1.5 w-full px-3 py-2.5 rounded-lg border border-slate-200 bg-background text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-300 outline-none resize-none"
               />
               <p className="mt-1 text-[11px] text-muted-foreground">
-                As observações estarão disponíveis para o paciente no aplicativo do MPTEAM.
+                As observações estarão disponíveis para o paciente no aplicativo do EVO HYBRID CLUB.
               </p>
             </div>
           </div>

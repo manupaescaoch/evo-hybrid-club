@@ -354,7 +354,7 @@ export const solicitarResetSenhaAluno = createServerFn({ method: "POST" })
     const primeiroNome = (alunoRow.nome || "").split(" ")[0] || "Aluno";
     const mensagem =
       `Olá, ${primeiroNome}! 🔐\n\n` +
-      `Recebemos seu pedido de redefinição de senha no app MPTEAM.\n\n` +
+      `Recebemos seu pedido de redefinição de senha no app EVO HYBRID CLUB.\n\n` +
       `Sua senha temporária é: *${tempSenha}*\n\n` +
       `Use ela para entrar e o app vai te pedir pra criar uma nova senha em seguida.\n\n` +
       `Se você não solicitou, ignore esta mensagem.`;

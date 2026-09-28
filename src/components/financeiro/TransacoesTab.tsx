@@ -70,7 +70,7 @@ export function TransacoesTab({ transacoes, alunos, isAdmin, onAdd, onChanged }:
           <select value={mod} onChange={(e) => setMod(e.target.value as typeof mod)}
             className="h-8 px-2 rounded-lg text-xs">
             <option value="">Todas modalidades</option>
-            <option value="mpteam">MPTEAM</option>
+            <option value="mpteam">EVO HYBRID CLUB</option>
             <option value="mp_elite">MP Elite</option>
             <option value="mp_presencial">MP Presencial</option>
           </select>

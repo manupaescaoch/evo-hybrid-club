@@ -59,15 +59,15 @@ function PublicForm() {
   if (!form) return <PublicShell><p className="text-center text-muted-foreground">Carregando...</p></PublicShell>;
   if (submitted) return <PublicShell><p className="text-center">Resposta enviada. Obrigado!</p></PublicShell>;
 
-  // Anamnese tem fluxo dedicado MPTEAM (12 etapas)
+  // Anamnese tem fluxo dedicado EVO HYBRID CLUB (12 etapas)
   if (form.tipo === "anamnese") {
     return <AnamneseFlow formId={form.id} alunoId={form.aluno_id} token={token} onSubmitted={async () => {}} />;
   }
-  // Feedback Quinzenal tem fluxo dedicado MPTEAM (7 etapas)
+  // Feedback Quinzenal tem fluxo dedicado EVO HYBRID CLUB (7 etapas)
   if (form.tipo === "feedback_quinzenal") {
     return <FeedbackQuinzenalFlow formId={form.id} alunoId={form.aluno_id} token={token} onSubmitted={async () => {}} />;
   }
-  // Feedback Mensal tem fluxo dedicado MPTEAM (8 etapas)
+  // Feedback Mensal tem fluxo dedicado EVO HYBRID CLUB (8 etapas)
   if (form.tipo === "feedback_mensal") {
     return <FeedbackMensalFlow formId={form.id} alunoId={form.aluno_id} token={token} onSubmitted={async () => {}} />;
   }
@@ -135,7 +135,7 @@ function PublicShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen px-4 py-10">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-8">
-          <div className="text-2xl font-black text-primary tracking-tight">MPTEAM</div>
+          <div className="text-2xl font-black text-primary tracking-tight">EVO HYBRID CLUB</div>
           <div className="text-[10px] font-semibold text-muted-foreground tracking-[0.4em]">CRM</div>
         </div>
         <div className="rounded-lg border border-border bg-card p-6 md:p-8">{children}</div>

@@ -86,7 +86,7 @@ export const iniciarFormularioPorTelefone = createServerFn({ method: "POST" })
     if (!aluno?.id) {
       return {
         ok: false as const,
-        error: "Não encontramos seu cadastro. Confira o telefone ou fale com a equipe MPTEAM.",
+        error: "Não encontramos seu cadastro. Confira o telefone ou fale com a equipe EVO HYBRID CLUB.",
       };
     }
 

@@ -19,7 +19,7 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
-  const { signIn, session, loading } = useAuth();
+  const { signIn, signOut, session, loading } = useAuth();
   const nav = useNavigate();
   const [perfil, setPerfil] = useState<"aluno" | "treinador">("aluno");
   const [email, setEmail] = useState("");
@@ -31,8 +31,8 @@ function LoginPage() {
 
   useEffect(() => {
     if (loading) return;
+    if (getAlunoSession()) { nav({ to: "/aluno" }); return; }
     if (session) nav({ to: "/visao-geral" });
-    if (getAlunoSession()) nav({ to: "/aluno" });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, session]);
 
@@ -56,6 +56,8 @@ function LoginPage() {
     try {
       const res = await loginAlunoFn({ data: { identificador: email.trim(), senha: password } });
       if (res.ok) {
+        // Encerra sessão de treinador para não desviar ao painel admin
+        await signOut().catch(() => {});
         setAlunoSession({
           id: res.aluno.id,
           nome: res.aluno.nome,

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Lock, ArrowRight, ShieldCheck, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useAlunoSession, setAlunoSession } from "@/lib/aluno-session";
 import { useServerFn } from "@tanstack/react-start";
-import { trocarSenhaAluno } from "@/server/aluno-auth.functions";
+import { trocarSenhaAluno } from "@/lib/aluno-auth.functions";
 
 export const Route = createFileRoute("/aluno/trocar-senha")({
   head: () => ({ meta: [{ title: "Trocar senha — MPTEAM" }] }),

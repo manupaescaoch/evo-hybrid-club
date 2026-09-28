@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAlunoSession } from "./aluno-session";
-import { getAlunoDashboard } from "@/server/aluno-auth.functions";
+import { getAlunoDashboard } from "@/lib/aluno-auth.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { getAlunoSession, setAlunoSession } from "./aluno-session";
 import { readCache, writeCache } from "./swr-cache";

@@ -4,7 +4,7 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { setAlunoSession, getAlunoSession } from "@/lib/aluno-session";
 import { useServerFn } from "@tanstack/react-start";
-import { loginAlunoPorEmail, resolveRedirectAposLogin } from "@/server/aluno-auth.functions";
+import { loginAlunoPorEmail, resolveRedirectAposLogin } from "@/lib/aluno-auth.functions";
 import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
 import mpTeamLogo from "@/assets/mp-team-logo.png";

@@ -41,29 +41,44 @@ export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const sb = supabaseAdmin as any;
 
-    const { data: micros } = await sb
+    // A programação publicada pela Manu é a grade oficial do clube e deve
+    // aparecer igual para todos os alunos. O aluno autenticado continua sendo
+    // validado pelo middleware, mas não define mais qual grade será exibida.
+    const { data: micros, error: microsError } = await sb
       .from("corrida_microciclos")
-      .select("id")
-      .eq("aluno_id", context.alunoId)
-      .eq("status", "publicada");
+      .select("id, atualizado_em")
+      .eq("status", "publicada")
+      .ilike("criado_por", "%manu%")
+      .order("atualizado_em", { ascending: false });
+    if (microsError) throw new Error("Não foi possível carregar a programação de treinos.");
+
     const microIds = (micros ?? []).map((m: any) => m.id);
     if (microIds.length === 0) return { sessoes: [] };
 
-    const { data: sessoes } = await sb
+    const { data: sessoes, error: sessoesError } = await sb
       .from("corrida_sessoes")
       .select(
-        "id, data, ordem_no_dia, tipo, nome, duracao_min, distancia_km, pace_alvo, zona_fc, objetivo, observacao, executada, corrida_sessao_blocos(id, ordem, tipo, nome, descricao, duracao_min, pace, zona, series, distancia_serie, recuperacao)",
+        "id, microciclo_id, data, ordem_no_dia, tipo, nome, duracao_min, distancia_km, pace_alvo, zona_fc, objetivo, observacao, executada, corrida_sessao_blocos(id, ordem, tipo, nome, descricao, duracao_min, pace, zona, series, distancia_serie, recuperacao)",
       )
-      .eq("aluno_id", context.alunoId)
       .in("microciclo_id", microIds)
       .gte("data", data.inicio)
       .lte("data", data.fim)
       .order("data")
       .order("ordem_no_dia");
+    if (sessoesError) throw new Error("Não foi possível carregar os treinos da semana.");
+
+    // Há cópias históricas da mesma programação em perfis diferentes. Usa a
+    // cópia mais recentemente atualizada para não repetir sessões na tela.
+    const microComTreino = microIds.find((id: string) =>
+      (sessoes ?? []).some((s: any) => s.microciclo_id === id),
+    );
+    if (!microComTreino) return { sessoes: [] };
 
     return {
-      sessoes: (sessoes ?? []).map((s: any) => ({
+      sessoes: (sessoes ?? []).filter((s: any) => s.microciclo_id === microComTreino).map((s: any) => ({
         ...s,
+        microciclo_id: undefined,
+        executada: false,
         blocos: [...(s.corrida_sessao_blocos ?? [])].sort((a: any, b: any) => a.ordem - b.ordem),
         corrida_sessao_blocos: undefined,
       })),

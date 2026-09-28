@@ -240,7 +240,7 @@ function blocoAluno(it: SnapshotItem, mostrarResposta: boolean): string {
   const temResposta = !!(it.resposta && it.resposta.trim());
   if (mostrarResposta && temResposta) {
     const link = it.formulario_id
-      ? `https://mpteam-app.com/formularios/${it.formulario_id}/respostas`
+      ? `https://ironclubrun.lovable.app/formularios/${it.formulario_id}/respostas`
       : "não disponível";
     linhas.push(`_Link da resposta:_\n${link}`);
     linhas.push(`_Resposta:_\n${it.resposta!.trim()}`);

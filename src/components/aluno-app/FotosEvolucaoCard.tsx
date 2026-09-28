@@ -199,13 +199,13 @@ export function FotosEvolucaoCard({ alunoId, alunoNome }: { alunoId: string; alu
       ctx.textAlign = "center";
       ctx.fillStyle = "#0033FF";
       ctx.font = "bold 32px system-ui";
-      ctx.fillText("@mpteambr", W / 2, H - 90);
+      ctx.fillText("EVO HYBRID CLUB", W / 2, H - 90);
       ctx.fillStyle = "rgba(255,255,255,0.5)";
       ctx.font = "500 22px system-ui";
-      ctx.fillText("mpteambr.com  •  consistência > motivação", W / 2, H - 50);
+      ctx.fillText("CONSISTÊNCIA > MOTIVAÇÃO", W / 2, H - 50);
 
       const link = document.createElement("a");
-      link.download = `evolucao-mpteam-${Date.now()}.png`;
+      link.download = `evolucao-evo-hybrid-club-${Date.now()}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
       toast.success("Imagem salva! Pronto pra postar 🔥");

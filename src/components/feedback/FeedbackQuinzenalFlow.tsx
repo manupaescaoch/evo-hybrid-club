@@ -292,7 +292,7 @@ export function FeedbackQuinzenalFlow({ formId, alunoId, token, onSubmitted }: P
         <Card>
           <div className="text-center py-8 md:py-12">
             <Logo big />
-            <h1 className="text-3xl md:text-4xl font-bold mb-5" style={{ color: INK }}>Feedback Quinzenal | MP TEAM</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-5" style={{ color: INK }}>Feedback Quinzenal | EVO HYBRID CLUB</h1>
             <p className="text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto" style={{ color: MUTED }}>
               Esse feedback é pra entender com clareza como seu corpo e sua rotina estão respondendo.
               Seja direto, sincero e detalhista. É isso que me dá base pra ajustar certo.

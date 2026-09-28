@@ -69,14 +69,14 @@ export const Route = createRootRoute({
             {
               "@type": "Organization",
               name: "EVO HYBRID CLUB",
-              url: "https://mpteam-app.com",
-              logo: "https://mpteam-app.com/evo-hybrid-club.png",
+              url: "https://ironclubrun.lovable.app",
+              logo: "https://ironclubrun.lovable.app/evo-hybrid-club.png",
               description: "Consultoria fitness e nutricional online com acompanhamento personalizado de dietas, treinos e evolução.",
             },
             {
               "@type": "WebSite",
               name: "EVO HYBRID CLUB",
-              url: "https://mpteam-app.com",
+              url: "https://ironclubrun.lovable.app",
             },
           ],
         }),

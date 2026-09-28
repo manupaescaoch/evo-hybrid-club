@@ -329,7 +329,7 @@ export function FeedbackMensalFlow({ formId, alunoId, token, onSubmitted }: Prop
         <Card>
           <div className="text-center py-8 md:py-12">
             <Logo big />
-            <h1 className="text-3xl md:text-4xl font-bold mb-5" style={{ color: INK }}>Feedback Mensal | MP TEAM</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-5" style={{ color: INK }}>Feedback Mensal | EVO HYBRID CLUB</h1>
             <p className="text-base md:text-lg leading-relaxed mb-10 max-w-xl mx-auto" style={{ color: MUTED }}>
               Esse é o seu espaço pra mandar a real. Quanto mais sinceridade no feedback, mais preciso eu consigo ser nos ajustes.
             </p>

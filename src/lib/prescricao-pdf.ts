@@ -471,7 +471,7 @@ export async function gerarPdfPrescricao(
   y2 += 14;
 
   // QR Code
-  const url = `https://mpteam-crm.lovable.app/alunos/${aluno.id}`;
+  const url = `https://ironclubrun.lovable.app/alunos/${aluno.id}`;
   try {
     const dataUrl = await QRCode.toDataURL(url, { margin: 1, width: 400 });
     const qrSize = 55;

@@ -5,7 +5,7 @@ import {
   enviarTextoZapiDireto,
 } from "@/server/zapi-send.server";
 
-const PDF_URL = "https://mpteam-app.com/pdfs/seja-bem-vindo-mpteam.pdf";
+const PDF_URL = "https://ironclubrun.lovable.app/pdfs/seja-bem-vindo-mpteam.pdf";
 const PDF_FILENAME = "Seja Bem-Vindo - EVO HYBRID CLUB.pdf";
 const TIPO_JOB = "boas_vindas_webhook";
 
@@ -33,7 +33,7 @@ Vou te mandar os links agora 👇`;
 const MSG_4 = `*1. Anamnese*
 Responda com calma e 100% de sinceridade.
 A qualidade do seu protocolo depende disso.
-👉 https://mpteam-app.com/anamnese
+👉 https://ironclubrun.lovable.app/anamnese
 
 *2. Cadastro no app MFIT*
 É onde você vai receber

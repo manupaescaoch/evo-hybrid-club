@@ -49,7 +49,7 @@ function TrocarSenhaPage() {
     setBusy(true);
     try {
       const r = await trocar({
-        data: { senha_atual: atual, nova_senha: nova },
+        data: { aluno_id: session.id, senha_atual: atual, nova_senha: nova },
       });
       if (!r.ok) {
         const msg = r.error || "Não foi possível trocar a senha.";
@@ -60,7 +60,7 @@ function TrocarSenhaPage() {
         setBusy(false);
         return;
       }
-      setAlunoSession({ ...session!, deveTrocarSenha: false });
+      setAlunoSession({ ...session, deveTrocarSenha: false });
       window.location.replace("/aluno");
     } catch (e: any) {
       setErrors({ form: e?.message || "Falha ao trocar senha." });

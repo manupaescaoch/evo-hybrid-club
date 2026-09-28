@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { KeyRound, Copy, Check, Loader2, RefreshCw } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
-import { criarAcessoAluno } from "@/server/aluno-auth.functions";
+import { criarAcessoAluno } from "@/lib/aluno-auth.functions";
 import { supabase } from "@/integrations/supabase/client";
 
 export function AcessoAppCard({ alunoId }: { alunoId: string }) {

@@ -43,12 +43,12 @@ import {
 } from "lucide-react";
 import { whatsappSuporteUrl } from "@/lib/mpteam-contatos";
 import { useAlunoSession, clearAlunoSession, getAlunoSession, setAlunoSession } from "@/lib/aluno-session";
-import { logoutAluno } from "@/server/aluno-auth.functions";
+import { logoutAluno } from "@/lib/aluno-auth.functions";
 import { useAlunoDashboard } from "@/lib/aluno-dashboard-store";
 import { FotosEvolucaoCard } from "@/components/aluno-app/FotosEvolucaoCard";
 import { PushNotificationsCard } from "@/components/aluno-app/PushNotificationsCard";
 import { useServerFn } from "@tanstack/react-start";
-import { atualizarFotoAluno } from "@/server/aluno-auth.functions";
+import { atualizarFotoAluno } from "@/lib/aluno-auth.functions";
 import { atualizarUsername } from "@/server/comunidade.functions";
 import { AtSign, Check } from "lucide-react";
 import { toast } from "sonner";

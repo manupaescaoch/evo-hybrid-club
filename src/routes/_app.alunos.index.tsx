@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
-import { criarAcessoAluno } from "@/server/aluno-auth.functions";
+import { criarAcessoAluno } from "@/lib/aluno-auth.functions";
 import {
   MODALIDADE_LABEL, STATUS_LABEL, csvFromRows, downloadCSV,
   diasRestantes, fmtDate, createAnamneseAndIntroJobs, logStatusChange,

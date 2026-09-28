@@ -127,18 +127,18 @@ function LoginPage() {
     <div className="min-h-screen bg-[#F5F6FA] flex flex-col items-center px-6 pt-12 pb-10">
       <div className="w-full max-w-sm flex flex-col items-center">
         {/* Logo */}
-        <div className="h-[110px] w-[110px] rounded-[26px] bg-[#0033FF] flex items-center justify-center shadow-[0_22px_50px_-18px_rgba(0,51,255,0.55)]">
+        <div className="h-[110px] w-[110px] overflow-hidden rounded-[26px] bg-black flex items-center justify-center shadow-[0_22px_50px_-18px_rgba(0,51,255,0.55)]">
           <img
             src={mpTeamLogo.url}
             alt="EVO HYBRID CLUB"
-            className="h-[86px] w-[86px] object-contain select-none"
+            className="h-full w-full object-cover select-none"
             draggable={false}
           />
         </div>
 
         {/* Título */}
         <h1 className="mt-6 text-[32px] leading-none font-extrabold tracking-tight text-black text-center">
-          <span className="text-[#0033FF]">IRON</span> CLUB RUN
+          <span className="text-[#0033FF]">EVO</span> HYBRID CLUB
         </h1>
         <p className="mt-3 text-[14px] text-black/55 text-center">
           Todo treino começa antes do primeiro passo.

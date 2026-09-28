@@ -179,7 +179,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Link to="/visao-geral" className="flex items-center gap-2.5">
             <img src={mpLogo.url} alt="EVO HYBRID CLUB" className="h-8 w-8 rounded" />
             <div>
-              <div className="text-[15px] font-black tracking-tight text-foreground leading-none">EVO HYBRID CLUB</div>
+              <div className="text-[13px] font-black text-foreground leading-tight">EVO HYBRID CLUB</div>
               <div className="text-[9px] font-medium text-muted-foreground tracking-[0.3em] mt-1">CRM</div>
             </div>
           </Link>
@@ -219,7 +219,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                     <Link to="/visao-geral" onClick={() => setMobileOpen(false)} className="flex items-center gap-2.5">
                       <img src={mpLogo.url} alt="EVO HYBRID CLUB" className="h-8 w-8 rounded" />
                       <div>
-                        <div className="text-[15px] font-black tracking-tight text-foreground leading-none">EVO HYBRID CLUB</div>
+                        <div className="text-[13px] font-black text-foreground leading-tight">EVO HYBRID CLUB</div>
                         <div className="text-[9px] font-medium text-muted-foreground tracking-[0.3em] mt-1">CRM</div>
                       </div>
                     </Link>
@@ -243,7 +243,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </Sheet>
               <Link to="/visao-geral" className="flex items-center gap-2">
                 <img src={mpLogo.url} alt="EVO HYBRID CLUB" className="h-7 w-7 rounded" />
-                <span className="text-base font-black text-foreground">EVO HYBRID CLUB</span>
+                <span className="text-sm font-black text-foreground">EVO HYBRID CLUB</span>
               </Link>
             </div>
             <button

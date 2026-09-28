@@ -47,7 +47,7 @@ function segundaDe(d: Date) {
 }
 function descBloco(b: AlunoTreinoBloco) {
   const partes: string[] = [];
-  if (b.series) partes.push(b.distancia_serie ? `${b.series}x ${b.distancia_serie}` : `${b.series}x`);
+  if (b.series) { const se = b.series.replace(/x$/i, ""); partes.push(b.distancia_serie ? `${se}x ${b.distancia_serie}` : /^\d+$/.test(se) ? `${se}x` : b.series); }
   else if (b.distancia_serie) partes.push(b.distancia_serie);
   if (b.duracao_min) partes.push(/[a-z]/i.test(b.duracao_min) ? b.duracao_min : `${b.duracao_min} min`);
   if (b.pace) {

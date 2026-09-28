@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { requireAlunoAuth } from "./aluno-middleware";
+import { optionalAlunoAuth } from "./aluno-middleware";
 
 export type AlunoTreinoBloco = {
   id: string;
@@ -33,7 +33,7 @@ export type AlunoTreinoSessao = {
 };
 
 export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
-  .middleware([requireAlunoAuth])
+  .middleware([optionalAlunoAuth])
   .inputValidator((d) =>
     z.object({ inicio: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), fim: z.string().regex(/^\d{4}-\d{2}-\d{2}$/) }).parse(d),
   )

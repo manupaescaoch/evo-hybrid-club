@@ -23,6 +23,7 @@ import { useAlunoSession } from "@/lib/aluno-session";
 import { useAlunoDashboard, triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";
 import { useServerFn } from "@tanstack/react-start";
 import { getDietaAluno } from "@/backend/aluno-dieta.functions";
+import { getSemanaTreinoAluno, type AlunoTreinoSessao } from "@/backend/aluno-treino.functions";
 import { registrarAgua } from "@/backend/aluno-kpis.functions";
 import { SCORE_DIARIO, SCORE_META_SEMANAL, somarScoreJanela } from "@/lib/aluno-score";
 
@@ -330,53 +331,7 @@ function AlunoInicio() {
             Ver tudo <ChevronRight className="h-3.5 w-3.5" />
           </Link>
         </div>
-        <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-3 py-1">
-            <Footprints className="h-3.5 w-3.5 text-[#0033FF]" />
-            <span className="text-[11px] font-extrabold tracking-[0.16em] text-[#0033FF]">
-              AERÓBICO
-            </span>
-          </div>
-          <h3 className="mt-3 text-[22px] font-black leading-tight tracking-tight text-black">
-            Rodagem Leve + Strides
-          </h3>
-          <p className="mt-1 text-[13px] text-black/55">
-            Ritmo controlado, passada limpa e constância.
-          </p>
-          <div className="mt-3 flex items-center gap-5 text-[13px] text-black/70">
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-4 w-4 text-black/55" />
-              <span className="font-semibold">50 min</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-4 w-4 text-black/55" />
-              <span className="font-semibold">10 km</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <HeartPulse className="h-4 w-4 text-black/55" />
-              <span className="font-semibold">Z2–Z3</span>
-            </span>
-          </div>
-          <div className="mt-4 flex items-center justify-between text-[12px]">
-            <span className="text-black/55 font-medium">Progresso</span>
-            <span className="text-black font-extrabold tabular-nums">65%</span>
-          </div>
-          <div className="mt-1 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: "65%" }}
-              transition={{ duration: 0.9, ease: "easeOut" }}
-              className="h-full rounded-full bg-[#0033FF]"
-            />
-          </div>
-          <Link
-            to="/aluno/treino"
-            className="mt-4 w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl bg-[#0033FF] text-white text-[15px] font-extrabold tracking-tight active:scale-[0.99] transition shadow-[0_12px_28px_-12px_rgba(0,51,255,0.55)]"
-          >
-            <Play className="h-4 w-4" fill="#fff" />
-            Iniciar treino
-          </Link>
-        </div>
+        <TreinoHojeCard />
       </motion.section>
 
       {/* Check-in de hoje (compacto) */}
@@ -695,5 +650,62 @@ function ActionCard({
         )}
       </div>
     </motion.div>
+  );
+}
+
+
+function TreinoHojeCard() {
+  const fetchSemana = useServerFn(getSemanaTreinoAluno);
+  const [sessoes, setSessoes] = useState<AlunoTreinoSessao[] | null>(null);
+  useEffect(() => {
+    const d = new Date();
+    const hoje = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    fetchSemana({ data: { inicio: hoje, fim: hoje } })
+      .then((r) => setSessoes(r.sessoes.filter((s) => s.tipo !== "descanso")))
+      .catch(() => setSessoes([]));
+  }, [fetchSemana]);
+
+  if (sessoes === null) {
+    return <div className="rounded-2xl bg-white p-6 text-center text-[12px] text-black/50 ring-1 ring-black/5">Carregando treino...</div>;
+  }
+  if (sessoes.length === 0) {
+    return (
+      <div className="rounded-2xl bg-white p-5 text-center ring-1 ring-black/5">
+        <p className="text-[16px] font-extrabold text-black">Dia de descanso</p>
+        <p className="text-[12px] text-black/55 mt-1">Nenhum treino programado para hoje.</p>
+      </div>
+    );
+  }
+  const s = sessoes[0];
+  return (
+    <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
+      <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-3 py-1">
+        <Footprints className="h-3.5 w-3.5 text-[#0033FF]" />
+        <span className="text-[11px] font-extrabold tracking-[0.16em] text-[#0033FF] uppercase">{s.tipo}</span>
+      </div>
+      <h3 className="mt-3 text-[22px] font-black leading-tight tracking-tight text-black">{s.nome}</h3>
+      {s.objetivo && <p className="mt-1 text-[13px] text-black/55">{s.objetivo}</p>}
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-[13px] text-black/70">
+        {s.duracao_min != null && (
+          <span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4 text-black/55" /><span className="font-semibold">{s.duracao_min} min</span></span>
+        )}
+        {s.distancia_km != null && (
+          <span className="inline-flex items-center gap-1.5"><MapPin className="h-4 w-4 text-black/55" /><span className="font-semibold">{Number(s.distancia_km)} km</span></span>
+        )}
+        {s.zona_fc && (
+          <span className="inline-flex items-center gap-1.5"><HeartPulse className="h-4 w-4 text-black/55" /><span className="font-semibold">{s.zona_fc}</span></span>
+        )}
+      </div>
+      {sessoes.length > 1 && (
+        <p className="mt-2 text-[12px] font-semibold text-[#0033FF]">+ {sessoes.length - 1} {sessoes.length - 1 === 1 ? "outro treino" : "outros treinos"} hoje</p>
+      )}
+      <Link
+        to="/aluno/treino"
+        className="mt-4 w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl bg-[#0033FF] text-white text-[15px] font-extrabold tracking-tight active:scale-[0.99] transition shadow-[0_12px_28px_-12px_rgba(0,51,255,0.55)]"
+      >
+        <Play className="h-4 w-4" fill="#fff" />
+        Iniciar treino
+      </Link>
+    </div>
   );
 }

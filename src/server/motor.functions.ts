@@ -4,7 +4,7 @@ import { primeiroNome } from "@/lib/nome";
 import { requireAuthOrCron } from "./auth-or-cron.middleware";
 
 /* ----------------------------------------------------------------- */
-/*  Motor de automações MPTEAM                                       */
+/*  Motor de automações EVO HYBRID CLUB                                       */
 /*  Lê jobs_disparos pendentes cujo agendado_para <= now() e dispara */
 /*  cada um conforme seu tipo. Respeita a flag MOTOR_ATIVO.          */
 /* ----------------------------------------------------------------- */

@@ -4,8 +4,8 @@ import { PublicFormularioPublico } from "@/components/publico/PublicFormularioPu
 export const Route = createFileRoute("/feedback-mensal")({
   head: () => ({
     meta: [
-      { title: "Feedback Mensal | MPTEAM" },
-      { name: "description", content: "Envie seu feedback mensal de evolução para a equipe MPTEAM e mantenha sua consultoria atualizada." },
+      { title: "Feedback Mensal | EVO HYBRID CLUB" },
+      { name: "description", content: "Envie seu feedback mensal de evolução para a equipe EVO HYBRID CLUB e mantenha sua consultoria atualizada." },
     ],
   }),
   component: FeedbackMensalPublicaPage,

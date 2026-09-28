@@ -7,13 +7,13 @@ import { useServerFn } from "@tanstack/react-start";
 import { loginAlunoPorEmail, resolveRedirectAposLogin } from "@/lib/aluno-auth.functions";
 import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
-import mpTeamLogo from "@/assets/mp-team-logo.png";
+import mpTeamLogo from "@/assets/evo-hybrid-club-logo.png.asset.json";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Entrar — IRON CLUB RUN" },
-      { name: "description", content: "Acesse sua conta IRON CLUB RUN." },
+      { title: "Entrar — EVO HYBRID CLUB" },
+      { name: "description", content: "Acesse sua conta EVO HYBRID CLUB." },
     ],
   }),
   component: LoginPage,
@@ -129,8 +129,8 @@ function LoginPage() {
         {/* Logo */}
         <div className="h-[110px] w-[110px] rounded-[26px] bg-[#0033FF] flex items-center justify-center shadow-[0_22px_50px_-18px_rgba(0,51,255,0.55)]">
           <img
-            src={mpTeamLogo}
-            alt="IRON CLUB RUN"
+            src={mpTeamLogo.url}
+            alt="EVO HYBRID CLUB"
             className="h-[86px] w-[86px] object-contain select-none"
             draggable={false}
           />

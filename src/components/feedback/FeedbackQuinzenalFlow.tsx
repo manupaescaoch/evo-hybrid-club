@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { logarFalhaPublica } from "@/lib/aluno-publico";
 import { ArrowLeft, ArrowRight, Check, Loader2, Send, Star } from "lucide-react";
-import mpLogo from "@/assets/mp-logo.png";
+import mpLogo from "@/assets/evo-hybrid-club-logo.png.asset.json";
 import { useServerFn } from "@tanstack/react-start";
 import { gerarRespostaFormulario } from "@/server/feedback.functions";
 import { notifyFeedbackResponded } from "@/server/notificacoes-feedbacks.functions";
@@ -278,7 +278,7 @@ export function FeedbackQuinzenalFlow({ formId, alunoId, token, onSubmitted }: P
             </div>
             <h1 className="text-2xl md:text-3xl font-bold mb-3" style={{ color: INK }}>Feedback recebido.</h1>
             <p className="text-base" style={{ color: MUTED }}>
-              Em breve sua equipe MPTEAM entra em contato.
+              Em breve sua equipe EVO HYBRID CLUB entra em contato.
             </p>
           </div>
         </Card>
@@ -403,8 +403,8 @@ function Logo({ big = false }: { big?: boolean }) {
   return (
     <div className={`flex justify-center ${big ? "mb-8" : ""}`}>
       <img
-        src={mpLogo}
-        alt="MP TEAM Consultoria"
+        src={mpLogo.url}
+        alt="EVO HYBRID CLUB"
         className={big ? "h-20 md:h-24 w-auto" : "h-10 w-auto"}
         loading="eager"
       />

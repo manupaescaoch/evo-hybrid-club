@@ -3,7 +3,7 @@ import autoTable from "jspdf-autotable";
 import { sanitizeFilenamePdf } from "./pdf-filename";
 import { NUTRICIONISTA } from "./dieta-pdf/modelo";
 import { registrarFonteRoboto } from "./dieta-pdf/fontes";
-import logoMP from "@/assets/logo-mp.png";
+import logoMP from "@/assets/evo-hybrid-club-logo.png.asset.json";
 import type {
   PhysicalAssessment,
   BodyCircumferences,
@@ -113,7 +113,7 @@ function desenharHeader(doc: jsPDF, pageW: number) {
   doc.rect(0, 0, pageW, HEADER_H, "F");
 
   // Logo à esquerda
-  try { doc.addImage(logoMP, "PNG", MARGIN, 3, 16, 16); } catch { /* */ }
+  try { doc.addImage(logoMP.url, "PNG", MARGIN, 3, 16, 16); } catch { /* */ }
 
   // bloco direito: nome em destaque + dados em uma linha enxuta
   const rightX = pageW - MARGIN;
@@ -138,7 +138,7 @@ function desenharRodape(doc: jsPDF, pageW: number, pageH: number, num: number, t
   doc.text("Relatório técnico", MARGIN, pageH - 4.5);
   doc.setFont("Roboto", "bold");
   doc.setTextColor(...RED);
-  doc.text(" • MPTEAM", MARGIN + 19, pageH - 4.5);
+  doc.text(" • EVO HYBRID CLUB", MARGIN + 19, pageH - 4.5);
 
   // Centro: assinatura compacta
   doc.setFont("Roboto", "normal");

@@ -9,7 +9,7 @@ export type FormularioTipo = Database["public"]["Enums"]["formulario_tipo"];
 export type Aluno = Database["public"]["Tables"]["alunos"]["Row"];
 
 export const MODALIDADE_LABEL: Record<Modalidade, string> = {
-  mpteam: "MPTEAM",
+  mpteam: "EVO HYBRID CLUB",
   mp_elite: "MP Elite",
   mp_presencial: "MP Presencial",
 };

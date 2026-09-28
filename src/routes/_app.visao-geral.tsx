@@ -44,8 +44,8 @@ function FotoSlotVisao({ url, label }: { url: string; label: string }) {
 export const Route = createFileRoute("/_app/visao-geral")({
   head: () => ({
     meta: [
-      { title: "Visão Geral — MPTEAM" },
-      { name: "description", content: "Painel da equipe MPTEAM: indicadores de alunos, feedbacks pendentes, renovações e ações do dia." },
+      { title: "Visão Geral — EVO HYBRID CLUB" },
+      { name: "description", content: "Painel da equipe EVO HYBRID CLUB: indicadores de alunos, feedbacks pendentes, renovações e ações do dia." },
     ],
   }),
   component: VisaoGeralPage,

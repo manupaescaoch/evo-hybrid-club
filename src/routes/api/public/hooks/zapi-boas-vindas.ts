@@ -6,10 +6,10 @@ import {
 } from "@/server/zapi-send.server";
 
 const PDF_URL = "https://mpteam-app.com/pdfs/seja-bem-vindo-mpteam.pdf";
-const PDF_FILENAME = "Seja Bem-Vindo - MPTEAM.pdf";
+const PDF_FILENAME = "Seja Bem-Vindo - EVO HYBRID CLUB.pdf";
 const TIPO_JOB = "boas_vindas_webhook";
 
-const MSG_2 = `Bem-vindo ao MPTEAM. 🚀
+const MSG_2 = `Bem-vindo ao EVO HYBRID CLUB. 🚀
 
 Antes de qualquer coisa:
 leia o PDF que acabei de enviar.
@@ -86,7 +86,7 @@ async function jaEnviadoRecente(phone: string): Promise<boolean> {
 
 // Marcadores únicos por etapa (mesmo conjunto usado no retry).
 const MARK_PDF = "[PDF] Seja Bem-Vindo";
-const MARK_2 = "Bem-vindo ao MPTEAM";
+const MARK_2 = "Bem-vindo ao EVO HYBRID CLUB";
 const MARK_3 = "Lido o PDF";
 const MARK_4 = "*1. Anamnese*";
 const MARK_5 = "Com anamnese + cadastro feitos";

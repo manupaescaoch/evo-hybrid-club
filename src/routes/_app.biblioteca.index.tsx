@@ -8,7 +8,7 @@ import { BibliotecaCard } from "@/components/biblioteca/BibliotecaCard";
 export const Route = createFileRoute("/_app/biblioteca/")({
   head: () => ({
     meta: [
-      { title: "Biblioteca — MPTEAM" },
+      { title: "Biblioteca — EVO HYBRID CLUB" },
       { name: "description", content: "Acesse e gerencie suas opções salvas de planos, alimentos, prescrições e protocolos." },
     ],
   }),

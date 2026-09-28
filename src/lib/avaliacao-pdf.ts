@@ -24,7 +24,7 @@ export function exportarAvaliacaoPdf({ full, aluno, anterior }: Args) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
   doc.setTextColor(255, 255, 255);
-  doc.text("MPTEAM", 14, 14);
+  doc.text("EVO HYBRID CLUB", 14, 14);
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.text("Avaliação Física", 14, 19);
@@ -172,7 +172,7 @@ export function exportarAvaliacaoPdf({ full, aluno, anterior }: Args) {
   doc.setFontSize(8);
   doc.setTextColor(120);
   doc.text(`Avaliador responsável: ${assessment.evaluator_name ?? "—"}`, 14, pageH - 10);
-  doc.text(`MPTEAM • Avaliação Física • ${new Date().toLocaleDateString("pt-BR")}`, 196, pageH - 10, { align: "right" });
+  doc.text(`EVO HYBRID CLUB • Avaliação Física • ${new Date().toLocaleDateString("pt-BR")}`, 196, pageH - 10, { align: "right" });
 
   const slug = aluno.nome.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
   doc.save(sanitizeFilenamePdf(`avaliacao-fisica-${slug}-${assessment.assessment_date}.pdf`));

@@ -20,7 +20,7 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/aluno/treino")({
   head: () => ({
     meta: [
-      { title: "Treino de hoje — App do Aluno | MPTEAM" },
+      { title: "Treino de hoje — App do Aluno | EVO HYBRID CLUB" },
       {
         name: "description",
         content:

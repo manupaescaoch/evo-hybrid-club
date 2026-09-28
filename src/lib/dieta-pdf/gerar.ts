@@ -7,7 +7,7 @@ import {
 } from "./modelo";
 import { somaPlano, somaItens, parseRefeicaoObs, parsePlanoDescricao, extrairMacrosDeDescricao, type PlanoCompleto, type RefeicaoCompleta, type DietaItemComSubs } from "@/lib/dieta";
 import type { Aluno } from "@/lib/crm";
-import logoMP from "@/assets/logo-mp.png";
+import logoMP from "@/assets/evo-hybrid-club-logo.png.asset.json";
 
 /** Dados opcionais para a página "Prescrição Nutricional" do PDF. */
 export type Prescricao = {
@@ -191,7 +191,7 @@ function desenharHeader(doc: jsPDF, pageW: number) {
 
   // Logo à esquerda
   try {
-    doc.addImage(logoMP, "PNG", MARGIN, 4, 22, 22);
+    doc.addImage(logoMP.url, "PNG", MARGIN, 4, 22, 22);
   } catch {
     /* fallback silencioso */
   }

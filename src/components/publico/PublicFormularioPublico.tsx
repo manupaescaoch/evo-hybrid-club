@@ -178,7 +178,7 @@ function IdentificacaoTelefone({
     <div className="min-h-screen flex items-center justify-center px-4 bg-[#f7f7f7]">
       <div className="w-full max-w-md bg-white rounded-lg p-6 md:p-8" style={{ border: `1px solid ${BORDER}` }}>
         <div className="text-center mb-6">
-          <div className="text-2xl font-black tracking-tight" style={{ color: RED }}>MPTEAM</div>
+          <div className="text-2xl font-black tracking-tight" style={{ color: RED }}>EVO HYBRID CLUB</div>
           <div className="text-[10px] font-semibold tracking-[0.4em]" style={{ color: MUTED }}>CRM</div>
         </div>
         <h1 className="text-xl md:text-2xl font-bold mb-2" style={{ color: INK }}>{titulo}</h1>

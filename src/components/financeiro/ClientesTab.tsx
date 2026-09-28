@@ -185,7 +185,7 @@ export function ClientesTab({ alunos }: Props) {
             <div className="space-y-2">
               {(
                 [
-                  ["MPTEAM", m.porModalidade.mpteam, "var(--blue)"],
+                  ["EVO HYBRID CLUB", m.porModalidade.mpteam, "var(--blue)"],
                   ["MP Elite", m.porModalidade.mp_elite, "var(--pink)"],
                   ["MP Presencial", m.porModalidade.mp_presencial, "var(--red)"],
                 ] as [string, number, string][]

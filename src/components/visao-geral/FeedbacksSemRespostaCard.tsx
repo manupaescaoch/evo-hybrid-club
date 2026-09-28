@@ -15,7 +15,7 @@ const TIPO_LABEL: Record<string, string> = {
   feedback_mensal: "Mensal",
 };
 const MOD_LABEL: Record<string, string> = {
-  mpteam: "MPTEAM", mp_elite: "MP Elite", mp_presencial: "MP Presencial",
+  mpteam: "EVO HYBRID CLUB", mp_elite: "MP Elite", mp_presencial: "MP Presencial",
 };
 
 function fmtData(iso: string): string {

@@ -1,5 +1,5 @@
 /**
- * Modelo de PDF de Plano Alimentar — Manu Paes / MPTEAM
+ * Modelo de PDF de Plano Alimentar — Manu Paes / EVO HYBRID CLUB
  * Estrutura extraída do MODELO_PDF.pdf (referência em src/assets/dieta/modelo-pdf-referencia.pdf).
  *
  * Use este arquivo como fonte única para geração de PDFs de dieta no padrão MP.

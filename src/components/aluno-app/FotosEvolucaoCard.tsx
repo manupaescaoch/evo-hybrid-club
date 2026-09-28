@@ -97,7 +97,7 @@ export function FotosEvolucaoCard({ alunoId, alunoNome }: { alunoId: string; alu
       const logoX = (W - logoSize) / 2;
       const logoY = 80;
       try {
-        const logo = await loadImage("/mp-logo.png");
+        const logo = await loadImage("/evo-hybrid-club.png");
         ctx.drawImage(logo, logoX, logoY, logoSize, logoSize);
       } catch {
         ctx.fillStyle = "#0033FF";
@@ -112,7 +112,7 @@ export function FotosEvolucaoCard({ alunoId, alunoNome }: { alunoId: string; alu
 
       ctx.fillStyle = "#0033FF";
       ctx.font = "bold 28px system-ui, -apple-system, sans-serif";
-      ctx.fillText("MPTEAM • TRANSFORMAÇÃO REAL", W / 2, logoY + logoSize + 110);
+      ctx.fillText("EVO HYBRID CLUB • TRANSFORMAÇÃO REAL", W / 2, logoY + logoSize + 110);
 
       if (alunoNome) {
         ctx.fillStyle = "rgba(255,255,255,0.7)";
@@ -305,7 +305,7 @@ export function FotosEvolucaoCard({ alunoId, alunoNome }: { alunoId: string; alu
         )}
       </button>
       <p className="text-[10px] text-center text-zinc-400">
-        Imagem em formato story (1080×1920) com a logo MPTEAM.
+        Imagem em formato story (1080×1920) com a logo EVO HYBRID CLUB.
       </p>
     </div>
   );

@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { ArrowLeft, KeyRound, Send } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { solicitarResetSenhaAluno } from "@/lib/aluno-auth.functions";
-import mpTeamLogo from "@/assets/mp-team-logo.png";
+import mpTeamLogo from "@/assets/evo-hybrid-club-logo.png.asset.json";
 
 export const Route = createFileRoute("/aluno/esqueci-senha")({
-  head: () => ({ meta: [{ title: "Recuperar senha — MPTEAM" }] }),
+  head: () => ({ meta: [{ title: "Recuperar senha — EVO HYBRID CLUB" }] }),
   component: EsqueciSenhaPage,
 });
 
@@ -44,8 +44,8 @@ function EsqueciSenhaPage() {
 
         <div className="flex flex-col items-center">
           <img
-            src={mpTeamLogo}
-            alt="MPTEAM"
+            src={mpTeamLogo.url}
+            alt="EVO HYBRID CLUB"
             className="h-24 w-24 object-contain select-none"
             draggable={false}
           />

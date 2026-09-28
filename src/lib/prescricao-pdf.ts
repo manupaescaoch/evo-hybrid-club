@@ -5,7 +5,7 @@ import { NUTRICIONISTA } from "./dieta-pdf/modelo";
 import type { PrescricaoCompleta } from "./prescricao";
 import type { Aluno } from "./crm";
 import { isHtml } from "./rich-html";
-import logoMP from "@/assets/logo-mp.png";
+import logoMP from "@/assets/evo-hybrid-club-logo.png.asset.json";
 import { registrarFonteRoboto } from "./dieta-pdf/fontes";
 
 const RED: [number, number, number] = [237, 28, 36];
@@ -63,7 +63,7 @@ function desenharHeader(doc: jsPDF, pageW: number) {
 
   // Logo à esquerda
   try {
-    doc.addImage(logoMP, "PNG", MARGIN, 5, 24, 24);
+    doc.addImage(logoMP.url, "PNG", MARGIN, 5, 24, 24);
   } catch {
     /* fallback silencioso */
   }

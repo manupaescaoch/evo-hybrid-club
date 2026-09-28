@@ -412,7 +412,7 @@ function EmptyDieta() {
         Nenhuma dieta ativa
       </h3>
       <p className="mt-1.5 text-[12.5px] text-black/55 font-medium leading-relaxed max-w-[280px] mx-auto">
-        Aguardando sua dieta ser liberada pela equipe MPTEAM. Você será notificado assim que estiver pronta.
+        Aguardando sua dieta ser liberada pela equipe EVO HYBRID CLUB. Você será notificado assim que estiver pronta.
       </p>
     </div>
   );
@@ -585,7 +585,7 @@ function AlunoDieta() {
           )}
 
           <p className="text-center text-[11px] text-black/35 font-medium pt-2">
-            Plano personalizado MPTEAM • Atualizado em{" "}
+            Plano personalizado EVO HYBRID CLUB • Atualizado em{" "}
             {new Date(plano.atualizado_em).toLocaleDateString("pt-BR")}
           </p>
         </>

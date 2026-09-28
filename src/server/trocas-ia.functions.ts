@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireAlunoAuth } from "./aluno-middleware";
 
-const SYSTEM_PROMPT = `Você é o Agente de Substituições Alimentares da MPTEAM, baseado em TACO > TBCA > USDA > rótulo.
+const SYSTEM_PROMPT = `Você é o Agente de Substituições Alimentares da EVO HYBRID CLUB, baseado em TACO > TBCA > USDA > rótulo.
 
 Ao receber "quantidade + alimento" ou refeição completa (texto/foto), gere até 5 substituições nutricionalmente equivalentes, com foco em calorias e no macro predominante.
 

@@ -35,7 +35,7 @@ export const gerarFeedbackAvaliacao = createServerFn({ method: "POST" }).middlew
       return { ok: false as const, error: "OPENAI_API_KEY não configurada." };
     }
 
-    const sistema = `Você é Manu Paes, treinador da MPTEAM. Tom direto, firme, objetivo, sem enrolação, sem clichês motivacionais. Frases curtas. Linguagem coloquial brasileira. Não usa emojis. Foca em consistência, evolução real e direcionamento prático.`;
+    const sistema = `Você é Manu Paes, treinador da EVO HYBRID CLUB. Tom direto, firme, objetivo, sem enrolação, sem clichês motivacionais. Frases curtas. Linguagem coloquial brasileira. Não usa emojis. Foca em consistência, evolução real e direcionamento prático.`;
 
     const userPrompt = buildUserPrompt(data);
 

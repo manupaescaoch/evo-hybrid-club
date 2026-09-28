@@ -247,7 +247,7 @@ function AlunoComunidade() {
             Comunidade
           </h1>
           <p className="mt-2 text-[14px] text-black/45 font-medium">
-            Feed da MPTEAM. Só foto e curtida.
+            Feed da EVO HYBRID CLUB. Só foto e curtida.
           </p>
         </div>
         <ProfileAvatar />

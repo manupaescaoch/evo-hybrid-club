@@ -47,8 +47,8 @@ export const Route = createRootRoute({
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "EVO HYBRID CLUB" },
       { name: "twitter:description", content: "Corrida, comunidade e movimento" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/PHcY2ks4j3Uw85BCRLuDA8GywdF3/social-images/social-1779005880991-CAMISA_MANU_PAES_(1).webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/PHcY2ks4j3Uw85BCRLuDA8GywdF3/social-images/social-1779005880991-CAMISA_MANU_PAES_(1).webp" },
+      { property: "og:image", content: "https://evo-hybrid-club.lovable.app/evo-hybrid-club.png" },
+      { name: "twitter:image", content: "https://evo-hybrid-club.lovable.app/evo-hybrid-club.png" },
     ],
     links: [
       {

@@ -377,8 +377,7 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
           : existenteQuery.eq("aluno_id", ownerId);
         const { data: existente } = await existenteQuery.maybeSingle();
         if (existente) {
-          await supabase.from("corrida_sessoes").delete().eq("microciclo_id", existente.id);
-          await supabase.from("corrida_microciclos").delete().eq("id", existente.id);
+          throw new Error(`A semana de ${new Date(sem.data_inicio + "T00:00").toLocaleDateString("pt-BR")} já possui programação. Edite a semana existente para preservar resultados.`);
         }
 
         const { data: novoMicro, error: errMicro } = await supabase

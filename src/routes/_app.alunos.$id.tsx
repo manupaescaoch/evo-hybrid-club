@@ -10,12 +10,11 @@ import {
 import { useAuth } from "@/lib/auth";
 import {
   ArrowLeft, CheckCircle2, Clock as ClockIcon, AlertCircle, Save, Home, ChevronRight,
-  UtensilsCrossed, Dumbbell, ClipboardList,
+  UtensilsCrossed, ClipboardList,
   FileText, MessageSquare, Wallet, History,
   User as UserIcon, Copy, Lock, PlusCircle, Camera, Pencil, X,
   MoreVertical, FileDown, Pill as PillIcon, Plus, MoreHorizontal, LayoutGrid,
 } from "lucide-react";
-import { TreinoTab } from "@/components/aluno/TreinoTab";
 import { DietaSection } from "@/components/aluno/dieta/DietaSection";
 import { DietaOverview } from "@/components/aluno/dieta/DietaOverview";
 import { MensagemNutricionalCard } from "@/components/aluno/dieta/MensagemNutricionalCard";
@@ -43,7 +42,7 @@ import { AlunoAvatar } from "@/components/aluno/AlunoAvatar";
 import { readCache, writeCache } from "@/lib/swr-cache";
 
 const SECTION_KEYS = [
-  "perfil","dieta","treino","prescricoes","formularios",
+  "perfil","dieta","prescricoes","formularios",
   "fotos","avaliacao","financeiro","historico",
 ] as const;
 
@@ -52,13 +51,12 @@ export const Route = createFileRoute("/_app/alunos/$id")({
 });
 
 type SectionKey =
-  | "perfil" | "dieta" | "treino" | "prescricoes" | "formularios"
+  | "perfil" | "dieta" | "prescricoes" | "formularios"
   | "fotos" | "avaliacao" | "financeiro" | "historico";
 
 const SECTIONS: { key: SectionKey; label: string; icon: any }[] = [
   { key: "perfil", label: "Perfil", icon: UserIcon },
   { key: "dieta", label: "Dieta", icon: UtensilsCrossed },
-  { key: "treino", label: "Treino", icon: Dumbbell },
   { key: "formularios", label: "Formulários", icon: ClipboardList },
   { key: "avaliacao", label: "Avaliação Física", icon: Activity },
   { key: "fotos", label: "Fotos", icon: Camera },
@@ -448,7 +446,6 @@ function AlunoProfile() {
               onActionsChange={(a) => setDietaActions(a ?? null)}
             />
           )}
-          {active === "treino" && <TreinoTab alunoId={id} nomeAluno={aluno.nome} whatsapp={aluno.whatsapp} />}
           {active === "prescricoes" && <DietaSection alunoId={id} aluno={aluno} canEdit={canEdit} />}
           {active === "formularios" && <FormulariosSection forms={forms} />}
           {active === "fotos" && <FotosSection alunoId={id} />}
@@ -533,7 +530,6 @@ function PerfilSection({
           onAdicionarFeedback={() => onGo("formularios")}
           onAdicionarFoto={() => onGo("fotos")}
           onAjustarDieta={() => onGo("dieta")}
-          onAjustarTreino={() => onGo("treino")}
           onPagamento={isAdmin ? () => onGo("financeiro") : undefined}
         />
       </div>
@@ -653,7 +649,7 @@ function Row({ label, value, hint }: { label: string; value: string; hint?: stri
 
 function PerfilHeaderRico({
   aluno, statusPill, canEdit, isAdmin,
-  onEditar, onWhatsApp, onAdicionarFeedback, onAdicionarFoto, onAjustarDieta, onAjustarTreino, onPagamento,
+  onEditar, onWhatsApp, onAdicionarFeedback, onAdicionarFoto, onAjustarDieta, onPagamento,
 }: {
   aluno: Aluno;
   statusPill: { label: string; cls: string };
@@ -664,7 +660,6 @@ function PerfilHeaderRico({
   onAdicionarFeedback: () => void;
   onAdicionarFoto: () => void;
   onAjustarDieta: () => void;
-  onAjustarTreino: () => void;
   onPagamento?: () => void;
 }) {
   const dr = diasRestantes(aluno.data_expiracao);
@@ -740,12 +735,11 @@ function PerfilHeaderRico({
               </button>
             )}
           </div>
-          <div className={`grid gap-2 ${onPagamento ? "grid-cols-6" : "grid-cols-5"}`}>
+          <div className={`grid gap-2 ${onPagamento ? "grid-cols-5" : "grid-cols-4"}`}>
             <QuickActionPill icon={MessageCircle} label="WhatsApp" tone="emerald" onClick={onWhatsApp} />
             <QuickActionPill icon={MessageSquare} label="Feedback" tone="violet" onClick={onAdicionarFeedback} />
             <QuickActionPill icon={Camera} label="Foto" tone="sky" onClick={onAdicionarFoto} />
             <QuickActionPill icon={UtensilsCrossed} label="Dieta" tone="rose" onClick={onAjustarDieta} />
-            <QuickActionPill icon={Dumbbell} label="Treino" tone="amber" onClick={onAjustarTreino} />
             {onPagamento && <QuickActionPill icon={Wallet} label="Pagto" tone="rose" onClick={onPagamento} />}
           </div>
         </div>
@@ -1781,7 +1775,7 @@ function MobileAlunoTopBar({
   const idadeNum = idade.replace(/\D+/g, "") || "—";
 
   // 4 abas principais + "Mais"
-  const mainKeys: SectionKey[] = ["perfil", "dieta", "avaliacao", "treino"];
+  const mainKeys: SectionKey[] = ["perfil", "dieta", "avaliacao", "formularios"];
   const mainTabs = mainKeys
     .map((k) => visibleSections.find((s) => s.key === k))
     .filter(Boolean) as { key: SectionKey; label: string; icon: any }[];

@@ -1113,11 +1113,19 @@ export type Database = {
           descricao: string | null
           distancia_serie: string | null
           duracao_min: string | null
+          formato: string | null
           id: string
           nome: string
           ordem: number
+          orientacoes: string | null
           pace: string | null
+          prescricao: string | null
+          ranking_criterio: string | null
+          ranking_filtros: string[]
+          ranking_habilitado: boolean
           recuperacao: string | null
+          resultado_habilitado: boolean
+          resultado_tipo: string | null
           series: string | null
           sessao_id: string
           tipo: string
@@ -1128,11 +1136,19 @@ export type Database = {
           descricao?: string | null
           distancia_serie?: string | null
           duracao_min?: string | null
+          formato?: string | null
           id?: string
           nome: string
           ordem?: number
+          orientacoes?: string | null
           pace?: string | null
+          prescricao?: string | null
+          ranking_criterio?: string | null
+          ranking_filtros?: string[]
+          ranking_habilitado?: boolean
           recuperacao?: string | null
+          resultado_habilitado?: boolean
+          resultado_tipo?: string | null
           series?: string | null
           sessao_id: string
           tipo: string
@@ -1143,11 +1159,19 @@ export type Database = {
           descricao?: string | null
           distancia_serie?: string | null
           duracao_min?: string | null
+          formato?: string | null
           id?: string
           nome?: string
           ordem?: number
+          orientacoes?: string | null
           pace?: string | null
+          prescricao?: string | null
+          ranking_criterio?: string | null
+          ranking_filtros?: string[]
+          ranking_habilitado?: boolean
           recuperacao?: string | null
+          resultado_habilitado?: boolean
+          resultado_tipo?: string | null
           series?: string | null
           sessao_id?: string
           tipo?: string
@@ -1167,6 +1191,7 @@ export type Database = {
         Row: {
           aluno_id: string
           atualizado_em: string
+          categoria: string | null
           criado_em: string
           data: string
           distancia_km: number | null
@@ -1184,12 +1209,16 @@ export type Database = {
           observacao: string | null
           ordem_no_dia: number
           pace_alvo: string | null
+          resultado_geral_criterio: string | null
+          resultado_geral_habilitado: boolean
+          resultado_geral_tipo: string | null
           tipo: string
           zona_fc: string | null
         }
         Insert: {
           aluno_id: string
           atualizado_em?: string
+          categoria?: string | null
           criado_em?: string
           data: string
           distancia_km?: number | null
@@ -1207,12 +1236,16 @@ export type Database = {
           observacao?: string | null
           ordem_no_dia?: number
           pace_alvo?: string | null
+          resultado_geral_criterio?: string | null
+          resultado_geral_habilitado?: boolean
+          resultado_geral_tipo?: string | null
           tipo: string
           zona_fc?: string | null
         }
         Update: {
           aluno_id?: string
           atualizado_em?: string
+          categoria?: string | null
           criado_em?: string
           data?: string
           distancia_km?: number | null
@@ -1230,6 +1263,9 @@ export type Database = {
           observacao?: string | null
           ordem_no_dia?: number
           pace_alvo?: string | null
+          resultado_geral_criterio?: string | null
+          resultado_geral_habilitado?: boolean
+          resultado_geral_tipo?: string | null
           tipo?: string
           zona_fc?: string | null
         }
@@ -2808,6 +2844,70 @@ export type Database = {
             columns: ["categoria_id"]
             isOneToOne: false
             referencedRelation: "financeiro_categorias"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      treino_resultados: {
+        Row: {
+          aluno_id: string
+          atualizado_em: string
+          bloco_id: string | null
+          criado_em: string
+          data_treino: string | null
+          id: string
+          resultado_tipo: string
+          sessao_id: string | null
+          unidade: string | null
+          valor: number | null
+          valor_texto: string | null
+        }
+        Insert: {
+          aluno_id: string
+          atualizado_em?: string
+          bloco_id?: string | null
+          criado_em?: string
+          data_treino?: string | null
+          id?: string
+          resultado_tipo: string
+          sessao_id?: string | null
+          unidade?: string | null
+          valor?: number | null
+          valor_texto?: string | null
+        }
+        Update: {
+          aluno_id?: string
+          atualizado_em?: string
+          bloco_id?: string | null
+          criado_em?: string
+          data_treino?: string | null
+          id?: string
+          resultado_tipo?: string
+          sessao_id?: string | null
+          unidade?: string | null
+          valor?: number | null
+          valor_texto?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "treino_resultados_aluno_id_fkey"
+            columns: ["aluno_id"]
+            isOneToOne: false
+            referencedRelation: "alunos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "treino_resultados_bloco_id_fkey"
+            columns: ["bloco_id"]
+            isOneToOne: false
+            referencedRelation: "corrida_sessao_blocos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "treino_resultados_sessao_id_fkey"
+            columns: ["sessao_id"]
+            isOneToOne: false
+            referencedRelation: "corrida_sessoes"
             referencedColumns: ["id"]
           },
         ]

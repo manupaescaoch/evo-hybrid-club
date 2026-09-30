@@ -14,6 +14,13 @@ export type AlunoTreinoBloco = {
   series: string | null;
   distancia_serie: string | null;
   recuperacao: string | null;
+  formato: string | null;
+  prescricao: string | null;
+  orientacoes: string | null;
+  resultado_habilitado: boolean;
+  resultado_tipo: string | null;
+  ranking_habilitado: boolean;
+  ranking_criterio: string | null;
 };
 
 export type AlunoTreinoSessao = {
@@ -29,6 +36,10 @@ export type AlunoTreinoSessao = {
   objetivo: string | null;
   observacao: string | null;
   executada: boolean;
+  categoria: string | null;
+  resultado_geral_habilitado: boolean;
+  resultado_geral_tipo: string | null;
+  resultado_geral_criterio: string | null;
   blocos: AlunoTreinoBloco[];
 };
 
@@ -58,7 +69,7 @@ export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
     const { data: sessoes, error: sessoesError } = await sb
       .from("corrida_sessoes")
       .select(
-        "id, microciclo_id, data, ordem_no_dia, tipo, nome, duracao_min, distancia_km, pace_alvo, zona_fc, objetivo, observacao, executada, corrida_sessao_blocos(id, ordem, tipo, nome, descricao, duracao_min, pace, zona, series, distancia_serie, recuperacao)",
+        "id, microciclo_id, data, ordem_no_dia, tipo, nome, duracao_min, distancia_km, pace_alvo, zona_fc, objetivo, observacao, executada, categoria, resultado_geral_habilitado, resultado_geral_tipo, resultado_geral_criterio, corrida_sessao_blocos(id, ordem, tipo, nome, descricao, duracao_min, pace, zona, series, distancia_serie, recuperacao, formato, prescricao, orientacoes, resultado_habilitado, resultado_tipo, ranking_habilitado, ranking_criterio)",
       )
       .in("microciclo_id", microIds)
       .gte("data", data.inicio)

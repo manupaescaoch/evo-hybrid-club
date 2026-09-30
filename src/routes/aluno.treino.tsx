@@ -433,6 +433,17 @@ function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao
               format={s.blocos[0]?.formato}
               prescription={s.blocos[0]?.prescricao}
             />
+            {s.blocos[0]?.orientacoes && (
+              <p className="mt-5 text-[11px] italic text-muted-foreground">{s.blocos[0].orientacoes}</p>
+            )}
+            {s.blocos[0]?.resultado_habilitado && (
+              <ResultadoTreino
+                sessaoId={s.id}
+                blocoId={s.blocos[0].id}
+                tipo={s.blocos[0].resultado_tipo ?? "custom"}
+                podeRegistrar={podeRegistrar}
+              />
+            )}
           </div>
         )}
       </motion.section>

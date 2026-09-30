@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Mail, Lock, Eye, EyeOff, UserRound, Dumbbell } from "lucide-react";
 import { useAuth } from "@/lib/auth";
-import { setAlunoSession, getAlunoSession, clearAlunoSession } from "@/lib/aluno-session";
+import { setAlunoToken, setAlunoSession, getAlunoSession, clearAlunoSession } from "@/lib/aluno-session";
 import { useServerFn } from "@tanstack/react-start";
 import { loginAlunoPorEmail } from "@/lib/aluno-auth.functions";
 import { Button } from "@/components/ui/button";
@@ -58,6 +58,7 @@ function LoginPage() {
       if (res.ok) {
         // Encerra sessão de treinador para não desviar ao painel admin
         await signOut().catch(() => {});
+        if ((res as any).token) setAlunoToken((res as any).token);
         setAlunoSession({
           id: res.aluno.id,
           nome: res.aluno.nome,

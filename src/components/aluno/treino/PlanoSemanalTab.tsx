@@ -422,18 +422,10 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
 
   function aplicarModelo(modelo: ModeloSessao, dataIso?: string) {
     const targetData = dataIso ?? sessaoAberta?.data ?? toISODate(semanaRef);
+    // Copia blocos, ordem, formatos, prescrições e orientações — nunca resultados.
     const blocos: Bloco[] = (modelo.blocos ?? []).map((b, i) => ({
-      id: `tmp_${Math.random().toString(36).slice(2, 9)}`,
+      ...mapBloco({ ...b, id: undefined }),
       ordem: i,
-      tipo: (b.tipo as BlocoTipo) ?? "rodagem",
-      nome: String(b.nome ?? TIPOS_BLOCO.find((t) => t.value === (b.tipo as BlocoTipo))?.label ?? "Bloco"),
-      descricao: String(b.descricao ?? ""),
-      duracao_min: String(b.duracao_min ?? ""),
-      pace: String(b.pace ?? ""),
-      zona: String(b.zona ?? "Z2"),
-      series: String(b.series ?? ""),
-      distancia_serie: String(b.distancia_serie ?? ""),
-      recuperacao: String(b.recuperacao ?? ""),
     }));
     const nova: Sessao = {
       ...novaSessao(targetData, modelo.tipo),
@@ -446,10 +438,41 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
       ordem_no_dia: sessoes.filter((s) => s.data === targetData).length,
       blocos,
     };
-    setSessoes((prev) => [...prev, nova]);
-    setSessaoAberta(nova);
+    // Se o editor estava aberto num treino vazio, substitui em vez de duplicar
+    if (sessaoAberta && sessaoAberta.blocos.length === 0 && !dataIso) {
+      const substituta = { ...nova, id: sessaoAberta.id, ordem_no_dia: sessaoAberta.ordem_no_dia };
+      setSessoes((prev) => prev.map((s) => (s.id === sessaoAberta.id ? substituta : s)));
+      setSessaoAberta(substituta);
+    } else {
+      setSessoes((prev) => [...prev, nova]);
+      setSessaoAberta(nova);
+    }
     setBibliotecaAberta(false);
     toast.success(`Modelo "${modelo.nome}" aplicado`);
+  }
+
+  async function salvarComoModelo(s: Sessao) {
+    const nome = window.prompt("Nome do modelo", s.nome || "Treino");
+    if (!nome) return;
+    const { error } = await supabase.from("corrida_modelos_sessao").insert({
+      nome,
+      tipo: s.tipo,
+      objetivo: s.objetivo,
+      descricao: s.observacao,
+      duracao_min: s.duracao_min,
+      distancia_km: s.distancia_km,
+      pace_alvo: s.pace_alvo,
+      zona_fc: s.zona_fc,
+      blocos: s.blocos.map((b, i) => {
+        const { id: _id, ...resto } = b;
+        return { ...resto, ordem: i };
+      }),
+      tags: Array.from(new Set(s.blocos.map((b) => b.tipo))),
+      publico: true,
+      criado_por: crmUser?.nome ?? crmUser?.email ?? null,
+    });
+    if (error) toast.error("Não foi possível salvar o modelo");
+    else toast.success(`Modelo "${nome}" salvo na biblioteca`);
   }
 
   // ===== Salvar =====
@@ -486,50 +509,94 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
         microId = data.id;
       }
 
-      // Replace strategy: delete all sessoes do microciclo e reinsere
-      const { error: delErr } = await supabase
-        .from("corrida_sessoes")
-        .delete()
-        .eq("microciclo_id", microId);
-      if (delErr) throw delErr;
+      // Alerta: mudanças de resultado/ranking em blocos que já têm resultados
+      const alterados = sessoes
+        .flatMap((s) => s.blocos)
+        .filter((b) => !b.id.startsWith("tmp_") && assinOrig[b.id] && assinOrig[b.id] !== assinaturaResultado(b))
+        .map((b) => b.id);
+      if (alterados.length > 0) {
+        const { count } = await supabase
+          .from("treino_resultados")
+          .select("id", { count: "exact", head: true })
+          .in("bloco_id", alterados);
+        if ((count ?? 0) > 0 && !window.confirm("Este treino já possui resultados registrados. Essa alteração pode afetar o ranking. Deseja salvar mesmo assim?")) {
+          setSaving(false);
+          return;
+        }
+      }
+
+      // Atualiza no lugar (preserva IDs, para nunca apagar resultados registrados)
+      const { data: existentes } = await supabase.from("corrida_sessoes").select("id").eq("microciclo_id", microId);
+      const manterSess = new Set(sessoes.filter((s) => !s.id.startsWith("tmp_")).map((s) => s.id));
+      const removerSess = (existentes ?? []).map((r) => r.id).filter((id) => !manterSess.has(id));
+      if (removerSess.length) {
+        const { error } = await supabase.from("corrida_sessoes").delete().in("id", removerSess);
+        if (error) throw error;
+      }
 
       for (const s of sessoes) {
-        const { data: sessRow, error: sErr } = await supabase
-          .from("corrida_sessoes")
-          .insert({
-            microciclo_id: microId,
-            aluno_id: alunoId,
-            data: s.data,
-            ordem_no_dia: s.ordem_no_dia,
-            tipo: s.tipo,
-            nome: s.nome,
-            duracao_min: s.duracao_min,
-            distancia_km: s.distancia_km,
-            pace_alvo: s.pace_alvo,
-            zona_fc: s.zona_fc,
-            objetivo: s.objetivo,
-            observacao: s.observacao,
-          })
-          .select("id")
-          .single();
-        if (sErr) throw sErr;
-        if (s.blocos.length > 0) {
-          const { error: bErr } = await supabase.from("corrida_sessao_blocos").insert(
-            s.blocos.map((b, i) => ({
-              sessao_id: sessRow.id,
-              ordem: i,
-              tipo: b.tipo,
-              nome: b.nome,
-              descricao: b.descricao || null,
-              duracao_min: b.duracao_min || null,
-              pace: b.pace || null,
-              zona: b.zona || null,
-              series: b.series || null,
-              distancia_serie: b.distancia_serie || null,
-              recuperacao: b.recuperacao || null,
-            })),
-          );
-          if (bErr) throw bErr;
+        const payloadSess = {
+          microciclo_id: microId,
+          aluno_id: alunoId,
+          data: s.data,
+          ordem_no_dia: s.ordem_no_dia,
+          tipo: s.tipo,
+          nome: s.nome,
+          duracao_min: s.duracao_min,
+          distancia_km: s.distancia_km,
+          pace_alvo: s.pace_alvo,
+          zona_fc: s.zona_fc,
+          objetivo: s.objetivo,
+          observacao: s.observacao,
+          categoria: s.categoria,
+          resultado_geral_habilitado: s.resultado_geral_habilitado,
+          resultado_geral_tipo: s.resultado_geral_habilitado ? s.resultado_geral_tipo : null,
+          resultado_geral_criterio: s.resultado_geral_habilitado ? s.resultado_geral_criterio : null,
+        };
+        let sessId = s.id;
+        if (s.id.startsWith("tmp_")) {
+          const { data: row, error } = await supabase.from("corrida_sessoes").insert(payloadSess).select("id").single();
+          if (error) throw error;
+          sessId = row.id;
+        } else {
+          const { error } = await supabase.from("corrida_sessoes").update(payloadSess).eq("id", s.id);
+          if (error) throw error;
+        }
+
+        const { data: blocosDb } = await supabase.from("corrida_sessao_blocos").select("id").eq("sessao_id", sessId);
+        const manterB = new Set(s.blocos.filter((b) => !b.id.startsWith("tmp_")).map((b) => b.id));
+        const removerB = (blocosDb ?? []).map((r) => r.id).filter((id) => !manterB.has(id));
+        if (removerB.length) {
+          const { error } = await supabase.from("corrida_sessao_blocos").delete().in("id", removerB);
+          if (error) throw error;
+        }
+        for (const [i, b] of s.blocos.entries()) {
+          const payloadB = {
+            sessao_id: sessId,
+            ordem: i,
+            tipo: b.tipo,
+            nome: b.nome || "",
+            descricao: b.descricao || null,
+            duracao_min: b.duracao_min || null,
+            pace: b.pace || null,
+            zona: b.zona || null,
+            series: b.series || null,
+            distancia_serie: b.distancia_serie || null,
+            recuperacao: b.recuperacao || null,
+            formato: b.formato,
+            prescricao: b.prescricao || null,
+            orientacoes: b.orientacoes || null,
+            resultado_habilitado: b.resultado_habilitado,
+            resultado_tipo: b.resultado_habilitado ? b.resultado_tipo : null,
+            ranking_habilitado: b.resultado_habilitado && b.ranking_habilitado,
+            ranking_criterio: b.ranking_habilitado ? b.ranking_criterio : null,
+            ranking_filtros: b.ranking_filtros,
+          };
+          const q = b.id.startsWith("tmp_")
+            ? supabase.from("corrida_sessao_blocos").insert(payloadB)
+            : supabase.from("corrida_sessao_blocos").update(payloadB).eq("id", b.id);
+          const { error } = await q;
+          if (error) throw error;
         }
       }
 
@@ -782,10 +849,10 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
           {sessaoAberta && (
             <SessaoEditor
               sessao={sessaoAberta}
-              perfil={perfil}
               onChange={(patch) => atualizarSessao(sessaoAberta.id, patch)}
               onRemove={() => removerSessao(sessaoAberta.id)}
               onAplicarModelo={() => setBibliotecaAberta(true)}
+              onSalvarModelo={() => salvarComoModelo(sessaoAberta)}
             />
           )}
         </SheetContent>

@@ -6,6 +6,7 @@ import { getSemanaTreinoAluno, type AlunoTreinoSessao, type AlunoTreinoBloco } f
 import { paceToKmh } from "@/lib/corrida-zonas";
 import { tipoBlocoMeta } from "@/lib/treino-hyrox";
 import { ResultadoTreino } from "@/components/aluno-app/ResultadoTreino";
+import { WodPrescription } from "@/components/aluno-app/WodPrescription";
 import {
   ArrowLeft,
   Clock,
@@ -392,6 +393,8 @@ function AlunoTreinoPage() {
 }
 
 function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao; feitos: Set<string>; toggle: (id: string) => void; podeRegistrar: boolean }) {
+  const isSingleFormattedWod = s.blocos.length === 1 && Boolean(s.blocos[0]?.formato && s.blocos[0]?.prescricao);
+
   return (
     <div className="space-y-2">
       <motion.section
@@ -404,13 +407,13 @@ function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao
           <Footprints className="h-3 w-3 text-[#0033FF]" />
           <span className="text-[10px] font-extrabold tracking-[0.14em] text-[#0033FF] uppercase">{s.tipo}</span>
         </div>
-        <h2 className="mt-2.5 text-[19px] font-extrabold leading-tight text-black">{s.nome}</h2>
+        {!isSingleFormattedWod && <h2 className="mt-2.5 text-[19px] font-extrabold leading-tight text-black">{s.nome}</h2>}
         {s.pace_alvo && (
           <p className="mt-0.5 text-[12px] text-black/55">
             Pace alvo: {s.pace_alvo} /km{paceToKmh(s.pace_alvo) ? ` · ${paceToKmh(s.pace_alvo)} km/h` : ""}
           </p>
         )}
-        {s.objetivo && <p className="mt-1 text-[12px] text-black/60">{s.objetivo}</p>}
+        {!isSingleFormattedWod && s.objetivo && <p className="mt-1 text-[12px] text-black/60">{s.objetivo}</p>}
         <div className="mt-3 flex items-center gap-4 text-[12px] text-black/70">
           {s.duracao_min != null && (
             <span className="inline-flex items-center gap-1"><Clock className="h-3.5 w-3.5 text-black/50" /><span className="font-semibold">{s.duracao_min} min</span></span>
@@ -423,9 +426,29 @@ function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao
           )}
         </div>
         {s.observacao && <p className="mt-2 text-[11px] text-black/55">{s.observacao}</p>}
+        {isSingleFormattedWod && (
+          <div className="mt-3">
+            <WodPrescription
+              name={s.nome}
+              format={s.blocos[0]?.formato}
+              prescription={s.blocos[0]?.prescricao}
+            />
+            {s.blocos[0]?.orientacoes && (
+              <p className="mt-5 text-[11px] italic text-muted-foreground">{s.blocos[0].orientacoes}</p>
+            )}
+            {s.blocos[0]?.resultado_habilitado && (
+              <ResultadoTreino
+                sessaoId={s.id}
+                blocoId={s.blocos[0].id}
+                tipo={s.blocos[0].resultado_tipo ?? "custom"}
+                podeRegistrar={podeRegistrar}
+              />
+            )}
+          </div>
+        )}
       </motion.section>
       <ul className="space-y-2">
-        {(s.blocos ?? []).map((b, i) => {
+        {(isSingleFormattedWod ? [] : s.blocos).map((b, i) => {
           const done = feitos.has(b.id);
           return (
             <motion.li

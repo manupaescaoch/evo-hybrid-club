@@ -54,38 +54,9 @@ import {
   type PerfilCorrida,
 } from "@/lib/corrida-zonas";
 import { BibliotecaSessoesTab, type ModeloSessao } from "./BibliotecaSessoesTab";
+import { SessaoEditor, novoBlocoHyrox, assinaturaResultado, type Sessao, type Bloco } from "./SessaoBuilder";
 import { WizardGerarPlano } from "./WizardGerarPlano";
 import type { ParamsGeracao, SemanaGerada } from "@/lib/corrida-gerador";
-
-type Sessao = {
-  id: string;
-  data: string; // iso
-  ordem_no_dia: number;
-  tipo: SessaoTipo;
-  nome: string;
-  duracao_min: number | null;
-  distancia_km: number | null;
-  pace_alvo: string | null;
-  zona_fc: string | null;
-  objetivo: string | null;
-  observacao: string | null;
-  executada: boolean;
-  blocos: Bloco[];
-};
-
-type Bloco = {
-  id: string;
-  ordem: number;
-  tipo: BlocoTipo;
-  nome: string;
-  descricao: string;
-  duracao_min: string;
-  pace: string;
-  zona: string;
-  series: string;
-  distancia_serie: string;
-  recuperacao: string;
-};
 
 type Microciclo = {
   id: string | null;
@@ -113,23 +84,53 @@ function novaSessao(data: string, tipo: SessaoTipo = "rodagem" as SessaoTipo): S
     objetivo: null,
     observacao: null,
     executada: false,
+    categoria: null,
+    resultado_geral_habilitado: false,
+    resultado_geral_tipo: null,
+    resultado_geral_criterio: null,
     blocos: [],
   };
 }
 
-function novoBloco(tipo: BlocoTipo = "rodagem"): Bloco {
+function novoBloco(tipo: string = "custom"): Bloco {
+  return novoBlocoHyrox(tipo);
+}
+
+function prescricaoLegada(b: Record<string, unknown>): string {
+  const partes: string[] = [];
+  if (b.descricao) partes.push(String(b.descricao));
+  const linha = [
+    b.series && b.distancia_serie ? `${b.series}x ${b.distancia_serie}` : b.series ? `${b.series} séries` : "",
+    b.duracao_min ? `${b.duracao_min} min` : "",
+    b.pace ? `pace ${b.pace}` : "",
+    b.zona ? String(b.zona) : "",
+    b.recuperacao ? `rec ${b.recuperacao}` : "",
+  ].filter(Boolean).join(" · ");
+  if (linha) partes.push(linha);
+  return partes.join("\n");
+}
+
+function mapBloco(b: Record<string, unknown>): Bloco {
   return {
-    id: `tmp_${Math.random().toString(36).slice(2, 9)}`,
-    ordem: 0,
-    tipo,
-    nome: TIPOS_BLOCO.find((t) => t.value === tipo)?.label ?? "Bloco",
-    descricao: "",
-    duracao_min: "",
-    pace: "",
-    zona: "Z2",
-    series: "",
-    distancia_serie: "",
-    recuperacao: "",
+    id: String(b.id ?? `tmp_${Math.random().toString(36).slice(2, 9)}`),
+    ordem: Number(b.ordem ?? 0),
+    tipo: String(b.tipo ?? "custom"),
+    nome: String(b.nome ?? ""),
+    descricao: String(b.descricao ?? ""),
+    duracao_min: b.duracao_min != null ? String(b.duracao_min) : "",
+    pace: String(b.pace ?? ""),
+    zona: String(b.zona ?? ""),
+    series: String(b.series ?? ""),
+    distancia_serie: String(b.distancia_serie ?? ""),
+    recuperacao: String(b.recuperacao ?? ""),
+    formato: (b.formato as string) ?? null,
+    prescricao: b.prescricao != null ? String(b.prescricao) : prescricaoLegada(b),
+    orientacoes: String(b.orientacoes ?? ""),
+    resultado_habilitado: !!b.resultado_habilitado,
+    resultado_tipo: (b.resultado_tipo as string) ?? null,
+    ranking_habilitado: !!b.ranking_habilitado,
+    ranking_criterio: (b.ranking_criterio as string) ?? null,
+    ranking_filtros: Array.isArray(b.ranking_filtros) ? (b.ranking_filtros as string[]) : ["geral"],
   };
 }
 
@@ -806,310 +807,6 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
           </div>
         </SheetContent>
       </Sheet>
-    </div>
-  );
-}
-
-function SessaoEditor({
-  sessao,
-  perfil,
-  onChange,
-  onRemove,
-  onAplicarModelo,
-}: {
-  sessao: Sessao;
-  perfil: PerfilCorrida;
-  onChange: (patch: Partial<Sessao>) => void;
-  onRemove: () => void;
-  onAplicarModelo: () => void;
-}) {
-  const meta = tipoSessaoMeta(sessao.tipo);
-  const Icon = meta.Icon;
-  const dataFmt = new Date(sessao.data + "T00:00").toLocaleDateString("pt-BR", {
-    weekday: "long",
-    day: "2-digit",
-    month: "short",
-  });
-
-  function setBlocos(blocos: Bloco[]) {
-    onChange({ blocos });
-  }
-  function addBloco() {
-    setBlocos([...sessao.blocos, { ...novoBloco(), ordem: sessao.blocos.length }]);
-  }
-  function updateBloco(id: string, patch: Partial<Bloco>) {
-    setBlocos(sessao.blocos.map((b) => (b.id === id ? { ...b, ...patch } : b)));
-  }
-  function removeBloco(id: string) {
-    setBlocos(sessao.blocos.filter((b) => b.id !== id));
-  }
-
-  return (
-    <div className="space-y-4">
-      <SheetHeader>
-        <div className="flex items-center gap-3">
-          <div
-            className="h-10 w-10 rounded-lg flex items-center justify-center shrink-0"
-            style={{ backgroundColor: `${meta.cor}1A`, color: meta.cor }}
-          >
-            <Icon className="h-5 w-5" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <SheetTitle className="text-base capitalize">{dataFmt}</SheetTitle>
-            <p className="text-xs text-muted-foreground capitalize">{meta.label}</p>
-          </div>
-          <button
-            type="button"
-            onClick={onAplicarModelo}
-            className="inline-flex items-center gap-1.5 rounded-md bg-primary/10 hover:bg-primary/20 text-primary px-2.5 py-1.5 text-xs font-semibold"
-          >
-            <Library className="h-3.5 w-3.5" />
-            Modelo
-          </button>
-          <button
-            type="button"
-            onClick={onRemove}
-            className="h-8 w-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-            aria-label="Remover sessão"
-          >
-            <Trash2 className="h-4 w-4" />
-          </button>
-        </div>
-      </SheetHeader>
-
-      <section className="space-y-3">
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Tipo">
-            <select
-              value={sessao.tipo}
-              onChange={(e) => onChange({ tipo: e.target.value as SessaoTipo })}
-              className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
-            >
-              {TIPOS_SESSAO.map((t) => (
-                <option key={t.value} value={t.value}>
-                  {t.label}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label="Nome">
-            <input
-              value={sessao.nome}
-              onChange={(e) => onChange({ nome: e.target.value })}
-              className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
-            />
-          </Field>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Duração (min)">
-            <input
-              type="number"
-              value={sessao.duracao_min ?? ""}
-              onChange={(e) => onChange({ duracao_min: e.target.value ? Number(e.target.value) : null })}
-              className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
-              placeholder="50"
-            />
-          </Field>
-          <Field label="Distância (km)">
-            <input
-              type="number"
-              step="0.1"
-              value={sessao.distancia_km ?? ""}
-              onChange={(e) => onChange({ distancia_km: e.target.value ? Number(e.target.value) : null })}
-              className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
-              placeholder="10"
-            />
-          </Field>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Pace alvo">
-            <input
-              value={sessao.pace_alvo ?? ""}
-              onChange={(e) => onChange({ pace_alvo: e.target.value })}
-              placeholder="5:30/km"
-              className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
-            />
-            {(() => {
-              const kmh = paceToKmh(sessao.pace_alvo);
-              return kmh ? (
-                <span className="text-[10px] text-muted-foreground mt-1">
-                  Esteira: {kmh.toFixed(1).replace(".", ",")} km/h
-                </span>
-              ) : null;
-            })()}
-          </Field>
-          <Field label="Zona FC">
-            <select
-              value={sessao.zona_fc ?? ""}
-              onChange={(e) => onChange({ zona_fc: e.target.value || null })}
-              className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
-            >
-              <option value="">—</option>
-              {(["Z1", "Z2", "Z3", "Z4", "Z5"] as const).map((z) => (
-                <option key={z} value={z}>
-                  {descreverZona(perfil, z)}
-                </option>
-              ))}
-            </select>
-          </Field>
-        </div>
-
-        <Field label="Objetivo">
-          <input
-            value={sessao.objetivo ?? ""}
-            onChange={(e) => onChange({ objetivo: e.target.value })}
-            placeholder="Ex: Base aeróbica"
-            className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm"
-          />
-        </Field>
-
-        <Field label="Observação para o aluno">
-          <textarea
-            value={sessao.observacao ?? ""}
-            onChange={(e) => onChange({ observacao: e.target.value })}
-            rows={2}
-            className="w-full rounded-lg bg-muted/40 border border-input px-3 py-2 text-sm resize-y"
-          />
-        </Field>
-      </section>
-
-      {/* Blocos */}
-      <section>
-        <div className="flex items-center justify-between mb-2">
-          <h4 className="text-sm font-semibold">Blocos da sessão</h4>
-          <span className="text-xs text-muted-foreground">{sessao.blocos.length}</span>
-        </div>
-        <div className="space-y-2">
-          {sessao.blocos.map((b) => (
-            <BlocoEditor key={b.id} bloco={b} onChange={(p) => updateBloco(b.id, p)} onRemove={() => removeBloco(b.id)} />
-          ))}
-          <button
-            type="button"
-            onClick={addBloco}
-            className="w-full rounded-lg border-2 border-dashed border-border bg-muted/30 hover:bg-muted/50 py-3 inline-flex items-center justify-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground"
-          >
-            <Plus className="h-4 w-4" /> Adicionar bloco
-          </button>
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function BlocoEditor({
-  bloco,
-  onChange,
-  onRemove,
-}: {
-  bloco: Bloco;
-  onChange: (p: Partial<Bloco>) => void;
-  onRemove: () => void;
-}) {
-  const isInter = bloco.tipo === "intervalado" || bloco.tipo === "strides";
-  return (
-    <div className="rounded-lg border border-border bg-card p-3 space-y-2">
-      <div className="flex items-center gap-2">
-        <select
-          value={bloco.tipo}
-          onChange={(e) => onChange({ tipo: e.target.value as BlocoTipo })}
-          className="text-xs font-semibold bg-transparent border-0 focus:outline-none cursor-pointer"
-        >
-          {TIPOS_BLOCO.map((t) => (
-            <option key={t.value} value={t.value}>
-              {t.label}
-            </option>
-          ))}
-        </select>
-        <input
-          value={bloco.nome}
-          onChange={(e) => onChange({ nome: e.target.value })}
-          className="flex-1 bg-transparent text-sm font-semibold focus:outline-none border-b border-transparent focus:border-primary/40 px-1"
-        />
-        <button
-          type="button"
-          onClick={onRemove}
-          className="h-7 w-7 rounded-md flex items-center justify-center text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-        >
-          <X className="h-3.5 w-3.5" />
-        </button>
-      </div>
-
-      <textarea
-        value={bloco.descricao}
-        onChange={(e) => onChange({ descricao: e.target.value })}
-        rows={1}
-        placeholder="Descrição..."
-        className="w-full rounded-md bg-muted/30 border border-input px-2 py-1.5 text-xs resize-y"
-      />
-
-      <div className="grid grid-cols-3 gap-2">
-        <Mini label="Duração">
-          <input
-            value={bloco.duracao_min}
-            onChange={(e) => onChange({ duracao_min: e.target.value })}
-            placeholder="10"
-            className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
-          />
-        </Mini>
-        <Mini label="Pace">
-          <input
-            value={bloco.pace}
-            onChange={(e) => onChange({ pace: e.target.value })}
-            placeholder="5:30"
-            className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
-          />
-          {(() => {
-            const kmh = paceToKmh(bloco.pace);
-            return kmh ? (
-              <span className="text-[9px] text-muted-foreground">{kmh.toFixed(1).replace(".", ",")} km/h</span>
-            ) : null;
-          })()}
-        </Mini>
-        <Mini label="Zona">
-          <select
-            value={bloco.zona}
-            onChange={(e) => onChange({ zona: e.target.value })}
-            className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
-          >
-            {["Z1", "Z2", "Z3", "Z4", "Z5"].map((z) => (
-              <option key={z} value={z}>
-                {z}
-              </option>
-            ))}
-          </select>
-        </Mini>
-      </div>
-
-      {isInter && (
-        <div className="grid grid-cols-3 gap-2">
-          <Mini label="Séries">
-            <input
-              value={bloco.series}
-              onChange={(e) => onChange({ series: e.target.value })}
-              placeholder="10"
-              className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
-            />
-          </Mini>
-          <Mini label="Distância">
-            <input
-              value={bloco.distancia_serie}
-              onChange={(e) => onChange({ distancia_serie: e.target.value })}
-              placeholder="400m"
-              className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
-            />
-          </Mini>
-          <Mini label="Recuperação">
-            <input
-              value={bloco.recuperacao}
-              onChange={(e) => onChange({ recuperacao: e.target.value })}
-              placeholder="90s"
-              className="w-full bg-muted/30 border border-input rounded px-2 py-1 text-xs"
-            />
-          </Mini>
-        </div>
-      )}
     </div>
   );
 }

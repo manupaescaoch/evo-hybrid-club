@@ -566,8 +566,8 @@ function PerfilSection({
           isAdmin={isAdmin}
           onEditar={() => setEditOpen(true)}
           onWhatsApp={abrirWhatsApp}
-          onAdicionarFeedback={() => onGo("formularios")}
-          onAdicionarFoto={() => onGo("fotos")}
+          onAdicionarFeedback={() => onGo("anamnese")}
+          onAdicionarFoto={() => onGo("avaliacoes")}
           onAjustarDieta={() => onGo("dieta")}
           onPagamento={isAdmin ? () => onGo("financeiro") : undefined}
         />
@@ -581,7 +581,7 @@ function PerfilSection({
           canEdit={canEdit}
           isAdmin={isAdmin}
           onWhatsApp={abrirWhatsApp}
-          onAdicionarFeedback={() => onGo("formularios")}
+          onAdicionarFeedback={() => onGo("anamnese")}
           onAjustarDieta={() => onGo("dieta")}
         />
       </div>

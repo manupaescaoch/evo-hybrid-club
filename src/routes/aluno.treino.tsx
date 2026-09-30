@@ -23,11 +23,11 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/aluno/treino")({
   head: () => ({
     meta: [
-      { title: "Treino de hoje — App do Aluno | EVO HYBRID CLUB" },
+      { title: "WOD de hoje — App do Aluno | EVO HYBRID CLUB" },
       {
         name: "description",
         content:
-          "Detalhes do treino de hoje: aquecimento, rodagem, intensidade por zona e blocos de execução.",
+          "Detalhes do WOD de hoje: aquecimento, rodagem, intensidade por zona e blocos de execução.",
       },
     ],
   }),

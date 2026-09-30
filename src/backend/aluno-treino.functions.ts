@@ -52,14 +52,13 @@ export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const sb = supabaseAdmin as any;
 
-    // A programação publicada pela Manu é a grade oficial do clube e deve
-    // aparecer igual para todos os alunos. O aluno autenticado continua sendo
-    // validado pelo middleware, mas não define mais qual grade será exibida.
+    // A programação global publicada é a grade oficial do clube e aparece
+    // igual para todos, sem depender do aluno autenticado ou de quem a criou.
     const { data: micros, error: microsError } = await sb
       .from("corrida_microciclos")
       .select("id, atualizado_em")
       .eq("status", "publicada")
-      .ilike("criado_por", "%manu%")
+      .eq("is_global", true)
       .order("atualizado_em", { ascending: false });
     if (microsError) throw new Error("Não foi possível carregar a programação de treinos.");
 

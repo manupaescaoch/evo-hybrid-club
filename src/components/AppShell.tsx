@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/lib/auth";
 import {
-  LayoutGrid, Users, BarChart3,
+  LayoutGrid, Users, BarChart3, Dumbbell,
   LogOut, DollarSign, Settings, ChevronDown, Menu, MoreHorizontal, BookOpen, MessageSquare, Inbox,
 } from "lucide-react";
 import { type ReactNode, useState, useEffect } from "react";
@@ -19,6 +19,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: "/visao-geral", label: "Visão Geral", icon: LayoutGrid },
   { to: "/alunos",    label: "Alunos",    icon: Users },
+  { to: "/treinos",   label: "Treinos",   icon: Dumbbell },
   { to: "/caixa-saida", label: "Caixa de Saída", icon: Inbox, admin: true },
   {
     to: "/biblioteca", label: "Biblioteca", icon: BookOpen,
@@ -288,10 +289,11 @@ function MobileBottomNav({
   const allTabs: { to: string; label: string; icon: typeof LayoutGrid; match: (p: string) => boolean; admin?: boolean }[] = [
     { to: "/visao-geral", label: "Início",     icon: LayoutGrid,  match: (p) => p.startsWith("/visao-geral") },
     { to: "/alunos",      label: "Alunos",     icon: Users,       match: (p) => p.startsWith("/alunos") },
+    { to: "/treinos",     label: "Treinos",    icon: Dumbbell,    match: (p) => p.startsWith("/treinos") },
     { to: "/relatorios",  label: "Relatórios", icon: BarChart3,   match: (p) => p.startsWith("/relatorios"), admin: true },
   ];
   const tabs = allTabs.filter((t) => !t.admin || isAdmin);
-  const gridCols = tabs.length === 3 ? "grid-cols-4" : "grid-cols-3";
+  const gridCols = tabs.length >= 4 ? "grid-cols-5" : "grid-cols-4";
 
   const moreActive = currentPath.startsWith("/financeiro") || currentPath.startsWith("/configuracoes") || currentPath.startsWith("/feedbacks");
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -134,8 +134,9 @@ function mapBloco(b: Record<string, unknown>): Bloco {
   };
 }
 
-export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: PerfilCorrida }) {
+export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?: string; perfil: PerfilCorrida; global?: boolean }) {
   const { crmUser, canEdit } = useAuth();
+  const ownerIdRef = useRef<string | null>(alunoId ?? null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -163,14 +164,28 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
     setLoading(true);
     const dataInicioIso = toISODate(semanaRef);
 
-    const { data: m } = await supabase
+    if (global && !ownerIdRef.current) {
+      const { data: referencia } = await supabase
+        .from("corrida_microciclos")
+        .select("aluno_id")
+        .eq("is_global", true)
+        .order("atualizado_em", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      ownerIdRef.current = referencia?.aluno_id ?? null;
+    }
+
+    let microQuery = supabase
       .from("corrida_microciclos")
       .select("*")
-      .eq("aluno_id", alunoId)
-      .eq("data_inicio", dataInicioIso)
-      .maybeSingle();
+      .eq("data_inicio", dataInicioIso);
+    microQuery = global
+      ? microQuery.eq("is_global", true)
+      : microQuery.eq("aluno_id", alunoId ?? "");
+    const { data: m } = await microQuery.maybeSingle();
 
     if (m) {
+      if (global) ownerIdRef.current = m.aluno_id;
       setMicro({
         id: m.id,
         data_inicio: m.data_inicio,
@@ -235,7 +250,7 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
       setSessoes([]);
     }
     setLoading(false);
-  }, [alunoId, semanaRef]);
+  }, [alunoId, global, semanaRef]);
 
   useEffect(() => {
     carregar();
@@ -317,6 +332,8 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
     }
     setSaving(true);
     try {
+      const ownerId = ownerIdRef.current ?? alunoId;
+      if (!ownerId) throw new Error("A programação oficial ainda não possui uma referência válida.");
       // Cria macrociclo se escopo > semana
       let macroId: string | null = null;
       if (params.escopo !== "semana") {
@@ -324,7 +341,7 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
           .from("corrida_macrociclos")
           .insert([
             {
-              aluno_id: alunoId,
+              aluno_id: ownerId,
               nome:
                 params.provaNome ??
                 (params.escopo === "mesociclo" ? "Mesociclo" : "Macrociclo"),
@@ -351,12 +368,14 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
       // Para cada semana: upsert microciclo + replace sessões
       for (const sem of semanas) {
         // Apaga microciclo existente na mesma data
-        const { data: existente } = await supabase
+        let existenteQuery = supabase
           .from("corrida_microciclos")
           .select("id")
-          .eq("aluno_id", alunoId)
-          .eq("data_inicio", sem.data_inicio)
-          .maybeSingle();
+          .eq("data_inicio", sem.data_inicio);
+        existenteQuery = global
+          ? existenteQuery.eq("is_global", true)
+          : existenteQuery.eq("aluno_id", ownerId);
+        const { data: existente } = await existenteQuery.maybeSingle();
         if (existente) {
           await supabase.from("corrida_sessoes").delete().eq("microciclo_id", existente.id);
           await supabase.from("corrida_microciclos").delete().eq("id", existente.id);
@@ -366,7 +385,8 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
           .from("corrida_microciclos")
           .insert([
             {
-              aluno_id: alunoId,
+              aluno_id: ownerId,
+              is_global: global,
               data_inicio: sem.data_inicio,
               numero_semana: sem.numero_semana,
               tipo_semana: sem.tipo_semana,
@@ -387,7 +407,7 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
           const { error: errSess } = await supabase.from("corrida_sessoes").insert(
             sem.sessoes.map((s, i) => ({
               microciclo_id: novoMicro.id,
-              aluno_id: alunoId,
+              aluno_id: ownerId,
               data: s.data,
               ordem_no_dia: i,
               tipo: s.tipo,
@@ -483,9 +503,12 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
     }
     setSaving(true);
     try {
+      const ownerId = ownerIdRef.current ?? alunoId;
+      if (!ownerId) throw new Error("A programação oficial ainda não possui uma referência válida.");
       let microId = micro.id;
       const payloadMicro = {
-        aluno_id: alunoId,
+        aluno_id: ownerId,
+        is_global: global,
         data_inicio: micro.data_inicio,
         numero_semana: micro.numero_semana,
         tipo_semana: micro.tipo_semana,
@@ -537,7 +560,7 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
       for (const s of sessoes) {
         const payloadSess = {
           microciclo_id: microId,
-          aluno_id: alunoId,
+          aluno_id: ownerId,
           data: s.data,
           ordem_no_dia: s.ordem_no_dia,
           tipo: s.tipo,

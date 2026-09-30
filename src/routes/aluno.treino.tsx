@@ -442,6 +442,9 @@ function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao
                 blocoId={s.blocos[0].id}
                 tipo={s.blocos[0].resultado_tipo ?? "custom"}
                 podeRegistrar={podeRegistrar}
+                formato={s.blocos[0].formato}
+                prescricao={s.blocos[0].prescricao}
+                duracaoMin={s.duracao_min}
               />
             )}
           </div>
@@ -485,7 +488,7 @@ function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao
                 </button>
               </div>
               {b.resultado_habilitado && (
-                <ResultadoTreino sessaoId={s.id} blocoId={b.id} tipo={b.resultado_tipo ?? "custom"} podeRegistrar={podeRegistrar} />
+                <ResultadoTreino sessaoId={s.id} blocoId={b.id} tipo={b.resultado_tipo ?? "custom"} podeRegistrar={podeRegistrar} formato={b.formato} prescricao={b.prescricao} />
               )}
             </motion.li>
           );
@@ -494,7 +497,7 @@ function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao
       {s.resultado_geral_habilitado && (
         <div className="rounded-2xl bg-white ring-1 ring-black/5 p-3">
           <p className="text-[10px] font-extrabold tracking-[0.14em] uppercase text-[#0033FF]">Resultado geral do WOD</p>
-          <ResultadoTreino sessaoId={s.id} blocoId={null} tipo={s.resultado_geral_tipo ?? "tempo"} podeRegistrar={podeRegistrar} />
+          <ResultadoTreino sessaoId={s.id} blocoId={null} tipo={s.resultado_geral_tipo ?? "tempo"} podeRegistrar={podeRegistrar} duracaoMin={s.duracao_min} />
         </div>
       )}
     </div>

@@ -954,6 +954,7 @@ export type Database = {
           data_inicio: string
           id: string
           intensidade_alvo_pct: number | null
+          is_global: boolean
           macrociclo_id: string | null
           numero_semana: number | null
           objetivo: string | null
@@ -972,6 +973,7 @@ export type Database = {
           data_inicio: string
           id?: string
           intensidade_alvo_pct?: number | null
+          is_global?: boolean
           macrociclo_id?: string | null
           numero_semana?: number | null
           objetivo?: string | null
@@ -990,6 +992,7 @@ export type Database = {
           data_inicio?: string
           id?: string
           intensidade_alvo_pct?: number | null
+          is_global?: boolean
           macrociclo_id?: string | null
           numero_semana?: number | null
           objetivo?: string | null

@@ -27,6 +27,7 @@ import { Route as AlunoLoginRouteImport } from './routes/aluno.login'
 import { Route as AlunoEsqueciSenhaRouteImport } from './routes/aluno.esqueci-senha'
 import { Route as AlunoComunidadeRouteImport } from './routes/aluno.comunidade'
 import { Route as AppVisaoGeralRouteImport } from './routes/_app.visao-geral'
+import { Route as AppTreinosRouteImport } from './routes/_app.treinos'
 import { Route as AppRelatoriosRouteImport } from './routes/_app.relatorios'
 import { Route as AppFinanceiroRouteImport } from './routes/_app.financeiro'
 import { Route as AppFeedbacksRouteImport } from './routes/_app.feedbacks'
@@ -158,6 +159,11 @@ const AlunoComunidadeRoute = AlunoComunidadeRouteImport.update({
 const AppVisaoGeralRoute = AppVisaoGeralRouteImport.update({
   id: '/visao-geral',
   path: '/visao-geral',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTreinosRoute = AppTreinosRouteImport.update({
+  id: '/treinos',
+  path: '/treinos',
   getParentRoute: () => AppRoute,
 } as any)
 const AppRelatoriosRoute = AppRelatoriosRouteImport.update({
@@ -407,6 +413,7 @@ export interface FileRoutesByFullPath {
   '/feedbacks': typeof AppFeedbacksRoute
   '/financeiro': typeof AppFinanceiroRouteWithChildren
   '/relatorios': typeof AppRelatoriosRoute
+  '/treinos': typeof AppTreinosRoute
   '/visao-geral': typeof AppVisaoGeralRoute
   '/aluno/comunidade': typeof AlunoComunidadeRoute
   '/aluno/esqueci-senha': typeof AlunoEsqueciSenhaRoute
@@ -465,6 +472,7 @@ export interface FileRoutesByTo {
   '/caixa-saida': typeof AppCaixaSaidaRoute
   '/feedbacks': typeof AppFeedbacksRoute
   '/relatorios': typeof AppRelatoriosRoute
+  '/treinos': typeof AppTreinosRoute
   '/visao-geral': typeof AppVisaoGeralRoute
   '/aluno/comunidade': typeof AlunoComunidadeRoute
   '/aluno/esqueci-senha': typeof AlunoEsqueciSenhaRoute
@@ -529,6 +537,7 @@ export interface FileRoutesById {
   '/_app/feedbacks': typeof AppFeedbacksRoute
   '/_app/financeiro': typeof AppFinanceiroRouteWithChildren
   '/_app/relatorios': typeof AppRelatoriosRoute
+  '/_app/treinos': typeof AppTreinosRoute
   '/_app/visao-geral': typeof AppVisaoGeralRoute
   '/aluno/comunidade': typeof AlunoComunidadeRoute
   '/aluno/esqueci-senha': typeof AlunoEsqueciSenhaRoute
@@ -593,6 +602,7 @@ export interface FileRouteTypes {
     | '/feedbacks'
     | '/financeiro'
     | '/relatorios'
+    | '/treinos'
     | '/visao-geral'
     | '/aluno/comunidade'
     | '/aluno/esqueci-senha'
@@ -651,6 +661,7 @@ export interface FileRouteTypes {
     | '/caixa-saida'
     | '/feedbacks'
     | '/relatorios'
+    | '/treinos'
     | '/visao-geral'
     | '/aluno/comunidade'
     | '/aluno/esqueci-senha'
@@ -714,6 +725,7 @@ export interface FileRouteTypes {
     | '/_app/feedbacks'
     | '/_app/financeiro'
     | '/_app/relatorios'
+    | '/_app/treinos'
     | '/_app/visao-geral'
     | '/aluno/comunidade'
     | '/aluno/esqueci-senha'
@@ -910,6 +922,13 @@ declare module '@tanstack/react-router' {
       path: '/visao-geral'
       fullPath: '/visao-geral'
       preLoaderRoute: typeof AppVisaoGeralRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/treinos': {
+      id: '/_app/treinos'
+      path: '/treinos'
+      fullPath: '/treinos'
+      preLoaderRoute: typeof AppTreinosRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/relatorios': {
@@ -1307,6 +1326,7 @@ interface AppRouteChildren {
   AppFeedbacksRoute: typeof AppFeedbacksRoute
   AppFinanceiroRoute: typeof AppFinanceiroRouteWithChildren
   AppRelatoriosRoute: typeof AppRelatoriosRoute
+  AppTreinosRoute: typeof AppTreinosRoute
   AppVisaoGeralRoute: typeof AppVisaoGeralRoute
   AppAlunosIdRoute: typeof AppAlunosIdRoute
   AppAvaliacaoFisicaIdRoute: typeof AppAvaliacaoFisicaIdRouteWithChildren
@@ -1322,6 +1342,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppFeedbacksRoute: AppFeedbacksRoute,
   AppFinanceiroRoute: AppFinanceiroRouteWithChildren,
   AppRelatoriosRoute: AppRelatoriosRoute,
+  AppTreinosRoute: AppTreinosRoute,
   AppVisaoGeralRoute: AppVisaoGeralRoute,
   AppAlunosIdRoute: AppAlunosIdRoute,
   AppAvaliacaoFisicaIdRoute: AppAvaliacaoFisicaIdRouteWithChildren,

@@ -26,8 +26,13 @@ export function setAlunoSession(s: AlunoSession) {
   window.dispatchEvent(new Event("aluno-session-change"));
 }
 
+export function setAlunoToken(t: string) {
+  try { window.localStorage.setItem("evo_aluno_token", t); } catch {}
+}
+
 export function clearAlunoSession() {
   window.localStorage.removeItem(KEY);
+  window.localStorage.removeItem("evo_aluno_token");
   window.dispatchEvent(new Event("aluno-session-change"));
 }
 

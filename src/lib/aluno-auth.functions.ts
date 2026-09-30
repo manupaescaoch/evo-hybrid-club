@@ -225,6 +225,7 @@ export const loginAlunoPorEmail = createServerFn({ method: "POST" })
         foto_url: (alunoRow as any).foto_url ?? null,
       },
       deve_trocar_senha: !!acesso.deve_trocar_senha,
+      token: (await import("@/backend/aluno-token.server")).criarAlunoToken(alunoRow.id),
     };
   });
 

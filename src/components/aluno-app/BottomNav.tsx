@@ -1,13 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Users, Trophy, Dumbbell } from "lucide-react";
+import { Home, Users, Trophy, Dumbbell, User } from "lucide-react";
 import { motion } from "framer-motion";
 
 type Item = { to: string; label: string; icon: typeof Home; exact?: boolean };
 const items: Item[] = [
   { to: "/aluno", label: "Início", icon: Home, exact: true },
   { to: "/aluno/treino", label: "WOD", icon: Dumbbell },
-  { to: "/aluno/comunidade", label: "Comunidade", icon: Users },
   { to: "/aluno/ranking", label: "Ranking", icon: Trophy },
+  { to: "/aluno/comunidade", label: "Comunidade", icon: Users },
+  { to: "/aluno/perfil", label: "Perfil", icon: User },
 ];
 
 export function BottomNav() {

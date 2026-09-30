@@ -210,7 +210,7 @@ function AlunoPerfil() {
     return {
       dieta: Math.round((dietaOk / 7) * 100),
       treino: Math.round((treinoOk / 7) * 100),
-      geral: Math.round(((dietaOk + treinoOk) / 14) * 100),
+      geral: Math.round((treinoOk / 7) * 100),
     };
   }, [entregas, ult7]);
 

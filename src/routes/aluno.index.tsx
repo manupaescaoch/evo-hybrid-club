@@ -30,7 +30,7 @@ export const Route = createFileRoute("/aluno/")({
   head: () => ({
     meta: [
       { title: "Início — App do Aluno | EVO HYBRID CLUB" },
-      { name: "description", content: "Sua página inicial no EVO HYBRID CLUB: score do dia, check-in diário, dieta, WODs e evolução em um só lugar." },
+      { name: "description", content: "Sua página inicial no EVO HYBRID CLUB: score do dia, check-in diário, WODs e evolução em um só lugar." },
     ],
   }),
   component: AlunoInicio,

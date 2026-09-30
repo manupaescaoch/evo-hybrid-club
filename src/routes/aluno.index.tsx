@@ -23,6 +23,7 @@ import { useAlunoSession } from "@/lib/aluno-session";
 import { useAlunoDashboard, triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";
 import { useServerFn } from "@tanstack/react-start";
 import { getSemanaTreinoAluno, type AlunoTreinoSessao } from "@/backend/aluno-treino.functions";
+import { WodPrescription } from "@/components/aluno-app/WodPrescription";
 import { registrarAgua } from "@/backend/aluno-kpis.functions";
 import { SCORE_DIARIO, SCORE_META_SEMANAL, somarScoreJanela } from "@/lib/aluno-score";
 
@@ -611,14 +612,23 @@ function TreinoHojeCard() {
     );
   }
   const s = sessoes[0];
+  const formattedBlock = s.blocos.length === 1 && s.blocos[0]?.formato && s.blocos[0]?.prescricao ? s.blocos[0] : null;
   return (
     <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
       <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-3 py-1">
         <Footprints className="h-3.5 w-3.5 text-[#0033FF]" />
         <span className="text-[11px] font-extrabold tracking-[0.16em] text-[#0033FF] uppercase">{s.tipo}</span>
       </div>
-      <h3 className="mt-3 text-[22px] font-black leading-tight tracking-tight text-black">{s.nome}</h3>
-      {s.objetivo && <p className="mt-1 text-[13px] text-black/55">{s.objetivo}</p>}
+      <div className="mt-3">
+        {formattedBlock ? (
+          <WodPrescription name={s.nome} format={formattedBlock.formato} prescription={formattedBlock.prescricao} compact />
+        ) : (
+          <>
+            <h3 className="text-[22px] font-black leading-tight tracking-tight text-black">{s.nome}</h3>
+            {s.objetivo && <p className="mt-1 text-[13px] text-black/55">{s.objetivo}</p>}
+          </>
+        )}
+      </div>
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-[13px] text-black/70">
         {s.duracao_min != null && (
           <span className="inline-flex items-center gap-1.5"><Clock className="h-4 w-4 text-black/55" /><span className="font-semibold">{s.duracao_min} min</span></span>

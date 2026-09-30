@@ -60,6 +60,18 @@ export const Route = createFileRoute("/aluno/perfil")({
 
 const RED = "#0033FF";
 
+const PERFIL_SECOES = [
+  { id: "visao", label: "Visão geral" },
+  { id: "evolucao", label: "Evolução" },
+  { id: "frequencia", label: "Frequência" },
+  { id: "saude", label: "Saúde" },
+  { id: "avaliacoes", label: "Avaliações" },
+  { id: "resultados", label: "Resultados" },
+  { id: "dados", label: "Dados pessoais" },
+  { id: "dados", label: "Plano e financeiro" },
+  { id: "config", label: "Configurações" },
+];
+
 function fmtDate(d?: string | null) {
   if (!d) return "—";
   return new Date(d).toLocaleDateString("pt-BR");
@@ -332,6 +344,19 @@ function AlunoPerfil() {
           </div>
         </header>
 
+        {/* NAVEGAÇÃO DO PERFIL */}
+        <nav className="sticky top-0 z-20 -mx-5 px-5 py-2 bg-[#F7F7F8]/95 backdrop-blur overflow-x-auto no-scrollbar">
+          <div className="flex gap-1.5">
+            {PERFIL_SECOES.map((s, i) => (
+              <button key={i} onClick={() => document.getElementById(`p-${s.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                className="shrink-0 rounded-full bg-white border border-black/5 px-3 py-1.5 text-[11px] font-semibold text-zinc-700 active:bg-[#0033FF]/10 active:text-[#0033FF]">
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </nav>
+
+        <div id="p-visao" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Visão geral</div>
         {/* CARD PRINCIPAL */}
         <motion.section
           initial={{ opacity: 0, y: 8 }}
@@ -473,36 +498,7 @@ function AlunoPerfil() {
           </div>
         </motion.section>
 
-        {/* PERFORMANCE */}
-        <section className="rounded-3xl bg-white border border-black/5 p-3 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
-          <div className="grid grid-cols-3 gap-2">
-            <PerfCell label="Sequência" value={`${streak}`} sub="dias" icon={Flame} color={RED} />
-            <PerfCell label="Aderência 7d" value={`${aderencia7.geral}%`} color="#10B981" ring={aderencia7.geral} />
-            <PerfCell label="WOD 7d" value={`${aderencia7.treino}%`} icon={Dumbbell} color="#0F172A" />
-            <PerfCell label="Check-ins 7d" value={`${ult7checkins.length}/7`} icon={BadgeCheck} color="#0EA5E9" />
-            <PerfCell label="IMC" value={imc != null ? String(imc) : "—"} icon={Heart} color={RED} />
-          </div>
-        </section>
-
-        {/* SAÚDE */}
-        <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-[14px] font-bold">Saúde do aluno</h3>
-            <span className="text-[11px] text-zinc-500">Últimos 7 dias</span>
-          </div>
-          {ult7checkins.length === 0 ? (
-            <EmptyState text="Nenhum check-in realizado ainda." />
-          ) : (
-            <div className="-mx-1 overflow-x-auto no-scrollbar">
-              <div className="flex gap-2 px-1 pb-1">
-                <SaudeCard label="Sono médio" value={sonoMed != null ? `${sonoMed.toFixed(1)}h` : "—"} icon={Moon} color="#8B5CF6" trend={sonoTrend} />
-                <SaudeCard label="Energia" value={energMed != null ? `${energMed.toFixed(1)} / 5` : "—"} icon={Zap} color="#F59E0B" trend={energTrend} />
-                <SaudeCard label="Humor" value={humorMed != null ? `${humorMed.toFixed(1)} / 4` : "—"} icon={Smile} color="#10B981" trend={humorTrend} />
-              </div>
-            </div>
-          )}
-        </section>
-
+        <div id="p-evolucao" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Evolução</div>
         {/* EVOLUÇÃO */}
         <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
           <div className="flex items-center justify-between">
@@ -614,6 +610,61 @@ function AlunoPerfil() {
           )}
         </section>
 
+        <div id="p-frequencia" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Frequência</div>
+        {/* PERFORMANCE */}
+        <section className="rounded-3xl bg-white border border-black/5 p-3 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
+          <div className="grid grid-cols-3 gap-2">
+            <PerfCell label="Sequência" value={`${streak}`} sub="dias" icon={Flame} color={RED} />
+            <PerfCell label="Aderência 7d" value={`${aderencia7.geral}%`} color="#10B981" ring={aderencia7.geral} />
+            <PerfCell label="WOD 7d" value={`${aderencia7.treino}%`} icon={Dumbbell} color="#0F172A" />
+            <PerfCell label="Check-ins 7d" value={`${ult7checkins.length}/7`} icon={BadgeCheck} color="#0EA5E9" />
+            <PerfCell label="IMC" value={imc != null ? String(imc) : "—"} icon={Heart} color={RED} />
+          </div>
+        </section>
+
+        <div id="p-saude" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Saúde</div>
+        {/* SAÚDE */}
+        <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-[14px] font-bold">Saúde do aluno</h3>
+            <span className="text-[11px] text-zinc-500">Últimos 7 dias</span>
+          </div>
+          {ult7checkins.length === 0 ? (
+            <EmptyState text="Nenhum check-in realizado ainda." />
+          ) : (
+            <div className="-mx-1 overflow-x-auto no-scrollbar">
+              <div className="flex gap-2 px-1 pb-1">
+                <SaudeCard label="Sono médio" value={sonoMed != null ? `${sonoMed.toFixed(1)}h` : "—"} icon={Moon} color="#8B5CF6" trend={sonoTrend} />
+                <SaudeCard label="Energia" value={energMed != null ? `${energMed.toFixed(1)} / 5` : "—"} icon={Zap} color="#F59E0B" trend={energTrend} />
+                <SaudeCard label="Humor" value={humorMed != null ? `${humorMed.toFixed(1)} / 4` : "—"} icon={Smile} color="#10B981" trend={humorTrend} />
+              </div>
+            </div>
+          )}
+        </section>
+
+        <div id="p-avaliacoes" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Avaliações</div>
+        <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
+          <h3 className="text-[14px] font-bold mb-3">Minhas avaliações</h3>
+          {avals.length === 0 ? (
+            <EmptyState text="Nenhuma avaliação cadastrada ainda." />
+          ) : (
+            <ul className="divide-y divide-black/5">
+              {avals.slice(0, 6).map((a: any, i: number) => {
+                const prev = avals[i + 1] as any;
+                const peso = a.peso_kg ?? a.weight_kg ?? a.peso;
+                const pPrev = prev ? (prev.peso_kg ?? prev.weight_kg ?? prev.peso) : null;
+                const d = peso != null && pPrev != null ? (Number(peso) - Number(pPrev)).toFixed(1) : null;
+                return (
+                  <li key={a.id ?? i} className="py-2 flex items-center justify-between text-[12px]">
+                    <span className="text-zinc-500">{fmtDate(a.assessment_date ?? a.data_avaliacao ?? a.created_at ?? a.criado_em)}</span>
+                    <span className="font-bold tabular-nums">{peso != null ? `${peso} kg` : "—"}{d && <span className="ml-1.5 text-[11px] font-semibold text-[#0033FF]">{Number(d) > 0 ? "+" : ""}{d} kg</span>}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </section>
+
         {/* FEEDBACKS */}
         <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
           <h3 className="text-[14px] font-bold mb-3">Feedbacks</h3>
@@ -637,6 +688,17 @@ function AlunoPerfil() {
         </section>
 
 
+        <div id="p-resultados" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Resultados</div>
+        <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
+          <h3 className="text-[14px] font-bold">Resultados e PRs</h3>
+          <p className="mt-1 text-[12px] text-zinc-500">Seus tempos, cargas e posições ficam registrados em cada WOD.</p>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <button onClick={() => nav({ to: "/aluno/treino" })} className="rounded-2xl bg-[#0033FF] text-white py-2.5 text-[12px] font-bold">Ver meus WODs</button>
+            <button onClick={() => nav({ to: "/aluno/ranking" })} className="rounded-2xl bg-zinc-100 text-zinc-800 py-2.5 text-[12px] font-bold">Ver ranking</button>
+          </div>
+        </section>
+
+        <div id="p-dados" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Dados pessoais e plano</div>
         {/* INFORMAÇÕES GERAIS */}
         <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
           <h3 className="text-[14px] font-bold mb-3">Informações gerais</h3>
@@ -656,46 +718,28 @@ function AlunoPerfil() {
           </div>
         </section>
 
-        {/* AÇÕES RÁPIDAS */}
-        <section className="grid grid-cols-2 gap-2">
-          {[
-            {
-              icon: ImageIcon,
-              label: "Ver fotos de evolução",
-              onClick: () => {
-                document.getElementById("fotos-evolucao")?.scrollIntoView({ behavior: "smooth", block: "start" });
-              },
-            },
-            {
-              icon: MessageSquare,
-              label: "Falar com a equipe",
-              onClick: () => {
-                const primeiro = (session?.nome ?? aluno?.nome ?? "")
-                  .split(" ")[0] || "Aluno";
-                const msg = `Olá, equipe EVO HYBRID CLUB! Sou ${primeiro} e preciso de ajuda no app.`;
-                window.open(whatsappSuporteUrl(msg), "_blank", "noopener");
-              },
-            },
-            {
-              icon: LogOut,
-              label: "Sair do app",
-              onClick: sair,
-            },
-          ].map((a) => (
-            <button
-              key={a.label}
-              onClick={a.onClick}
-              className="rounded-2xl bg-white border border-black/5 py-3 px-3 flex items-center gap-2 text-[12px] font-semibold text-zinc-800 shadow-[0_2px_10px_-6px_rgba(0,0,0,0.08)] active:bg-zinc-50 transition"
-            >
-              <a.icon className="h-4 w-4 text-zinc-500" />
-              <span className="truncate">{a.label}</span>
-              <ChevronRight className="h-3.5 w-3.5 text-zinc-300 ml-auto" />
-            </button>
-          ))}
-        </section>
-
+        <div id="p-config" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Configurações</div>
         {/* NOTIFICAÇÕES PUSH */}
         <PushNotificationsCard />
+        {/* INFORMAÇÕES GERAIS */}
+        <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
+          <h3 className="text-[14px] font-bold mb-3">Informações gerais</h3>
+          <div className="grid grid-cols-2 gap-x-3 gap-y-3">
+            <Info icon={Phone} label="WhatsApp" value={aluno?.whatsapp ?? session?.whatsapp ?? "—"} />
+            <Info icon={Crown} label="Plano" value={aluno?.plano ?? "—"} />
+            <Info icon={Mail} label="E-mail" value={aluno?.email ?? session?.email ?? "—"} />
+            <Info icon={ClipboardList} label="Modalidade" value={aluno?.modalidade ?? "—"} />
+            <Info icon={Dumbbell} label="Serviço" value={aluno?.servico_contratado ? String(aluno.servico_contratado).replace(/_/g, " ") : "—"} />
+            <Info icon={DollarSign} label="Valor" value={aluno?.valor_plano != null ? `R$ ${Number(aluno.valor_plano).toFixed(2)}` : "—"} />
+            <Info icon={Calendar} label="Idade" value={idade != null ? `${idade} anos` : "—"} />
+            <Info icon={Heart} label="Altura" value={altura} />
+            <Info icon={Heart} label="Peso atual" value={pesoAtualKg != null ? `${pesoAtualKg} kg` : "—"} />
+            <Info icon={Heart} label="IMC" value={imc != null ? String(imc) : "—"} />
+            <Info icon={DollarSign} label="Último pagamento" value={ultPag ? `R$ ${Number(ultPag.valor).toFixed(2)} · ${fmtDate(ultPag.data_transacao ?? ultPag.criado_em)}` : "—"} />
+            <Info icon={Clock} label="Status" value={aluno?.status ? String(aluno.status).replace(/_/g, " ") : "—"} />
+          </div>
+        </section>
+
       </div>
     </div>
   );

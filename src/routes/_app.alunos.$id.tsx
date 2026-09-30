@@ -40,29 +40,38 @@ import { filtrarFormulariosVisiveis } from "@/lib/formularios-filtro";
 import { PerfilDashboard } from "@/components/aluno/perfil-dashboard/PerfilDashboard";
 import { AlunoAvatar } from "@/components/aluno/AlunoAvatar";
 import { readCache, writeCache } from "@/lib/swr-cache";
+import { Dumbbell, HeartPulse, Trophy } from "lucide-react";
+import {
+  DadosTab, AnamneseTab, TreinosTab, FrequenciaTab, SaudeTab, ResultadosTab, OcorrenciasTab, ResumoAlertas, HistoricoTimeline,
+} from "@/components/aluno/perfil-tabs/PerfilTabs";
 
 const SECTION_KEYS = [
-  "perfil","dieta","prescricoes","formularios",
-  "fotos","avaliacao","financeiro","historico",
+  "resumo","dados","anamnese","treinos","frequencia","saude","avaliacoes","resultados","financeiro","ocorrencias","historico",
+  "dieta","prescricoes",
 ] as const;
 
 export const Route = createFileRoute("/_app/alunos/$id")({
   component: AlunoProfile,
 });
 
-type SectionKey =
-  | "perfil" | "dieta" | "prescricoes" | "formularios"
-  | "fotos" | "avaliacao" | "financeiro" | "historico";
+type SectionKey = (typeof SECTION_KEYS)[number];
 
 const SECTIONS: { key: SectionKey; label: string; icon: any }[] = [
-  { key: "perfil", label: "Perfil", icon: UserIcon },
-  { key: "dieta", label: "Dieta", icon: UtensilsCrossed },
-  { key: "formularios", label: "Formulários", icon: ClipboardList },
-  { key: "avaliacao", label: "Avaliação Física", icon: Activity },
-  { key: "fotos", label: "Fotos", icon: Camera },
+  { key: "resumo", label: "Resumo", icon: LayoutGrid },
+  { key: "dados", label: "Dados", icon: UserIcon },
+  { key: "anamnese", label: "Anamnese", icon: ClipboardList },
+  { key: "treinos", label: "Treinos", icon: Dumbbell },
+  { key: "frequencia", label: "Frequência", icon: Calendar },
+  { key: "saude", label: "Saúde", icon: HeartPulse },
+  { key: "avaliacoes", label: "Avaliações", icon: Activity },
+  { key: "resultados", label: "Resultados", icon: Trophy },
   { key: "financeiro", label: "Financeiro", icon: Wallet },
+  { key: "ocorrencias", label: "Ocorrências", icon: MessageSquare },
   { key: "historico", label: "Histórico", icon: History },
 ];
+
+// Abas antigas redirecionadas para a nova estrutura
+const LEGACY: Record<string, SectionKey> = { perfil: "resumo", formularios: "anamnese", avaliacao: "avaliacoes", fotos: "avaliacoes" };
 
 function initials(nome: string) {
   const parts = nome.trim().split(/\s+/);
@@ -115,21 +124,23 @@ function AlunoProfile() {
   const STORAGE_KEY = `aluno:${id}:tab`;
   const HASH_RE = /^#tab=([a-z]+)$/;
   const readInitial = (): SectionKey => {
-    if (typeof window === "undefined") return "perfil";
+    if (typeof window === "undefined") return "resumo";
     const m = window.location.hash.match(HASH_RE);
-    const fromHash = m?.[1];
+    const qs = new URLSearchParams(window.location.search).get("tab");
+    let fromHash = qs ?? m?.[1];
+    if (fromHash && LEGACY[fromHash]) fromHash = LEGACY[fromHash];
     if (fromHash && (SECTION_KEYS as readonly string[]).includes(fromHash)) return fromHash as SectionKey;
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored && (SECTION_KEYS as readonly string[]).includes(stored)) return stored as SectionKey;
-    return "perfil";
+    if (stored && LEGACY[stored]) return LEGACY[stored];
+    return "resumo";
   };
   const [active, setActiveState] = useState<SectionKey>(readInitial);
   const setActive = (key: SectionKey) => {
     setActiveState(key);
     if (typeof window !== "undefined") {
       window.localStorage.setItem(STORAGE_KEY, key);
-      const newHash = key === "perfil" ? "" : `#tab=${key}`;
-      const url = window.location.pathname + window.location.search + newHash;
+      const url = window.location.pathname + (key === "resumo" ? "" : `?tab=${key}`);
       window.history.replaceState(null, "", url);
     }
   };
@@ -175,7 +186,7 @@ function AlunoProfile() {
 
   // Bloquear acesso à seção financeiro para não-admins (mesmo se forçado via state)
   useEffect(() => {
-    if (active === "financeiro" && !isAdmin) setActive("perfil");
+    if (active === "financeiro" && !isAdmin) setActive("resumo");
   }, [active, isAdmin]);
 
   const visibleSections = isAdmin ? SECTIONS : SECTIONS.filter((s) => s.key !== "financeiro");
@@ -247,9 +258,9 @@ function AlunoProfile() {
           const numero = (aluno.whatsapp || "").replace(/\D/g, "");
           window.open(numero ? `https://wa.me/${numero}` : `https://wa.me/`, "_blank", "noopener,noreferrer");
         }}
-        onAdicionarFeedback={() => setActive("formularios")}
+        onAdicionarFeedback={() => setActive("anamnese")}
         onEditar={() => {
-          setActive("perfil");
+          setActive("dados");
           setTimeout(() => window.dispatchEvent(new CustomEvent("aluno-open-edit")), 50);
         }}
       />
@@ -283,14 +294,14 @@ function AlunoProfile() {
         </Link>
         <ChevronRight className="h-4 w-4 text-blue-500" />
         <button
-          onClick={() => setActive("perfil")}
-          className={active === "perfil"
+          onClick={() => setActive("resumo")}
+          className={active === "resumo"
             ? "font-semibold text-foreground"
             : "text-muted-foreground hover:text-foreground"}
         >
           {aluno.nome}
         </button>
-        {active !== "perfil" && (
+        {active !== "resumo" && (
           <>
             <ChevronRight className="h-4 w-4 text-blue-500" />
             <span className="font-semibold text-foreground">
@@ -431,13 +442,37 @@ function AlunoProfile() {
         </div>
 
         <div className="min-w-0">
-          {active === "perfil" && (
-            <PerfilDashboard
-              aluno={aluno}
-              alunoId={id}
-              onEditar={() => window.dispatchEvent(new CustomEvent("aluno-open-edit"))}
-            />
+          {active === "resumo" && (
+            <>
+              <ResumoAlertas alunoId={id} />
+              <PerfilDashboard
+                aluno={aluno}
+                alunoId={id}
+                onEditar={() => window.dispatchEvent(new CustomEvent("aluno-open-edit"))}
+              />
+            </>
           )}
+          {active === "dados" && (
+            <div className="space-y-4">
+              <DadosTab aluno={aluno} isAdmin={isAdmin} onEditar={() => setEditPerfilOpen(true)} />
+              <AcessoAppCard alunoId={id} />
+            </div>
+          )}
+          {active === "anamnese" && (
+            <AnamneseTab forms={forms}><FormulariosSection forms={forms} /></AnamneseTab>
+          )}
+          {active === "treinos" && <TreinosTab alunoId={id} />}
+          {active === "frequencia" && <FrequenciaTab alunoId={id} aluno={aluno} />}
+          {active === "saude" && (
+            <SaudeTab alunoId={id}><SaudeAlunoCard alunoId={id} aluno={aluno} /></SaudeTab>
+          )}
+          {active === "avaliacoes" && (
+            <div className="space-y-6">
+              <AvaliacaoFisicaTab alunoId={id} />
+              <FotosSection alunoId={id} />
+            </div>
+          )}
+          {active === "resultados" && <ResultadosTab alunoId={id} />}
           {active === "dieta" && (
             <DietaSection
               alunoId={id}
@@ -447,13 +482,17 @@ function AlunoProfile() {
             />
           )}
           {active === "prescricoes" && <DietaSection alunoId={id} aluno={aluno} canEdit={canEdit} />}
-          {active === "formularios" && <FormulariosSection forms={forms} />}
-          {active === "fotos" && <FotosSection alunoId={id} />}
-          {active === "avaliacao" && <AvaliacaoFisicaTab alunoId={id} />}
           {active === "financeiro" && isAdmin && (
             <FinanceiroSection aluno={aluno} dr={dr} canEdit={isAdmin} onChange={changeField} />
           )}
-          {active === "historico" && <HistoricoSection hist={hist} logs={logs} jobs={jobs} aluno={aluno} comunicacoes={comunicacoes} />}
+          {active === "ocorrencias" && (
+            <OcorrenciasTab alunoId={id} canEdit={canEdit} responsavel={crmUser?.nome ?? crmUser?.email ?? "Equipe"} />
+          )}
+          {active === "historico" && (
+            <HistoricoTimeline alunoId={id} hist={hist}>
+              <HistoricoSection hist={hist} logs={logs} jobs={jobs} aluno={aluno} comunicacoes={comunicacoes} />
+            </HistoricoTimeline>
+          )}
         </div>
       </div>
       {editPerfilOpen && (
@@ -527,8 +566,8 @@ function PerfilSection({
           isAdmin={isAdmin}
           onEditar={() => setEditOpen(true)}
           onWhatsApp={abrirWhatsApp}
-          onAdicionarFeedback={() => onGo("formularios")}
-          onAdicionarFoto={() => onGo("fotos")}
+          onAdicionarFeedback={() => onGo("anamnese")}
+          onAdicionarFoto={() => onGo("avaliacoes")}
           onAjustarDieta={() => onGo("dieta")}
           onPagamento={isAdmin ? () => onGo("financeiro") : undefined}
         />
@@ -542,7 +581,7 @@ function PerfilSection({
           canEdit={canEdit}
           isAdmin={isAdmin}
           onWhatsApp={abrirWhatsApp}
-          onAdicionarFeedback={() => onGo("formularios")}
+          onAdicionarFeedback={() => onGo("anamnese")}
           onAjustarDieta={() => onGo("dieta")}
         />
       </div>
@@ -1775,11 +1814,8 @@ function MobileAlunoTopBar({
   const idadeNum = idade.replace(/\D+/g, "") || "—";
 
   // 4 abas principais + "Mais"
-  const mainKeys: SectionKey[] = ["perfil", "dieta", "avaliacao", "formularios"];
-  const mainTabs = mainKeys
-    .map((k) => visibleSections.find((s) => s.key === k))
-    .filter(Boolean) as { key: SectionKey; label: string; icon: any }[];
-  const otherTabs = visibleSections.filter((s) => !mainKeys.includes(s.key));
+  const mainTabs = visibleSections;
+  const otherTabs: typeof visibleSections = [];
 
   return (
     <div className="md:hidden -mt-3 -mx-3 sm:-mx-4 mb-1">
@@ -1828,16 +1864,16 @@ function MobileAlunoTopBar({
                 </button>
               )}
               <button
-                onClick={() => { setMenuOpen(false); onChangeTab("formularios"); }}
+                onClick={() => { setMenuOpen(false); onChangeTab("anamnese"); }}
                 className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-muted text-left"
               >
-                <ClipboardList className="h-4 w-4" /> Formulários
+                <ClipboardList className="h-4 w-4" /> Anamnese e formulários
               </button>
               <button
-                onClick={() => { setMenuOpen(false); onChangeTab("fotos"); }}
+                onClick={() => { setMenuOpen(false); onChangeTab("avaliacoes"); }}
                 className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-muted text-left"
               >
-                <Camera className="h-4 w-4" /> Fotos
+                <Camera className="h-4 w-4" /> Avaliações e fotos
               </button>
               <button
                 onClick={() => { setMenuOpen(false); onChangeTab("historico"); }}

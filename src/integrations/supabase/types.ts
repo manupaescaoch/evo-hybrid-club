@@ -302,6 +302,56 @@ export type Database = {
         }
         Relationships: []
       }
+      aluno_ocorrencias: {
+        Row: {
+          aluno_id: string
+          atualizado_em: string
+          categoria: string
+          criado_em: string
+          data: string
+          descricao: string | null
+          id: string
+          prioridade: string
+          responsavel: string | null
+          status: string
+          titulo: string
+        }
+        Insert: {
+          aluno_id: string
+          atualizado_em?: string
+          categoria?: string
+          criado_em?: string
+          data?: string
+          descricao?: string | null
+          id?: string
+          prioridade?: string
+          responsavel?: string | null
+          status?: string
+          titulo: string
+        }
+        Update: {
+          aluno_id?: string
+          atualizado_em?: string
+          categoria?: string
+          criado_em?: string
+          data?: string
+          descricao?: string | null
+          id?: string
+          prioridade?: string
+          responsavel?: string | null
+          status?: string
+          titulo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aluno_ocorrencias_aluno_id_fkey"
+            columns: ["aluno_id"]
+            isOneToOne: false
+            referencedRelation: "alunos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       aluno_push_subscriptions: {
         Row: {
           aluno_id: string

@@ -23,11 +23,11 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/aluno/treino")({
   head: () => ({
     meta: [
-      { title: "Treino de hoje — App do Aluno | EVO HYBRID CLUB" },
+      { title: "WOD de hoje — App do Aluno | EVO HYBRID CLUB" },
       {
         name: "description",
         content:
-          "Detalhes do treino de hoje: aquecimento, rodagem, intensidade por zona e blocos de execução.",
+          "Detalhes do WOD de hoje: aquecimento, rodagem, intensidade por zona e blocos de execução.",
       },
     ],
   }),
@@ -145,7 +145,7 @@ function AlunoTreinoPage() {
   };
 
   const salvarPse = () => {
-    toast.success("Treino registrado com sucesso!");
+    toast.success("WOD registrado com sucesso!");
     setModalOpen(false);
     setSalvo(false);
     setPse(null);
@@ -176,7 +176,7 @@ function AlunoTreinoPage() {
 
       <div className="flex items-center justify-between px-1">
         <h1 className="text-[11px] font-extrabold tracking-[0.2em] text-black">
-          {isHoje ? "TREINO DE HOJE" : "TREINO DO DIA"}
+          {isHoje ? "WOD DE HOJE" : "WOD DO DIA"}
         </h1>
         <button type="button" className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#0033FF] active:scale-95 transition">
           <Download className="h-3.5 w-3.5" />
@@ -185,11 +185,11 @@ function AlunoTreinoPage() {
       </div>
 
       {isLoading ? (
-        <div className="rounded-2xl bg-white p-6 text-center text-[12px] text-black/50 ring-1 ring-black/5">Carregando treino...</div>
+        <div className="rounded-2xl bg-white p-6 text-center text-[12px] text-black/50 ring-1 ring-black/5">Carregando WOD...</div>
       ) : doDia.length === 0 || doDia.every((s) => s.tipo === "descanso") ? (
         <div className="rounded-2xl bg-white p-6 text-center ring-1 ring-black/5">
           <p className="text-[15px] font-extrabold text-black">Dia de descanso</p>
-          <p className="text-[12px] text-black/55 mt-1">Nenhum treino programado para este dia.</p>
+          <p className="text-[12px] text-black/55 mt-1">Nenhum WOD programado para este dia.</p>
         </div>
       ) : (
         doDia.filter((s) => s.tipo !== "descanso").map((s) => (
@@ -204,7 +204,7 @@ function AlunoTreinoPage() {
         className="w-full mt-1 rounded-2xl py-3.5 text-[14px] font-extrabold ring-1 transition active:scale-[0.99] inline-flex items-center justify-center gap-2 bg-[#0033FF] text-white ring-[#0033FF] hover:bg-[#0033FF]/90"
       >
         <Play className="h-4 w-4" fill="currentColor" />
-        Finalizar treino
+        Finalizar WOD
       </button>
       )}
 
@@ -243,10 +243,10 @@ function AlunoTreinoPage() {
               {step === 1 && (
                 <div>
                   <h3 className="text-[20px] font-extrabold text-black leading-tight">
-                    Como foi o treino?
+                    Como foi o WOD?
                   </h3>
                   <p className="text-[12px] text-black/55 mt-1">
-                    Anote o tempo e a distância para salvar seu treino.
+                    Anote o tempo e a distância para salvar seu WOD.
                   </p>
 
                   {/* Tempo */}
@@ -320,7 +320,7 @@ function AlunoTreinoPage() {
                     disabled={!tempoMin}
                     className="mt-4 w-full rounded-2xl bg-[#0033FF] text-white py-3.5 text-[14px] font-extrabold active:scale-[0.99] transition disabled:opacity-50"
                   >
-                    Salvar treino
+                    Salvar WOD
                   </button>
                 </div>
               )}
@@ -377,7 +377,7 @@ function AlunoTreinoPage() {
                     className="mt-4 w-full rounded-2xl bg-[#22C55E] text-white py-3.5 text-[14px] font-extrabold active:scale-[0.99] transition disabled:opacity-50 inline-flex items-center justify-center gap-2"
                   >
                     <Check className="h-4 w-4" strokeWidth={3} />
-                    Concluir treino
+                    Concluir WOD
                   </button>
                 </div>
               )}

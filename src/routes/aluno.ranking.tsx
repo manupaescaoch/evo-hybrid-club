@@ -33,7 +33,7 @@ type Periodo = "semana" | "mes" | "geral";
 const ganhosScore = [
   { label: "Check-in diário", score: "+5 Score", icon: CircleCheck },
   { label: "Postar evolução", score: "+20 Score", icon: Camera },
-  { label: "Registrar treino", score: "+25 Score", icon: HeartPulse },
+  { label: "Registrar WOD", score: "+25 Score", icon: HeartPulse },
   { label: "Sequência diária", score: "Bônus", icon: Flame },
   { label: "Comentar publicação", score: "+10 Score", icon: MessageCircle },
   { label: "Beber água", score: "+5 Score", icon: Droplets },

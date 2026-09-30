@@ -167,7 +167,7 @@ export function PushNotificationsCard() {
         <div className="flex-1 min-w-0">
           <div className="text-[13px] font-semibold text-zinc-900">Notificações</div>
           <p className="text-[11px] text-zinc-500 mt-0.5 leading-snug">
-            Receba lembretes de check-in, água, treino e novidades direto no seu celular.
+            Receba lembretes de check-in, água, WOD e novidades direto no seu celular.
           </p>
 
           {estado === "carregando" && (

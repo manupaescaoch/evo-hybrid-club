@@ -264,7 +264,7 @@ function AlunoPerfil() {
       });
     });
     entregas.slice(0, 6).forEach((e: any) => {
-      if (e.treino_entregue) items.push({ d: shortDate(e.data_referencia), t: "Treino entregue", s: "Plano de treino atualizado", icon: Dumbbell, color: "#0F172A", ts: new Date(e.data_referencia).getTime() });
+      if (e.treino_entregue) items.push({ d: shortDate(e.data_referencia), t: "WOD entregue", s: "Plano de WOD atualizado", icon: Dumbbell, color: "#0F172A", ts: new Date(e.data_referencia).getTime() });
       if (e.dieta_entregue) items.push({ d: shortDate(e.data_referencia), t: "Dieta entregue", s: "Plano alimentar atualizado", icon: Utensils, color: "#F59E0B", ts: new Date(e.data_referencia).getTime() });
     });
     feedbacks.slice(0, 4).forEach((f: any) => {
@@ -479,7 +479,7 @@ function AlunoPerfil() {
           <div className="grid grid-cols-3 gap-2">
             <PerfCell label="Sequência" value={`${streak}`} sub="dias" icon={Flame} color={RED} />
             <PerfCell label="Aderência 7d" value={`${aderencia7.geral}%`} color="#10B981" ring={aderencia7.geral} />
-            <PerfCell label="Treino 7d" value={`${aderencia7.treino}%`} icon={Dumbbell} color="#0F172A" />
+            <PerfCell label="WOD 7d" value={`${aderencia7.treino}%`} icon={Dumbbell} color="#0F172A" />
             <PerfCell label="Dieta 7d" value={`${aderencia7.dieta}%`} icon={Utensils} color="#10B981" />
             <PerfCell label="Check-ins 7d" value={`${ult7checkins.length}/7`} icon={BadgeCheck} color="#0EA5E9" />
             <PerfCell label="IMC" value={imc != null ? String(imc) : "—"} icon={Heart} color={RED} />

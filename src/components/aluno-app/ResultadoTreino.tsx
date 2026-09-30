@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Trophy, Loader2, ChevronRight, X } from "lucide-react";
+import { Trophy, Loader2, ChevronRight, X, Timer } from "lucide-react";
+import { WodTimer } from "./WodTimer";
 import { toast } from "sonner";
 import { getRankingTreino, registrarResultadoTreino, type RankingResp } from "@/backend/treino-resultados.functions";
 import { formatarResultado, resultadoMeta } from "@/lib/treino-hyrox";
@@ -18,7 +19,9 @@ const PLACEHOLDER: Record<string, string> = {
 
 type Filtro = "geral" | "masculino" | "feminino" | "faixa_etaria";
 
-export function ResultadoTreino({ sessaoId, blocoId, tipo, podeRegistrar }: { sessaoId: string; blocoId: string | null; tipo: string; podeRegistrar: boolean }) {
+export function ResultadoTreino({ sessaoId, blocoId, tipo, podeRegistrar, formato, prescricao, duracaoMin }: { sessaoId: string; blocoId: string | null; tipo: string; podeRegistrar: boolean; formato?: string | null; prescricao?: string | null; duracaoMin?: number | null }) {
+  const [timer, setTimer] = useState(false);
+  const temTimer = podeRegistrar && (tipo === "tempo" || tipo === "rounds_reps");
   const fetchRanking = useServerFn(getRankingTreino);
   const salvar = useServerFn(registrarResultadoTreino);
   const [rk, setRk] = useState<RankingResp | null>(null);
@@ -105,6 +108,11 @@ export function ResultadoTreino({ sessaoId, blocoId, tipo, podeRegistrar }: { se
             {rk?.ranking_habilitado && rk.total > 0 && (
               <button type="button" onClick={() => setAberto(true)} className="text-[11px] font-bold text-[#0033FF]">Ver ranking</button>
             )}
+            {temTimer && (
+              <button type="button" onClick={() => setTimer(true)} className="inline-flex items-center gap-1 rounded-full bg-black text-white px-3 py-1.5 text-[12px] font-extrabold">
+                <Timer className="h-3.5 w-3.5" /> Timer
+              </button>
+            )}
             {podeRegistrar && (
               <button type="button" onClick={() => setEditando(true)} className="rounded-full bg-[#0033FF] text-white px-3.5 py-1.5 text-[12px] font-extrabold">
                 Registrar resultado
@@ -112,6 +120,16 @@ export function ResultadoTreino({ sessaoId, blocoId, tipo, podeRegistrar }: { se
             )}
           </div>
         </div>
+      )}
+
+      {timer && (
+        <WodTimer
+          formato={formato ?? (tipo === "rounds_reps" ? "AMRAP" : "FOR TIME")}
+          prescricao={prescricao}
+          duracaoMin={duracaoMin}
+          onClose={() => setTimer(false)}
+          onResult={(v) => { setTimer(false); setValor(v); setEditando(true); }}
+        />
       )}
 
       {aberto && rk && (

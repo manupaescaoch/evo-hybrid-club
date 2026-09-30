@@ -31,7 +31,7 @@ export const Route = createFileRoute("/aluno/")({
   head: () => ({
     meta: [
       { title: "Início — App do Aluno | EVO HYBRID CLUB" },
-      { name: "description", content: "Sua página inicial no EVO HYBRID CLUB: score do dia, check-in diário, dieta, treinos e evolução em um só lugar." },
+      { name: "description", content: "Sua página inicial no EVO HYBRID CLUB: score do dia, check-in diário, dieta, WODs e evolução em um só lugar." },
     ],
   }),
   component: AlunoInicio,
@@ -451,8 +451,8 @@ function AlunoInicio() {
             <div className="flex items-center gap-2.5 flex-1 min-w-0">
               <Shoe className="h-7 w-7 text-[#0033FF]" strokeWidth={2.5} />
               <div className="min-w-0">
-                <div className="text-[18px] font-extrabold leading-none text-black tabular-nums">3 treinos</div>
-                <div className="text-[11px] text-black/55 mt-1">Treinos concluídos</div>
+                <div className="text-[18px] font-extrabold leading-none text-black tabular-nums">3 WODs</div>
+                <div className="text-[11px] text-black/55 mt-1">WODs concluídos</div>
               </div>
             </div>
             <ChevronRight className="h-5 w-5 text-black/30 self-center ml-1 shrink-0" />
@@ -666,13 +666,13 @@ function TreinoHojeCard() {
   }, [fetchSemana]);
 
   if (sessoes === null) {
-    return <div className="rounded-2xl bg-white p-6 text-center text-[12px] text-black/50 ring-1 ring-black/5">Carregando treino...</div>;
+    return <div className="rounded-2xl bg-white p-6 text-center text-[12px] text-black/50 ring-1 ring-black/5">Carregando WOD...</div>;
   }
   if (sessoes.length === 0) {
     return (
       <div className="rounded-2xl bg-white p-5 text-center ring-1 ring-black/5">
         <p className="text-[16px] font-extrabold text-black">Dia de descanso</p>
-        <p className="text-[12px] text-black/55 mt-1">Nenhum treino programado para hoje.</p>
+        <p className="text-[12px] text-black/55 mt-1">Nenhum WOD programado para hoje.</p>
       </div>
     );
   }
@@ -697,14 +697,14 @@ function TreinoHojeCard() {
         )}
       </div>
       {sessoes.length > 1 && (
-        <p className="mt-2 text-[12px] font-semibold text-[#0033FF]">+ {sessoes.length - 1} {sessoes.length - 1 === 1 ? "outro treino" : "outros treinos"} hoje</p>
+        <p className="mt-2 text-[12px] font-semibold text-[#0033FF]">+ {sessoes.length - 1} {sessoes.length - 1 === 1 ? "outro WOD" : "outros WODs"} hoje</p>
       )}
       <Link
         to="/aluno/treino"
         className="mt-4 w-full inline-flex items-center justify-center gap-2 h-12 rounded-2xl bg-[#0033FF] text-white text-[15px] font-extrabold tracking-tight active:scale-[0.99] transition shadow-[0_12px_28px_-12px_rgba(0,51,255,0.55)]"
       >
         <Play className="h-4 w-4" fill="#fff" />
-        Iniciar treino
+        Iniciar WOD
       </Link>
     </div>
   );

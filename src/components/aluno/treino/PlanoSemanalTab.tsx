@@ -151,6 +151,7 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
     status: "rascunho",
   }));
   const [sessoes, setSessoes] = useState<Sessao[]>([]);
+  const [assinOrig, setAssinOrig] = useState<Record<string, string>>({});
 
   const [sessaoAberta, setSessaoAberta] = useState<Sessao | null>(null);
   const [bibliotecaAberta, setBibliotecaAberta] = useState(false);
@@ -189,8 +190,9 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
         .order("ordem_no_dia", { ascending: true });
 
       if (ss) {
-        setSessoes(
-          ss.map((s) => ({
+        const lista: Sessao[] = ss.map((s) => {
+          const r = s as Record<string, unknown>;
+          return {
             id: s.id,
             data: s.data,
             ordem_no_dia: s.ordem_no_dia,
@@ -203,26 +205,19 @@ export function PlanoSemanalTab({ alunoId, perfil }: { alunoId: string; perfil: 
             objetivo: s.objetivo,
             observacao: s.observacao,
             executada: s.executada,
-            blocos: ((s as { corrida_sessao_blocos?: Array<Record<string, unknown>> }).corrida_sessao_blocos ?? [])
-              .map(
-                (b) =>
-                  ({
-                    id: String(b.id),
-                    ordem: Number(b.ordem ?? 0),
-                    tipo: (b.tipo as BlocoTipo) ?? "rodagem",
-                    nome: String(b.nome ?? ""),
-                    descricao: String(b.descricao ?? ""),
-                    duracao_min: b.duracao_min != null ? String(b.duracao_min) : "",
-                    pace: String(b.pace ?? ""),
-                    zona: String(b.zona ?? "Z2"),
-                    series: String(b.series ?? ""),
-                    distancia_serie: String(b.distancia_serie ?? ""),
-                    recuperacao: String(b.recuperacao ?? ""),
-                  }) as Bloco,
-              )
+            categoria: (r.categoria as string) ?? null,
+            resultado_geral_habilitado: !!r.resultado_geral_habilitado,
+            resultado_geral_tipo: (r.resultado_geral_tipo as string) ?? null,
+            resultado_geral_criterio: (r.resultado_geral_criterio as string) ?? null,
+            blocos: ((r.corrida_sessao_blocos as Array<Record<string, unknown>>) ?? [])
+              .map(mapBloco)
               .sort((a, b) => a.ordem - b.ordem),
-          })),
-        );
+          };
+        });
+        const assin: Record<string, string> = {};
+        for (const s of lista) for (const b of s.blocos) assin[b.id] = assinaturaResultado(b);
+        setAssinOrig(assin);
+        setSessoes(lista);
       } else {
         setSessoes([]);
       }

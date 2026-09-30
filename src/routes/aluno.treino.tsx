@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { getSemanaTreinoAluno, type AlunoTreinoSessao, type AlunoTreinoBloco } from "@/backend/aluno-treino.functions";
 import { paceToKmh } from "@/lib/corrida-zonas";
+import { tipoBlocoMeta } from "@/lib/treino-hyrox";
+import { ResultadoTreino } from "@/components/aluno-app/ResultadoTreino";
 import {
   ArrowLeft,
   Clock,
@@ -193,7 +195,7 @@ function AlunoTreinoPage() {
         </div>
       ) : (
         doDia.filter((s) => s.tipo !== "descanso").map((s) => (
-          <SessaoCard key={s.id} s={s} feitos={feitos} toggle={toggle} />
+          <SessaoCard key={s.id} s={s} feitos={feitos} toggle={toggle} podeRegistrar={s.data <= ymd(new Date())} />
         ))
       )}
 
@@ -389,7 +391,7 @@ function AlunoTreinoPage() {
   );
 }
 
-function SessaoCard({ s, feitos, toggle }: { s: AlunoTreinoSessao; feitos: Set<string>; toggle: (id: string) => void }) {
+function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao; feitos: Set<string>; toggle: (id: string) => void; podeRegistrar: boolean }) {
   return (
     <div className="space-y-2">
       <motion.section
@@ -431,27 +433,47 @@ function SessaoCard({ s, feitos, toggle }: { s: AlunoTreinoSessao; feitos: Set<s
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.04 * i }}
-              className="rounded-2xl bg-white ring-1 ring-black/5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] flex items-center gap-3 p-3"
+              className="rounded-2xl bg-white ring-1 ring-black/5 shadow-[0_8px_24px_-16px_rgba(0,0,0,0.18)] p-3 border-l-4"
+              style={{ borderLeftColor: tipoBlocoMeta(b.tipo).cor }}
             >
-              <div className={`h-11 w-11 shrink-0 rounded-xl flex items-center justify-center text-[12px] font-extrabold tabular-nums ${done ? "bg-[#22C55E]/10 text-[#16a34a]" : "bg-black/5 text-black/60"}`}>
-                {String(i + 1).padStart(2, "0")}
+              <div className="flex items-start gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] font-extrabold tracking-[0.14em] uppercase" style={{ color: tipoBlocoMeta(b.tipo).cor }}>
+                      {tipoBlocoMeta(b.tipo).value === "custom" && !["custom"].includes(b.tipo) ? b.nome || "Bloco" : tipoBlocoMeta(b.tipo).label}
+                    </span>
+                    {b.formato && <span className="rounded-full bg-black/5 px-2 py-0.5 text-[10px] font-extrabold text-black/60">{b.formato}</span>}
+                  </div>
+                  {b.nome && tipoBlocoMeta(b.tipo).value === b.tipo && <p className="text-[14px] font-extrabold text-black leading-tight mt-1">{b.nome}</p>}
+                  {b.prescricao ? (
+                    <p className="text-[13px] text-black/80 mt-1.5 whitespace-pre-line leading-relaxed">{b.prescricao}</p>
+                  ) : (
+                    <p className="text-[11px] text-black/55 mt-0.5">{descBloco(b)}</p>
+                  )}
+                  {b.orientacoes && <p className="text-[11px] text-black/55 mt-1.5 italic">💬 {b.orientacoes}</p>}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => toggle(b.id)}
+                  aria-label={done ? "Desmarcar bloco" : "Marcar bloco concluído"}
+                  className={`h-7 w-7 shrink-0 rounded-full flex items-center justify-center transition active:scale-90 ${done ? "bg-[#22C55E]" : "border-2 border-black/15 bg-white"}`}
+                >
+                  {done && <Check className="h-4 w-4 text-white" strokeWidth={3.5} />}
+                </button>
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[13px] font-extrabold text-black leading-tight">{b.nome}</p>
-                <p className="text-[11px] text-black/55 mt-0.5">{descBloco(b)}</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => toggle(b.id)}
-                aria-label={done ? "Desmarcar bloco" : "Marcar bloco concluído"}
-                className={`h-7 w-7 shrink-0 rounded-full flex items-center justify-center transition active:scale-90 ${done ? "bg-[#22C55E]" : "border-2 border-black/15 bg-white"}`}
-              >
-                {done && <Check className="h-4 w-4 text-white" strokeWidth={3.5} />}
-              </button>
+              {b.resultado_habilitado && (
+                <ResultadoTreino sessaoId={s.id} blocoId={b.id} tipo={b.resultado_tipo ?? "custom"} podeRegistrar={podeRegistrar} />
+              )}
             </motion.li>
           );
         })}
       </ul>
+      {s.resultado_geral_habilitado && (
+        <div className="rounded-2xl bg-white ring-1 ring-black/5 p-3">
+          <p className="text-[10px] font-extrabold tracking-[0.14em] uppercase text-[#0033FF]">Resultado geral do WOD</p>
+          <ResultadoTreino sessaoId={s.id} blocoId={null} tipo={s.resultado_geral_tipo ?? "tempo"} podeRegistrar={podeRegistrar} />
+        </div>
+      )}
     </div>
   );
 }

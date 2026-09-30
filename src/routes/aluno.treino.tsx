@@ -176,7 +176,7 @@ function AlunoTreinoPage() {
 
       <div className="flex items-center justify-between px-1">
         <h1 className="text-[11px] font-extrabold tracking-[0.2em] text-black">
-          {isHoje ? "TREINO DE HOJE" : "TREINO DO DIA"}
+          {isHoje ? "WOD DE HOJE" : "WOD DO DIA"}
         </h1>
         <button type="button" className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#0033FF] active:scale-95 transition">
           <Download className="h-3.5 w-3.5" />

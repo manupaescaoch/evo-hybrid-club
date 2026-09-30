@@ -322,7 +322,7 @@ function AlunoInicio() {
       >
         <div className="flex items-center justify-between mb-2 px-1">
           <h2 className="text-[11px] font-extrabold tracking-[0.2em] text-black">
-            TREINO DE HOJE
+            WOD DE HOJE
           </h2>
           <Link
             to="/aluno/treino"

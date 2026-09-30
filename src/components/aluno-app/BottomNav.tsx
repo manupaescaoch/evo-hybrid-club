@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 type Item = { to: string; label: string; icon: typeof Home; exact?: boolean };
 const items: Item[] = [
   { to: "/aluno", label: "Início", icon: Home, exact: true },
-  { to: "/aluno/treino", label: "Treino", icon: Dumbbell },
+  { to: "/aluno/treino", label: "WOD", icon: Dumbbell },
   { to: "/aluno/comunidade", label: "Comunidade", icon: Users },
   { to: "/aluno/ranking", label: "Ranking", icon: Trophy },
 ];

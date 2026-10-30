@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { optionalAlunoAuth } from "./aluno-middleware";
-import type { Paces } from "@/lib/corrida-vdot";
+import type { EstruturaCorrida, Paces } from "@/lib/corrida-vdot";
 
 export type AlunoTreinoBloco = {
   id: string;
@@ -22,7 +22,7 @@ export type AlunoTreinoBloco = {
   resultado_tipo: string | null;
   ranking_habilitado: boolean;
   ranking_criterio: string | null;
-  corrida_estrutura: unknown;
+  corrida_estrutura: EstruturaCorrida | null;
 };
 
 export type AlunoTreinoSessao = {

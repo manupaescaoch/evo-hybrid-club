@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import { concluirTreino } from "@/backend/treino-conclusao.functions";
 
 export const Route = createFileRoute("/aluno/treino")({
   head: () => ({
@@ -155,11 +156,37 @@ function AlunoTreinoPage() {
     setStep(2);
   };
 
-  const salvarPse = () => {
-    toast.success("Treino registrado com sucesso!");
-    setModalOpen(false);
-    setSalvo(false);
-    setPse(null);
+  const concluir = useServerFn(concluirTreino);
+  const [concluindo, setConcluindo] = useState(false);
+  const salvarPse = async () => {
+    const ids = doDia.filter((s) => s.tipo !== "descanso").map((s) => s.id);
+    if (!ids.length || concluindo) return;
+    setConcluindo(true);
+    try {
+      const seg = (Number(tempoMin) || 0) * 60 + (Number(tempoSec) || 0);
+      const km = Number(String(distancia).replace(",", "."));
+      const r = await concluir({
+        data: {
+          sessao_ids: ids,
+          duracao_seg: seg || null,
+          distancia_km: Number.isFinite(km) && km > 0 ? km : null,
+          pse,
+          observacao: obs || null,
+        },
+      });
+      if (!r.ok) {
+        toast.error(r.error);
+        return;
+      }
+      toast.success("Treino concluído! +30 no ranking.");
+      setModalOpen(false);
+      setSalvo(false);
+      setPse(null);
+    } catch (e) {
+      toast.error(e instanceof Response && e.status === 401 ? "Seu acesso expirou. Entre de novo." : "Não foi possível salvar o treino.");
+    } finally {
+      setConcluindo(false);
+    }
   };
 
 
@@ -386,7 +413,7 @@ function AlunoTreinoPage() {
                   <button
                     type="button"
                     onClick={salvarPse}
-                    disabled={pse === null}
+                    disabled={pse === null || concluindo}
                     className="mt-4 w-full rounded-2xl bg-[#22C55E] text-white py-3.5 text-[14px] font-extrabold active:scale-[0.99] transition disabled:opacity-50 inline-flex items-center justify-center gap-2"
                   >
                     <Check className="h-4 w-4" strokeWidth={3} />

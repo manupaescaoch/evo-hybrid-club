@@ -18,7 +18,7 @@ export const LIGAS = [
 ] as const;
 
 export const REGRAS_PONTUACAO = [
-  { label: "Treino do dia concluído", score: `+${PONTOS.treinoConcluido}`, detalhe: "1 vez por sessão" },
+  { label: "Treino do dia concluído", score: `+${PONTOS.treinoConcluido}`, detalhe: "ao tocar em Finalizar treino ou registrar resultado — 1 vez por sessão" },
   { label: "Resultado registrado", score: `+${PONTOS.resultadoBloco}`, detalhe: "por bloco com resultado" },
   { label: "Corrida registrada", score: `+${PONTOS.corridaPorKm}/km`, detalhe: `até ${PONTOS.corridaMaxKmDia} km por dia` },
   { label: "Check-in diário", score: `+${PONTOS.checkin}`, detalhe: "1 vez por dia" },

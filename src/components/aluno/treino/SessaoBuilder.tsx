@@ -31,6 +31,8 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { estruturaPadrao, type EstruturaCorrida } from "@/lib/corrida-vdot";
+import { CorridaEstruturaEditor } from "./CorridaEstruturaEditor";
 import { TIPOS_SESSAO, type SessaoTipo } from "@/lib/corrida-tipos";
 import {
   TIPOS_BLOCO_HYROX,
@@ -64,6 +66,7 @@ export type Bloco = {
   ranking_habilitado: boolean;
   ranking_criterio: string | null;
   ranking_filtros: string[];
+  corrida_estrutura: EstruturaCorrida | null;
 };
 
 export type Sessao = {
@@ -109,6 +112,7 @@ export function novoBlocoHyrox(tipo = "custom"): Bloco {
     ranking_habilitado: false,
     ranking_criterio: null,
     ranking_filtros: ["geral"],
+    corrida_estrutura: tipo === "corrida" ? estruturaPadrao() : null,
   };
 }
 
@@ -369,7 +373,7 @@ function BlocoCard({
         </button>
         <select
           value={meta.value}
-          onChange={(e) => onChange({ tipo: e.target.value })}
+          onChange={(e) => onChange({ tipo: e.target.value, ...(e.target.value === "corrida" && !bloco.corrida_estrutura ? { corrida_estrutura: estruturaPadrao() } : {}) })}
           className="text-[11px] font-extrabold tracking-wider bg-transparent border-0 focus:outline-none cursor-pointer"
           style={{ color: meta.cor }}
         >
@@ -390,7 +394,11 @@ function BlocoCard({
           <p className="text-[11px] text-muted-foreground -mt-1">{meta.desc}</p>
           <input value={bloco.nome} onChange={(e) => onChange({ nome: e.target.value })} placeholder="Nome do bloco (opcional) — ex: Lower Body Strength" className={inputCls} />
 
-          <div>
+          {bloco.tipo === "corrida" && bloco.corrida_estrutura && (
+            <CorridaEstruturaEditor valor={bloco.corrida_estrutura} onChange={(v) => onChange({ corrida_estrutura: v })} />
+          )}
+
+          {bloco.tipo !== "corrida" && (<div>
             <span className="text-[10px] font-bold tracking-wider uppercase text-muted-foreground">Formato</span>
             <div className="mt-1.5 flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1 [scrollbar-width:thin]">
               {FORMATOS.map((f) => {
@@ -408,9 +416,9 @@ function BlocoCard({
               })}
             </div>
             {fmt && <p className="mt-1 text-[11px] text-muted-foreground"><b className="text-foreground">{fmt.label}</b> — {fmt.desc}</p>}
-          </div>
+          </div>)}
 
-          <Field label="Prescrição">
+          <Field label={bloco.tipo === "corrida" ? "Texto extra (opcional)" : "Prescrição"}>
             <textarea
               value={bloco.prescricao}
               onChange={(e) => onChange({ prescricao: e.target.value })}

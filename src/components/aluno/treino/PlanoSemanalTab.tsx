@@ -131,6 +131,7 @@ function mapBloco(b: Record<string, unknown>): Bloco {
     ranking_habilitado: !!b.ranking_habilitado,
     ranking_criterio: (b.ranking_criterio as string) ?? null,
     ranking_filtros: Array.isArray(b.ranking_filtros) ? (b.ranking_filtros as string[]) : ["geral"],
+    corrida_estrutura: isEstrutura(b.corrida_estrutura) ? b.corrida_estrutura : null,
   };
 }
 
@@ -613,6 +614,7 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
             ranking_habilitado: b.resultado_habilitado && b.ranking_habilitado,
             ranking_criterio: b.ranking_habilitado ? b.ranking_criterio : null,
             ranking_filtros: b.ranking_filtros,
+            corrida_estrutura: b.tipo === "corrida" ? b.corrida_estrutura : null,
           };
           const q = b.id.startsWith("tmp_")
             ? supabase.from("corrida_sessao_blocos").insert(payloadB)

@@ -163,7 +163,7 @@ async function processarPayload(payload: any): Promise<{
   if (PDF_URL && !(await etapaJaEnviada(phone, MARK_PDF))) {
     const r1 = await enviarDocumentoZapi({
       phone,
-      documentUrl: PDF_URL,
+      documentUrl: PDF_URL as string,
       fileName: PDF_FILENAME,
       tipoJob: TIPO_JOB,
       alunoId,

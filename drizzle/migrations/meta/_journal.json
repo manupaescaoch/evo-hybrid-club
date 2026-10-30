@@ -29,6 +29,13 @@
       "when": 1793356916275,
       "tag": "0003_aluno_fotos_equipe_select",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793357773732,
+      "tag": "0004_treino_conclusoes_e_prints",
+      "breakpoints": true
     }
   ]
 }

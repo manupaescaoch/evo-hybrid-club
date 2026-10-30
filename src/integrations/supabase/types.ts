@@ -3008,6 +3008,50 @@ export type Database = {
           },
         ]
       }
+      treino_conclusoes: {
+        Row: {
+          aluno_id: string
+          criado_em: string
+          data_treino: string
+          distancia_km: number | null
+          duracao_seg: number | null
+          id: string
+          observacao: string | null
+          pse: number | null
+          sessao_id: string
+        }
+        Insert: {
+          aluno_id: string
+          criado_em?: string
+          data_treino: string
+          distancia_km?: number | null
+          duracao_seg?: number | null
+          id?: string
+          observacao?: string | null
+          pse?: number | null
+          sessao_id: string
+        }
+        Update: {
+          aluno_id?: string
+          criado_em?: string
+          data_treino?: string
+          distancia_km?: number | null
+          duracao_seg?: number | null
+          id?: string
+          observacao?: string | null
+          pse?: number | null
+          sessao_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "treino_conclusoes_sessao_id_fkey"
+            columns: ["sessao_id"]
+            isOneToOne: false
+            referencedRelation: "corrida_sessoes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       treino_resultados: {
         Row: {
           aluno_id: string

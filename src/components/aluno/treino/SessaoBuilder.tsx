@@ -268,7 +268,7 @@ export function SessaoEditor({
             </button>
           </PopoverTrigger>
           <PopoverContent className="w-80 p-2" align="center">
-            <div className="grid grid-cols-2 gap-1 max-h-80 overflow-y-auto">
+            <div className="grid grid-cols-2 gap-1">
               {TIPOS_BLOCO_HYROX.map((t) => (
                 <button key={t.value} type="button" onClick={() => addBloco(t.value)} title={t.desc} className="flex items-center gap-2 rounded-md px-2 py-2 text-left text-[11px] font-bold hover:bg-muted">
                   <span className="h-2.5 w-2.5 rounded-full shrink-0" style={{ backgroundColor: t.cor }} />

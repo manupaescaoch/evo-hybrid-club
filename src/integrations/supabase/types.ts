@@ -644,24 +644,30 @@ export type Database = {
       community_posts: {
         Row: {
           aluno_id: string
+          corrida_id: string | null
           created_at: string
           foto_url: string
           id: string
           legenda: string | null
+          origem: string
         }
         Insert: {
           aluno_id: string
+          corrida_id?: string | null
           created_at?: string
           foto_url: string
           id?: string
           legenda?: string | null
+          origem?: string
         }
         Update: {
           aluno_id?: string
+          corrida_id?: string | null
           created_at?: string
           foto_url?: string
           id?: string
           legenda?: string | null
+          origem?: string
         }
         Relationships: [
           {
@@ -669,6 +675,13 @@ export type Database = {
             columns: ["aluno_id"]
             isOneToOne: false
             referencedRelation: "alunos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "community_posts_corrida_id_fkey"
+            columns: ["corrida_id"]
+            isOneToOne: false
+            referencedRelation: "corridas_registradas"
             referencedColumns: ["id"]
           },
         ]
@@ -1328,6 +1341,53 @@ export type Database = {
             columns: ["microciclo_id"]
             isOneToOne: false
             referencedRelation: "corrida_microciclos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      corridas_registradas: {
+        Row: {
+          aluno_id: string
+          created_at: string
+          data: string
+          distancia_km: number
+          id: string
+          observacao: string | null
+          pace_segundos_km: number
+          print_url: string
+          status: string
+          tempo_segundos: number
+        }
+        Insert: {
+          aluno_id: string
+          created_at?: string
+          data: string
+          distancia_km: number
+          id?: string
+          observacao?: string | null
+          pace_segundos_km: number
+          print_url: string
+          status?: string
+          tempo_segundos: number
+        }
+        Update: {
+          aluno_id?: string
+          created_at?: string
+          data?: string
+          distancia_km?: number
+          id?: string
+          observacao?: string | null
+          pace_segundos_km?: number
+          print_url?: string
+          status?: string
+          tempo_segundos?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "corridas_registradas_aluno_id_fkey"
+            columns: ["aluno_id"]
+            isOneToOne: false
+            referencedRelation: "alunos"
             referencedColumns: ["id"]
           },
         ]
@@ -3177,6 +3237,24 @@ export type Database = {
       next_brt_8am: { Args: { base: string }; Returns: string }
       next_brt_business_window: { Args: { base: string }; Returns: string }
       normalizar_telefone_br: { Args: { _telefone: string }; Returns: string }
+      ranking_scores: {
+        Args: {
+          _ate: string
+          _desde: string
+          _max_km: number
+          _p_checkin: number
+          _p_km: number
+          _p_post: number
+          _p_resultado: number
+          _p_seq_bonus: number
+          _p_treino: number
+          _seq_dias: number
+        }
+        Returns: {
+          aluno_id: string
+          score: number
+        }[]
+      }
       recalcular_score_dia: {
         Args: { _aluno_id: string; _data: string }
         Returns: number

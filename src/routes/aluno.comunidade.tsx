@@ -81,10 +81,17 @@ function PostCard({
       </div>
 
       {/* Imagem */}
-      <div
-        className="aspect-square w-full bg-black/5 bg-cover bg-center"
-        style={{ backgroundImage: `url(${post.foto_url})` }}
-      />
+      {post.foto_url ? (
+        <div
+          className="aspect-square w-full bg-black/5 bg-cover bg-center"
+          style={{ backgroundImage: `url(${post.foto_url})` }}
+        />
+      ) : (
+        <div className="mx-3 rounded-2xl bg-[#0033FF]/5 px-4 py-6 text-center">
+          <p className="text-[28px]">🏃</p>
+          <p className="mt-1 text-[14px] font-extrabold text-black">{post.legenda ?? "Corrida registrada"}</p>
+        </div>
+      )}
 
       {/* Ações */}
       <div className="px-3 pt-3 pb-1 flex items-center gap-3">

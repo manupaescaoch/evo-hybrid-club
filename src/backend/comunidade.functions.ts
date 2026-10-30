@@ -62,7 +62,7 @@ async function buildFeed(viewerId: string | null) {
       nome: a?.nome ?? "Aluno",
       username: a?.username ?? null,
       foto_perfil: a?.foto_url ?? null,
-      foto_url: p.foto_url,
+      foto_url: (p as any).origem === "corrida" ? "" : p.foto_url,
       legenda: p.legenda ?? null,
       created_at: p.created_at,
       likes: likeCount.get(p.id) ?? 0,

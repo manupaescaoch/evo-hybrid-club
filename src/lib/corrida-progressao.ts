@@ -55,9 +55,10 @@ export function avisosProgressao(c: ContextoSemana): string[] {
     const lim = anterior * (1 + PROGRESSAO.aumentoMaxSemanal);
     if (c.volumeKm > lim) avisos.push(`Volume subiu mais de 10% sobre a semana anterior (limite ${fmt(lim)} km).`);
   }
-  const seguidas = c.anterioresKm.slice(0, PROGRESSAO.cicloRecuperacaoSemanas - 1);
-  if (seguidas.length === PROGRESSAO.cicloRecuperacaoSemanas - 1 && seguidas.every((v, i) => i === 0 || v <= (seguidas[i - 1] ?? 0)) && seguidas.every((v) => v > 0) && c.volumeKm >= anterior) {
-    avisos.push("Já são 3 semanas de carga seguidas: planeje uma semana de recuperação (3:1).");
+  const ult = c.anterioresKm.slice(0, 4);
+  const teveRecuperacao = ult.slice(0, 3).some((v, i) => (ult[i + 1] ?? 0) > 0 && v < (ult[i + 1] ?? 0) * 0.75);
+  if (ult.length >= 3 && ult.slice(0, 3).every((v) => v > 0) && !teveRecuperacao) {
+    avisos.push("Já são 3 semanas de carga seguidas: planeje uma semana de recuperação (3:1, volume a 60%).");
   }
   return avisos;
 }

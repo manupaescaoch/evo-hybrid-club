@@ -113,7 +113,7 @@ function PostCard({
         <div className="text-[13px] font-bold text-black">
           {post.likes} {post.likes === 1 ? "curtida" : "curtidas"}
         </div>
-        {post.legenda && (
+        {post.legenda && post.foto_url && (
           <p className="text-[13px] text-black leading-snug">
             <span className="font-bold mr-1">{handle ?? post.nome}</span>
             {post.legenda}

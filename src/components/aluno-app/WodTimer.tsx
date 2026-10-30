@@ -155,7 +155,7 @@ export function WodTimer({
     <div className={`fixed inset-0 z-[60] ${bg} text-white flex flex-col`}>
       <div className="flex items-center justify-between p-4">
         <div>
-          <p className="text-[10px] font-extrabold tracking-[0.18em] uppercase text-white/60">{formato || "WOD"}</p>
+          <p className="text-[10px] font-extrabold tracking-[0.18em] uppercase text-white/60">{formato || "Treino"}</p>
           <p className="text-[14px] font-extrabold">{TITULO[modo]}</p>
         </div>
         <button type="button" onClick={onClose} aria-label="Fechar timer" className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center"><X className="h-5 w-5" /></button>

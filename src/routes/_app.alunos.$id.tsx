@@ -1,3 +1,4 @@
+import { CorridasRevisao } from "@/components/aluno/CorridasRevisao";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -472,7 +473,7 @@ function AlunoProfile() {
               <FotosSection alunoId={id} />
             </div>
           )}
-          {active === "resultados" && <ResultadosTab alunoId={id} />}
+          {active === "resultados" && <div className="space-y-4"><ResultadosTab alunoId={id} /><CorridasRevisao alunoId={id} /></div>}
           {active === "dieta" && (
             <DietaSection
               alunoId={id}

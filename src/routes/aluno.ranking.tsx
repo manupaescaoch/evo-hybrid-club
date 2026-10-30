@@ -22,6 +22,7 @@ import {
 import { useAlunoSession } from "@/lib/aluno-session";
 import { ProfileAvatar } from "@/components/aluno-app/ProfileAvatar";
 import { useServerFn } from "@tanstack/react-start";
+import { REGRAS_PONTUACAO } from "@/lib/ranking-pontos";
 import { getRanking, type RankingResposta, type RankingItem } from "@/backend/ranking.functions";
 
 export const Route = createFileRoute("/aluno/ranking")({
@@ -30,15 +31,8 @@ export const Route = createFileRoute("/aluno/ranking")({
 
 type Periodo = "semana" | "mes" | "geral";
 
-const ganhosScore = [
-  { label: "Check-in diário", score: "+5 Score", icon: CircleCheck },
-  { label: "Postar evolução", score: "+20 Score", icon: Camera },
-  { label: "Registrar WOD", score: "+25 Score", icon: HeartPulse },
-  { label: "Sequência diária", score: "Bônus", icon: Flame },
-  { label: "Comentar publicação", score: "+10 Score", icon: MessageCircle },
-  { label: "Beber água", score: "+5 Score", icon: Droplets },
-  { label: "Manter rotina", score: "Constância", icon: MapPin },
-];
+const ICONES = [HeartPulse, CircleCheck, MapPin, CircleCheck, Camera, Flame];
+const ganhosScore = REGRAS_PONTUACAO.map((r, i) => ({ label: r.label, score: r.score, detalhe: r.detalhe, icon: ICONES[i] ?? CircleCheck }));
 
 const PALETAS = [
   "linear-gradient(135deg,#be185d,#ec4899)",
@@ -88,6 +82,7 @@ function AlunoRanking() {
   const [data, setData] = useState<RankingResposta | null>(null);
   const [loading, setLoading] = useState(true);
   const [expandido, setExpandido] = useState(false);
+  const [regrasOpen, setRegrasOpen] = useState(false);
   const fetchRanking = useServerFn(getRanking);
 
   useEffect(() => {
@@ -116,9 +111,9 @@ function AlunoRanking() {
 
   const subtitulo =
     tab === "semana"
-      ? "Sua performance nos últimos 7 dias."
+      ? "De segunda a domingo — zera toda segunda."
       : tab === "mes"
-        ? "Sua evolução nos últimos 30 dias."
+        ? "Pontos do mês atual."
         : "Histórico completo da comunidade.";
   const titulo = tab === "semana" ? "Ranking semanal" : tab === "mes" ? "Ranking mensal" : "Ranking geral";
 
@@ -152,6 +147,9 @@ function AlunoRanking() {
         <div className="min-w-0">
           <h1 className="text-[24px] leading-tight font-extrabold tracking-tight text-black">Ranking</h1>
           <p className="mt-1 text-[12px] text-black/50 font-medium">Performance, consistência e evolução.</p>
+          <button onClick={() => setRegrasOpen(true)} className="mt-2 rounded-full bg-[#0033FF]/8 px-3 py-1 text-[11.5px] font-bold text-[#0033FF]">
+            Como pontuar
+          </button>
         </div>
         <ProfileAvatar />
       </header>
@@ -365,6 +363,29 @@ function AlunoRanking() {
             </>
           )}
         </motion.div>
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {regrasOpen && (
+          <motion.div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setRegrasOpen(false)}>
+            <motion.div initial={{ y: 40 }} animate={{ y: 0 }} exit={{ y: 40 }} onClick={(e) => e.stopPropagation()} className="w-full max-w-md rounded-t-3xl bg-white p-5 pb-8">
+              <h2 className="text-[17px] font-extrabold text-black">Como pontuar</h2>
+              <div className="mt-3 space-y-2.5">
+                {ganhosScore.map((g) => (
+                  <div key={g.label} className="flex items-center gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-bold text-black">{g.label}</p>
+                      <p className="text-[11.5px] text-black/50">{g.detalhe}</p>
+                    </div>
+                    <span className="text-[13px] font-extrabold text-[#0033FF] tabular-nums">{g.score}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-3 text-[11px] text-black/45">Corridas recusadas pelo treinador e posts automáticos de corrida não pontuam. Ligas usam o score geral.</p>
+              <button onClick={() => setRegrasOpen(false)} className="mt-4 w-full rounded-2xl bg-[#0033FF] py-3 text-[14px] font-extrabold text-white">Entendi</button>
+            </motion.div>
+          </motion.div>
+        )}
       </AnimatePresence>
 
       {/* Como ganhar Score */}

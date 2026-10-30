@@ -1,14 +1,15 @@
 import { createServerFn } from "@tanstack/react-start";
+import { dataRecife } from "@/lib/recife-date";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { requireAlunoAuth } from "./aluno-middleware";
 
-const SCORE_DIARIO = 5;
+const SCORE_DIARIO = 10;
 
 export const getCheckinHoje = createServerFn({ method: "POST" })
   .middleware([requireAlunoAuth])
   .handler(async ({ context }) => {
-    const hoje = new Date().toISOString().slice(0, 10);
+    const hoje = dataRecife();
     const sb = supabaseAdmin as any;
     const { data: row, error } = await sb
       .from("daily_checkins")
@@ -33,7 +34,7 @@ export const salvarCheckinDiario = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const hoje = new Date().toISOString().slice(0, 10);
+    const hoje = dataRecife();
     const payload = {
       aluno_id: context.alunoId,
       data_checkin: hoje,

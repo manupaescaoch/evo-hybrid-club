@@ -5,7 +5,8 @@ import {
   enviarTextoZapiDireto,
 } from "@/backend/zapi-send.server";
 
-const PDF_URL = "https://ironclubrun.lovable.app/pdfs/seja-bem-vindo-mpteam.pdf";
+// PDF de boas-vindas antigo (marca anterior) foi retirado; defina uma URL para voltar a enviar.
+const PDF_URL: string | null = null;
 const PDF_FILENAME = "Seja Bem-Vindo - EVO HYBRID CLUB.pdf";
 const TIPO_JOB = "boas_vindas_webhook";
 
@@ -132,6 +133,7 @@ async function enviarEtapa(
   alunoId: string | null,
 ): Promise<{ ok: boolean; error: string | null }> {
   if (etapa === "pdf") {
+    if (!PDF_URL) return { ok: true, error: null };
     return enviarDocumentoZapi({
       phone,
       documentUrl: PDF_URL,

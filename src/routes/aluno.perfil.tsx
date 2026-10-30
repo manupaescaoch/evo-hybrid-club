@@ -1,3 +1,4 @@
+import { MinhasCorridas } from "@/components/aluno-app/MinhasCorridas";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -697,6 +698,8 @@ function AlunoPerfil() {
             <button onClick={() => nav({ to: "/aluno/ranking" })} className="rounded-2xl bg-zinc-100 text-zinc-800 py-2.5 text-[12px] font-bold">Ver ranking</button>
           </div>
         </section>
+
+        <MinhasCorridas />
 
         <div id="p-dados" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Dados pessoais e plano</div>
         {/* INFORMAÇÕES GERAIS */}

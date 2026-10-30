@@ -784,7 +784,7 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
             volumeKm: totalKm,
             anterioresKm,
             tipoSemana: micro.tipo_semana,
-            primeiraSemana: micro.numero_semana === 1,
+            primeiraSemana: anterioresKm[0] === 0,
           }).map((t) => (
             <Alerta key={t} icon={AlertTriangle} cor="#F97316" texto={t} />
           ))}

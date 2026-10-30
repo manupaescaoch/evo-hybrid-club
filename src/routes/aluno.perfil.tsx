@@ -276,7 +276,7 @@ function AlunoPerfil() {
       });
     });
     entregas.slice(0, 6).forEach((e: any) => {
-      if (e.treino_entregue) items.push({ d: shortDate(e.data_referencia), t: "WOD entregue", s: "Plano de WOD atualizado", icon: Dumbbell, color: "#0F172A", ts: new Date(e.data_referencia).getTime() });
+      if (e.treino_entregue) items.push({ d: shortDate(e.data_referencia), t: "Treino entregue", s: "Plano de treino atualizado", icon: Dumbbell, color: "#0F172A", ts: new Date(e.data_referencia).getTime() });
     });
     feedbacks.slice(0, 4).forEach((f: any) => {
       items.push({
@@ -616,7 +616,7 @@ function AlunoPerfil() {
           <div className="grid grid-cols-3 gap-2">
             <PerfCell label="Sequência" value={`${streak}`} sub="dias" icon={Flame} color={RED} />
             <PerfCell label="Aderência 7d" value={`${aderencia7.geral}%`} color="#10B981" ring={aderencia7.geral} />
-            <PerfCell label="WOD 7d" value={`${aderencia7.treino}%`} icon={Dumbbell} color="#0F172A" />
+            <PerfCell label="Treino 7d" value={`${aderencia7.treino}%`} icon={Dumbbell} color="#0F172A" />
             <PerfCell label="Check-ins 7d" value={`${ult7checkins.length}/7`} icon={BadgeCheck} color="#0EA5E9" />
             <PerfCell label="IMC" value={imc != null ? String(imc) : "—"} icon={Heart} color={RED} />
           </div>
@@ -691,9 +691,9 @@ function AlunoPerfil() {
         <div id="p-resultados" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Resultados</div>
         <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
           <h3 className="text-[14px] font-bold">Resultados e PRs</h3>
-          <p className="mt-1 text-[12px] text-zinc-500">Seus tempos, cargas e posições ficam registrados em cada WOD.</p>
+          <p className="mt-1 text-[12px] text-zinc-500">Seus tempos, cargas e posições ficam registrados em cada treino.</p>
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <button onClick={() => nav({ to: "/aluno/treino" })} className="rounded-2xl bg-[#0033FF] text-white py-2.5 text-[12px] font-bold">Ver meus WODs</button>
+            <button onClick={() => nav({ to: "/aluno/treino" })} className="rounded-2xl bg-[#0033FF] text-white py-2.5 text-[12px] font-bold">Ver meus treinos</button>
             <button onClick={() => nav({ to: "/aluno/ranking" })} className="rounded-2xl bg-zinc-100 text-zinc-800 py-2.5 text-[12px] font-bold">Ver ranking</button>
           </div>
         </section>

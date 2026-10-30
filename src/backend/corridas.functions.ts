@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
-import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireAlunoAuth } from "./aluno-middleware";
 import { decodeAndValidateImage } from "./image-validation.server";
 import { formatPace, formatTempo, paceSegundos, validarCorrida } from "@/lib/ranking-pontos";
@@ -87,35 +86,3 @@ export const listarMinhasCorridas = createServerFn({ method: "POST" })
     return (data ?? []) as CorridaRegistrada[];
   });
 
-/** Painel do treinador: corridas de um aluno (ou de todos). */
-export const listarCorridasEquipe = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ aluno_id: z.string().uuid().nullable().optional() }).parse(input))
-  .handler(async ({ data, context }) => {
-    let q = (context.supabase as any)
-      .from("corridas_registradas")
-      .select("*")
-      .order("data", { ascending: false })
-      .order("created_at", { ascending: false })
-      .limit(200);
-    if (data.aluno_id) q = q.eq("aluno_id", data.aluno_id);
-    const { data: rows, error } = await q;
-    if (error) throw new Error(error.message);
-    return (rows ?? []) as CorridaRegistrada[];
-  });
-
-export const revisarCorrida = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) =>
-    z.object({ id: z.string().uuid(), status: z.enum(["aprovada", "recusada"]) }).parse(input),
-  )
-  .handler(async ({ data, context }) => {
-    const { data: rows, error } = await (context.supabase as any)
-      .from("corridas_registradas")
-      .update({ status: data.status })
-      .eq("id", data.id)
-      .select("id");
-    if (error) return { ok: false as const, error: error.message };
-    if (!rows?.length) return { ok: false as const, error: "Sem permissão para revisar esta corrida." };
-    return { ok: true as const };
-  });

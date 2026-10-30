@@ -56,6 +56,14 @@ import {
 import { BibliotecaSessoesTab, type ModeloSessao } from "./BibliotecaSessoesTab";
 import { SessaoEditor, novoBlocoHyrox, assinaturaResultado, type Sessao, type Bloco } from "./SessaoBuilder";
 import { WizardGerarPlano } from "./WizardGerarPlano";
+import { isEstrutura, totaisEstrutura, PACES_REFERENCIA } from "@/lib/corrida-vdot";
+import { avisosProgressao } from "@/lib/corrida-progressao";
+
+/** Km de corrida da sessão: maior entre a distância informada e a soma dos blocos de corrida. */
+function kmSessao(s: { distancia_km: number | null; blocos?: { corrida_estrutura?: unknown }[] }): number {
+  const est = (s.blocos ?? []).reduce((a, b) => a + (isEstrutura(b.corrida_estrutura) ? totaisEstrutura(b.corrida_estrutura, PACES_REFERENCIA).km : 0), 0);
+  return Math.max(Number(s.distancia_km ?? 0), est);
+}
 import type { ParamsGeracao, SemanaGerada } from "@/lib/corrida-gerador";
 
 type Microciclo = {
@@ -160,10 +168,29 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
   const [wizardAberto, setWizardAberto] = useState(false);
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }), useSensor(KeyboardSensor));
+  const [anterioresKm, setAnterioresKm] = useState<number[]>([]);
 
   const carregar = useCallback(async () => {
     setLoading(true);
     const dataInicioIso = toISODate(semanaRef);
+
+    // Volume de corrida das 4 semanas anteriores (para as regras de progressão).
+    {
+      const inicios = [1, 2, 3, 4].map((n) => toISODate(addDays(semanaRef, -7 * n)));
+      let q = supabase.from("corrida_microciclos").select("id, data_inicio").in("data_inicio", inicios);
+      q = global ? q.eq("is_global", true) : q.eq("aluno_id", alunoId ?? "");
+      const { data: ms } = await q;
+      const ids = (ms ?? []).map((x) => x.id);
+      const vols: Record<string, number> = {};
+      if (ids.length) {
+        const { data: ps } = await supabase.from("corrida_sessoes").select("microciclo_id, distancia_km, corrida_sessao_blocos(corrida_estrutura)").in("microciclo_id", ids);
+        for (const x of ps ?? []) {
+          const ini = (ms ?? []).find((m) => m.id === x.microciclo_id)?.data_inicio;
+          if (ini) vols[ini] = (vols[ini] ?? 0) + kmSessao({ distancia_km: x.distancia_km != null ? Number(x.distancia_km) : null, blocos: (x as { corrida_sessao_blocos?: { corrida_estrutura: unknown }[] }).corrida_sessao_blocos });
+        }
+      }
+      setAnterioresKm(inicios.map((i) => vols[i] ?? 0));
+    }
 
     if (global && !ownerIdRef.current) {
       const { data: referencia } = await supabase
@@ -259,7 +286,7 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
 
   // ===== KPIs =====
   const totalKm = useMemo(
-    () => sessoes.reduce((acc, s) => acc + (s.distancia_km ?? 0), 0),
+    () => sessoes.reduce((acc, s) => acc + kmSessao(s), 0),
     [sessoes],
   );
   const totalMin = useMemo(
@@ -270,7 +297,7 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
     () =>
       sessoes
         .filter((s) => ["intervalado", "tempo", "fartlek"].includes(s.tipo))
-        .reduce((acc, s) => acc + (s.distancia_km ?? 0), 0),
+        .reduce((acc, s) => acc + kmSessao(s), 0),
     [sessoes],
   );
   const pctQualidade = totalKm > 0 ? Math.round((qualidadeKm / totalKm) * 100) : 0;
@@ -748,6 +775,19 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
 
         {/* Alertas */}
         <div className="mt-3 space-y-1.5">
+          {anterioresKm.some((v) => v > 0) && (
+            <p className="text-[11px] text-muted-foreground">
+              Semana anterior: {anterioresKm[0].toFixed(1)} km · média 4 semanas: {(anterioresKm.reduce((a, b) => a + b, 0) / 4).toFixed(1)} km
+            </p>
+          )}
+          {avisosProgressao({
+            volumeKm: totalKm,
+            anterioresKm,
+            tipoSemana: micro.tipo_semana,
+            primeiraSemana: micro.numero_semana === 1,
+          }).map((t) => (
+            <Alerta key={t} icon={AlertTriangle} cor="#F97316" texto={t} />
+          ))}
           {acimaAlvo && (
             <Alerta
               icon={AlertTriangle}

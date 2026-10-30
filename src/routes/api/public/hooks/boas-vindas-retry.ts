@@ -133,6 +133,7 @@ async function enviarEtapa(
   alunoId: string | null,
 ): Promise<{ ok: boolean; error: string | null }> {
   if (etapa === "pdf") {
+    if (!PDF_URL) return { ok: true, error: null };
     return enviarDocumentoZapi({
       phone,
       documentUrl: PDF_URL,

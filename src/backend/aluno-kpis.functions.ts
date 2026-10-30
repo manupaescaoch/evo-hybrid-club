@@ -1,10 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
+import { dataRecife } from "@/lib/recife-date";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { z } from "zod";
 import { requireAlunoAuth } from "./aluno-middleware";
 
 function hojeStr() {
-  return new Date().toISOString().slice(0, 10);
+  return dataRecife();
 }
 
 /** Registra (ou subtrai) consumo de água em ml. */

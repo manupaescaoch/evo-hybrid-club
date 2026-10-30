@@ -91,6 +91,10 @@
   --chart-3: oklch(0.75 0.22 264);            /* light red */
   --chart-4: oklch(0.45 0.25 264);             /* deep red */
   --chart-5: oklch(0.55 0.01 260);           /* gray */
+  --forma-condicionamento: oklch(0.50 0.30 264);
+  --forma-fadiga: oklch(0.70 0.19 45);
+  --forma-positiva: oklch(0.65 0.18 150);
+  --forma-negativa: oklch(0.62 0.21 30);
   --sidebar: oklch(0.985 0.003 260);         /* very light */
   --sidebar-foreground: oklch(0.25 0.01 260);
   --sidebar-primary: oklch(0.50 0.30 264);

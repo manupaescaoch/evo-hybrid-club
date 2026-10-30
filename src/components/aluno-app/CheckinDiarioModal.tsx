@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useServerFn } from "@tanstack/react-start";
 import { X, Moon, Zap, Sparkles } from "lucide-react";
-import { useAlunoSession } from "@/lib/aluno-session";
+import { useAlunoSession, clearAlunoSession } from "@/lib/aluno-session";
 import { triggerAlunoDashboardRefetch } from "@/lib/aluno-dashboard-store";
 import {
   getCheckinHoje,
@@ -94,7 +94,20 @@ export function CheckinDiarioModal() {
       triggerAlunoDashboardRefetch(res.checkin ?? undefined);
       setTimeout(() => setSavedToast(false), 2200);
     } catch (e: any) {
-      setErro(e?.message || "Erro ao salvar");
+      const status = e instanceof Response ? e.status : null;
+      if (status === 401) {
+        // Login do aluno expirou (cookie e token ausentes): volta para o login.
+        setErro("Seu acesso expirou. Entre de novo para salvar.");
+        clearAlunoSession();
+        setTimeout(() => { window.location.href = "/login"; }, 1500);
+        return;
+      }
+      if (status === 403) {
+        setErro("Troque sua senha antes de continuar.");
+        setTimeout(() => { window.location.href = "/aluno/trocar-senha"; }, 1500);
+        return;
+      }
+      setErro(e?.message || "Erro ao salvar. Tente de novo.");
     } finally {
       setSaving(false);
     }

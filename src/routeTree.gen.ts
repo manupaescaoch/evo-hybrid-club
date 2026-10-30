@@ -9,92 +9,76 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as FeedbackQuinzenalRouteImport } from './routes/feedback-quinzenal'
-import { Route as FeedbackMensalRouteImport } from './routes/feedback-mensal'
-import { Route as AnamneseRouteImport } from './routes/anamnese'
-import { Route as AlunoRouteImport } from './routes/aluno'
-import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AlunoIndexRouteImport } from './routes/aluno.index'
-import { Route as FormulariosTokenRouteImport } from './routes/formularios.$token'
-import { Route as AlunoTrocarSenhaRouteImport } from './routes/aluno.trocar-senha'
-import { Route as AlunoTreinoRouteImport } from './routes/aluno.treino'
-import { Route as AlunoRankingRouteImport } from './routes/aluno.ranking'
-import { Route as AlunoPerfilRouteImport } from './routes/aluno.perfil'
-import { Route as AlunoLoginRouteImport } from './routes/aluno.login'
-import { Route as AlunoEsqueciSenhaRouteImport } from './routes/aluno.esqueci-senha'
-import { Route as AlunoComunidadeRouteImport } from './routes/aluno.comunidade'
-import { Route as AppVisaoGeralRouteImport } from './routes/_app.visao-geral'
-import { Route as AppTreinosRouteImport } from './routes/_app.treinos'
-import { Route as AppRelatoriosRouteImport } from './routes/_app.relatorios'
-import { Route as AppFinanceiroRouteImport } from './routes/_app.financeiro'
-import { Route as AppFeedbacksRouteImport } from './routes/_app.feedbacks'
-import { Route as AppConfiguracoesRouteImport } from './routes/_app.configuracoes'
-import { Route as AppCaixaSaidaRouteImport } from './routes/_app.caixa-saida'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as AlunoRouteImport } from './routes/aluno'
+import { Route as AnamneseRouteImport } from './routes/anamnese'
+import { Route as FeedbackMensalRouteImport } from './routes/feedback-mensal'
+import { Route as FeedbackQuinzenalRouteImport } from './routes/feedback-quinzenal'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AppBibliotecaRouteImport } from './routes/_app.biblioteca'
-import { Route as AppFinanceiroIndexRouteImport } from './routes/_app.financeiro.index'
-import { Route as AppConfiguracoesIndexRouteImport } from './routes/_app.configuracoes.index'
-import { Route as AppBibliotecaIndexRouteImport } from './routes/_app.biblioteca.index'
-import { Route as AppAvaliacaoFisicaIndexRouteImport } from './routes/_app.avaliacao-fisica.index'
+import { Route as AppCaixaSaidaRouteImport } from './routes/_app.caixa-saida'
+import { Route as AppConfiguracoesRouteImport } from './routes/_app.configuracoes'
+import { Route as AppFeedbacksRouteImport } from './routes/_app.feedbacks'
+import { Route as AppFinanceiroRouteImport } from './routes/_app.financeiro'
+import { Route as AppRelatoriosRouteImport } from './routes/_app.relatorios'
+import { Route as AppTreinosRouteImport } from './routes/_app.treinos'
+import { Route as AppVisaoGeralRouteImport } from './routes/_app.visao-geral'
+import { Route as AlunoIndexRouteImport } from './routes/aluno.index'
+import { Route as AlunoComunidadeRouteImport } from './routes/aluno.comunidade'
+import { Route as AlunoEsqueciSenhaRouteImport } from './routes/aluno.esqueci-senha'
+import { Route as AlunoLoginRouteImport } from './routes/aluno.login'
+import { Route as AlunoPerfilRouteImport } from './routes/aluno.perfil'
+import { Route as AlunoRankingRouteImport } from './routes/aluno.ranking'
+import { Route as AlunoTreinoRouteImport } from './routes/aluno.treino'
+import { Route as AlunoTrocarSenhaRouteImport } from './routes/aluno.trocar-senha'
+import { Route as FormulariosTokenRouteImport } from './routes/formularios.$token'
 import { Route as AppAlunosIndexRouteImport } from './routes/_app.alunos.index'
-import { Route as FormulariosIdRespostasRouteImport } from './routes/formularios.$id.respostas'
-import { Route as AppFinanceiroVendasRouteImport } from './routes/_app.financeiro.vendas'
-import { Route as AppFinanceiroTransacoesRouteImport } from './routes/_app.financeiro.transacoes'
-import { Route as AppFinanceiroResumoRouteImport } from './routes/_app.financeiro.resumo'
-import { Route as AppFinanceiroRecebimentosRouteImport } from './routes/_app.financeiro.recebimentos'
-import { Route as AppFinanceiroPlanosRouteImport } from './routes/_app.financeiro.planos'
-import { Route as AppFinanceiroDespesasRouteImport } from './routes/_app.financeiro.despesas'
-import { Route as AppFinanceiroContasPagarRouteImport } from './routes/_app.financeiro.contas-pagar'
-import { Route as AppFinanceiroClientesRouteImport } from './routes/_app.financeiro.clientes'
-import { Route as AppFinanceiroCadastrosRouteImport } from './routes/_app.financeiro.cadastros'
-import { Route as AppConfiguracoesUsuariosRouteImport } from './routes/_app.configuracoes.usuarios'
-import { Route as AppConfiguracoesConexoesRouteImport } from './routes/_app.configuracoes.conexoes'
-import { Route as AppConfiguracoesAutomacoesRouteImport } from './routes/_app.configuracoes.automacoes'
-import { Route as AppBibliotecaTreinosRouteImport } from './routes/_app.biblioteca.treinos'
-import { Route as AppBibliotecaSuplementosRouteImport } from './routes/_app.biblioteca.suplementos'
-import { Route as AppBibliotecaReceitasRouteImport } from './routes/_app.biblioteca.receitas'
-import { Route as AppBibliotecaPrescricoesRouteImport } from './routes/_app.biblioteca.prescricoes'
-import { Route as AppBibliotecaFitoterapicosRouteImport } from './routes/_app.biblioteca.fitoterapicos'
-import { Route as AppBibliotecaCardapiosRouteImport } from './routes/_app.biblioteca.cardapios'
-import { Route as AppBibliotecaAlimentosRouteImport } from './routes/_app.biblioteca.alimentos'
-import { Route as AppAvaliacaoFisicaNovaRouteImport } from './routes/_app.avaliacao-fisica.nova'
-import { Route as AppAvaliacaoFisicaIdRouteImport } from './routes/_app.avaliacao-fisica.$id'
 import { Route as AppAlunosIdRouteImport } from './routes/_app.alunos.$id'
-import { Route as ApiPublicHooksZapiMensagemEnviadaRouteImport } from './routes/api/public/hooks/zapi-mensagem-enviada'
-import { Route as ApiPublicHooksZapiBoasVindasRouteImport } from './routes/api/public/hooks/zapi-boas-vindas'
-import { Route as ApiPublicHooksResumoDiarioRouteImport } from './routes/api/public/hooks/resumo-diario'
-import { Route as ApiPublicHooksProcessarJobsFeedbackRouteImport } from './routes/api/public/hooks/processar-jobs-feedback'
-import { Route as ApiPublicHooksMotorAutomacoesRouteImport } from './routes/api/public/hooks/motor-automacoes'
-import { Route as ApiPublicHooksFeedbackLembretesRouteImport } from './routes/api/public/hooks/feedback-lembretes'
-import { Route as ApiPublicHooksBoasVindasRetryRouteImport } from './routes/api/public/hooks/boas-vindas-retry'
-import { Route as ApiPublicHooksAlertaRenovacoesRouteImport } from './routes/api/public/hooks/alerta-renovacoes'
+import { Route as AppAvaliacaoFisicaIndexRouteImport } from './routes/_app.avaliacao-fisica.index'
+import { Route as AppAvaliacaoFisicaIdRouteImport } from './routes/_app.avaliacao-fisica.$id'
+import { Route as AppAvaliacaoFisicaNovaRouteImport } from './routes/_app.avaliacao-fisica.nova'
+import { Route as AppBibliotecaIndexRouteImport } from './routes/_app.biblioteca.index'
+import { Route as AppBibliotecaAlimentosRouteImport } from './routes/_app.biblioteca.alimentos'
+import { Route as AppBibliotecaCardapiosRouteImport } from './routes/_app.biblioteca.cardapios'
+import { Route as AppBibliotecaFitoterapicosRouteImport } from './routes/_app.biblioteca.fitoterapicos'
+import { Route as AppBibliotecaPrescricoesRouteImport } from './routes/_app.biblioteca.prescricoes'
+import { Route as AppBibliotecaReceitasRouteImport } from './routes/_app.biblioteca.receitas'
+import { Route as AppBibliotecaSuplementosRouteImport } from './routes/_app.biblioteca.suplementos'
+import { Route as AppBibliotecaTreinosRouteImport } from './routes/_app.biblioteca.treinos'
+import { Route as AppConfiguracoesIndexRouteImport } from './routes/_app.configuracoes.index'
+import { Route as AppConfiguracoesAutomacoesRouteImport } from './routes/_app.configuracoes.automacoes'
+import { Route as AppConfiguracoesConexoesRouteImport } from './routes/_app.configuracoes.conexoes'
+import { Route as AppConfiguracoesUsuariosRouteImport } from './routes/_app.configuracoes.usuarios'
+import { Route as AppFinanceiroIndexRouteImport } from './routes/_app.financeiro.index'
+import { Route as AppFinanceiroCadastrosRouteImport } from './routes/_app.financeiro.cadastros'
+import { Route as AppFinanceiroClientesRouteImport } from './routes/_app.financeiro.clientes'
+import { Route as AppFinanceiroContasPagarRouteImport } from './routes/_app.financeiro.contas-pagar'
+import { Route as AppFinanceiroDespesasRouteImport } from './routes/_app.financeiro.despesas'
+import { Route as AppFinanceiroPlanosRouteImport } from './routes/_app.financeiro.planos'
+import { Route as AppFinanceiroRecebimentosRouteImport } from './routes/_app.financeiro.recebimentos'
+import { Route as AppFinanceiroResumoRouteImport } from './routes/_app.financeiro.resumo'
+import { Route as AppFinanceiroTransacoesRouteImport } from './routes/_app.financeiro.transacoes'
+import { Route as AppFinanceiroVendasRouteImport } from './routes/_app.financeiro.vendas'
+import { Route as FormulariosIdRespostasRouteImport } from './routes/formularios.$id.respostas'
 import { Route as AppAvaliacaoFisicaIdEditarRouteImport } from './routes/_app.avaliacao-fisica.$id.editar'
+import { Route as ApiPublicHooksAlertaRenovacoesRouteImport } from './routes/api/public/hooks/alerta-renovacoes'
+import { Route as ApiPublicHooksBoasVindasRetryRouteImport } from './routes/api/public/hooks/boas-vindas-retry'
+import { Route as ApiPublicHooksFeedbackLembretesRouteImport } from './routes/api/public/hooks/feedback-lembretes'
+import { Route as ApiPublicHooksMotorAutomacoesRouteImport } from './routes/api/public/hooks/motor-automacoes'
+import { Route as ApiPublicHooksProcessarJobsFeedbackRouteImport } from './routes/api/public/hooks/processar-jobs-feedback'
+import { Route as ApiPublicHooksResumoDiarioRouteImport } from './routes/api/public/hooks/resumo-diario'
+import { Route as ApiPublicHooksZapiBoasVindasRouteImport } from './routes/api/public/hooks/zapi-boas-vindas'
+import { Route as ApiPublicHooksZapiMensagemEnviadaRouteImport } from './routes/api/public/hooks/zapi-mensagem-enviada'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeedbackQuinzenalRoute = FeedbackQuinzenalRouteImport.update({
-  id: '/feedback-quinzenal',
-  path: '/feedback-quinzenal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FeedbackMensalRoute = FeedbackMensalRouteImport.update({
-  id: '/feedback-mensal',
-  path: '/feedback-mensal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AnamneseRoute = AnamneseRouteImport.update({
-  id: '/anamnese',
-  path: '/anamnese',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AlunoRoute = AlunoRouteImport.update({
@@ -102,88 +86,34 @@ const AlunoRoute = AlunoRouteImport.update({
   path: '/aluno',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const AnamneseRoute = AnamneseRouteImport.update({
+  id: '/anamnese',
+  path: '/anamnese',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const FeedbackMensalRoute = FeedbackMensalRouteImport.update({
+  id: '/feedback-mensal',
+  path: '/feedback-mensal',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AlunoIndexRoute = AlunoIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AlunoRoute,
-} as any)
-const FormulariosTokenRoute = FormulariosTokenRouteImport.update({
-  id: '/formularios/$token',
-  path: '/formularios/$token',
+const FeedbackQuinzenalRoute = FeedbackQuinzenalRouteImport.update({
+  id: '/feedback-quinzenal',
+  path: '/feedback-quinzenal',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AlunoTrocarSenhaRoute = AlunoTrocarSenhaRouteImport.update({
-  id: '/trocar-senha',
-  path: '/trocar-senha',
-  getParentRoute: () => AlunoRoute,
-} as any)
-const AlunoTreinoRoute = AlunoTreinoRouteImport.update({
-  id: '/treino',
-  path: '/treino',
-  getParentRoute: () => AlunoRoute,
-} as any)
-const AlunoRankingRoute = AlunoRankingRouteImport.update({
-  id: '/ranking',
-  path: '/ranking',
-  getParentRoute: () => AlunoRoute,
-} as any)
-const AlunoPerfilRoute = AlunoPerfilRouteImport.update({
-  id: '/perfil',
-  path: '/perfil',
-  getParentRoute: () => AlunoRoute,
-} as any)
-const AlunoLoginRoute = AlunoLoginRouteImport.update({
+const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => AlunoRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AlunoEsqueciSenhaRoute = AlunoEsqueciSenhaRouteImport.update({
-  id: '/esqueci-senha',
-  path: '/esqueci-senha',
-  getParentRoute: () => AlunoRoute,
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AlunoComunidadeRoute = AlunoComunidadeRouteImport.update({
-  id: '/comunidade',
-  path: '/comunidade',
-  getParentRoute: () => AlunoRoute,
-} as any)
-const AppVisaoGeralRoute = AppVisaoGeralRouteImport.update({
-  id: '/visao-geral',
-  path: '/visao-geral',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppTreinosRoute = AppTreinosRouteImport.update({
-  id: '/treinos',
-  path: '/treinos',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppRelatoriosRoute = AppRelatoriosRouteImport.update({
-  id: '/relatorios',
-  path: '/relatorios',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppFinanceiroRoute = AppFinanceiroRouteImport.update({
-  id: '/financeiro',
-  path: '/financeiro',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppFeedbacksRoute = AppFeedbacksRouteImport.update({
-  id: '/feedbacks',
-  path: '/feedbacks',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
-  id: '/configuracoes',
-  path: '/configuracoes',
+const AppBibliotecaRoute = AppBibliotecaRouteImport.update({
+  id: '/biblioteca',
+  path: '/biblioteca',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCaixaSaidaRoute = AppCaixaSaidaRouteImport.update({
@@ -191,109 +121,136 @@ const AppCaixaSaidaRoute = AppCaixaSaidaRouteImport.update({
   path: '/caixa-saida',
   getParentRoute: () => AppRoute,
 } as any)
-const AppBibliotecaRoute = AppBibliotecaRouteImport.update({
-  id: '/biblioteca',
-  path: '/biblioteca',
+const AppConfiguracoesRoute = AppConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
   getParentRoute: () => AppRoute,
 } as any)
-const AppFinanceiroIndexRoute = AppFinanceiroIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppFinanceiroRoute,
-} as any)
-const AppConfiguracoesIndexRoute = AppConfiguracoesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppConfiguracoesRoute,
-} as any)
-const AppBibliotecaIndexRoute = AppBibliotecaIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppBibliotecaRoute,
-} as any)
-const AppAvaliacaoFisicaIndexRoute = AppAvaliacaoFisicaIndexRouteImport.update({
-  id: '/avaliacao-fisica/',
-  path: '/avaliacao-fisica/',
+const AppFeedbacksRoute = AppFeedbacksRouteImport.update({
+  id: '/feedbacks',
+  path: '/feedbacks',
   getParentRoute: () => AppRoute,
+} as any)
+const AppFinanceiroRoute = AppFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRelatoriosRoute = AppRelatoriosRouteImport.update({
+  id: '/relatorios',
+  path: '/relatorios',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTreinosRoute = AppTreinosRouteImport.update({
+  id: '/treinos',
+  path: '/treinos',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppVisaoGeralRoute = AppVisaoGeralRouteImport.update({
+  id: '/visao-geral',
+  path: '/visao-geral',
+  getParentRoute: () => AppRoute,
+} as any)
+const AlunoIndexRoute = AlunoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoComunidadeRoute = AlunoComunidadeRouteImport.update({
+  id: '/comunidade',
+  path: '/comunidade',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoEsqueciSenhaRoute = AlunoEsqueciSenhaRouteImport.update({
+  id: '/esqueci-senha',
+  path: '/esqueci-senha',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoLoginRoute = AlunoLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoPerfilRoute = AlunoPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoRankingRoute = AlunoRankingRouteImport.update({
+  id: '/ranking',
+  path: '/ranking',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoTreinoRoute = AlunoTreinoRouteImport.update({
+  id: '/treino',
+  path: '/treino',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const AlunoTrocarSenhaRoute = AlunoTrocarSenhaRouteImport.update({
+  id: '/trocar-senha',
+  path: '/trocar-senha',
+  getParentRoute: () => AlunoRoute,
+} as any)
+const FormulariosTokenRoute = FormulariosTokenRouteImport.update({
+  id: '/formularios/$token',
+  path: '/formularios/$token',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AppAlunosIndexRoute = AppAlunosIndexRouteImport.update({
   id: '/alunos/',
   path: '/alunos/',
   getParentRoute: () => AppRoute,
 } as any)
-const FormulariosIdRespostasRoute = FormulariosIdRespostasRouteImport.update({
-  id: '/formularios/$id/respostas',
-  path: '/formularios/$id/respostas',
-  getParentRoute: () => rootRouteImport,
+const AppAlunosIdRoute = AppAlunosIdRouteImport.update({
+  id: '/alunos/$id',
+  path: '/alunos/$id',
+  getParentRoute: () => AppRoute,
 } as any)
-const AppFinanceiroVendasRoute = AppFinanceiroVendasRouteImport.update({
-  id: '/vendas',
-  path: '/vendas',
-  getParentRoute: () => AppFinanceiroRoute,
+const AppAvaliacaoFisicaIndexRoute = AppAvaliacaoFisicaIndexRouteImport.update({
+  id: '/avaliacao-fisica/',
+  path: '/avaliacao-fisica/',
+  getParentRoute: () => AppRoute,
 } as any)
-const AppFinanceiroTransacoesRoute = AppFinanceiroTransacoesRouteImport.update({
-  id: '/transacoes',
-  path: '/transacoes',
-  getParentRoute: () => AppFinanceiroRoute,
+const AppAvaliacaoFisicaIdRoute = AppAvaliacaoFisicaIdRouteImport.update({
+  id: '/avaliacao-fisica/$id',
+  path: '/avaliacao-fisica/$id',
+  getParentRoute: () => AppRoute,
 } as any)
-const AppFinanceiroResumoRoute = AppFinanceiroResumoRouteImport.update({
-  id: '/resumo',
-  path: '/resumo',
-  getParentRoute: () => AppFinanceiroRoute,
+const AppAvaliacaoFisicaNovaRoute = AppAvaliacaoFisicaNovaRouteImport.update({
+  id: '/avaliacao-fisica/nova',
+  path: '/avaliacao-fisica/nova',
+  getParentRoute: () => AppRoute,
 } as any)
-const AppFinanceiroRecebimentosRoute =
-  AppFinanceiroRecebimentosRouteImport.update({
-    id: '/recebimentos',
-    path: '/recebimentos',
-    getParentRoute: () => AppFinanceiroRoute,
+const AppBibliotecaIndexRoute = AppBibliotecaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppBibliotecaRoute,
+} as any)
+const AppBibliotecaAlimentosRoute = AppBibliotecaAlimentosRouteImport.update({
+  id: '/alimentos',
+  path: '/alimentos',
+  getParentRoute: () => AppBibliotecaRoute,
+} as any)
+const AppBibliotecaCardapiosRoute = AppBibliotecaCardapiosRouteImport.update({
+  id: '/cardapios',
+  path: '/cardapios',
+  getParentRoute: () => AppBibliotecaRoute,
+} as any)
+const AppBibliotecaFitoterapicosRoute =
+  AppBibliotecaFitoterapicosRouteImport.update({
+    id: '/fitoterapicos',
+    path: '/fitoterapicos',
+    getParentRoute: () => AppBibliotecaRoute,
   } as any)
-const AppFinanceiroPlanosRoute = AppFinanceiroPlanosRouteImport.update({
-  id: '/planos',
-  path: '/planos',
-  getParentRoute: () => AppFinanceiroRoute,
-} as any)
-const AppFinanceiroDespesasRoute = AppFinanceiroDespesasRouteImport.update({
-  id: '/despesas',
-  path: '/despesas',
-  getParentRoute: () => AppFinanceiroRoute,
-} as any)
-const AppFinanceiroContasPagarRoute =
-  AppFinanceiroContasPagarRouteImport.update({
-    id: '/contas-pagar',
-    path: '/contas-pagar',
-    getParentRoute: () => AppFinanceiroRoute,
+const AppBibliotecaPrescricoesRoute =
+  AppBibliotecaPrescricoesRouteImport.update({
+    id: '/prescricoes',
+    path: '/prescricoes',
+    getParentRoute: () => AppBibliotecaRoute,
   } as any)
-const AppFinanceiroClientesRoute = AppFinanceiroClientesRouteImport.update({
-  id: '/clientes',
-  path: '/clientes',
-  getParentRoute: () => AppFinanceiroRoute,
-} as any)
-const AppFinanceiroCadastrosRoute = AppFinanceiroCadastrosRouteImport.update({
-  id: '/cadastros',
-  path: '/cadastros',
-  getParentRoute: () => AppFinanceiroRoute,
-} as any)
-const AppConfiguracoesUsuariosRoute =
-  AppConfiguracoesUsuariosRouteImport.update({
-    id: '/usuarios',
-    path: '/usuarios',
-    getParentRoute: () => AppConfiguracoesRoute,
-  } as any)
-const AppConfiguracoesConexoesRoute =
-  AppConfiguracoesConexoesRouteImport.update({
-    id: '/conexoes',
-    path: '/conexoes',
-    getParentRoute: () => AppConfiguracoesRoute,
-  } as any)
-const AppConfiguracoesAutomacoesRoute =
-  AppConfiguracoesAutomacoesRouteImport.update({
-    id: '/automacoes',
-    path: '/automacoes',
-    getParentRoute: () => AppConfiguracoesRoute,
-  } as any)
-const AppBibliotecaTreinosRoute = AppBibliotecaTreinosRouteImport.update({
-  id: '/treinos',
-  path: '/treinos',
+const AppBibliotecaReceitasRoute = AppBibliotecaReceitasRouteImport.update({
+  id: '/receitas',
+  path: '/receitas',
   getParentRoute: () => AppBibliotecaRoute,
 } as any)
 const AppBibliotecaSuplementosRoute =
@@ -302,82 +259,101 @@ const AppBibliotecaSuplementosRoute =
     path: '/suplementos',
     getParentRoute: () => AppBibliotecaRoute,
   } as any)
-const AppBibliotecaReceitasRoute = AppBibliotecaReceitasRouteImport.update({
-  id: '/receitas',
-  path: '/receitas',
+const AppBibliotecaTreinosRoute = AppBibliotecaTreinosRouteImport.update({
+  id: '/treinos',
+  path: '/treinos',
   getParentRoute: () => AppBibliotecaRoute,
 } as any)
-const AppBibliotecaPrescricoesRoute =
-  AppBibliotecaPrescricoesRouteImport.update({
-    id: '/prescricoes',
-    path: '/prescricoes',
-    getParentRoute: () => AppBibliotecaRoute,
-  } as any)
-const AppBibliotecaFitoterapicosRoute =
-  AppBibliotecaFitoterapicosRouteImport.update({
-    id: '/fitoterapicos',
-    path: '/fitoterapicos',
-    getParentRoute: () => AppBibliotecaRoute,
-  } as any)
-const AppBibliotecaCardapiosRoute = AppBibliotecaCardapiosRouteImport.update({
-  id: '/cardapios',
-  path: '/cardapios',
-  getParentRoute: () => AppBibliotecaRoute,
+const AppConfiguracoesIndexRoute = AppConfiguracoesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppConfiguracoesRoute,
 } as any)
-const AppBibliotecaAlimentosRoute = AppBibliotecaAlimentosRouteImport.update({
-  id: '/alimentos',
-  path: '/alimentos',
-  getParentRoute: () => AppBibliotecaRoute,
+const AppConfiguracoesAutomacoesRoute =
+  AppConfiguracoesAutomacoesRouteImport.update({
+    id: '/automacoes',
+    path: '/automacoes',
+    getParentRoute: () => AppConfiguracoesRoute,
+  } as any)
+const AppConfiguracoesConexoesRoute =
+  AppConfiguracoesConexoesRouteImport.update({
+    id: '/conexoes',
+    path: '/conexoes',
+    getParentRoute: () => AppConfiguracoesRoute,
+  } as any)
+const AppConfiguracoesUsuariosRoute =
+  AppConfiguracoesUsuariosRouteImport.update({
+    id: '/usuarios',
+    path: '/usuarios',
+    getParentRoute: () => AppConfiguracoesRoute,
+  } as any)
+const AppFinanceiroIndexRoute = AppFinanceiroIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppFinanceiroRoute,
 } as any)
-const AppAvaliacaoFisicaNovaRoute = AppAvaliacaoFisicaNovaRouteImport.update({
-  id: '/avaliacao-fisica/nova',
-  path: '/avaliacao-fisica/nova',
-  getParentRoute: () => AppRoute,
+const AppFinanceiroCadastrosRoute = AppFinanceiroCadastrosRouteImport.update({
+  id: '/cadastros',
+  path: '/cadastros',
+  getParentRoute: () => AppFinanceiroRoute,
 } as any)
-const AppAvaliacaoFisicaIdRoute = AppAvaliacaoFisicaIdRouteImport.update({
-  id: '/avaliacao-fisica/$id',
-  path: '/avaliacao-fisica/$id',
-  getParentRoute: () => AppRoute,
+const AppFinanceiroClientesRoute = AppFinanceiroClientesRouteImport.update({
+  id: '/clientes',
+  path: '/clientes',
+  getParentRoute: () => AppFinanceiroRoute,
 } as any)
-const AppAlunosIdRoute = AppAlunosIdRouteImport.update({
-  id: '/alunos/$id',
-  path: '/alunos/$id',
-  getParentRoute: () => AppRoute,
+const AppFinanceiroContasPagarRoute =
+  AppFinanceiroContasPagarRouteImport.update({
+    id: '/contas-pagar',
+    path: '/contas-pagar',
+    getParentRoute: () => AppFinanceiroRoute,
+  } as any)
+const AppFinanceiroDespesasRoute = AppFinanceiroDespesasRouteImport.update({
+  id: '/despesas',
+  path: '/despesas',
+  getParentRoute: () => AppFinanceiroRoute,
 } as any)
-const ApiPublicHooksZapiMensagemEnviadaRoute =
-  ApiPublicHooksZapiMensagemEnviadaRouteImport.update({
-    id: '/api/public/hooks/zapi-mensagem-enviada',
-    path: '/api/public/hooks/zapi-mensagem-enviada',
-    getParentRoute: () => rootRouteImport,
+const AppFinanceiroPlanosRoute = AppFinanceiroPlanosRouteImport.update({
+  id: '/planos',
+  path: '/planos',
+  getParentRoute: () => AppFinanceiroRoute,
+} as any)
+const AppFinanceiroRecebimentosRoute =
+  AppFinanceiroRecebimentosRouteImport.update({
+    id: '/recebimentos',
+    path: '/recebimentos',
+    getParentRoute: () => AppFinanceiroRoute,
   } as any)
-const ApiPublicHooksZapiBoasVindasRoute =
-  ApiPublicHooksZapiBoasVindasRouteImport.update({
-    id: '/api/public/hooks/zapi-boas-vindas',
-    path: '/api/public/hooks/zapi-boas-vindas',
-    getParentRoute: () => rootRouteImport,
+const AppFinanceiroResumoRoute = AppFinanceiroResumoRouteImport.update({
+  id: '/resumo',
+  path: '/resumo',
+  getParentRoute: () => AppFinanceiroRoute,
+} as any)
+const AppFinanceiroTransacoesRoute = AppFinanceiroTransacoesRouteImport.update({
+  id: '/transacoes',
+  path: '/transacoes',
+  getParentRoute: () => AppFinanceiroRoute,
+} as any)
+const AppFinanceiroVendasRoute = AppFinanceiroVendasRouteImport.update({
+  id: '/vendas',
+  path: '/vendas',
+  getParentRoute: () => AppFinanceiroRoute,
+} as any)
+const FormulariosIdRespostasRoute = FormulariosIdRespostasRouteImport.update({
+  id: '/formularios/$id/respostas',
+  path: '/formularios/$id/respostas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAvaliacaoFisicaIdEditarRoute =
+  AppAvaliacaoFisicaIdEditarRouteImport.update({
+    id: '/editar',
+    path: '/editar',
+    getParentRoute: () => AppAvaliacaoFisicaIdRoute,
   } as any)
-const ApiPublicHooksResumoDiarioRoute =
-  ApiPublicHooksResumoDiarioRouteImport.update({
-    id: '/api/public/hooks/resumo-diario',
-    path: '/api/public/hooks/resumo-diario',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksProcessarJobsFeedbackRoute =
-  ApiPublicHooksProcessarJobsFeedbackRouteImport.update({
-    id: '/api/public/hooks/processar-jobs-feedback',
-    path: '/api/public/hooks/processar-jobs-feedback',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksMotorAutomacoesRoute =
-  ApiPublicHooksMotorAutomacoesRouteImport.update({
-    id: '/api/public/hooks/motor-automacoes',
-    path: '/api/public/hooks/motor-automacoes',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksFeedbackLembretesRoute =
-  ApiPublicHooksFeedbackLembretesRouteImport.update({
-    id: '/api/public/hooks/feedback-lembretes',
-    path: '/api/public/hooks/feedback-lembretes',
+const ApiPublicHooksAlertaRenovacoesRoute =
+  ApiPublicHooksAlertaRenovacoesRouteImport.update({
+    id: '/api/public/hooks/alerta-renovacoes',
+    path: '/api/public/hooks/alerta-renovacoes',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicHooksBoasVindasRetryRoute =
@@ -386,17 +362,41 @@ const ApiPublicHooksBoasVindasRetryRoute =
     path: '/api/public/hooks/boas-vindas-retry',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicHooksAlertaRenovacoesRoute =
-  ApiPublicHooksAlertaRenovacoesRouteImport.update({
-    id: '/api/public/hooks/alerta-renovacoes',
-    path: '/api/public/hooks/alerta-renovacoes',
+const ApiPublicHooksFeedbackLembretesRoute =
+  ApiPublicHooksFeedbackLembretesRouteImport.update({
+    id: '/api/public/hooks/feedback-lembretes',
+    path: '/api/public/hooks/feedback-lembretes',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AppAvaliacaoFisicaIdEditarRoute =
-  AppAvaliacaoFisicaIdEditarRouteImport.update({
-    id: '/editar',
-    path: '/editar',
-    getParentRoute: () => AppAvaliacaoFisicaIdRoute,
+const ApiPublicHooksMotorAutomacoesRoute =
+  ApiPublicHooksMotorAutomacoesRouteImport.update({
+    id: '/api/public/hooks/motor-automacoes',
+    path: '/api/public/hooks/motor-automacoes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksProcessarJobsFeedbackRoute =
+  ApiPublicHooksProcessarJobsFeedbackRouteImport.update({
+    id: '/api/public/hooks/processar-jobs-feedback',
+    path: '/api/public/hooks/processar-jobs-feedback',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksResumoDiarioRoute =
+  ApiPublicHooksResumoDiarioRouteImport.update({
+    id: '/api/public/hooks/resumo-diario',
+    path: '/api/public/hooks/resumo-diario',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksZapiBoasVindasRoute =
+  ApiPublicHooksZapiBoasVindasRouteImport.update({
+    id: '/api/public/hooks/zapi-boas-vindas',
+    path: '/api/public/hooks/zapi-boas-vindas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksZapiMensagemEnviadaRoute =
+  ApiPublicHooksZapiMensagemEnviadaRouteImport.update({
+    id: '/api/public/hooks/zapi-mensagem-enviada',
+    path: '/api/public/hooks/zapi-mensagem-enviada',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -798,46 +798,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/feedback-quinzenal': {
-      id: '/feedback-quinzenal'
-      path: '/feedback-quinzenal'
-      fullPath: '/feedback-quinzenal'
-      preLoaderRoute: typeof FeedbackQuinzenalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/feedback-mensal': {
-      id: '/feedback-mensal'
-      path: '/feedback-mensal'
-      fullPath: '/feedback-mensal'
-      preLoaderRoute: typeof FeedbackMensalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/anamnese': {
-      id: '/anamnese'
-      path: '/anamnese'
-      fullPath: '/anamnese'
-      preLoaderRoute: typeof AnamneseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/aluno': {
-      id: '/aluno'
-      path: '/aluno'
-      fullPath: '/aluno'
-      preLoaderRoute: typeof AlunoRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -847,116 +812,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/aluno': {
+      id: '/aluno'
+      path: '/aluno'
+      fullPath: '/aluno'
+      preLoaderRoute: typeof AlunoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/aluno/': {
-      id: '/aluno/'
-      path: '/'
-      fullPath: '/aluno/'
-      preLoaderRoute: typeof AlunoIndexRouteImport
-      parentRoute: typeof AlunoRoute
-    }
-    '/formularios/$token': {
-      id: '/formularios/$token'
-      path: '/formularios/$token'
-      fullPath: '/formularios/$token'
-      preLoaderRoute: typeof FormulariosTokenRouteImport
+    '/anamnese': {
+      id: '/anamnese'
+      path: '/anamnese'
+      fullPath: '/anamnese'
+      preLoaderRoute: typeof AnamneseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/aluno/trocar-senha': {
-      id: '/aluno/trocar-senha'
-      path: '/trocar-senha'
-      fullPath: '/aluno/trocar-senha'
-      preLoaderRoute: typeof AlunoTrocarSenhaRouteImport
-      parentRoute: typeof AlunoRoute
+    '/feedback-mensal': {
+      id: '/feedback-mensal'
+      path: '/feedback-mensal'
+      fullPath: '/feedback-mensal'
+      preLoaderRoute: typeof FeedbackMensalRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/aluno/treino': {
-      id: '/aluno/treino'
-      path: '/treino'
-      fullPath: '/aluno/treino'
-      preLoaderRoute: typeof AlunoTreinoRouteImport
-      parentRoute: typeof AlunoRoute
+    '/feedback-quinzenal': {
+      id: '/feedback-quinzenal'
+      path: '/feedback-quinzenal'
+      fullPath: '/feedback-quinzenal'
+      preLoaderRoute: typeof FeedbackQuinzenalRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/aluno/ranking': {
-      id: '/aluno/ranking'
-      path: '/ranking'
-      fullPath: '/aluno/ranking'
-      preLoaderRoute: typeof AlunoRankingRouteImport
-      parentRoute: typeof AlunoRoute
-    }
-    '/aluno/perfil': {
-      id: '/aluno/perfil'
-      path: '/perfil'
-      fullPath: '/aluno/perfil'
-      preLoaderRoute: typeof AlunoPerfilRouteImport
-      parentRoute: typeof AlunoRoute
-    }
-    '/aluno/login': {
-      id: '/aluno/login'
+    '/login': {
+      id: '/login'
       path: '/login'
-      fullPath: '/aluno/login'
-      preLoaderRoute: typeof AlunoLoginRouteImport
-      parentRoute: typeof AlunoRoute
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/aluno/esqueci-senha': {
-      id: '/aluno/esqueci-senha'
-      path: '/esqueci-senha'
-      fullPath: '/aluno/esqueci-senha'
-      preLoaderRoute: typeof AlunoEsqueciSenhaRouteImport
-      parentRoute: typeof AlunoRoute
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/aluno/comunidade': {
-      id: '/aluno/comunidade'
-      path: '/comunidade'
-      fullPath: '/aluno/comunidade'
-      preLoaderRoute: typeof AlunoComunidadeRouteImport
-      parentRoute: typeof AlunoRoute
-    }
-    '/_app/visao-geral': {
-      id: '/_app/visao-geral'
-      path: '/visao-geral'
-      fullPath: '/visao-geral'
-      preLoaderRoute: typeof AppVisaoGeralRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/treinos': {
-      id: '/_app/treinos'
-      path: '/treinos'
-      fullPath: '/treinos'
-      preLoaderRoute: typeof AppTreinosRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/relatorios': {
-      id: '/_app/relatorios'
-      path: '/relatorios'
-      fullPath: '/relatorios'
-      preLoaderRoute: typeof AppRelatoriosRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/financeiro': {
-      id: '/_app/financeiro'
-      path: '/financeiro'
-      fullPath: '/financeiro'
-      preLoaderRoute: typeof AppFinanceiroRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/feedbacks': {
-      id: '/_app/feedbacks'
-      path: '/feedbacks'
-      fullPath: '/feedbacks'
-      preLoaderRoute: typeof AppFeedbacksRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/configuracoes': {
-      id: '/_app/configuracoes'
-      path: '/configuracoes'
-      fullPath: '/configuracoes'
-      preLoaderRoute: typeof AppConfiguracoesRouteImport
+    '/_app/biblioteca': {
+      id: '/_app/biblioteca'
+      path: '/biblioteca'
+      fullPath: '/biblioteca'
+      preLoaderRoute: typeof AppBibliotecaRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/caixa-saida': {
@@ -966,200 +868,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCaixaSaidaRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/biblioteca': {
-      id: '/_app/biblioteca'
-      path: '/biblioteca'
-      fullPath: '/biblioteca'
-      preLoaderRoute: typeof AppBibliotecaRouteImport
+    '/_app/configuracoes': {
+      id: '/_app/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof AppConfiguracoesRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/financeiro/': {
-      id: '/_app/financeiro/'
-      path: '/'
-      fullPath: '/financeiro/'
-      preLoaderRoute: typeof AppFinanceiroIndexRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/configuracoes/': {
-      id: '/_app/configuracoes/'
-      path: '/'
-      fullPath: '/configuracoes/'
-      preLoaderRoute: typeof AppConfiguracoesIndexRouteImport
-      parentRoute: typeof AppConfiguracoesRoute
-    }
-    '/_app/biblioteca/': {
-      id: '/_app/biblioteca/'
-      path: '/'
-      fullPath: '/biblioteca/'
-      preLoaderRoute: typeof AppBibliotecaIndexRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/avaliacao-fisica/': {
-      id: '/_app/avaliacao-fisica/'
-      path: '/avaliacao-fisica'
-      fullPath: '/avaliacao-fisica/'
-      preLoaderRoute: typeof AppAvaliacaoFisicaIndexRouteImport
+    '/_app/feedbacks': {
+      id: '/_app/feedbacks'
+      path: '/feedbacks'
+      fullPath: '/feedbacks'
+      preLoaderRoute: typeof AppFeedbacksRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/_app/financeiro': {
+      id: '/_app/financeiro'
+      path: '/financeiro'
+      fullPath: '/financeiro'
+      preLoaderRoute: typeof AppFinanceiroRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/relatorios': {
+      id: '/_app/relatorios'
+      path: '/relatorios'
+      fullPath: '/relatorios'
+      preLoaderRoute: typeof AppRelatoriosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/treinos': {
+      id: '/_app/treinos'
+      path: '/treinos'
+      fullPath: '/treinos'
+      preLoaderRoute: typeof AppTreinosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/visao-geral': {
+      id: '/_app/visao-geral'
+      path: '/visao-geral'
+      fullPath: '/visao-geral'
+      preLoaderRoute: typeof AppVisaoGeralRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/aluno/': {
+      id: '/aluno/'
+      path: '/'
+      fullPath: '/aluno/'
+      preLoaderRoute: typeof AlunoIndexRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/comunidade': {
+      id: '/aluno/comunidade'
+      path: '/comunidade'
+      fullPath: '/aluno/comunidade'
+      preLoaderRoute: typeof AlunoComunidadeRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/esqueci-senha': {
+      id: '/aluno/esqueci-senha'
+      path: '/esqueci-senha'
+      fullPath: '/aluno/esqueci-senha'
+      preLoaderRoute: typeof AlunoEsqueciSenhaRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/login': {
+      id: '/aluno/login'
+      path: '/login'
+      fullPath: '/aluno/login'
+      preLoaderRoute: typeof AlunoLoginRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/perfil': {
+      id: '/aluno/perfil'
+      path: '/perfil'
+      fullPath: '/aluno/perfil'
+      preLoaderRoute: typeof AlunoPerfilRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/ranking': {
+      id: '/aluno/ranking'
+      path: '/ranking'
+      fullPath: '/aluno/ranking'
+      preLoaderRoute: typeof AlunoRankingRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/treino': {
+      id: '/aluno/treino'
+      path: '/treino'
+      fullPath: '/aluno/treino'
+      preLoaderRoute: typeof AlunoTreinoRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/aluno/trocar-senha': {
+      id: '/aluno/trocar-senha'
+      path: '/trocar-senha'
+      fullPath: '/aluno/trocar-senha'
+      preLoaderRoute: typeof AlunoTrocarSenhaRouteImport
+      parentRoute: typeof AlunoRoute
+    }
+    '/formularios/$token': {
+      id: '/formularios/$token'
+      path: '/formularios/$token'
+      fullPath: '/formularios/$token'
+      preLoaderRoute: typeof FormulariosTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_app/alunos/': {
       id: '/_app/alunos/'
       path: '/alunos'
       fullPath: '/alunos/'
       preLoaderRoute: typeof AppAlunosIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/formularios/$id/respostas': {
-      id: '/formularios/$id/respostas'
-      path: '/formularios/$id/respostas'
-      fullPath: '/formularios/$id/respostas'
-      preLoaderRoute: typeof FormulariosIdRespostasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_app/financeiro/vendas': {
-      id: '/_app/financeiro/vendas'
-      path: '/vendas'
-      fullPath: '/financeiro/vendas'
-      preLoaderRoute: typeof AppFinanceiroVendasRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/transacoes': {
-      id: '/_app/financeiro/transacoes'
-      path: '/transacoes'
-      fullPath: '/financeiro/transacoes'
-      preLoaderRoute: typeof AppFinanceiroTransacoesRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/resumo': {
-      id: '/_app/financeiro/resumo'
-      path: '/resumo'
-      fullPath: '/financeiro/resumo'
-      preLoaderRoute: typeof AppFinanceiroResumoRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/recebimentos': {
-      id: '/_app/financeiro/recebimentos'
-      path: '/recebimentos'
-      fullPath: '/financeiro/recebimentos'
-      preLoaderRoute: typeof AppFinanceiroRecebimentosRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/planos': {
-      id: '/_app/financeiro/planos'
-      path: '/planos'
-      fullPath: '/financeiro/planos'
-      preLoaderRoute: typeof AppFinanceiroPlanosRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/despesas': {
-      id: '/_app/financeiro/despesas'
-      path: '/despesas'
-      fullPath: '/financeiro/despesas'
-      preLoaderRoute: typeof AppFinanceiroDespesasRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/contas-pagar': {
-      id: '/_app/financeiro/contas-pagar'
-      path: '/contas-pagar'
-      fullPath: '/financeiro/contas-pagar'
-      preLoaderRoute: typeof AppFinanceiroContasPagarRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/clientes': {
-      id: '/_app/financeiro/clientes'
-      path: '/clientes'
-      fullPath: '/financeiro/clientes'
-      preLoaderRoute: typeof AppFinanceiroClientesRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/financeiro/cadastros': {
-      id: '/_app/financeiro/cadastros'
-      path: '/cadastros'
-      fullPath: '/financeiro/cadastros'
-      preLoaderRoute: typeof AppFinanceiroCadastrosRouteImport
-      parentRoute: typeof AppFinanceiroRoute
-    }
-    '/_app/configuracoes/usuarios': {
-      id: '/_app/configuracoes/usuarios'
-      path: '/usuarios'
-      fullPath: '/configuracoes/usuarios'
-      preLoaderRoute: typeof AppConfiguracoesUsuariosRouteImport
-      parentRoute: typeof AppConfiguracoesRoute
-    }
-    '/_app/configuracoes/conexoes': {
-      id: '/_app/configuracoes/conexoes'
-      path: '/conexoes'
-      fullPath: '/configuracoes/conexoes'
-      preLoaderRoute: typeof AppConfiguracoesConexoesRouteImport
-      parentRoute: typeof AppConfiguracoesRoute
-    }
-    '/_app/configuracoes/automacoes': {
-      id: '/_app/configuracoes/automacoes'
-      path: '/automacoes'
-      fullPath: '/configuracoes/automacoes'
-      preLoaderRoute: typeof AppConfiguracoesAutomacoesRouteImport
-      parentRoute: typeof AppConfiguracoesRoute
-    }
-    '/_app/biblioteca/treinos': {
-      id: '/_app/biblioteca/treinos'
-      path: '/treinos'
-      fullPath: '/biblioteca/treinos'
-      preLoaderRoute: typeof AppBibliotecaTreinosRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/biblioteca/suplementos': {
-      id: '/_app/biblioteca/suplementos'
-      path: '/suplementos'
-      fullPath: '/biblioteca/suplementos'
-      preLoaderRoute: typeof AppBibliotecaSuplementosRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/biblioteca/receitas': {
-      id: '/_app/biblioteca/receitas'
-      path: '/receitas'
-      fullPath: '/biblioteca/receitas'
-      preLoaderRoute: typeof AppBibliotecaReceitasRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/biblioteca/prescricoes': {
-      id: '/_app/biblioteca/prescricoes'
-      path: '/prescricoes'
-      fullPath: '/biblioteca/prescricoes'
-      preLoaderRoute: typeof AppBibliotecaPrescricoesRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/biblioteca/fitoterapicos': {
-      id: '/_app/biblioteca/fitoterapicos'
-      path: '/fitoterapicos'
-      fullPath: '/biblioteca/fitoterapicos'
-      preLoaderRoute: typeof AppBibliotecaFitoterapicosRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/biblioteca/cardapios': {
-      id: '/_app/biblioteca/cardapios'
-      path: '/cardapios'
-      fullPath: '/biblioteca/cardapios'
-      preLoaderRoute: typeof AppBibliotecaCardapiosRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/biblioteca/alimentos': {
-      id: '/_app/biblioteca/alimentos'
-      path: '/alimentos'
-      fullPath: '/biblioteca/alimentos'
-      preLoaderRoute: typeof AppBibliotecaAlimentosRouteImport
-      parentRoute: typeof AppBibliotecaRoute
-    }
-    '/_app/avaliacao-fisica/nova': {
-      id: '/_app/avaliacao-fisica/nova'
-      path: '/avaliacao-fisica/nova'
-      fullPath: '/avaliacao-fisica/nova'
-      preLoaderRoute: typeof AppAvaliacaoFisicaNovaRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/avaliacao-fisica/$id': {
-      id: '/_app/avaliacao-fisica/$id'
-      path: '/avaliacao-fisica/$id'
-      fullPath: '/avaliacao-fisica/$id'
-      preLoaderRoute: typeof AppAvaliacaoFisicaIdRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/alunos/$id': {
@@ -1169,46 +987,200 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAlunosIdRouteImport
       parentRoute: typeof AppRoute
     }
-    '/api/public/hooks/zapi-mensagem-enviada': {
-      id: '/api/public/hooks/zapi-mensagem-enviada'
-      path: '/api/public/hooks/zapi-mensagem-enviada'
-      fullPath: '/api/public/hooks/zapi-mensagem-enviada'
-      preLoaderRoute: typeof ApiPublicHooksZapiMensagemEnviadaRouteImport
+    '/_app/avaliacao-fisica/': {
+      id: '/_app/avaliacao-fisica/'
+      path: '/avaliacao-fisica'
+      fullPath: '/avaliacao-fisica/'
+      preLoaderRoute: typeof AppAvaliacaoFisicaIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/avaliacao-fisica/$id': {
+      id: '/_app/avaliacao-fisica/$id'
+      path: '/avaliacao-fisica/$id'
+      fullPath: '/avaliacao-fisica/$id'
+      preLoaderRoute: typeof AppAvaliacaoFisicaIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/avaliacao-fisica/nova': {
+      id: '/_app/avaliacao-fisica/nova'
+      path: '/avaliacao-fisica/nova'
+      fullPath: '/avaliacao-fisica/nova'
+      preLoaderRoute: typeof AppAvaliacaoFisicaNovaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/biblioteca/': {
+      id: '/_app/biblioteca/'
+      path: '/'
+      fullPath: '/biblioteca/'
+      preLoaderRoute: typeof AppBibliotecaIndexRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/biblioteca/alimentos': {
+      id: '/_app/biblioteca/alimentos'
+      path: '/alimentos'
+      fullPath: '/biblioteca/alimentos'
+      preLoaderRoute: typeof AppBibliotecaAlimentosRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/biblioteca/cardapios': {
+      id: '/_app/biblioteca/cardapios'
+      path: '/cardapios'
+      fullPath: '/biblioteca/cardapios'
+      preLoaderRoute: typeof AppBibliotecaCardapiosRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/biblioteca/fitoterapicos': {
+      id: '/_app/biblioteca/fitoterapicos'
+      path: '/fitoterapicos'
+      fullPath: '/biblioteca/fitoterapicos'
+      preLoaderRoute: typeof AppBibliotecaFitoterapicosRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/biblioteca/prescricoes': {
+      id: '/_app/biblioteca/prescricoes'
+      path: '/prescricoes'
+      fullPath: '/biblioteca/prescricoes'
+      preLoaderRoute: typeof AppBibliotecaPrescricoesRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/biblioteca/receitas': {
+      id: '/_app/biblioteca/receitas'
+      path: '/receitas'
+      fullPath: '/biblioteca/receitas'
+      preLoaderRoute: typeof AppBibliotecaReceitasRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/biblioteca/suplementos': {
+      id: '/_app/biblioteca/suplementos'
+      path: '/suplementos'
+      fullPath: '/biblioteca/suplementos'
+      preLoaderRoute: typeof AppBibliotecaSuplementosRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/biblioteca/treinos': {
+      id: '/_app/biblioteca/treinos'
+      path: '/treinos'
+      fullPath: '/biblioteca/treinos'
+      preLoaderRoute: typeof AppBibliotecaTreinosRouteImport
+      parentRoute: typeof AppBibliotecaRoute
+    }
+    '/_app/configuracoes/': {
+      id: '/_app/configuracoes/'
+      path: '/'
+      fullPath: '/configuracoes/'
+      preLoaderRoute: typeof AppConfiguracoesIndexRouteImport
+      parentRoute: typeof AppConfiguracoesRoute
+    }
+    '/_app/configuracoes/automacoes': {
+      id: '/_app/configuracoes/automacoes'
+      path: '/automacoes'
+      fullPath: '/configuracoes/automacoes'
+      preLoaderRoute: typeof AppConfiguracoesAutomacoesRouteImport
+      parentRoute: typeof AppConfiguracoesRoute
+    }
+    '/_app/configuracoes/conexoes': {
+      id: '/_app/configuracoes/conexoes'
+      path: '/conexoes'
+      fullPath: '/configuracoes/conexoes'
+      preLoaderRoute: typeof AppConfiguracoesConexoesRouteImport
+      parentRoute: typeof AppConfiguracoesRoute
+    }
+    '/_app/configuracoes/usuarios': {
+      id: '/_app/configuracoes/usuarios'
+      path: '/usuarios'
+      fullPath: '/configuracoes/usuarios'
+      preLoaderRoute: typeof AppConfiguracoesUsuariosRouteImport
+      parentRoute: typeof AppConfiguracoesRoute
+    }
+    '/_app/financeiro/': {
+      id: '/_app/financeiro/'
+      path: '/'
+      fullPath: '/financeiro/'
+      preLoaderRoute: typeof AppFinanceiroIndexRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/cadastros': {
+      id: '/_app/financeiro/cadastros'
+      path: '/cadastros'
+      fullPath: '/financeiro/cadastros'
+      preLoaderRoute: typeof AppFinanceiroCadastrosRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/clientes': {
+      id: '/_app/financeiro/clientes'
+      path: '/clientes'
+      fullPath: '/financeiro/clientes'
+      preLoaderRoute: typeof AppFinanceiroClientesRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/contas-pagar': {
+      id: '/_app/financeiro/contas-pagar'
+      path: '/contas-pagar'
+      fullPath: '/financeiro/contas-pagar'
+      preLoaderRoute: typeof AppFinanceiroContasPagarRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/despesas': {
+      id: '/_app/financeiro/despesas'
+      path: '/despesas'
+      fullPath: '/financeiro/despesas'
+      preLoaderRoute: typeof AppFinanceiroDespesasRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/planos': {
+      id: '/_app/financeiro/planos'
+      path: '/planos'
+      fullPath: '/financeiro/planos'
+      preLoaderRoute: typeof AppFinanceiroPlanosRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/recebimentos': {
+      id: '/_app/financeiro/recebimentos'
+      path: '/recebimentos'
+      fullPath: '/financeiro/recebimentos'
+      preLoaderRoute: typeof AppFinanceiroRecebimentosRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/resumo': {
+      id: '/_app/financeiro/resumo'
+      path: '/resumo'
+      fullPath: '/financeiro/resumo'
+      preLoaderRoute: typeof AppFinanceiroResumoRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/transacoes': {
+      id: '/_app/financeiro/transacoes'
+      path: '/transacoes'
+      fullPath: '/financeiro/transacoes'
+      preLoaderRoute: typeof AppFinanceiroTransacoesRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/_app/financeiro/vendas': {
+      id: '/_app/financeiro/vendas'
+      path: '/vendas'
+      fullPath: '/financeiro/vendas'
+      preLoaderRoute: typeof AppFinanceiroVendasRouteImport
+      parentRoute: typeof AppFinanceiroRoute
+    }
+    '/formularios/$id/respostas': {
+      id: '/formularios/$id/respostas'
+      path: '/formularios/$id/respostas'
+      fullPath: '/formularios/$id/respostas'
+      preLoaderRoute: typeof FormulariosIdRespostasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/hooks/zapi-boas-vindas': {
-      id: '/api/public/hooks/zapi-boas-vindas'
-      path: '/api/public/hooks/zapi-boas-vindas'
-      fullPath: '/api/public/hooks/zapi-boas-vindas'
-      preLoaderRoute: typeof ApiPublicHooksZapiBoasVindasRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_app/avaliacao-fisica/$id/editar': {
+      id: '/_app/avaliacao-fisica/$id/editar'
+      path: '/editar'
+      fullPath: '/avaliacao-fisica/$id/editar'
+      preLoaderRoute: typeof AppAvaliacaoFisicaIdEditarRouteImport
+      parentRoute: typeof AppAvaliacaoFisicaIdRoute
     }
-    '/api/public/hooks/resumo-diario': {
-      id: '/api/public/hooks/resumo-diario'
-      path: '/api/public/hooks/resumo-diario'
-      fullPath: '/api/public/hooks/resumo-diario'
-      preLoaderRoute: typeof ApiPublicHooksResumoDiarioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/processar-jobs-feedback': {
-      id: '/api/public/hooks/processar-jobs-feedback'
-      path: '/api/public/hooks/processar-jobs-feedback'
-      fullPath: '/api/public/hooks/processar-jobs-feedback'
-      preLoaderRoute: typeof ApiPublicHooksProcessarJobsFeedbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/motor-automacoes': {
-      id: '/api/public/hooks/motor-automacoes'
-      path: '/api/public/hooks/motor-automacoes'
-      fullPath: '/api/public/hooks/motor-automacoes'
-      preLoaderRoute: typeof ApiPublicHooksMotorAutomacoesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/feedback-lembretes': {
-      id: '/api/public/hooks/feedback-lembretes'
-      path: '/api/public/hooks/feedback-lembretes'
-      fullPath: '/api/public/hooks/feedback-lembretes'
-      preLoaderRoute: typeof ApiPublicHooksFeedbackLembretesRouteImport
+    '/api/public/hooks/alerta-renovacoes': {
+      id: '/api/public/hooks/alerta-renovacoes'
+      path: '/api/public/hooks/alerta-renovacoes'
+      fullPath: '/api/public/hooks/alerta-renovacoes'
+      preLoaderRoute: typeof ApiPublicHooksAlertaRenovacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/boas-vindas-retry': {
@@ -1218,19 +1190,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksBoasVindasRetryRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/hooks/alerta-renovacoes': {
-      id: '/api/public/hooks/alerta-renovacoes'
-      path: '/api/public/hooks/alerta-renovacoes'
-      fullPath: '/api/public/hooks/alerta-renovacoes'
-      preLoaderRoute: typeof ApiPublicHooksAlertaRenovacoesRouteImport
+    '/api/public/hooks/feedback-lembretes': {
+      id: '/api/public/hooks/feedback-lembretes'
+      path: '/api/public/hooks/feedback-lembretes'
+      fullPath: '/api/public/hooks/feedback-lembretes'
+      preLoaderRoute: typeof ApiPublicHooksFeedbackLembretesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/avaliacao-fisica/$id/editar': {
-      id: '/_app/avaliacao-fisica/$id/editar'
-      path: '/editar'
-      fullPath: '/avaliacao-fisica/$id/editar'
-      preLoaderRoute: typeof AppAvaliacaoFisicaIdEditarRouteImport
-      parentRoute: typeof AppAvaliacaoFisicaIdRoute
+    '/api/public/hooks/motor-automacoes': {
+      id: '/api/public/hooks/motor-automacoes'
+      path: '/api/public/hooks/motor-automacoes'
+      fullPath: '/api/public/hooks/motor-automacoes'
+      preLoaderRoute: typeof ApiPublicHooksMotorAutomacoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/processar-jobs-feedback': {
+      id: '/api/public/hooks/processar-jobs-feedback'
+      path: '/api/public/hooks/processar-jobs-feedback'
+      fullPath: '/api/public/hooks/processar-jobs-feedback'
+      preLoaderRoute: typeof ApiPublicHooksProcessarJobsFeedbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/resumo-diario': {
+      id: '/api/public/hooks/resumo-diario'
+      path: '/api/public/hooks/resumo-diario'
+      fullPath: '/api/public/hooks/resumo-diario'
+      preLoaderRoute: typeof ApiPublicHooksResumoDiarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/zapi-boas-vindas': {
+      id: '/api/public/hooks/zapi-boas-vindas'
+      path: '/api/public/hooks/zapi-boas-vindas'
+      fullPath: '/api/public/hooks/zapi-boas-vindas'
+      preLoaderRoute: typeof ApiPublicHooksZapiBoasVindasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/zapi-mensagem-enviada': {
+      id: '/api/public/hooks/zapi-mensagem-enviada'
+      path: '/api/public/hooks/zapi-mensagem-enviada'
+      fullPath: '/api/public/hooks/zapi-mensagem-enviada'
+      preLoaderRoute: typeof ApiPublicHooksZapiMensagemEnviadaRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }

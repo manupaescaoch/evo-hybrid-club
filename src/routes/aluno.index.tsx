@@ -25,6 +25,7 @@ import { useAlunoDashboard, triggerAlunoDashboardRefetch } from "@/lib/aluno-das
 import { useServerFn } from "@tanstack/react-start";
 import { getSemanaTreinoAluno, type AlunoTreinoSessao } from "@/backend/aluno-treino.functions";
 import { WodPrescription } from "@/components/aluno-app/WodPrescription";
+import { isEstrutura, resumoEstrutura, type Paces } from "@/lib/corrida-vdot";
 import { registrarAgua } from "@/backend/aluno-kpis.functions";
 import { SCORE_DIARIO, SCORE_META_SEMANAL, somarScoreJanela } from "@/lib/aluno-score";
 
@@ -580,11 +581,15 @@ function ActionCard({
 function TreinoHojeCard() {
   const fetchSemana = useServerFn(getSemanaTreinoAluno);
   const [sessoes, setSessoes] = useState<AlunoTreinoSessao[] | null>(null);
+  const [paces, setPaces] = useState<Paces | null>(null);
   useEffect(() => {
     const d = new Date();
     const hoje = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
     fetchSemana({ data: { inicio: hoje, fim: hoje } })
-      .then((r) => setSessoes((Array.isArray(r?.sessoes) ? r.sessoes : []).filter((s) => s.tipo !== "descanso")))
+      .then((r) => {
+        setPaces(r?.paces ?? null);
+        setSessoes((Array.isArray(r?.sessoes) ? r.sessoes : []).filter((s) => s.tipo !== "descanso"));
+      })
       .catch(() => setSessoes([]));
   }, [fetchSemana]);
 
@@ -601,6 +606,7 @@ function TreinoHojeCard() {
   }
   const s = sessoes[0];
   const formattedBlock = s.blocos.length === 1 && s.blocos[0]?.formato && s.blocos[0]?.prescricao ? s.blocos[0] : null;
+  const estruturas = s.blocos.map((b) => b.corrida_estrutura).filter(isEstrutura);
   return (
     <div className="rounded-2xl bg-white p-4 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5">
       <div className="inline-flex items-center gap-1.5 rounded-full bg-[#0033FF]/10 px-3 py-1">
@@ -628,6 +634,18 @@ function TreinoHojeCard() {
           <span className="inline-flex items-center gap-1.5"><HeartPulse className="h-4 w-4 text-black/55" /><span className="font-semibold">{s.zona_fc}</span></span>
         )}
       </div>
+      {estruturas.length > 0 && (
+        <div className="mt-3 rounded-xl bg-[#0033FF]/5 px-3 py-2" data-testid="resumo-corrida">
+          {estruturas.map((e, i) => (
+            <p key={i} className="text-[13px] font-bold text-black">{resumoEstrutura(e, paces)}</p>
+          ))}
+          {!paces && (
+            <Link to="/aluno/perfil" hash="meus-paces" className="mt-1 inline-block text-[12px] font-semibold text-[#0033FF] underline">
+              Cadastrar meu teste
+            </Link>
+          )}
+        </div>
+      )}
       {sessoes.length > 1 && (
         <p className="mt-2 text-[12px] font-semibold text-[#0033FF]">+ {sessoes.length - 1} {sessoes.length - 1 === 1 ? "outro treino" : "outros treinos"} hoje</p>
       )}

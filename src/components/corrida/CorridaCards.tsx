@@ -242,7 +242,7 @@ function FormaGrafico({ dados }: { dados: PontoForma[] }) {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={dados} syncId="forma" margin={{ left: -18, right: 6, top: 2, bottom: 0 }}>
             <XAxis dataKey="data" tick={{ fontSize: 9 }} interval={intervalo} />
-            <YAxis tick={{ fontSize: 9 }} domain={[-lim, lim]} allowDecimals={false} width={44} />
+            <YAxis tick={{ fontSize: 9 }} domain={[-lim, lim]} ticks={[-lim, 0, lim]} allowDecimals={false} width={44} />
             <Tooltip content={<TooltipForma />} cursor={{ fill: "var(--muted)" }} />
             <ReferenceLine y={0} stroke="var(--muted-foreground)" />
             <Bar dataKey="Forma" isAnimationActive={false}>

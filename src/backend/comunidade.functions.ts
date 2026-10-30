@@ -20,7 +20,7 @@ export type FeedPost = {
 async function buildFeed(viewerId: string | null) {
   const { data: posts, error } = await supabaseAdmin
     .from("community_posts")
-    .select("id, aluno_id, foto_url, legenda, created_at")
+    .select("id, aluno_id, foto_url, legenda, created_at, origem")
     .order("created_at", { ascending: false })
     .limit(50);
   if (error) throw new Error(error.message);
@@ -62,7 +62,7 @@ async function buildFeed(viewerId: string | null) {
       nome: a?.nome ?? "Aluno",
       username: a?.username ?? null,
       foto_perfil: a?.foto_url ?? null,
-      foto_url: p.foto_url,
+      foto_url: (p as any).origem === "corrida" ? "" : p.foto_url,
       legenda: p.legenda ?? null,
       created_at: p.created_at,
       likes: likeCount.get(p.id) ?? 0,

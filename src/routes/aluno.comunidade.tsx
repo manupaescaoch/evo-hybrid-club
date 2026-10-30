@@ -81,10 +81,17 @@ function PostCard({
       </div>
 
       {/* Imagem */}
-      <div
-        className="aspect-square w-full bg-black/5 bg-cover bg-center"
-        style={{ backgroundImage: `url(${post.foto_url})` }}
-      />
+      {post.foto_url ? (
+        <div
+          className="aspect-square w-full bg-black/5 bg-cover bg-center"
+          style={{ backgroundImage: `url(${post.foto_url})` }}
+        />
+      ) : (
+        <div className="mx-3 rounded-2xl bg-[#0033FF]/5 px-4 py-6 text-center">
+          <p className="text-[28px]">🏃</p>
+          <p className="mt-1 text-[14px] font-extrabold text-black">{post.legenda ?? "Corrida registrada"}</p>
+        </div>
+      )}
 
       {/* Ações */}
       <div className="px-3 pt-3 pb-1 flex items-center gap-3">
@@ -106,7 +113,7 @@ function PostCard({
         <div className="text-[13px] font-bold text-black">
           {post.likes} {post.likes === 1 ? "curtida" : "curtidas"}
         </div>
-        {post.legenda && (
+        {post.legenda && post.foto_url && (
           <p className="text-[13px] text-black leading-snug">
             <span className="font-bold mr-1">{handle ?? post.nome}</span>
             {post.legenda}

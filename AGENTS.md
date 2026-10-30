@@ -9,3 +9,5 @@
 - Student-facing dates (check-in day, streaks, week/month periods) use the `src/lib/recife-date.ts` helpers, because the club runs on America/Recife time, not UTC.
 - Run pace/load math (VDOT paces, rTSS, Condicionamento/Fadiga/Forma) lives only in `src/lib/corrida-vdot.ts` and progression rules only in `PROGRESSAO` (`src/lib/corrida-progressao.ts`), so student app, coach panel and alerts share one formula set.
 - Structured run blocks store zones (E/M/T/I/R) in `corrida_sessao_blocos.corrida_estrutura`, never fixed paces, so the single club plan resolves per student from their latest `aluno_paces` row.
+- Run screenshots (prints) live in the private `corridas-prints` bucket; `corridas_registradas.print_url` stores the object path and screens request short-lived signed URLs, so prints are never public.
+- "Treino concluído" points come from `treino_resultados` OR `treino_conclusoes`, counted once per (aluno, sessão) inside `ranking_scores`, so finishing and logging results never double-score.

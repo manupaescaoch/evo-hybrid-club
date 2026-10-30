@@ -132,6 +132,16 @@ export function linhasEstrutura(est: EstruturaCorrida, p: Paces | null): string[
 }
 
 // ===== Prescrito x realizado =====
+/** Resumo curto de uma linha para cards: "6x 800 m @ 4:51/km · 9,5 km · ~53 min". Sem paces, versão genérica. */
+export function resumoEstrutura(est: EstruturaCorrida, p: Paces | null): string {
+  const reps = Math.max(1, Math.round(est.principal.repeticoes || 1));
+  const principal = `${reps > 1 ? `${reps}x ` : ""}${fmtMedida(est.principal)}`;
+  const alvo = p ? `@ ${textoPaceZona(p, est.principal.zona)}` : `em ritmo ${nomeZona(est.principal.zona)}`;
+  const t = totaisEstrutura(est, p ?? PACES_REFERENCIA);
+  const km = t.km.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
+  return `${principal} ${alvo} · ${p ? "" : "~"}${km} km · ~${Math.round(t.seg / 60)} min`;
+}
+
 export const TOLERANCIA_ADERENCIA = 0.05;
 export type Aderencia = "dentro" | "acima" | "abaixo";
 /** Compara pace feito com pace alvo. "acima" = mais rápido que o alvo, "abaixo" = mais lento. */

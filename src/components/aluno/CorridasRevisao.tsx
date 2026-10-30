@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { formatPace, formatTempo } from "@/lib/ranking-pontos";
+import { BUCKET_PRINTS, VALIDADE_LINK_PRINT_SEG } from "@/lib/corrida-prints";
 
 type Corrida = {
   id: string;
@@ -27,7 +28,14 @@ export function CorridasRevisao({ alunoId }: { alunoId: string }) {
       .eq("aluno_id", alunoId)
       .order("data", { ascending: false })
       .limit(200);
-    setRows(data ?? []);
+    const lista: Corrida[] = data ?? [];
+    const paths = lista.map((c) => c.print_url).filter((p) => p && !p.startsWith("http"));
+    if (paths.length) {
+      const { data: signed } = await supabase.storage.from(BUCKET_PRINTS).createSignedUrls(paths, VALIDADE_LINK_PRINT_SEG);
+      const m = new Map((signed ?? []).map((x) => [x.path, x.signedUrl]));
+      for (const c of lista) if (m.get(c.print_url)) c.print_url = m.get(c.print_url)!;
+    }
+    setRows(lista);
     setLoading(false);
   };
   useEffect(() => {

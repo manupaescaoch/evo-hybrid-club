@@ -5,6 +5,7 @@ import { requireAlunoAuth } from "./aluno-middleware";
 import { decodeAndValidateImage } from "./image-validation.server";
 import { formatPace, formatTempo, paceSegundos, validarCorrida } from "@/lib/ranking-pontos";
 import { dataRecife } from "@/lib/recife-date";
+import { BUCKET_PRINTS, VALIDADE_LINK_PRINT_SEG } from "@/lib/corrida-prints";
 
 export type CorridaRegistrada = {
   id: string;
@@ -40,12 +41,11 @@ export const registrarCorrida = createServerFn({ method: "POST" })
     if (erro) return { ok: false as const, error: erro };
     const v = decodeAndValidateImage(data.file_base64, data.content_type, 8 * 1024 * 1024);
     if (!v.ok) return { ok: false as const, error: v.error };
-    const path = `corridas/${aluno_id}/${Date.now()}.${v.ext}`;
+    const path = `${aluno_id}/${Date.now()}.${v.ext}`;
     const { error: upErr } = await supabaseAdmin.storage
-      .from("aluno-fotos")
+      .from(BUCKET_PRINTS)
       .upload(path, v.buf, { contentType: v.mime, upsert: false });
     if (upErr) return { ok: false as const, error: upErr.message };
-    const { data: pub } = supabaseAdmin.storage.from("aluno-fotos").getPublicUrl(path);
     const pace = paceSegundos(data.distancia_km, data.tempo_segundos);
     const sb = supabaseAdmin as any;
     const { data: row, error } = await sb
@@ -56,7 +56,7 @@ export const registrarCorrida = createServerFn({ method: "POST" })
         distancia_km: Math.round(data.distancia_km * 100) / 100,
         tempo_segundos: data.tempo_segundos,
         pace_segundos_km: pace,
-        print_url: pub.publicUrl,
+        print_url: path,
         observacao: data.observacao?.trim() || null,
       })
       .select("id")
@@ -65,7 +65,7 @@ export const registrarCorrida = createServerFn({ method: "POST" })
     const km = data.distancia_km.toLocaleString("pt-BR", { maximumFractionDigits: 2 });
     await sb.from("community_posts").insert({
       aluno_id,
-      foto_url: pub.publicUrl,
+      foto_url: "", // post automático não exibe o print (privado)
       legenda: `🏃 Corrida registrada: ${km} km em ${formatTempo(data.tempo_segundos)} · pace ${formatPace(pace)}`,
       origem: "corrida",
       corrida_id: row.id,
@@ -83,6 +83,13 @@ export const listarMinhasCorridas = createServerFn({ method: "POST" })
       .order("data", { ascending: false })
       .order("created_at", { ascending: false })
       .limit(500);
-    return (data ?? []) as CorridaRegistrada[];
+    const rows = (data ?? []) as CorridaRegistrada[];
+    const paths = rows.map((r) => r.print_url).filter((p) => p && !p.startsWith("http"));
+    if (paths.length) {
+      const { data: signed } = await supabaseAdmin.storage.from(BUCKET_PRINTS).createSignedUrls(paths, VALIDADE_LINK_PRINT_SEG);
+      const m = new Map((signed ?? []).map((x) => [x.path, x.signedUrl]));
+      for (const r of rows) if (m.get(r.print_url)) r.print_url = m.get(r.print_url)!;
+    }
+    return rows;
   });
 

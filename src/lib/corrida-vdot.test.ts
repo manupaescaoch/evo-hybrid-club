@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { calcularVdot, pacesDoVdot, cargaCorrida, serieForma, faixaForma, aderenciaPace, totaisEstrutura } from "./corrida-vdot";
+import { calcularVdot, pacesDoVdot, cargaCorrida, serieForma, faixaForma, aderenciaPace, totaisEstrutura, resumoEstrutura, estruturaPadrao } from "./corrida-vdot";
 import { avisosProgressao } from "./corrida-progressao";
 
 describe("VDOT Daniels", () => {
@@ -72,5 +72,15 @@ describe("progressão", () => {
     // média = (0+0+0+35,6)/4 = 8,9 → limite 10,68 km
     expect(avisosProgressao({ volumeKm: 17, anterioresKm: [0, 0, 0, 35.6], primeiraSemana: true }).length).toBe(1);
     expect(avisosProgressao({ volumeKm: 10, anterioresKm: [0, 0, 0, 35.6], primeiraSemana: true }).length).toBe(0);
+  });
+});
+
+describe("resumo do card Treino de hoje", () => {
+  it("mostra paces pessoais (5 km em 25:00)", () => {
+    const p = pacesDoVdot(calcularVdot(5, 1500));
+    expect(resumoEstrutura(estruturaPadrao(), p)).toBe("6x 800 m @ 4:51/km · 9,5 km · ~53 min");
+  });
+  it("sem teste mostra versão genérica", () => {
+    expect(resumoEstrutura(estruturaPadrao(), null)).toMatch(/^6x 800 m em ritmo Intervalado · ~/);
   });
 });

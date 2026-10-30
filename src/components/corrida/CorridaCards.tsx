@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Area, AreaChart, CartesianGrid, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { DISTANCIAS_TESTE, ZONAS_PACE, textoPaceZona, fmtPace, ROTULO_ADERENCIA, type Aderencia } from "@/lib/corrida-vdot";
 import type { AnaliseCorrida, Vinculo } from "@/lib/corrida-analise";
 import { dataRecife } from "@/lib/recife-date";
@@ -106,7 +106,7 @@ export function MeusPacesCard({
 
 export function MinhaFormaCard({ analise, titulo = "Minha forma" }: { analise: AnaliseCorrida | null; titulo?: string }) {
   const a = analise?.atual;
-  const dados = (analise?.forma ?? []).map((d) => ({ data: fmtData(d.data), Condicionamento: +d.ctl.toFixed(1), Fadiga: +d.atl.toFixed(1), Forma: +d.tsb.toFixed(1) }));
+  const dados: PontoForma[] = (analise?.forma ?? []).map((d) => ({ data: fmtData(d.data), dataLonga: new Date(d.data + "T12:00:00").toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "2-digit" }), Condicionamento: +d.ctl.toFixed(1), Fadiga: +d.atl.toFixed(1), Forma: +d.tsb.toFixed(1) }));
   return (
     <section className={card}>
       <h3 className="text-[14px] font-bold">{titulo}</h3>
@@ -129,19 +129,7 @@ export function MinhaFormaCard({ analise, titulo = "Minha forma" }: { analise: A
               </div>
             ))}
           </div>
-          <div className="mt-3 h-40">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={dados} margin={{ left: -24, right: 4, top: 4, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                <XAxis dataKey="data" tick={{ fontSize: 9 }} interval={13} />
-                <YAxis tick={{ fontSize: 9 }} />
-                <Tooltip />
-                <Area type="monotone" dataKey="Condicionamento" stroke="var(--primary)" fill="var(--primary)" fillOpacity={0.12} />
-                <Line type="monotone" dataKey="Fadiga" stroke="var(--destructive)" dot={false} />
-                <Line type="monotone" dataKey="Forma" stroke="var(--muted-foreground)" dot={false} strokeDasharray="4 3" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+          <FormaGrafico dados={dados} />
           <p className="mt-1 text-[10px] text-muted-foreground">Últimas 8 semanas. Condicionamento sobe com treino constante; Fadiga reflete os últimos dias; Forma é a diferença entre os dois.</p>
         </>
       )}
@@ -197,5 +185,72 @@ export function PrescritoRealizadoCard({ analise, titulo = "Corrida: prescrito x
         ))}
       </ul>
     </section>
+  );
+}
+
+type PontoForma = { data: string; dataLonga: string; Condicionamento: number; Fadiga: number; Forma: number };
+
+const COR = {
+  ctl: "var(--forma-condicionamento)",
+  atl: "var(--forma-fadiga)",
+  pos: "var(--forma-positiva)",
+  neg: "var(--forma-negativa)",
+};
+
+function dominioLinhas(d: PontoForma[]): [number, number] {
+  const vals = d.flatMap((p) => [p.Condicionamento, p.Fadiga]);
+  if (!vals.length) return [0, 1];
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const pad = Math.max(1, (max - min) * 0.15);
+  return [Math.max(0, Math.floor(min - pad)), Math.ceil(max + pad)];
+}
+
+function TooltipForma({ active, payload }: { active?: boolean; payload?: { payload: PontoForma }[] }) {
+  if (!active || !payload?.length) return null;
+  const p = payload[0].payload;
+  return (
+    <div className="rounded-lg border border-border bg-card px-2.5 py-1.5 text-[11px] shadow-sm">
+      <p className="font-bold">{p.dataLonga}</p>
+      <p style={{ color: COR.ctl }}>Condicionamento: <b>{p.Condicionamento.toFixed(1)}</b></p>
+      <p style={{ color: COR.atl }}>Fadiga: <b>{p.Fadiga.toFixed(1)}</b></p>
+      <p style={{ color: p.Forma >= 0 ? COR.pos : COR.neg }}>Forma: <b>{p.Forma.toFixed(1)}</b></p>
+    </div>
+  );
+}
+
+function FormaGrafico({ dados }: { dados: PontoForma[] }) {
+  const intervalo = Math.max(0, Math.floor(dados.length / 4) - 1);
+  const maxAbs = Math.max(1, ...dados.map((d) => Math.abs(d.Forma)));
+  const lim = Math.ceil(maxAbs * 1.1);
+  return (
+    <div className="mt-3 space-y-1" data-testid="grafico-forma">
+      <div className="h-36">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={dados} syncId="forma" margin={{ left: -18, right: 6, top: 4, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+            <XAxis dataKey="data" hide />
+            <YAxis tick={{ fontSize: 9 }} domain={dominioLinhas(dados)} allowDecimals={false} width={44} />
+            <Tooltip content={<TooltipForma />} />
+            <Legend verticalAlign="top" height={20} iconType="plainline" wrapperStyle={{ fontSize: 10 }} />
+            <Line type="monotone" dataKey="Condicionamento" stroke={COR.ctl} strokeWidth={2.5} dot={false} isAnimationActive={false} />
+            <Line type="monotone" dataKey="Fadiga" stroke={COR.atl} strokeWidth={2} dot={false} isAnimationActive={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <p className="text-[10px] font-semibold text-muted-foreground">Forma</p>
+      <div className="h-24">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={dados} syncId="forma" margin={{ left: -18, right: 6, top: 2, bottom: 0 }}>
+            <XAxis dataKey="data" tick={{ fontSize: 9 }} interval={intervalo} />
+            <YAxis tick={{ fontSize: 9 }} domain={[-lim, lim]} ticks={[-lim, 0, lim]} allowDecimals={false} width={44} />
+            <Tooltip content={<TooltipForma />} cursor={{ fill: "var(--muted)" }} />
+            <ReferenceLine y={0} stroke="var(--muted-foreground)" />
+            <Bar dataKey="Forma" isAnimationActive={false}>
+              {dados.map((d, i) => <Cell key={i} fill={d.Forma >= 0 ? COR.pos : COR.neg} />)}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
   );
 }

@@ -74,3 +74,13 @@ describe("progressão", () => {
     expect(avisosProgressao({ volumeKm: 10, anterioresKm: [0, 0, 0, 35.6], primeiraSemana: true }).length).toBe(0);
   });
 });
+
+describe("resumo do card Treino de hoje", () => {
+  it("mostra paces pessoais (5 km em 25:00)", () => {
+    const p = pacesDoVdot(calcularVdot(5, 1500));
+    expect(resumoEstrutura(estruturaPadrao(), p)).toBe("6x 800 m @ 4:51/km · 9,5 km · ~53 min");
+  });
+  it("sem teste mostra versão genérica", () => {
+    expect(resumoEstrutura(estruturaPadrao(), null)).toMatch(/^6x 800 m em ritmo Intervalado · ~/);
+  });
+});

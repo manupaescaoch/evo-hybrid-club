@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { calcularVdot, pacesDoVdot, cargaCorrida, serieForma, faixaForma, aderenciaPace, totaisEstrutura } from "./corrida-vdot";
+import { calcularVdot, pacesDoVdot, cargaCorrida, serieForma, faixaForma, aderenciaPace, totaisEstrutura, resumoEstrutura, estruturaPadrao } from "./corrida-vdot";
 import { avisosProgressao } from "./corrida-progressao";
 
 describe("VDOT Daniels", () => {

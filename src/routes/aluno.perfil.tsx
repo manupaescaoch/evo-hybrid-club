@@ -1,3 +1,4 @@
+import { MinhaCorridaSection } from "@/components/aluno-app/MinhaCorridaSection";
 import { dataRecife } from "@/lib/recife-date";
 import { MinhasCorridas } from "@/components/aluno-app/MinhasCorridas";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
@@ -501,6 +502,7 @@ function AlunoPerfil() {
         </motion.section>
 
         <div id="p-evolucao" className="scroll-mt-16 pt-2 text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400">Evolução</div>
+        <MinhaCorridaSection />
         {/* EVOLUÇÃO */}
         <section className="rounded-3xl bg-white border border-black/5 p-4 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.08)]">
           <div className="flex items-center justify-between">

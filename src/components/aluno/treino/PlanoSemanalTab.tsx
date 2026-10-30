@@ -776,7 +776,7 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
           <Kpi label="Sessões" value={String(sessoes.length)} />
           <Kpi label="Dias" value={`${diasComTreino}/7`} />
           <Kpi label="Volume" value={`${totalKm.toFixed(1)} km`} />
-          <Kpi label="Tempo" value={`${Math.round(totalMin / 60)}h ${totalMin % 60}min`} />
+          <Kpi label="Tempo" value={`${Math.floor(totalMin / 60)}h ${totalMin % 60}min`} />
         </div>
 
         {/* Alertas */}

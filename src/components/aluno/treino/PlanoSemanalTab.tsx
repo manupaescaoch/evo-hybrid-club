@@ -64,6 +64,12 @@ function kmSessao(s: { distancia_km: number | null; blocos?: { corrida_estrutura
   const est = (s.blocos ?? []).reduce((a, b) => a + (isEstrutura(b.corrida_estrutura) ? totaisEstrutura(b.corrida_estrutura, PACES_REFERENCIA).km : 0), 0);
   return Math.max(Number(s.distancia_km ?? 0), est);
 }
+
+/** Minutos da sessão: maior entre a duração informada e o tempo estimado dos blocos de corrida. */
+function minSessao(s: { duracao_min: number | null; blocos?: { corrida_estrutura?: unknown }[] }): number {
+  const est = (s.blocos ?? []).reduce((a, b) => a + (isEstrutura(b.corrida_estrutura) ? totaisEstrutura(b.corrida_estrutura, PACES_REFERENCIA).seg / 60 : 0), 0);
+  return Math.max(Number(s.duracao_min ?? 0), Math.round(est));
+}
 import type { ParamsGeracao, SemanaGerada } from "@/lib/corrida-gerador";
 
 type Microciclo = {
@@ -290,7 +296,7 @@ export function PlanoSemanalTab({ alunoId, perfil, global = false }: { alunoId?:
     [sessoes],
   );
   const totalMin = useMemo(
-    () => sessoes.reduce((acc, s) => acc + (s.duracao_min ?? 0), 0),
+    () => sessoes.reduce((acc, s) => acc + minSessao(s), 0),
     [sessoes],
   );
   const qualidadeKm = useMemo(

@@ -352,6 +352,50 @@ export type Database = {
           },
         ]
       }
+      aluno_paces: {
+        Row: {
+          aluno_id: string
+          created_at: string
+          data_teste: string
+          id: string
+          origem: string
+          paces: Json
+          teste_distancia_km: number
+          teste_tempo_segundos: number
+          vdot: number
+        }
+        Insert: {
+          aluno_id: string
+          created_at?: string
+          data_teste: string
+          id?: string
+          origem?: string
+          paces: Json
+          teste_distancia_km: number
+          teste_tempo_segundos: number
+          vdot: number
+        }
+        Update: {
+          aluno_id?: string
+          created_at?: string
+          data_teste?: string
+          id?: string
+          origem?: string
+          paces?: Json
+          teste_distancia_km?: number
+          teste_tempo_segundos?: number
+          vdot?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "aluno_paces_aluno_id_fkey"
+            columns: ["aluno_id"]
+            isOneToOne: false
+            referencedRelation: "alunos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       aluno_push_subscriptions: {
         Row: {
           aluno_id: string
@@ -1175,6 +1219,7 @@ export type Database = {
       }
       corrida_sessao_blocos: {
         Row: {
+          corrida_estrutura: Json | null
           criado_em: string
           descricao: string | null
           distancia_serie: string | null
@@ -1198,6 +1243,7 @@ export type Database = {
           zona: string | null
         }
         Insert: {
+          corrida_estrutura?: Json | null
           criado_em?: string
           descricao?: string | null
           distancia_serie?: string | null
@@ -1221,6 +1267,7 @@ export type Database = {
           zona?: string | null
         }
         Update: {
+          corrida_estrutura?: Json | null
           criado_em?: string
           descricao?: string | null
           distancia_serie?: string | null

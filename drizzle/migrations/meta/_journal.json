@@ -8,6 +8,13 @@
       "when": 1793347432495,
       "tag": "0000_corridas_registradas_e_ranking",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793355484098,
+      "tag": "0001_aluno_paces_e_bloco_corrida",
+      "breakpoints": true
     }
   ]
 }

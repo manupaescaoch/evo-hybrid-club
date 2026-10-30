@@ -8,6 +8,8 @@ import { tipoBlocoMeta } from "@/lib/treino-hyrox";
 import { ResultadoTreino } from "@/components/aluno-app/ResultadoTreino";
 import { RegistrarCorridaButton } from "@/components/aluno-app/RegistrarCorridaModal";
 import { WodPrescription } from "@/components/aluno-app/WodPrescription";
+import { CorridaBlocoAluno } from "@/components/aluno-app/CorridaBlocoAluno";
+import { isEstrutura, type Paces } from "@/lib/corrida-vdot";
 import {
   ArrowLeft,
   Clock,
@@ -72,6 +74,7 @@ function AlunoTreinoPage() {
 
   const fetchSemana = useServerFn(getSemanaTreinoAluno);
   const [sessoes, setSessoes] = useState<AlunoTreinoSessao[]>([]);
+  const [paces, setPaces] = useState<Paces | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const inicioStr = ymd(semana);
   const fimStr = ymd(fim);
@@ -79,7 +82,11 @@ function AlunoTreinoPage() {
     let vivo = true;
     setIsLoading(true);
     fetchSemana({ data: { inicio: inicioStr, fim: fimStr } })
-      .then((r) => vivo && setSessoes(Array.isArray(r?.sessoes) ? r.sessoes : []))
+      .then((r) => {
+        if (!vivo) return;
+        setSessoes(Array.isArray(r?.sessoes) ? r.sessoes : []);
+        setPaces(r?.paces ?? null);
+      })
       .catch(() => vivo && setSessoes([]))
       .finally(() => vivo && setIsLoading(false));
     return () => {
@@ -197,7 +204,7 @@ function AlunoTreinoPage() {
         </div>
       ) : (
         doDia.filter((s) => s.tipo !== "descanso").map((s) => (
-          <SessaoCard key={s.id} s={s} feitos={feitos} toggle={toggle} podeRegistrar={s.data <= ymd(new Date())} />
+          <SessaoCard key={s.id} s={s} paces={paces} feitos={feitos} toggle={toggle} podeRegistrar={s.data <= ymd(new Date())} />
         ))
       )}
 
@@ -395,7 +402,7 @@ function AlunoTreinoPage() {
   );
 }
 
-function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao; feitos: Set<string>; toggle: (id: string) => void; podeRegistrar: boolean }) {
+function SessaoCard({ s, paces, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao; paces: Paces | null; feitos: Set<string>; toggle: (id: string) => void; podeRegistrar: boolean }) {
   const isSingleFormattedWod = s.blocos.length === 1 && Boolean(s.blocos[0]?.formato && s.blocos[0]?.prescricao);
 
   return (
@@ -474,9 +481,10 @@ function SessaoCard({ s, feitos, toggle, podeRegistrar }: { s: AlunoTreinoSessao
                     {b.formato && <span className="rounded-full bg-black/5 px-2 py-0.5 text-[10px] font-extrabold text-black/60">{b.formato}</span>}
                   </div>
                   {b.nome && tipoBlocoMeta(b.tipo).value === b.tipo && <p className="text-[14px] font-extrabold text-black leading-tight mt-1">{b.nome}</p>}
+                  {isEstrutura(b.corrida_estrutura) && <CorridaBlocoAluno estrutura={b.corrida_estrutura} paces={paces} />}
                   {b.prescricao ? (
                     <p className="text-[13px] text-black/80 mt-1.5 whitespace-pre-line leading-relaxed">{b.prescricao}</p>
-                  ) : (
+                  ) : isEstrutura(b.corrida_estrutura) ? null : (
                     <p className="text-[11px] text-black/55 mt-0.5">{descBloco(b)}</p>
                   )}
                   {b.orientacoes && <p className="text-[11px] text-black/55 mt-1.5 italic">💬 {b.orientacoes}</p>}

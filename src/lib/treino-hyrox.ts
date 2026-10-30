@@ -17,6 +17,7 @@ export const TIPOS_BLOCO_HYROX: { value: string; label: string; desc: string; co
   { value: "finisher", label: "FINISHER", desc: "Bloco curto e intenso realizado ao final da sessão.", cor: "#DC2626" },
   { value: "cooldown", label: "COOL DOWN", desc: "Redução gradual da intensidade após o treino.", cor: "#22C55E" },
   { value: "recovery", label: "RECOVERY", desc: "Atividades leves voltadas para recuperação, respiração e mobilidade.", cor: "#10B981" },
+  { value: "corrida", label: "CORRIDA", desc: "Corrida estruturada por zonas (Fácil, Maratona, Limiar, Intervalado, Repetição). Cada aluno vê o próprio pace.", cor: "#0284C7" },
   { value: "custom", label: "CUSTOM", desc: "Bloco livre definido pelo treinador.", cor: "#64748B" },
 ];
 

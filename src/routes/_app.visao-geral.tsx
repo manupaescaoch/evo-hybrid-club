@@ -22,6 +22,7 @@ import { previewResumoDia, enviarResumoDiaGrupo } from "@/backend/resumo-grupo.f
 import { toast } from "sonner";
 import { useSignedAnamneseUrls } from "@/lib/use-signed-anamnese-urls";
 import { RenovacoesUrgentesCard } from "@/components/visao-geral/RenovacoesUrgentesCard";
+import { AlertasCargaCard } from "@/components/visao-geral/AlertasCargaCard";
 import { FeedbacksSemRespostaCard } from "@/components/visao-geral/FeedbacksSemRespostaCard";
 
 function FotoSlotVisao({ url, label }: { url: string; label: string }) {
@@ -403,6 +404,7 @@ function VisaoGeralPage() {
         <VisaoGeralSkeleton />
       ) : (
         <>
+        <AlertasCargaCard />
         {isAdmin && <RenovacoesUrgentesCard />}
         <FeedbacksSemRespostaCard />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">

@@ -1,3 +1,4 @@
+import { CorridaAlunoPainel } from "@/components/aluno/CorridaAlunoPainel";
 import { CorridasRevisao } from "@/components/aluno/CorridasRevisao";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
@@ -462,7 +463,7 @@ function AlunoProfile() {
           {active === "anamnese" && (
             <AnamneseTab forms={forms}><FormulariosSection forms={forms} /></AnamneseTab>
           )}
-          {active === "treinos" && <TreinosTab alunoId={id} />}
+          {active === "treinos" && <div className="space-y-4"><CorridaAlunoPainel alunoId={id} /><TreinosTab alunoId={id} /></div>}
           {active === "frequencia" && <FrequenciaTab alunoId={id} aluno={aluno} />}
           {active === "saude" && (
             <SaudeTab alunoId={id}><SaudeAlunoCard alunoId={id} aluno={aluno} /></SaudeTab>

@@ -1,3 +1,4 @@
+import { dataRecife } from "@/lib/recife-date";
 import { MinhasCorridas } from "@/components/aluno-app/MinhasCorridas";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useMemo, useRef, useState } from "react";
@@ -189,7 +190,7 @@ function AlunoPerfil() {
   const score = useMemo(() => somarScoreJanela(checkins), [checkins]);
   const scoreMeta = SCORE_META_SEMANAL;
   const scorePerc = Math.min(100, (score / scoreMeta) * 100);
-  const hojeStr = new Date().toISOString().slice(0, 10);
+  const hojeStr = dataRecife();
   const checkinHoje = checkins.find((c: any) => c.data_checkin === hojeStr);
   const scoreHoje = checkinHoje?.score_gerado ?? 0;
   const faltam = Math.max(0, scoreMeta - score);

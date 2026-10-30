@@ -1,3 +1,4 @@
+import { dataRecife, sequenciaDias } from "@/lib/recife-date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
@@ -65,20 +66,7 @@ function Ring({ pct, color }: { pct: number; color: string }) {
 }
 
 function calcSequencia(datas: string[]) {
-  if (!datas.length) return 0;
-  const set = new Set(datas);
-  let d = new Date();
-  const hoje = d.toISOString().slice(0, 10);
-  if (!set.has(hoje)) d.setDate(d.getDate() - 1);
-  let streak = 0;
-  for (;;) {
-    const k = d.toISOString().slice(0, 10);
-    if (set.has(k)) {
-      streak++;
-      d.setDate(d.getDate() - 1);
-    } else break;
-  }
-  return streak;
+  return sequenciaDias(datas);
 }
 
 function humorTexto(h?: number | null) {
@@ -124,7 +112,7 @@ function AlunoInicio() {
   };
 
   const checkins = data?.checkins ?? [];
-  const hojeStr = new Date().toISOString().slice(0, 10);
+  const hojeStr = dataRecife();
   const checkinHoje = checkins.find((c: any) => c.data_checkin === hojeStr);
   const sequencia = useMemo(
     () => calcSequencia(checkins.map((c: any) => c.data_checkin)),

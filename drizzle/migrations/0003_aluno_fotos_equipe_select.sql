@@ -1,0 +1,2 @@
+DROP POLICY IF EXISTS "admin delete aluno-fotos" ON storage.objects;
+CREATE POLICY "equipe read aluno-fotos" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'aluno-fotos' AND public.is_equipe_or_admin(auth.uid()));

@@ -1,0 +1,1 @@
+CREATE POLICY "admin delete aluno-fotos" ON storage.objects FOR DELETE TO authenticated USING (bucket_id = 'aluno-fotos' AND public.is_admin(auth.uid()));

@@ -68,4 +68,9 @@ describe("progressão", () => {
     expect(avisosProgressao({ volumeKm: 25, anterioresKm: [30], tipoSemana: "regenerativa" }).length).toBe(1);
     expect(avisosProgressao({ volumeKm: 18, anterioresKm: [30], tipoSemana: "regenerativa" }).length).toBe(0);
   });
+  it("semana 1: limite de 1,2× a média das 4 semanas (semanas vazias contam 0)", () => {
+    // média = (0+0+0+35,6)/4 = 8,9 → limite 10,68 km
+    expect(avisosProgressao({ volumeKm: 17, anterioresKm: [0, 0, 0, 35.6], primeiraSemana: true }).length).toBe(1);
+    expect(avisosProgressao({ volumeKm: 10, anterioresKm: [0, 0, 0, 35.6], primeiraSemana: true }).length).toBe(0);
+  });
 });

@@ -27,7 +27,8 @@ export function avisosProgressao(c: ContextoSemana): string[] {
   const avisos: string[] = [];
   const ant = c.anterioresKm.filter((x) => x > 0);
   if (!c.volumeKm || ant.length === 0) return avisos;
-  const media4 = ant.slice(0, 4).reduce((a, b) => a + b, 0) / Math.min(4, ant.length);
+  // Média das 4 semanas anteriores (semanas sem corrida contam como 0), igual à mostrada no construtor.
+  const media4 = c.anterioresKm.slice(0, 4).reduce((a, b) => a + b, 0) / 4;
   const anterior = c.anterioresKm[0] ?? 0;
   const tipo = (c.tipoSemana ?? "").toLowerCase();
 

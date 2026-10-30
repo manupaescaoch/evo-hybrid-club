@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { optionalAlunoAuth } from "./aluno-middleware";
+import type { Paces } from "@/lib/corrida-vdot";
 
 export type AlunoTreinoBloco = {
   id: string;
@@ -21,6 +22,7 @@ export type AlunoTreinoBloco = {
   resultado_tipo: string | null;
   ranking_habilitado: boolean;
   ranking_criterio: string | null;
+  corrida_estrutura: unknown;
 };
 
 export type AlunoTreinoSessao = {
@@ -48,9 +50,20 @@ export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
   .inputValidator((d) =>
     z.object({ inicio: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), fim: z.string().regex(/^\d{4}-\d{2}-\d{2}$/) }).parse(d),
   )
-  .handler(async ({ data }): Promise<{ sessoes: AlunoTreinoSessao[] }> => {
+  .handler(async ({ data, context }): Promise<{ sessoes: AlunoTreinoSessao[]; paces: Paces | null }> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const sb = supabaseAdmin as any;
+    let paces: Paces | null = null;
+    if (context.alunoId) {
+      const { data: pr } = await sb
+        .from("aluno_paces")
+        .select("paces")
+        .eq("aluno_id", context.alunoId)
+        .order("data_teste", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(1);
+      paces = (pr?.[0]?.paces as Paces) ?? null;
+    }
 
     // A programação global publicada é a grade oficial do clube e aparece
     // igual para todos, sem depender do aluno autenticado ou de quem a criou.
@@ -63,12 +76,12 @@ export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
     if (microsError) throw new Error("Não foi possível carregar a programação de treinos.");
 
     const microIds = (micros ?? []).map((m: any) => m.id);
-    if (microIds.length === 0) return { sessoes: [] };
+    if (microIds.length === 0) return { sessoes: [], paces };
 
     const { data: sessoes, error: sessoesError } = await sb
       .from("corrida_sessoes")
       .select(
-        "id, microciclo_id, data, ordem_no_dia, tipo, nome, duracao_min, distancia_km, pace_alvo, zona_fc, objetivo, observacao, executada, categoria, resultado_geral_habilitado, resultado_geral_tipo, resultado_geral_criterio, corrida_sessao_blocos(id, ordem, tipo, nome, descricao, duracao_min, pace, zona, series, distancia_serie, recuperacao, formato, prescricao, orientacoes, resultado_habilitado, resultado_tipo, ranking_habilitado, ranking_criterio)",
+        "id, microciclo_id, data, ordem_no_dia, tipo, nome, duracao_min, distancia_km, pace_alvo, zona_fc, objetivo, observacao, executada, categoria, resultado_geral_habilitado, resultado_geral_tipo, resultado_geral_criterio, corrida_sessao_blocos(id, ordem, tipo, nome, descricao, duracao_min, pace, zona, series, distancia_serie, recuperacao, formato, prescricao, orientacoes, resultado_habilitado, resultado_tipo, ranking_habilitado, ranking_criterio, corrida_estrutura)",
       )
       .in("microciclo_id", microIds)
       .gte("data", data.inicio)
@@ -82,9 +95,10 @@ export const getSemanaTreinoAluno = createServerFn({ method: "POST" })
     const microComTreino = microIds.find((id: string) =>
       (sessoes ?? []).some((s: any) => s.microciclo_id === id),
     );
-    if (!microComTreino) return { sessoes: [] };
+    if (!microComTreino) return { sessoes: [], paces };
 
     return {
+      paces,
       sessoes: (sessoes ?? []).filter((s: any) => s.microciclo_id === microComTreino).map((s: any) => ({
         ...s,
         microciclo_id: undefined,
